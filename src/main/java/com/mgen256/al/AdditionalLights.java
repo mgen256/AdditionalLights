@@ -23,6 +23,7 @@ import java.util.Map.Entry;
 import com.mgen256.al.blocks.StandingTorch_S;
 import com.mgen256.al.blocks.StandingTorch_L;
 import com.mgen256.al.blocks.FirePit_S;
+import com.mgen256.al.blocks.IModBlock;
 import com.mgen256.al.blocks.ALLamp;
 import com.mgen256.al.blocks.FirePit_L;
 import com.mgen256.al.blocks.ALTorch;

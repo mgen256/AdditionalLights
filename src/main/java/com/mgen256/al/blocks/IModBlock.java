@@ -1,4 +1,4 @@
-package com.mgen256.al;
+package com.mgen256.al.blocks;
 
 import net.minecraft.item.BlockItem;
 

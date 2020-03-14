@@ -14,7 +14,7 @@ import java.util.Random;
 
 import com.mgen256.al.ModBlockList;
 import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.IModBlock;
+import com.mgen256.al.blocks.IModBlock;
 
 public class ALTorch extends TorchBlock implements IModBlock {
 

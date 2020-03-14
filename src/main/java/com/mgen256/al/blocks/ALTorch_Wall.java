@@ -15,7 +15,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 
-import com.mgen256.al.IModBlock;
+import com.mgen256.al.blocks.IModBlock;
 
 public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
 
