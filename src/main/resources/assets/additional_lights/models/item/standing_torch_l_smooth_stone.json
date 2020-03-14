@@ -1,0 +1,6 @@
+{
+    "parent": "additional_lights:item/templates/item_template_standing_torch_l_smooth",
+	"textures": {
+		"main": "block/smooth_stone"
+	}
+}

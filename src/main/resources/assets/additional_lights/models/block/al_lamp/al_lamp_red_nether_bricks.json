@@ -1,0 +1,7 @@
+{
+    "parent": "additional_lights:block/al_lamp/template_al_lamp_nether",
+    
+	"textures": {
+		"main": "block/red_nether_bricks"
+	}
+}

@@ -1,0 +1,7 @@
+{
+	"textures": {
+		"particle": "#main",
+		"texture1": "#main",
+		"texture2": "additional_lights:block/allight"
+	}
+}

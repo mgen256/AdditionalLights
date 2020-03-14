@@ -1,0 +1,39 @@
+{
+	"textures": {
+		"texture": "block/torch",
+		"particle": "block/torch",
+		"texture1": "#main"
+	},
+
+	"display": {
+		"thirdperson_righthand": {
+			"translation":  [ 0, 4, 0 ],
+			"scale":  [ 0.7, 0.7, 0.7 ]
+		},
+		"thirdperson_lefthand": {
+			"translation":  [ 0, 4, 0 ],
+			"scale":  [ 0.7, 0.7, 0.7 ]
+		},
+		"firstperson_righthand": {
+			"rotation":  [ -24, -2, 0 ],
+			"translation":  [ 2, 4, 0 ],
+			"scale":  [ 0.6, 0.6, 0.6 ]
+		},
+		"firstperson_lefthand": {
+			"rotation":  [ -24, -2, 0 ],
+			"translation":  [ 2, 4, 0 ],
+			"scale":  [ 0.6, 0.6, 0.6 ]
+		},
+		"gui": {
+			"rotation":  [ 0, 0, 0 ]
+		},		
+		"ground": {
+			"translation":  [ 0, 3, 0 ],
+			"scale":  [ 0.4, 0.4, 0.4 ]
+		},
+		"fixed": {
+			"translation":  [ 0, 2, 0 ],
+			"scale":  [ 1.5, 1.5, 1 ]
+		}
+	}
+}

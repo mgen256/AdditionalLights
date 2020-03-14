@@ -1,0 +1,10 @@
+{
+    "variants": {
+		"facing=up":    { "model":"additional_lights:block/al_lamp/al_lamp_nether_bricks"},
+		"facing=down":  { "model":"additional_lights:block/al_lamp/al_lamp_nether_bricks", "x": 180 },
+		"facing=east":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_nether_bricks", "y": 0 },
+		"facing=south": { "model":"additional_lights:block/al_lamp/al_wall_lamp_nether_bricks", "y": 90 },
+		"facing=west":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_nether_bricks", "y": 180 },
+		"facing=north": { "model":"additional_lights:block/al_lamp/al_wall_lamp_nether_bricks", "y": 270 }
+	}
+}

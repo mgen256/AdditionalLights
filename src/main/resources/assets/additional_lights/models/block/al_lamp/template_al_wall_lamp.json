@@ -1,0 +1,41 @@
+{
+	"textures": {
+		"particle": "#main",
+		"texture1": "#main",
+		"texture2": "additional_lights:block/allight"
+	},
+	"display": {
+		"thirdperson_righthand": {
+			"rotation":  [ 0, 90, 0 ],
+			"translation":  [ 0, -1, -6 ]
+		},
+		"thirdperson_lefthand": {
+			"rotation":  [ 0, 270, 0 ],
+			"translation":  [ 0, -1, -6 ]
+		},
+		"firstperson_righthand": {
+			"rotation":  [ -17, 90, 1 ],
+			"translation":  [ 1, 0.5, -1 ],
+			"scale":  [ 0.6, 0.6, 0.6 ]
+		},
+		"firstperson_lefthand": {
+			"rotation":  [ -17, -90, 1 ],
+			"translation":  [ 1, 0.5, -1 ],
+			"scale":  [ 0.6, 0.6, 0.6 ]
+		},
+		"gui": {
+			"rotation":  [ 30, 135, 0 ],
+			"translation":  [ -8.3, 0, 0 ],
+			"scale":  [ 2, 2, 2 ]
+		},
+		"ground": {
+			"translation":  [ 3.8, -1, 0 ],
+			"scale":  [ 0.6, 0.6, 0.6 ]
+		},
+		"fixed": {
+			"rotation":  [ 0, 90, 0 ],
+			"translation":  [ 0, -4, -12 ],
+			"scale":  [ 2, 2, 2 ]
+		}
+	}
+}

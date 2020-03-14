@@ -1,0 +1,6 @@
+{
+    "parent": "additional_lights:block/al_torch/template_al_wall_torch_gold",
+    "textures": {
+        "main": "block/diamond_block"
+        }
+}

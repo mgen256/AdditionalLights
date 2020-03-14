@@ -1,0 +1,38 @@
+{
+	"textures": {
+		"particle": "#main",
+		"fire": "block/campfire_fire",
+		"texture": "#main",
+		"texture2": "additional_lights:block/fire_lit"
+	},
+	
+	"display": {
+		"thirdperson_righthand": {
+			"translation":  [ 0, 3, 0 ],
+			"scale":  [ 0.4, 0.4, 0.4 ]
+		},
+		"thirdperson_lefthand": {
+			"translation":  [ 0, 3, 0 ],
+			"scale":  [ 0.4, 0.4, 0.4 ]
+		},
+		"firstperson_righthand": {
+			"rotation":  [ -20, 81, 0 ],
+			"translation":  [ 2, 3, 0 ],
+			"scale":  [ 0.5, 0.5, 0.5 ]
+		},
+		"firstperson_lefthand": {
+			"rotation":  [ -20, 81, 0 ],
+			"translation":  [ 2, 3, 0 ],
+			"scale":  [ 0.5, 0.5, 0.5 ]
+		},
+		"gui": {
+			"rotation":  [ 30, 135, 0 ],
+			"translation":  [ 0, -1, 0 ],
+			"scale":  [ 0.6, 0.6, 0.6 ]
+		},		
+		"ground": {
+			"translation":  [ 0, 3, 0 ],
+			"scale":  [ 0.3, 0.3, 0.3 ]
+		}
+	}
+}

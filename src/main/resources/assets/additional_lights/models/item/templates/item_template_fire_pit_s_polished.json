@@ -1,0 +1,7 @@
+{
+	"parent": "additional_lights:block/fire_pit_s/template_fire_pit_s_polished",
+
+	"textures": {
+		"fire": "item/campfire"
+	}
+}
