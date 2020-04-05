@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=east": { "model": "additional_lights:block/al_torch/al_wall_torch_packed_ice" },
-        "facing=south": { "model": "additional_lights:block/al_torch/al_wall_torch_packed_ice", "y": 90 },
-        "facing=west": { "model": "additional_lights:block/al_torch/al_wall_torch_packed_ice", "y": 180 },
-        "facing=north": { "model": "additional_lights:block/al_torch/al_wall_torch_packed_ice", "y": 270 }
-    }
-}
