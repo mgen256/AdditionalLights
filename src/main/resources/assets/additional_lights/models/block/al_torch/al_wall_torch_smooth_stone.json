@@ -1,6 +1,0 @@
-{
-    "parent": "additional_lights:block/al_torch/template_al_wall_torch_smooth",
-    "textures": {
-        "main": "block/smooth_stone"
-        }
-}

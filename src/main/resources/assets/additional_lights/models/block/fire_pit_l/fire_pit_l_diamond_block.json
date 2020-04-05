@@ -1,6 +1,0 @@
-{
-	"parent": "additional_lights:block/fire_pit_l/template_fire_pit_l_smooth",
-	"textures": {
-		"main": "block/diamond_block"
-	}
-}

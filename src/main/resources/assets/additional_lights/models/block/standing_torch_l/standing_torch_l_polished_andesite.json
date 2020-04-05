@@ -1,6 +1,0 @@
-{
-	"parent": "additional_lights:block/standing_torch_l/template_standing_torch_l_polished",
-	"textures": {
-		"main": "block/polished_andesite"
-	}
-}
