@@ -1,6 +1,7 @@
 package com.mgen256.al.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IWaterLoggable;
@@ -77,6 +78,10 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
         return SHAPES[facing.getIndex()];
     }
 
+    @Override
+    public BlockRenderType getRenderType(final BlockState state) {
+        return BlockRenderType.MODEL;
+    }
 
     @Override
     public boolean canContainFluid(final IBlockReader p_204510_1_, final BlockPos p_204510_2_, final BlockState p_204510_3_,
@@ -102,6 +107,6 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
         Direction direction = state.get(BlockStateProperties.FACING);
         BlockPos blockpos = pos.offset(direction.getOpposite());
         BlockState blockstate = worldIn.getBlockState(blockpos);
-        return blockstate.func_224755_d(worldIn, blockpos, direction);
+        return blockstate.isSolidSide(worldIn, blockpos, direction);
     }
 }

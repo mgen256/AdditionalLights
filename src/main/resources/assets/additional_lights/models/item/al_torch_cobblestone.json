@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:block/al_torch/template_al_torch_stone",
-    "textures": {
-        "main": "block/cobblestone"
-    }
+    "parent": "additional_lights:block/al_torch/al_torch_cobblestone"
 }

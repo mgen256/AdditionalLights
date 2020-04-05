@@ -5,6 +5,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -39,6 +41,12 @@ public abstract class FireBlock extends ModBlock  {
     protected abstract float getFireDamageAmount();
     protected abstract double getSmokePos_Y();
 
+
+    @Override
+    public void setRenderLayer() {
+        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+    }
+    
     @Override
     public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos, final Random rand) {
         final double d0 = (double) pos.getX() + 0.5D;

@@ -12,4 +12,7 @@ public interface IModBlock
     default boolean notRequireItemRegistration(){
         return false;
     }
+
+    default void setRenderLayer(){
+    }
 }

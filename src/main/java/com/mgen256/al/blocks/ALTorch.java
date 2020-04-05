@@ -1,9 +1,12 @@
 package com.mgen256.al.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.particles.ParticleTypes;
@@ -37,7 +40,6 @@ public class ALTorch extends TorchBlock implements IModBlock {
     private BlockItem blockItem;
     private ModBlockList wallKey;
     private String name;
-
 
     @Override
     public void init() {

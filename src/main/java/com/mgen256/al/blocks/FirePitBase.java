@@ -2,7 +2,6 @@ package com.mgen256.al.blocks;
 
 import javax.annotation.Nullable;
 
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.IWaterLoggable;
@@ -34,6 +33,7 @@ public abstract class FirePitBase extends FireBlock implements IWaterLoggable  {
     protected float getFireDamageAmount() {
         return 1.0F;
     }
+
     
     @Nullable
     @Override

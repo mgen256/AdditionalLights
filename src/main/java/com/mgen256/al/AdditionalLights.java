@@ -10,7 +10,9 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.LogManager;
@@ -28,6 +30,9 @@ import com.mgen256.al.blocks.ALLamp;
 import com.mgen256.al.blocks.FirePit_L;
 import com.mgen256.al.blocks.ALTorch;
 import com.mgen256.al.blocks.ALTorch_Wall;
+
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AdditionalLights.MOD_ID)
@@ -63,6 +68,17 @@ public class AdditionalLights {
         };
         ItemProps = new Item.Properties().group(itemGroup);
     }
+
+    public AdditionalLights() {
+        // Register the setup method for modloading
+        
+        // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        
+        // Register ourselves for server and other game events we are interested in
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+        MinecraftForge.EVENT_BUS.register(this);
+    }
+ 
 
     // setup() de okonauto nazeka error
     public static void init() {
@@ -235,20 +251,16 @@ public class AdditionalLights {
        }
         };
         
-
         for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
             ((IModBlock) entry.getValue()).init();
     }
 
-    public AdditionalLights() {
-        // Register the setup method for modloading
-        
-        // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+   
+    private void doClientStuff(final FMLClientSetupEvent event) {
+        for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
+            ((IModBlock) entry.getValue()).setRenderLayer();
     }
-
+    
     private void setup(final FMLCommonSetupEvent event) {
         // init(); koreha dekinai
     }
@@ -261,7 +273,7 @@ public class AdditionalLights {
     public static class RegistryEvents {
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-            init();
+           init();
 
             final IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 

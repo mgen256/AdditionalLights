@@ -7,7 +7,6 @@ import net.minecraft.block.WallTorchBlock;
 
 import net.minecraft.item.BlockItem;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -29,11 +28,6 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     @Override
     public void init() {
         setRegistryName(name);
-    }
-
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
     }
 
     @Override

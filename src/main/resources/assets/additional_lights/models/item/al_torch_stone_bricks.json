@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:block/al_torch/template_al_torch_smooth",
-    "textures": {
-        "main": "block/stone_bricks"
-    }
+    "parent": "additional_lights:block/al_torch/al_torch_stone_bricks"
 }
