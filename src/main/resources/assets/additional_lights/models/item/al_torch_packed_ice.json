@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:block/al_torch/template_al_torch_stone",
-    "textures": {
-        "main": "block/packed_ice"
-    }
+    "parent": "additional_lights:block/al_torch/al_torch_packed_ice"
 }

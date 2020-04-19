@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:mossy_stone_bricks"
+      }
+    },
+    "result":{
+        "item":"additional_lights:standing_torch_s_mossy_stone_bricks",
+        "count":1
+      }
+}

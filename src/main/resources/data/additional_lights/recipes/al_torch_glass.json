@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "##",
+      "##",
+      "X "
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:torch"
+      },
+      "X": {
+        "item": "minecraft:glass"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_torch_glass",
+        "count":4
+      }
+}

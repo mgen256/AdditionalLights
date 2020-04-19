@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:block/al_torch/template_al_torch_planks",
-    "textures": {
-        "main": "block/dark_oak_planks"
-    }
+    "parent": "additional_lights:block/al_torch/al_torch_dark_oak_planks"
 }

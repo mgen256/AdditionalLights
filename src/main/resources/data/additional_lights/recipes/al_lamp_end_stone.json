@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:glowstone"
+      },
+      "X": {
+        "item": "minecraft:end_stone"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_lamp_end_stone",
+        "count":4
+      }
+}

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " # ",
+      "XXX",
+      "XXX"
+    ],
+    "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:polished_diorite"
+      }
+    },
+    "result":{
+        "item":"additional_lights:fire_pit_l_polished_diorite",
+        "count":1
+      }
+}
