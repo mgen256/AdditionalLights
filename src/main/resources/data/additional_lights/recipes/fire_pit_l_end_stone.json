@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " # ",
+      "XXX",
+      "XXX"
+    ],
+    "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:end_stone"
+      }
+    },
+    "result":{
+        "item":"additional_lights:fire_pit_l_end_stone",
+        "count":1
+      }
+}

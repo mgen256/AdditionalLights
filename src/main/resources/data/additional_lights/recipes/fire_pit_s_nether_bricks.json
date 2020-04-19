@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " # ",
+      "XXX"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:nether_bricks"
+      }
+    },
+    "result":{
+        "item":"additional_lights:fire_pit_s_nether_bricks",
+        "count":1
+      }
+}

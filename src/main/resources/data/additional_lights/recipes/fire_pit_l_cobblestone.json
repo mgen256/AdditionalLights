@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " # ",
+      "XXX",
+      "XXX"
+    ],
+    "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:cobblestone"
+      }
+    },
+    "result":{
+        "item":"additional_lights:fire_pit_l_cobblestone",
+        "count":1
+      }
+}

@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:glowstone"
+      },
+      "X": {
+        "item": "minecraft:cobblestone"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_lamp_cobblestone",
+        "count":4
+      }
+}

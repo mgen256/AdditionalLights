@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:glowstone"
+      },
+      "X": {
+        "item": "minecraft:pink_wool"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_lamp_pink_wool",
+        "count":4
+      }
+}

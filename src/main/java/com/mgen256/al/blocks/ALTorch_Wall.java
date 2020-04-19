@@ -3,16 +3,23 @@ package com.mgen256.al.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
-
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -66,6 +73,11 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     }
 
     @Override
+    public void setRenderLayer() {
+        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+    }
+    
+    @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         Direction direction = stateIn.get(HORIZONTAL_FACING);
         double dx = (double)pos.getX() + 0.5D;
@@ -78,6 +90,16 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         worldIn.addParticle(ParticleTypes.FLAME, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
        }
 
-
-
+        
+       @Override
+       public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+           ResourceLocation res = getRegistryName();
+           if ( ForgeRegistries.ITEMS.containsKey(res) == false )
+               return super.getDrops(state, builder);
+   
+           List<ItemStack> list = new ArrayList<>();
+           list.add( new ItemStack(ForgeRegistries.ITEMS.getValue(res)) );
+   
+           return list;
+       }
 }

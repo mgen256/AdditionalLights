@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:glowstone"
+      },
+      "X": {
+        "item": "minecraft:iron_block"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_lamp_iron_block",
+        "count":4
+      }
+}

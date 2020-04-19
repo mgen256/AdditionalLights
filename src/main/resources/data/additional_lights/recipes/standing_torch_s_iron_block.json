@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:iron_block"
+      }
+    },
+    "result":{
+        "item":"additional_lights:standing_torch_s_iron_block",
+        "count":1
+      }
+}

@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      " # ",
+      "XXX"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:smooth_stone"
+      }
+    },
+    "result":{
+        "item":"additional_lights:fire_pit_s_smooth_stone",
+        "count":1
+      }
+}

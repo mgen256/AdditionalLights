@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:glowstone"
+      },
+      "X": {
+        "item": "minecraft:spruce_planks"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_lamp_spruce_planks",
+        "count":4
+      }
+}

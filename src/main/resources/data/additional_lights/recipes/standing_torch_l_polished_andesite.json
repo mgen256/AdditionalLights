@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X",
+      "X"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:polished_andesite"
+      }
+    },
+    "result":{
+        "item":"additional_lights:standing_torch_l_polished_andesite",
+        "count":1
+      }
+}

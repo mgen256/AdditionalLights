@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "##",
+      "##",
+      "X "
+    ],
+    "key": {
+      "#": {
+        "item": "minecraft:torch"
+      },
+      "X": {
+        "item": "minecraft:spruce_planks"
+      }
+    },
+    "result":{
+        "item":"additional_lights:al_torch_spruce_planks",
+        "count":4
+      }
+}

@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X",
+      "X"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:magenta_wool"
+      }
+    },
+    "result":{
+        "item":"additional_lights:standing_torch_l_magenta_wool",
+        "count":1
+      }
+}

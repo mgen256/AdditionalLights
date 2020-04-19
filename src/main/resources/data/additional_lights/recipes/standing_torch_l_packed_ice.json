@@ -1,0 +1,26 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+      "#",
+      "X",
+      "X"
+      ],
+  "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:packed_ice"
+      }
+    },
+    "result":{
+        "item":"additional_lights:standing_torch_l_packed_ice",
+        "count":1
+      }
+}

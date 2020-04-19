@@ -8,11 +8,17 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import com.mgen256.al.ModBlockList;
@@ -58,6 +64,11 @@ public class ALTorch extends TorchBlock implements IModBlock {
     }
 
     @Override
+    public void setRenderLayer() {
+        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+    }
+
+    @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         double d0 = (double)pos.getX() + 0.5D;
         double d1 = (double)pos.getY() + 0.7D;
@@ -65,4 +76,17 @@ public class ALTorch extends TorchBlock implements IModBlock {
         worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         worldIn.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
      }
+
+        
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        ResourceLocation res = getRegistryName();
+        if ( ForgeRegistries.ITEMS.containsKey(res) == false )
+            return super.getDrops(state, builder);
+
+        List<ItemStack> list = new ArrayList<>();
+        list.add( new ItemStack(ForgeRegistries.ITEMS.getValue(res)) );
+
+        return list;
+    }
 }
