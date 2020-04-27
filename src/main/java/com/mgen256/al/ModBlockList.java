@@ -24,6 +24,8 @@ ALLamp_Diamond,
 ALLamp_Ice,
 ALLamp_Pink_Wool,
 ALLamp_Magenta_Wool,
+ALLamp_Nether_Bricks,
+ALLamp_Red_Nether_Bricks,
 
 
 ALLight_Wall_Stone,

@@ -6,13 +6,11 @@ import net.minecraft.block.BlockState;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,12 +74,9 @@ public abstract class ModBlock extends Block implements IModBlock {
     
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        ResourceLocation res = getRegistryName();
-        if ( ForgeRegistries.ITEMS.containsKey(res) == false )
-            return super.getDrops(state, builder);
 
         List<ItemStack> list = new ArrayList<>();
-        list.add( new ItemStack(ForgeRegistries.ITEMS.getValue(res)) );
+        list.add( new ItemStack(blockItem) );
 
         return list;
     }

@@ -22,7 +22,7 @@ public abstract class FireBlock extends ModBlock  {
     static {
         final Properties p = Block.Properties.create(Material.MISCELLANEOUS);
         p.hardnessAndResistance(0.0f);
-        p.lightValue(15);
+        p.lightValue(12);
         p.sound(SoundType.STONE);
         props = p;
     }
