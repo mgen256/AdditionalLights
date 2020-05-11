@@ -28,6 +28,8 @@ import com.mgen256.al.blocks.ALLamp;
 import com.mgen256.al.blocks.FirePit_L;
 import com.mgen256.al.blocks.ALTorch;
 import com.mgen256.al.blocks.ALTorch_Wall;
+import com.mgen256.al.blocks.Fire;
+import com.mgen256.al.FireBlockList;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AdditionalLights.MOD_ID)
@@ -151,8 +153,11 @@ public class AdditionalLights {
             put(ModBlockList.ALTorch_Wall_Magenta_Wool, new ALTorch_Wall(Blocks.MAGENTA_WOOL, ModBlockList.ALTorch_Magenta_Wool));
 
             
-    
-    
+            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( FireBlockList.standing_torch_s ));
+            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( FireBlockList.standing_torch_l ));
+            put(ModBlockList.Fire_For_FirePit_S, new Fire( FireBlockList.fire_pit_s ));
+            put(ModBlockList.Fire_For_FirePit_L, new Fire( FireBlockList.fire_pit_l ));
+
             put(ModBlockList.FirePit_S_Stone_Bricks, new FirePit_S(Blocks.STONE_BRICKS));
             put(ModBlockList.FirePit_S_Mossy_Stone_Bricks, new FirePit_S(Blocks.MOSSY_STONE_BRICKS));
             put(ModBlockList.FirePit_S_End_Stone_Bricks, new FirePit_S(Blocks.END_STONE_BRICKS));

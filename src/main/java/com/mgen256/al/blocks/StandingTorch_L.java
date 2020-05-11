@@ -18,8 +18,4 @@ public class StandingTorch_L extends StandingTorchBase {
         , VoxelShapes.or( PART_LOWER1, PART_LOWER2, PART_MID, PART_UPPER1, PART_UPPER2 ) );
       }
 
-      @Override
-      protected double getSmokePos_Y() {
-          return 1.4D;
-      }
 }

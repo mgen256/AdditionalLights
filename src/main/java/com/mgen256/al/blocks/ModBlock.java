@@ -22,7 +22,10 @@ public abstract class ModBlock extends Block implements IModBlock {
 
     public ModBlock(String basename, Block mainblock, Properties props, VoxelShape shape) {
         super(props);
-        name = basename + mainblock.getRegistryName().getPath();
+        if( mainblock == null )
+            name = basename;
+        else
+            name = basename + mainblock.getRegistryName().getPath();
         voxelShape = shape;
     }
 

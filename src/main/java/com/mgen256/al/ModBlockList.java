@@ -88,6 +88,10 @@ ALTorch_Wall_Ice,
 ALTorch_Wall_Pink_Wool,
 ALTorch_Wall_Magenta_Wool,
 
+Fire_For_StandingTorch_S,
+Fire_For_StandingTorch_L,
+Fire_For_FirePit_S,
+Fire_For_FirePit_L,
 
 StandingTorch_S_Stone_Bricks,
 StandingTorch_S_Mossy_Stone_Bricks,

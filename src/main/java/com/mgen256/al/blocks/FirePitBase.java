@@ -18,22 +18,18 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 
-public abstract class FirePitBase extends FireBlock implements IWaterLoggable  {
+public abstract class FirePitBase extends ModBlock implements IWaterLoggable  {
 
     private static Properties createProps(Block mainblock){
         Properties p = createBasicProps(mainblock);
-        p.lightValue(15);
+        p.lightValue(0);
         return p;
     }
 
     public FirePitBase( String basename, Block mainblock, VoxelShape shape ) {
-        super(basename, mainblock, createProps(mainblock), shape, ParticleTypes.LARGE_SMOKE);
+        super(basename, mainblock, createProps(mainblock), shape);
     }
 
-    @Override
-    protected float getFireDamageAmount() {
-        return 1.0F;
-    }
     
     @Nullable
     @Override

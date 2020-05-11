@@ -159,7 +159,11 @@
     "block.additional_lights.al_glowstone_grass_block_snow":  "Snow Grass AlGlowStone",
     "block.additional_lights.al_glowstone_grass_path":  "Grass Path AlGlowStone",
     "block.additional_lights.al_glowstone_pink_wool":  "Pink Wool AlGlowStone",
-    "block.additional_lights.al_glowstone_magenta_wool":  "Magenta Wool AlGlowStone"
+    "block.additional_lights.al_glowstone_magenta_wool":  "Magenta Wool AlGlowStone",
 
+    "fire_for_fire_pit_l": "Fire For Fire Pit L",
+    "fire_for_fire_pit_s": "Fire For Fire Pit",
+    "fire_for_standing_torch_l": "Fire For Standing Torch L",
+    "fire_for_standing_torch_s": "Fire For Standing Torch"
 
 }

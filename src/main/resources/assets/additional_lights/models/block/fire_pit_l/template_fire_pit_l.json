@@ -1,6 +1,5 @@
 {
 	"textures": {
-		"fire": "block/campfire_fire",
 		"texture": "#main",
 		"texture2": "additional_lights:block/fire_lit",
 		"particle": "#main"

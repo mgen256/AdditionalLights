@@ -16,8 +16,4 @@ public class StandingTorch_S extends StandingTorchBase{
       , VoxelShapes.or( PART_LOWER, PART_MID, PART_UPPER ) );
     }
 
-    @Override
-    protected double getSmokePos_Y() {
-        return 0.9D;
-    }
 }
