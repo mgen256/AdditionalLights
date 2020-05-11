@@ -1,7 +1,6 @@
 package com.mgen256.al.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TorchBlock;
 import net.minecraft.block.material.Material;
@@ -11,11 +10,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,12 +77,9 @@ public class ALTorch extends TorchBlock implements IModBlock {
         
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        ResourceLocation res = getRegistryName();
-        if ( ForgeRegistries.ITEMS.containsKey(res) == false )
-            return super.getDrops(state, builder);
 
         List<ItemStack> list = new ArrayList<>();
-        list.add( new ItemStack(ForgeRegistries.ITEMS.getValue(res)) );
+        list.add( new ItemStack( blockItem ));
 
         return list;
     }

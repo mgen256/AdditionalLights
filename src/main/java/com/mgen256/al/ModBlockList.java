@@ -24,6 +24,8 @@ ALLamp_Diamond,
 ALLamp_Ice,
 ALLamp_Pink_Wool,
 ALLamp_Magenta_Wool,
+ALLamp_Nether_Bricks,
+ALLamp_Red_Nether_Bricks,
 
 
 ALLight_Wall_Stone,
@@ -168,5 +170,11 @@ FirePit_L_Diamond,
 FirePit_L_Ice,
 FirePit_L_Pink_Wool,
 FirePit_L_Magenta_Wool,
+
+
+Fire_For_StandingTorch_S,
+Fire_For_StandingTorch_L,
+Fire_For_FirePit_S,
+Fire_For_FirePit_L,
 
 }

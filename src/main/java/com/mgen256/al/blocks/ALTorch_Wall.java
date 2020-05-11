@@ -9,14 +9,12 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +23,8 @@ import java.util.Random;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mgen256.al.AdditionalLights;
+import com.mgen256.al.ModBlockList;
 import com.mgen256.al.blocks.IModBlock;
 
 public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
@@ -36,11 +36,13 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         Direction.EAST, Block.makeCuboidShape(0.0D, 2.0D, 5.5D, 5.0D, 13.0D, 10.5D)) );
 
          
-    public ALTorch_Wall(Block mainblock ) {
+    public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
         super(ALTorch.createProps(mainblock));
         name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
+        floorKey = _floorKey;
     }
 
+    private ModBlockList floorKey;
     private String name;
 
     @Override
@@ -93,12 +95,9 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         
        @Override
        public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-           ResourceLocation res = getRegistryName();
-           if ( ForgeRegistries.ITEMS.containsKey(res) == false )
-               return super.getDrops(state, builder);
-   
+        
            List<ItemStack> list = new ArrayList<>();
-           list.add( new ItemStack(ForgeRegistries.ITEMS.getValue(res)) );
+           list.add( new ItemStack( ((IModBlock)AdditionalLights.modBlocks.get(floorKey)).getBlockItem()));
    
            return list;
        }

@@ -17,8 +17,4 @@ public class FirePit_L extends FirePitBase {
 
     }
 
-    @Override
-    protected double getSmokePos_Y() {
-        return 1.4D;
-    }
 }

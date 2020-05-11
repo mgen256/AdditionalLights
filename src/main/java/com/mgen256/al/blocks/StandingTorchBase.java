@@ -17,24 +17,19 @@ import net.minecraft.state.StateContainer;
 import javax.annotation.Nullable;
 
 
-public abstract class StandingTorchBase extends FireBlock implements IWaterLoggable {
+public abstract class StandingTorchBase extends ModBlock implements IWaterLoggable {
 
 
     private static Properties createProps(Block mainblock){
         Properties p = createBasicProps(mainblock);
-        p.lightValue(15);
+        p.lightValue(0);
         return p;
     }
     
     public StandingTorchBase(String basename, Block mainblock, VoxelShape shape) {
-        super(basename, mainblock, createProps(mainblock), shape, ParticleTypes.SMOKE);
+        super(basename, mainblock, createProps(mainblock), shape);
     }
 
-
-    @Override
-    protected float getFireDamageAmount() {
-        return 0.5F;
-    }
 
     @Nullable
     @Override

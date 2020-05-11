@@ -2,7 +2,7 @@
 	"textures": {
 		"particle": "#main",
 		"texture1": "#main",
-		"texture2": "additional_lights:block/allight"
+		"texture2": "additional_lights:block/allamp"
 	},
 	"display": {
 		"thirdperson_righthand": {

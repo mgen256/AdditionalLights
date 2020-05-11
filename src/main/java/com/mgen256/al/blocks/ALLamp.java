@@ -5,6 +5,9 @@ import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.PushReaction;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.fluid.Fluids;
@@ -32,8 +35,8 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
 
     // D-U-N-S-W-E
     private static VoxelShape[] SHAPES = {
-        Block.makeCuboidShape( 5.0, 15.0, 5.0, 11.0, 16.0, 11.0), // down
-        Block.makeCuboidShape( 5.0, 0.0, 5.0, 11.0, 1.0, 11.0), // up
+        Block.makeCuboidShape( 5.0, 14.0, 5.0, 11.0, 16.0, 11.0), // down
+        Block.makeCuboidShape( 5.0, 0.0, 5.0, 11.0, 2.0, 11.0), // up
 
         Block.makeCuboidShape(6.0, 7.0, 12.0, 10.0, 13.0, 16.0), // north
         Block.makeCuboidShape(6.0, 7.0, 0.0, 10.0, 13.0, 4.0), // south
@@ -43,10 +46,26 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
 
 
     private static Properties createProps(Block mainblock){
-        Properties p = createBasicProps(mainblock);
+       Material mbm = mainblock.getMaterial(null);
+
+       Material material = new Material(
+        mbm.getColor(),
+        false, //isLiquid
+        true,  //isSolid
+        true, //Blocks Movement
+        mbm.isOpaque(), //isOpaque
+        true, //requires no tool
+        false, //isFlammable
+        false, //isReplaceable
+        PushReaction.NORMAL
+        );
+
+       
+        Properties p = Block.Properties.create(material);
         p.lightValue(15);
         p.hardnessAndResistance(0.0f);
         p.doesNotBlockMovement();
+        p.sound(mainblock.getSoundType(null));
         return p;
     }
 

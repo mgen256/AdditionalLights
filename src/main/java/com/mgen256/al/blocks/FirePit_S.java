@@ -15,10 +15,5 @@ public class FirePit_S extends FirePitBase {
         , mainblock
         , VoxelShapes.or( PART_LOWER, PART_UPPER ) );
     }
-
-    @Override
-    protected double getSmokePos_Y() {
-        return 0.8D;
-    }
  
 }

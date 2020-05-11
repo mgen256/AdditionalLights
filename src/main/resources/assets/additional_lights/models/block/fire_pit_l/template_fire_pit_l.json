@@ -1,12 +1,9 @@
 {
 	"textures": {
-		"fire": "block/campfire_fire",
 		"texture": "#main",
 		"texture2": "additional_lights:block/fire_lit",
 		"particle": "#main"
 	},
-
-	"gui_light": "front",
 
 	"display": {
 		"thirdperson_righthand": {
@@ -26,8 +23,8 @@
 			"scale":  [ 0.5, 0.5, 0.5 ]
 		},
 		"gui": {
-			"rotation":  [ 13, 135, 0 ],
-			"translation":  [ 0, -1.2, 0 ],
+			"rotation":  [ 30, 135, 0 ],
+			"translation":  [ 0, -0.2, 0 ],
 			"scale":  [ 0.6, 0.6, 0.6 ]
 		},		
 		"ground": {

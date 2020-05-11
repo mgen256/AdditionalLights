@@ -17,6 +17,8 @@
     "block.additional_lights.al_lamp_packed_ice":  "Ice Lamp",
     "block.additional_lights.al_lamp_pink_wool":  "Pink Wool Lamp",
     "block.additional_lights.al_lamp_magenta_wool":  "Magenta Wool Lamp",
+    "block.additional_lights.al_lamp_nether_bricks":  "Nether Bricks Lamp",
+    "block.additional_lights.al_lamp_red_nether_bricks":  "Red Nether Bricks Lamp",
 
 
     "block.additional_lights.al_torch_acacia_planks":  "Acacia AlTorch",
@@ -157,7 +159,11 @@
     "block.additional_lights.al_glowstone_grass_block_snow":  "Snow Grass AlGlowStone",
     "block.additional_lights.al_glowstone_grass_path":  "Grass Path AlGlowStone",
     "block.additional_lights.al_glowstone_pink_wool":  "Pink Wool AlGlowStone",
-    "block.additional_lights.al_glowstone_magenta_wool":  "Magenta Wool AlGlowStone"
+    "block.additional_lights.al_glowstone_magenta_wool":  "Magenta Wool AlGlowStone",
 
 
+    "fire_for_fire_pit_l": "Fire For Fire Pit L",
+    "fire_for_fire_pit_s": "Fire For Fire Pit",
+    "fire_for_standing_torch_l": "Fire For Standing Torch L",
+    "fire_for_standing_torch_s": "Fire For Standing Torch"
 }

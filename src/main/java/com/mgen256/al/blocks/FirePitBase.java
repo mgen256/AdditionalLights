@@ -9,7 +9,6 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
@@ -17,21 +16,16 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
 
-public abstract class FirePitBase extends FireBlock implements IWaterLoggable  {
+public abstract class FirePitBase extends ModBlock implements IWaterLoggable  {
 
     private static Properties createProps(Block mainblock){
         Properties p = createBasicProps(mainblock);
-        p.lightValue(15);
+        p.lightValue(0);
         return p;
     }
 
     public FirePitBase( String basename, Block mainblock, VoxelShape shape ) {
-        super(basename, mainblock, createProps(mainblock), shape, ParticleTypes.LARGE_SMOKE);
-    }
-
-    @Override
-    protected float getFireDamageAmount() {
-        return 1.0F;
+        super(basename, mainblock, createProps(mainblock), shape);
     }
 
     
