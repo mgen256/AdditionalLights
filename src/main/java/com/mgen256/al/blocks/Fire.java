@@ -17,6 +17,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -114,10 +116,14 @@ public class Fire extends ModBlock implements IWaterLoggable{
     }
 
     @Override
+    public void setRenderLayer() {
+        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+    }
+
+    @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPES.get(baseFireBlock);
     }
-
     
     @Override
     public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos, final Random rand) {
