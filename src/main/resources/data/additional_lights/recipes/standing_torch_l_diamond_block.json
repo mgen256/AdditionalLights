@@ -1,6 +1,7 @@
 {
     "type": "minecraft:crafting_shaped",
-      "pattern": [
+    "group": "standing_torch_l",
+    "pattern": [
       "#",
       "X",
       "X"

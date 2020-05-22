@@ -1,5 +1,6 @@
 {
     "type": "minecraft:crafting_shapeless",
+    "group": "fire",
     "ingredients": [
         [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
         [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],

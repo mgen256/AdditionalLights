@@ -1,8 +1,9 @@
 {
     "type": "minecraft:crafting_shaped",
-    "group": "standing_torch_s",
+    "group": "standing_torch_l",
     "pattern": [
       "#",
+      "X",
       "X"
       ],
   "key": {
@@ -16,11 +17,11 @@
     ]
       ,
       "X": {
-        "item": "minecraft:polished_granite"
+        "item": "minecraft:stone_bricks"
       }
     },
     "result":{
-        "item":"additional_lights:standing_torch_s_polished_granite",
+        "item":"additional_lights:standing_torch_l_stone_bricks",
         "count":1
       }
 }

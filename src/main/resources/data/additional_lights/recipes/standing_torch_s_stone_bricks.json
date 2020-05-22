@@ -16,11 +16,11 @@
     ]
       ,
       "X": {
-        "item": "minecraft:polished_granite"
+        "item": "minecraft:stone_bricks"
       }
     },
     "result":{
-        "item":"additional_lights:standing_torch_s_polished_granite",
+        "item":"additional_lights:standing_torch_s_stone_bricks",
         "count":1
       }
 }
