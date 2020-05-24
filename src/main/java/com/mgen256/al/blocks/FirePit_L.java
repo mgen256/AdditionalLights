@@ -1,8 +1,9 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
+import com.mgen256.al.*;
+
+import net.minecraft.block.*;
+import net.minecraft.util.math.shapes.*;
 
 public class FirePit_L extends FirePitBase {
 
@@ -17,4 +18,8 @@ public class FirePit_L extends FirePitBase {
 
     }
 
+    @Override
+    protected ModBlockList getFireKey() {
+      return ModBlockList.Fire_For_FirePit_L;
+    }
 }

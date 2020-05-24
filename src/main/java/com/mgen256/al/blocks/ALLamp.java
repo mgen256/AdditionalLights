@@ -104,15 +104,14 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
     }
     
     @Override
-    public boolean canContainFluid(final IBlockReader p_204510_1_, final BlockPos p_204510_2_, final BlockState p_204510_3_,
-            final Fluid p_204510_4_) {
+    public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
     }
 
     @Override
-    public IFluidState getFluidState(final BlockState p_204507_1_) {
-        return p_204507_1_.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
-                : super.getFluidState(p_204507_1_);
+    public IFluidState getFluidState(final BlockState state) {
+        return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
+                : super.getFluidState(state);
     }
 
 /*  hokan

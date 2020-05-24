@@ -1,46 +1,31 @@
 package com.mgen256.al.blocks;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 import javax.annotation.Nullable;
 
-import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.FireBlockList;
+import com.mgen256.al.*;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IWaterLoggable;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.block.*;
+import net.minecraft.block.material.*;
+import net.minecraft.client.renderer.*;
 import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.fluid.IFluidState;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.entity.*;
+import net.minecraft.fluid.*;
+import net.minecraft.item.*;
+import net.minecraft.particles.*;
+import net.minecraft.state.*;
+import net.minecraft.state.properties.*;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.Direction;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.util.math.shapes.*;
+import net.minecraft.world.*;
+import net.minecraft.world.storage.loot.LootContext;
 
 //fire_for_standing_torch_s
 public class Fire extends ModBlock implements IWaterLoggable{
@@ -145,31 +130,32 @@ public class Fire extends ModBlock implements IWaterLoggable{
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(final BlockItemUseContext p_196258_1_) {
-        return getDefaultState().with(BlockStateProperties.AXIS, p_196258_1_.getFace().getAxis())
+    public BlockState getStateForPlacement(final BlockItemUseContext context) {
+        return getDefaultState().with(BlockStateProperties.AXIS, context.getFace().getAxis())
                 .with(BlockStateProperties.WATERLOGGED, false);
     }
 
     @Override
-    public boolean canContainFluid(final IBlockReader p_204510_1_, final BlockPos p_204510_2_, final BlockState p_204510_3_,
-            final Fluid p_204510_4_) {
+    public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
     }
 
     @Override
-    public IFluidState getFluidState(final BlockState p_204507_1_) {
-        return p_204507_1_.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
-                : super.getFluidState(p_204507_1_);
+    public IFluidState getFluidState(final BlockState state) {
+        return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
+                : super.getFluidState(state);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> p_206840_1_) {
-        p_206840_1_.add(BlockStateProperties.AXIS, BlockStateProperties.WATERLOGGED);
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        builder.add(BlockStateProperties.AXIS, BlockStateProperties.WATERLOGGED);
     }
 
 
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return facing == Direction.DOWN && !this.isValidPosition(stateIn, worldIn, currentPos) ? Blocks.AIR.getDefaultState() : super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState
+        , IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        return facing == Direction.DOWN && !this.isValidPosition(stateIn, worldIn, currentPos) 
+        ? Blocks.AIR.getDefaultState() : stateIn;
     }
   
      public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
@@ -179,7 +165,13 @@ public class Fire extends ModBlock implements IWaterLoggable{
 
      public static boolean hasSolidSide(IWorldReader worldIn, BlockPos pos, Direction directionIn) {
         BlockState blockstate = worldIn.getBlockState(pos);
-        return !blockstate.isIn(BlockTags.LEAVES) && blockstate.getBlock().isAir(null) == false;
+        return !blockstate.isIn(BlockTags.LEAVES) && !blockstate.getBlock().isAir(null) && !blockstate.getMaterial().isLiquid();
     }
 
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> list = new ArrayList<>();
+        return list;   
+     }
 }
