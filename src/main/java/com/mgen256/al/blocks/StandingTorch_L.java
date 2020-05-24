@@ -1,5 +1,7 @@
 package com.mgen256.al.blocks;
 
+import com.mgen256.al.ModBlockList;
+
 import net.minecraft.block.Block;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -17,4 +19,10 @@ public class StandingTorch_L extends StandingTorchBase {
         , mainblock
         , VoxelShapes.or( PART_LOWER1, PART_LOWER2, PART_MID, PART_UPPER1, PART_UPPER2 ) );
       }
+
+      
+    @Override
+    protected ModBlockList getFireKey() {
+      return ModBlockList.Fire_For_StandingTorch_L;
+    }
 }

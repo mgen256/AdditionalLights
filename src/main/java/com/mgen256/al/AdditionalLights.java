@@ -87,11 +87,6 @@ public class AdditionalLights {
         modBlocks = new LinkedHashMap<ModBlockList, Block>(){ 
             private static final long serialVersionUID = 2L;
             {
-                            
-            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( FireBlockList.standing_torch_s ));
-            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( FireBlockList.standing_torch_l ));
-            put(ModBlockList.Fire_For_FirePit_S, new Fire( FireBlockList.fire_pit_s ));
-            put(ModBlockList.Fire_For_FirePit_L, new Fire( FireBlockList.fire_pit_l ));
 
             put(ModBlockList.ALLamp_Acacia, new ALLamp(Blocks.ACACIA_PLANKS));
             put(ModBlockList.ALLamp_Birch, new ALLamp(Blocks.BIRCH_PLANKS));
@@ -252,6 +247,12 @@ public class AdditionalLights {
             put(ModBlockList.FirePit_L_Ice, new FirePit_L(Blocks.PACKED_ICE));
             put(ModBlockList.FirePit_L_Pink_Wool, new FirePit_L(Blocks.PINK_WOOL));
             put(ModBlockList.FirePit_L_Magenta_Wool, new FirePit_L(Blocks.MAGENTA_WOOL));
+
+                                        
+            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( FireBlockList.standing_torch_s ));
+            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( FireBlockList.standing_torch_l ));
+            put(ModBlockList.Fire_For_FirePit_S, new Fire( FireBlockList.fire_pit_s ));
+            put(ModBlockList.Fire_For_FirePit_L, new Fire( FireBlockList.fire_pit_l ));
        }
         };
         
