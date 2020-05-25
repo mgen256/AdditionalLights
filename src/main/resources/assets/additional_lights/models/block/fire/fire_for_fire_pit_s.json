@@ -1,8 +1,6 @@
 {
-	"textures": {
-		"fire": "block/campfire_fire",
-		"particle": "block/campfire_fire"
-	},
+    "parent": "additional_lights:block/fire/fire",
+
 	"elements": [ 	 
 		{
 			"from": [ 0.9289, -10, 8 ],

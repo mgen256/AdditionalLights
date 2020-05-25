@@ -42,7 +42,6 @@ public class ALTorch extends TorchBlock implements IModBlock {
     private ModBlockList wallKey;
     private String name;
 
-
     @Override
     public void init() {
         setRegistryName(name);
@@ -67,7 +66,8 @@ public class ALTorch extends TorchBlock implements IModBlock {
         worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         worldIn.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
      }
-             
+
+        
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
 

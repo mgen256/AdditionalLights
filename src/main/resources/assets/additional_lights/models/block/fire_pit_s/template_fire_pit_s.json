@@ -1,10 +1,11 @@
 {
+
 	"textures": {
 		"particle": "#main",
 		"texture": "#main",
 		"texture2": "additional_lights:block/fire_lit"
 	},
-	
+
 	"display": {
 		"thirdperson_righthand": {
 			"translation":  [ 0, 3, 0 ],
@@ -28,7 +29,7 @@
 			"rotation":  [ 30, 135, 0 ],
 			"translation":  [ 0, -1, 0 ],
 			"scale":  [ 0.6, 0.6, 0.6 ]
-		},		
+		},			
 		"ground": {
 			"translation":  [ 0, 3, 0 ],
 			"scale":  [ 0.3, 0.3, 0.3 ]

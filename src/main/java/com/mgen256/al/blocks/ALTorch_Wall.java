@@ -3,11 +3,9 @@ package com.mgen256.al.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
-
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -37,10 +35,10 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
 
          
     public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
-            super(ALTorch.createProps(mainblock));
-            name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
-            floorKey = _floorKey;
-        }
+        super(ALTorch.createProps(mainblock));
+        name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
+        floorKey = _floorKey;
+    }
 
     private ModBlockList floorKey;
     private String name;
@@ -48,11 +46,6 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     @Override
     public void init() {
         setRegistryName(name);
-    }
-
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
     }
 
     @Override
@@ -78,6 +71,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     public static VoxelShape func_220289_j(BlockState p_220289_0_) {
         return SHAPES.get(p_220289_0_.get(HORIZONTAL_FACING));
     }
+
     
     @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
@@ -92,7 +86,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         worldIn.addParticle(ParticleTypes.FLAME, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
        }
 
-
+        
        @Override
        public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         
@@ -101,5 +95,4 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
    
            return list;
        }
-
 }

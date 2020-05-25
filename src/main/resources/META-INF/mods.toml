@@ -18,7 +18,7 @@ displayName="Additional Lights" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 displayURL="" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="additional_lights.png" #optional
+logoFile="logo.png" #optional
 # A text field displayed in the mod UI
 authors="mgen256" #optional
 # The description text for the mod (multi line!) (#mandatory)

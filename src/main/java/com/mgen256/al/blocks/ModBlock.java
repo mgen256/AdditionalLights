@@ -27,11 +27,14 @@ public abstract class ModBlock extends Block implements IModBlock {
         else
             name = basename + mainblock.getRegistryName().getPath();
         voxelShape = shape;
+
+        blockRenderLayer = name.contains("glass") ? BlockRenderLayer.CUTOUT : BlockRenderLayer.SOLID;
     }
 
     protected BlockItem blockItem;
     protected String name;
     private VoxelShape voxelShape;
+    private BlockRenderLayer blockRenderLayer;
 
     @Override
     public void init() {
@@ -56,13 +59,13 @@ public abstract class ModBlock extends Block implements IModBlock {
     }
 
     @Override
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT;
+    public BlockRenderType getRenderType(final BlockState state) {
+        return BlockRenderType.MODEL;
     }
 
     @Override
-    public BlockRenderType getRenderType(final BlockState state) {
-        return BlockRenderType.MODEL;
+    public BlockRenderLayer getRenderLayer() {
+        return blockRenderLayer;
     }
 
     protected static Properties createBasicProps(Block mainblock ){

@@ -4,6 +4,7 @@
 		"texture2": "additional_lights:block/fire_lit",
 		"particle": "#main"
 	},
+
 	"display": {
 		"thirdperson_righthand": {
 			"scale":  [ 0.4, 0.4, 0.4 ]

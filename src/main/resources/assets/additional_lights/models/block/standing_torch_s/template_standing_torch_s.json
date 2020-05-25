@@ -1,7 +1,6 @@
 {
 	"textures": {
 		"litlog": "additional_lights:block/fire_lit2",
-		"fire": "block/campfire_fire",
 		"texture": "#main",
 		"particle": "#main"
 	},
