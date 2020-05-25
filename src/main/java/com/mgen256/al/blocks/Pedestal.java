@@ -70,7 +70,11 @@ public abstract class Pedestal extends ModBlock  implements IWaterLoggable{
    @Override
    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos
         , PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        return setFire( worldIn, pos ) ?  ActionResultType.SUCCESS : ActionResultType.PASS;
+        if( setFire( worldIn, pos ) ){
+            player.playSound( SoundEvents.ITEM_FLINTANDSTEEL_USE, 0.7f, 1.4f );
+            return ActionResultType.SUCCESS;
+        }
+        return ActionResultType.PASS;
     }
     
     @Override

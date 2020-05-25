@@ -62,9 +62,9 @@ public class ALTorch extends TorchBlock implements IModBlock {
 
     @Override
     public void setRenderLayer() {
-        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
     }
-
+    
     @Override
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         double d0 = (double)pos.getX() + 0.5D;

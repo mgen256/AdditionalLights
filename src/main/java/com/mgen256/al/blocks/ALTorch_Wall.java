@@ -73,10 +73,10 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     public static VoxelShape func_220289_j(BlockState p_220289_0_) {
         return SHAPES.get(p_220289_0_.get(HORIZONTAL_FACING));
     }
-
+ 
     @Override
     public void setRenderLayer() {
-        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+        RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
     }
     
     @Override

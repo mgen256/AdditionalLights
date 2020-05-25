@@ -71,7 +71,10 @@ public class Fire extends ModBlock implements IWaterLoggable{
         p.lightValue(15);
         p.hardnessAndResistance(0.0f);
         p.doesNotBlockMovement();
-        p.sound(SoundType.STONE);
+        //SoundEvents.BLOCK_FIRE_EXTINGUISH
+        p.sound(new SoundType(0.5F, 2.0F, SoundEvents.BLOCK_WOOL_BREAK, SoundEvents.BLOCK_WOOL_STEP
+            , SoundEvents.BLOCK_STONE_PLACE, SoundEvents.BLOCK_WOOL_HIT, SoundEvents.BLOCK_WOOL_FALL) );
+            
         return p;
     }
 

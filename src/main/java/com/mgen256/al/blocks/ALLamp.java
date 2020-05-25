@@ -98,10 +98,6 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
         return BlockRenderType.MODEL;
     }
 
-    @Override
-    public void setRenderLayer() {
-        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
-    }
     
     @Override
     public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {

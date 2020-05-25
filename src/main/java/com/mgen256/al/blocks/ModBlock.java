@@ -3,6 +3,8 @@ package com.mgen256.al.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -57,6 +59,11 @@ public abstract class ModBlock extends Block implements IModBlock {
     @Override
     public BlockRenderType getRenderType(final BlockState state) {
         return BlockRenderType.MODEL;
+    }
+    
+    @Override
+    public void setRenderLayer() {
+        RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
     }
 
     protected static Properties createBasicProps(Block mainblock ){
