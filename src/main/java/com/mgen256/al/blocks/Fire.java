@@ -10,6 +10,8 @@ import javax.annotation.Nullable;
 
 import com.mgen256.al.*;
 
+/*
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.client.renderer.*;
@@ -178,3 +180,6 @@ public class Fire extends ModBlock implements IWaterLoggable{
         return list;   
      }
 }
+
+
+*/

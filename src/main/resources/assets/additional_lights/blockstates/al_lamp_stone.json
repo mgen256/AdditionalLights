@@ -1,10 +1,23 @@
 {
-    "variants": {
-		"facing=up":    { "model":"additional_lights:block/al_lamp/al_lamp_stone"},
-		"facing=down":  { "model":"additional_lights:block/al_lamp/al_lamp_stone", "x": 180 },
-		"facing=east":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_stone", "y": 0 },
-		"facing=south": { "model":"additional_lights:block/al_lamp/al_wall_lamp_stone", "y": 90 },
-		"facing=west":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_stone", "y": 180 },
-		"facing=north": { "model":"additional_lights:block/al_lamp/al_wall_lamp_stone", "y": 270 }
+	"forge_marker": 1,
+
+	"defaults":{
+		"model":"additional_lights:al_lamp/al_wall_lamp_stone"
+	},
+
+	"variants": {
+		"normal": {
+			"model": "additional_lights:al_lamp/al_wall_lamp_stone"
+		},
+		
+		"facing":{
+		"up":    { "model":"additional_lights:al_lamp/al_lamp_stone"},
+		"down":  { "model":"additional_lights:al_lamp/al_lamp_stone", "x": 180 },
+		"east":  { "model":"additional_lights:al_lamp/al_wall_lamp_stone", "y": 0 },
+		"south": { "model":"additional_lights:al_lamp/al_wall_lamp_stone", "y": 90 },
+		"west":  { "model":"additional_lights:al_lamp/al_wall_lamp_stone", "y": 180 },
+		"north": { "model":"additional_lights:al_lamp/al_wall_lamp_stone", "y": 270 }
+		}
 	}
+
 }
