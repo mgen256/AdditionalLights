@@ -19,67 +19,23 @@ import com.mgen256.al.blocks.IModBlock;
 
 public abstract class ModBlock extends Block implements IModBlock {
 
-//public ModBlock(String basename, Block mainblock, Material material, AxisAlignedBB shape) {
-
-    public ModBlock(String basename, Block mainblock) {
-        super(Material.GROUND);
+    public ModBlock(String basename, Block mainblock, Material material ) {
+        super(material);
         
         name = mainblock == null ? basename : basename + mainblock.getRegistryName().getPath();
         blockRenderLayer = name.contains("glass") ? BlockRenderLayer.CUTOUT : BlockRenderLayer.SOLID;
 
+        setSoundType(mainblock.getSoundType());
         setTranslationKey(AdditionalLights.MOD_ID + "." + name );
         setCreativeTab(CreativeTabs.MATERIALS);
         setRegistryName(name);
         createItem();
-
-        //voxelShape = shape;
-    }
-/*
-    protected BlockItem blockItem;
-    
-    @Override
-    public void init() {
-        setRegistryName(name);
-        blockItem = new BlockItem(this, AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getRegistryName());
-    }
-    
-    @Override
-    public BlockItem getBlockItem() {
-        return blockItem;
     }
 
-
-    @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return voxelShape;
-    }
-
-    @Override
-    public BlockRenderType getRenderType(final BlockState state) {
-        return BlockRenderType.MODEL;
-    }
-
-    
-    protected static Properties createBasicProps(Block mainblock ){
-        Properties p = Block.Properties.create(mainblock.getMaterial(null));
-        p.harvestTool(mainblock.getHarvestTool(null));
-        p.harvestLevel(mainblock.getHarvestLevel(null));
-        p.hardnessAndResistance(mainblock.getBlockHardness(null, null, null), mainblock.getExplosionResistance() );
-        p.sound(mainblock.getSoundType(null, null, null, null));
-        return p;
-    }
-*/
     protected String name;
     private AxisAlignedBB voxelShape;
     private BlockRenderLayer blockRenderLayer;
     private Item item;
-
-    @Override
-    public void init() {
-        //setRegistryName(name);
-        //CreateItem();
-    }
 
     private void createItem(){
         item = new ItemBlock(this).setRegistryName(name);
@@ -94,11 +50,4 @@ public abstract class ModBlock extends Block implements IModBlock {
     public Item getItem() {
         return item;
     }
-
-/*
-    @Override
-    public BlockRenderLayer getRenderLayer() {
-        return blockRenderLayer;
-    }
-    */
 }

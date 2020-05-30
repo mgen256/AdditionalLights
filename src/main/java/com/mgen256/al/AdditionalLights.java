@@ -108,9 +108,6 @@ public class AdditionalLights {
             */
        }
         };
-        
-        for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
-            ((IModBlock) entry.getValue()).init();
     }
 /*
     @SubscribeEvent
