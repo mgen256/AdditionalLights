@@ -27,10 +27,15 @@ public abstract class ModBlock extends Block implements IModBlock {
     public ModBlock(String basename, Block mainblock, Material material ) {
         super(material);
         
-        name = mainblock == null ? basename : basename + mainblock.getRegistryName().getPath();
+        if( mainblock == null )
+            name = basename;
+        else {
+            name = basename + mainblock.getRegistryName().getPath();
+            setSoundType(mainblock.getSoundType());
+        }
+        
         blockRenderLayer = name.contains("glass") ? BlockRenderLayer.CUTOUT : BlockRenderLayer.SOLID;
 
-        setSoundType(mainblock.getSoundType());
         setTranslationKey(AdditionalLights.MOD_ID + "." + name );
         setCreativeTab(CreativeTabs.MATERIALS);
         setRegistryName(name);
@@ -40,6 +45,8 @@ public abstract class ModBlock extends Block implements IModBlock {
     protected String name;
     private BlockRenderLayer blockRenderLayer;
     private Item item;
+
+    abstract AxisAlignedBB getShapes( final IBlockState state );
 
     private void createItem(){
         item = new ItemBlock(this).setRegistryName(name);
@@ -65,17 +72,14 @@ public abstract class ModBlock extends Block implements IModBlock {
         return false;
     }
 
-    abstract AxisAlignedBB getShapes( final IBlockState state );
-    abstract PropertyDirection getFacing();
+    @Override
+    public BlockRenderLayer getRenderLayer() {
+        return blockRenderLayer;
+    }
 
-    
     @Override
     public AxisAlignedBB getBoundingBox( IBlockState state, IBlockAccess source, BlockPos pos ) {
         return getShapes(state);
     }
 
-    @Override
-    public int getMetaFromState( IBlockState state ) {
-        return state.getValue(getFacing()).getIndex();
-    }
 }

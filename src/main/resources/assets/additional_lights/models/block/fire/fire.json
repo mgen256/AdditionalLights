@@ -1,9 +1,6 @@
 {
 	"textures": {
-		"fire": "block/campfire_fire",
-		"particle": "block/campfire_fire"
-	},
-
-	"gui_light": "front"
-
+		"fire": "additional_lights:block/campfire_fire",
+		"particle": "additional_lights:block/campfire_fire"
+	}
 }

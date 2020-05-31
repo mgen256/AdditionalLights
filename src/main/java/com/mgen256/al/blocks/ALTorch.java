@@ -160,6 +160,7 @@ public class ALTorch extends LampAndTorchBase {
     }
 
     @SideOnly(Side.CLIENT)
+    @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         EnumFacing enumfacing = (EnumFacing)stateIn.getValue(FACING);
         double dx = (double)pos.getX() + 0.5D;

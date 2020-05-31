@@ -2,6 +2,7 @@ package com.mgen256.al.blocks;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -22,6 +23,7 @@ public abstract class LampAndTorchBase extends ModBlock {
         blockHardness = 0.0f;
     }
 
+    abstract PropertyDirection getFacing();
 
     @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {

@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import net.minecraft.util.math.AxisAlignedBB;
 
 
-// implements IWaterLoggable
 public class ALLamp extends LampAndTorchBase {
     static PropertyDirection FACING = PropertyDirection.create("facing");
 
@@ -69,7 +68,6 @@ public class ALLamp extends LampAndTorchBase {
         else
         {
             EnumFacing enumfacing = (EnumFacing)state.getValue(FACING);
-            EnumFacing.Axis enumfacing$axis = enumfacing.getAxis();
             EnumFacing enumfacing1 = enumfacing.getOpposite();
             BlockPos blockpos = pos.offset(enumfacing1);
             boolean flag = false;

@@ -103,11 +103,12 @@ public class AdditionalLights {
             //put(ModBlockList.ALLamp_Acacia, new ALLamp(Blocks.ACACIA_PLANKS));
             put(ModBlockList.ALLamp_Stone, new ALLamp(Blocks.STONE));
 
-
             put(ModBlockList.ALTorch_Stone, new ALTorch(Blocks.STONE));
             /*
             put(ModBlockList.ALLamp_Birch, new ALLamp(Blocks.BIRCH_PLANKS));
             */
+
+            put(ModBlockList.Fire_For_FirePit_L,new Fire(FireBlockList.fire_pit_l));
        }
         };
     }
