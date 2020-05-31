@@ -2,8 +2,8 @@
 	"ambientocclusion": false,
 	
 	"textures": {
-		"texture": "block/torch",
-		"particle": "block/torch",
+		"texture": "blocks/torch_on",
+		"particle": "blocks/torch_on",
 		"texture1": "#main"
 	},
 

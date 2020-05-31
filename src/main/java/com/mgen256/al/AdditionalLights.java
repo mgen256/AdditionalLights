@@ -28,8 +28,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.mgen256.al.blocks.IModBlock;
-import com.mgen256.al.blocks.ALLamp;
+import com.mgen256.al.blocks.*;
 
 
 @Mod(modid = AdditionalLights.MOD_ID, name = AdditionalLights.NAME, version = AdditionalLights.VERSION)
@@ -103,6 +102,9 @@ public class AdditionalLights {
             {
             //put(ModBlockList.ALLamp_Acacia, new ALLamp(Blocks.ACACIA_PLANKS));
             put(ModBlockList.ALLamp_Stone, new ALLamp(Blocks.STONE));
+
+
+            put(ModBlockList.ALTorch_Stone, new ALTorch(Blocks.STONE));
             /*
             put(ModBlockList.ALLamp_Birch, new ALLamp(Blocks.BIRCH_PLANKS));
             */

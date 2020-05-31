@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=east": { "model": "additional_lights:block/al_torch/al_wall_torch_glass" },
-        "facing=south": { "model": "additional_lights:block/al_torch/al_wall_torch_glass", "y": 90 },
-        "facing=west": { "model": "additional_lights:block/al_torch/al_wall_torch_glass", "y": 180 },
-        "facing=north": { "model": "additional_lights:block/al_torch/al_wall_torch_glass", "y": 270 }
-    }
-}

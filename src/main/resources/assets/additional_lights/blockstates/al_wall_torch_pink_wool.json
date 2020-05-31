@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "facing=east": { "model": "additional_lights:block/al_torch/al_wall_torch_pink_wool" },
-        "facing=south": { "model": "additional_lights:block/al_torch/al_wall_torch_pink_wool", "y": 90 },
-        "facing=west": { "model": "additional_lights:block/al_torch/al_wall_torch_pink_wool", "y": 180 },
-        "facing=north": { "model": "additional_lights:block/al_torch/al_wall_torch_pink_wool", "y": 270 }
-    }
-}
