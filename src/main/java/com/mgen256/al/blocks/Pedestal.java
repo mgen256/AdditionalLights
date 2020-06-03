@@ -53,7 +53,6 @@ public abstract class Pedestal extends ModBlock  implements IWaterLoggable{
         builder.add(BlockStateProperties.AXIS, BlockStateProperties.WATERLOGGED);
     }
         
-
     private Block getFireBlock(){
         return AdditionalLights.modBlocks.get(getFireKey());
     }
@@ -63,7 +62,7 @@ public abstract class Pedestal extends ModBlock  implements IWaterLoggable{
         if( ( upperBlockState.isAir() || upperBlockState.getMaterial() == Material.WATER ) == false )
             return false;
 
-        worldIn.setBlockState(pos.up(), getFireBlock().getDefaultState().with(BlockStateProperties.WATERLOGGED, false) );
+        worldIn.setBlockState(pos.up(), getFireBlock().getDefaultState() );
         return true;
     }
 

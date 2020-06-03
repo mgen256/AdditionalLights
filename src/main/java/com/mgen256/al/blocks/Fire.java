@@ -6,29 +6,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import javax.annotation.Nullable;
-
 import com.mgen256.al.*;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.*;
-import net.minecraft.fluid.*;
 import net.minecraft.item.*;
 import net.minecraft.particles.*;
-import net.minecraft.state.*;
-import net.minecraft.state.properties.*;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.*;
 import net.minecraft.world.*;
 import net.minecraft.world.storage.loot.LootContext;
 
-//fire_for_standing_torch_s
-public class Fire extends ModBlock implements IWaterLoggable{
+public class Fire extends ModBlock {
 
     private static Map<FireBlockList, VoxelShape> SHAPES;
     private static Map<FireBlockList, BasicParticleType> PARTICLE_TYPES;
@@ -58,7 +48,7 @@ public class Fire extends ModBlock implements IWaterLoggable{
        Material material = new Material(
         MaterialColor.AIR,
         false, //isLiquid
-        true,  //isSolid
+        false,  //isSolid
         true, //Blocks Movement
         true, //isOpaque
         true, //requires no tool
@@ -99,10 +89,6 @@ public class Fire extends ModBlock implements IWaterLoggable{
         return 0.0F;
     }
 
-    protected double getSmokePos_Y() {
-        return 0.9D;
-    }
-
     @Override
     public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
@@ -121,6 +107,24 @@ public class Fire extends ModBlock implements IWaterLoggable{
         worldIn.addParticle(PARTICLE_TYPES.get(baseFireBlock), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState
+        , IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        return facing == Direction.DOWN && !isValidPosition(stateIn, worldIn, currentPos) 
+        ? Blocks.AIR.getDefaultState() : stateIn;
+    }
+  
+    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+        BlockState blockstate = worldIn.getBlockState(pos.down());
+        return !worldIn.isAirBlock(pos.down()) && !blockstate.getMaterial().isLiquid();
+        }
+
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        List<ItemStack> list = new ArrayList<>();
+        return list;   
+     }
+     /*
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity
                 && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
@@ -129,52 +133,5 @@ public class Fire extends ModBlock implements IWaterLoggable{
 
         super.onEntityWalk(worldIn, pos, entityIn);
     }
-
-
-    @Nullable
-    @Override
-    public BlockState getStateForPlacement(final BlockItemUseContext context) {
-        return getDefaultState().with(BlockStateProperties.AXIS, context.getFace().getAxis())
-                .with(BlockStateProperties.WATERLOGGED, false);
-    }
-
-    @Override
-    public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
-        return true;
-    }
-
-    @Override
-    public IFluidState getFluidState(final BlockState state) {
-        return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
-                : super.getFluidState(state);
-    }
-
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(BlockStateProperties.AXIS, BlockStateProperties.WATERLOGGED);
-    }
-
-
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState
-        , IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return facing == Direction.DOWN && !this.isValidPosition(stateIn, worldIn, currentPos) 
-        ? Blocks.AIR.getDefaultState() : stateIn;
-    }
-  
-     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return hasSolidSide(worldIn, pos.down(), Direction.UP);
-    }
-
-
-     public static boolean hasSolidSide(IWorldReader worldIn, BlockPos pos, Direction directionIn) {
-        BlockState blockstate = worldIn.getBlockState(pos);
-        return !blockstate.isIn(BlockTags.LEAVES) && !blockstate.getBlock().isAir(null) && !blockstate.getMaterial().isLiquid();
-    }
-
-
-    @Override
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        List<ItemStack> list = new ArrayList<>();
-        return list;   
-     }
+    */
 }

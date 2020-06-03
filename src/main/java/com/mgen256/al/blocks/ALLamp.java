@@ -3,8 +3,10 @@ package com.mgen256.al.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.IWaterLoggable;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItem;
@@ -17,6 +19,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
+import net.minecraft.world.IWorldReader;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
 import javax.annotation.Nullable;
@@ -43,7 +47,7 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
        Material mbm = mainblock.getMaterial(null);
 
        Material material = new Material(
-        mbm.getColor(),
+        MaterialColor.AIR,
         false, //isLiquid
         true,  //isSolid
         true, //Blocks Movement
@@ -54,7 +58,6 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
         PushReaction.NORMAL
         );
 
-       
         Properties p = Block.Properties.create(material);
         p.lightValue(15);
         p.hardnessAndResistance(0.0f);
@@ -78,11 +81,14 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
+    
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         boolean waterlogged = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
-        return getDefaultState().with(BlockStateProperties.FACING, context.getFace()).with(BlockStateProperties.WATERLOGGED, waterlogged);
+        Direction direction;
+        direction = GrassIsPlaced( context.getWorld(), context.getPos() ) ? Direction.UP : context.getFace();
+        return getDefaultState().with(BlockStateProperties.FACING, direction).with(BlockStateProperties.WATERLOGGED, waterlogged);
     }
 
     @Override
@@ -106,36 +112,29 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
         return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
                 : super.getFluidState(state);
     }
-
-/*  hokan
-
+    
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-    return facing == stateIn.get(BlockStateProperties.FACING).getOpposite() 
-        && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn;
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState
+        , IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        return facing == stateIn.get(BlockStateProperties.FACING).getOpposite() 
+            && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn;
      }
 
-    @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        Direction direction = state.get(BlockStateProperties.FACING);
-        BlockPos blockpos = pos.offset(direction.getOpposite());
+     @Override
+     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+ 
+         if( GrassIsPlaced( worldIn, pos ) )
+             return !worldIn.isAirBlock(pos.down());
+ 
+         Direction direction = state.get(BlockStateProperties.FACING);
+         BlockPos blockpos = pos.offset(direction.getOpposite());
+ 
+         return !worldIn.isAirBlock( blockpos );
+     }
         
-        BlockPos p = null;
-        int d = direction.getIndex();
-        // D-U-N-S-W-E
-        switch( direction.getOpposite().getIndex() )
-        {
-        case 0: p = pos.down(); break;
-        case 1: p = pos.up();   break;
-        case 2: p = pos.north(); break;
-        case 3: p = pos.south(); break;
-        case 4: p = pos.west(); break;
-        case 5: p = pos.east(); break;
-        }
-
-        return hasEnoughSolidSide(worldIn, p, direction );;
-
+    private boolean GrassIsPlaced( IWorldReader worldIn, BlockPos pos )
+    {
+        Material material = worldIn.getBlockState(pos).getMaterial();
+        return ( material == Material.TALL_PLANTS || material == Material.PLANTS || material == Material.SEA_GRASS);
     }
-
-  */
 }
