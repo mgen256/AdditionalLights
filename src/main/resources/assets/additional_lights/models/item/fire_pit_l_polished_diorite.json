@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_fire_pit_l_polished",
-	"textures": {
-		"main": "block/polished_diorite"
-	}
+    "parent": "additional_lights:block/fire_pit_l/fire_pit_l_polished_diorite"
 }
