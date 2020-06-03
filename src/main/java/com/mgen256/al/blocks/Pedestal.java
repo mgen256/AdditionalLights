@@ -79,7 +79,9 @@ public abstract class Pedestal extends ModBlock  implements IWaterLoggable{
     
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        setFire( worldIn, pos ) ;
+        if( placer.isSneaking() )
+            return;
+        setFire( worldIn, pos );
     }
 
 }
