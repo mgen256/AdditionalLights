@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_standing_torch_l_stone",
-	"textures": {
-		"main": "block/magenta_wool"
-	}
+    "parent": "additional_lights:block/standing_torch_l/standing_torch_l_magenta_wool"
 }

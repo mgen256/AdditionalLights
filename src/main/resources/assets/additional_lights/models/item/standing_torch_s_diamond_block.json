@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_standing_torch_s_smooth",
-	"textures": {
-		"main": "block/diamond_block"
-	}
+    "parent": "additional_lights:block/standing_torch_s/standing_torch_s_diamond_block"
 }
