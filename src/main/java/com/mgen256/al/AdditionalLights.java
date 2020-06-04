@@ -1,7 +1,9 @@
 package com.mgen256.al;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,6 +34,7 @@ import com.mgen256.al.blocks.*;
 
 
 @Mod(modid = AdditionalLights.MOD_ID, name = AdditionalLights.NAME, version = AdditionalLights.VERSION)
+@Mod.EventBusSubscriber
 public class AdditionalLights {
 
     public static final String MOD_ID = "additional_lights";
@@ -40,8 +43,20 @@ public class AdditionalLights {
 
     public static Map<ModBlockList, Block> modBlocks;
 
-    //private static final Logger LOGGER = LogManager.getLogger();
     private static Logger LOGGER = LogManager.getLogger();
+
+    public static final CreativeTabs MYTAB = new CreativeTabs( NAME ) {
+		@Override
+		public ItemStack createIcon() {
+            //ALTorch_Oak
+			return new ItemStack( modBlocks.get( ModBlockList.ALTorch_Stone ));
+        }
+        @Override
+		public boolean hasSearchBar() {
+			return true;
+		}
+    };
+    
     /*
     static {
         final ItemGroup itemGroup = new ItemGroup(MOD_ID) {
@@ -68,19 +83,41 @@ public class AdditionalLights {
     }
 */
     public AdditionalLights() {
-        // Register the setup method for modloading
-        
-        // FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        
-        // Register ourselves for server and other game events we are interested in
-        //FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
-        //MinecraftForge.EVENT_BUS.register(this);
     }
  
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        // logger = event.getModLog();
+        modBlocks = new LinkedHashMap<ModBlockList, Block>(){ 
+            private static final long serialVersionUID = 2L;
+            {
+            put(ModBlockList.ALLamp_Acacia, new ALLamp(Blocks.PLANKS, "acacia_planks" ));
+            put(ModBlockList.ALLamp_Birch, new ALLamp(Blocks.PLANKS, "birch_planks"));
+            put(ModBlockList.ALLamp_Oak, new ALLamp(Blocks.PLANKS, "oak_planks"));
+            put(ModBlockList.ALLamp_Dark_Oak, new ALLamp(Blocks.PLANKS, "dark_oak_planks"));
+            put(ModBlockList.ALLamp_Spruce, new ALLamp(Blocks.PLANKS, "spruce_planks"));
+            put(ModBlockList.ALLamp_Jungle, new ALLamp(Blocks.PLANKS, "jungle_planks"));
+            put(ModBlockList.ALLamp_Stone, new ALLamp(Blocks.STONE, null));
+            put(ModBlockList.ALLamp_CobbleStone, new ALLamp(Blocks.COBBLESTONE, null));
+            put(ModBlockList.ALLamp_Mossy_CobbleStone, new ALLamp(Blocks.MOSSY_COBBLESTONE, null));
+            put(ModBlockList.ALLamp_End_Stone, new ALLamp(Blocks.END_STONE, null));
+            put(ModBlockList.ALLamp_Glass, new ALLamp(Blocks.GLASS, null));
+            put(ModBlockList.ALLamp_Iron, new ALLamp(Blocks.IRON_BLOCK, null));
+            put(ModBlockList.ALLamp_Gold, new ALLamp(Blocks.GOLD_BLOCK, null));
+            put(ModBlockList.ALLamp_Diamond, new ALLamp(Blocks.DIAMOND_BLOCK, null));
+            put(ModBlockList.ALLamp_Ice, new ALLamp(Blocks.PACKED_ICE, null));
+            put(ModBlockList.ALLamp_Pink_Wool, new ALLamp(Blocks.WOOL, "pink_wool"));
+            put(ModBlockList.ALLamp_Magenta_Wool, new ALLamp(Blocks.WOOL, "magenta_wool"));
+            put(ModBlockList.ALLamp_Nether_Bricks, new ALLamp(Blocks.NETHER_BRICK, "nether_bricks" ) );
+            put(ModBlockList.ALLamp_Red_Nether_Bricks, new ALLamp(Blocks.RED_NETHER_BRICK, "red_nether_bricks"));
+        
+            
+            put(ModBlockList.FirePit_L_Stone, new FirePit_L(Blocks.STONE, null ));
+
+
+            put(ModBlockList.Fire_For_FirePit_L,new Fire(FireBlockList.fire_pit_l));
+            }
+        };
     }
 
     @EventHandler
@@ -92,110 +129,27 @@ public class AdditionalLights {
         LOGGER.info(MOD_ID + "::" + message);
     }
 
-    public static void init2() {
-        if (modBlocks != null)
-            return;
-
-        // init blocks
-        modBlocks = new LinkedHashMap<ModBlockList, Block>(){ 
-            private static final long serialVersionUID = 2L;
-            {
-            //put(ModBlockList.ALLamp_Acacia, new ALLamp(Blocks.ACACIA_PLANKS));
-            put(ModBlockList.ALLamp_Stone, new ALLamp(Blocks.STONE));
-
-            put(ModBlockList.ALTorch_Stone, new ALTorch(Blocks.STONE));
-            /*
-            put(ModBlockList.ALLamp_Birch, new ALLamp(Blocks.BIRCH_PLANKS));
-            */
-
-            put(ModBlockList.Fire_For_FirePit_L,new Fire(FireBlockList.fire_pit_l));
-       }
-        };
-    }
-/*
     @SubscribeEvent
-    public void registerItems(RegistryEvent.Register<Item> event) {
-        init2();
-
+    public static void registerItems(RegistryEvent.Register<Item> event) {
         for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()){
             IModBlock modblock = (IModBlock) entry.getValue();
             event.getRegistry().register(modblock.getItem());
         }
     }
- 
+
     @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void registerModels(ModelRegistryEvent event) {
-        init2();
+    public static void registerBlocks(RegistryEvent.Register<Block> event) {
+        for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()){
+            event.getRegistry().register(entry.getValue());
+        }
+    }
 
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
         for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()){
             IModBlock modblock = (IModBlock) entry.getValue();
-            ModelLoader.setCustomModelResourceLocation(modblock.getItem(), 0, new ModelResourceLocation(modblock.getName(), "inventory"));
-        }
-    }*/
-
-
-    @Mod.EventBusSubscriber
-    public static class ObjectRegistryHandler {
-        @SubscribeEvent
-        public static void addItems(RegistryEvent.Register<Item> event) {
-            init2();
-
-            for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()){
-                IModBlock modblock = (IModBlock) entry.getValue();
-                event.getRegistry().register(modblock.getItem());
-            }
-        }
-
-        @SubscribeEvent
-        public static void addBlocks(RegistryEvent.Register<Block> event) {
-            init2();
-
-            for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()){
-                event.getRegistry().register(entry.getValue());
-            }
-        }
-
-    
-        @SubscribeEvent
-        public static void registerModels(ModelRegistryEvent event) {
-            init2();
-
-        for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()){
-            IModBlock modblock = (IModBlock) entry.getValue();
-            ModelLoader.setCustomModelResourceLocation(modblock.getItem(), 0, new ModelResourceLocation( MOD_ID + ":" + modblock.getName(), "inventory"));
-        }
+            ModelResourceLocation resourceLocation = new ModelResourceLocation( new ResourceLocation(MOD_ID, modblock.getName() ), "inventory" );
+            ModelLoader.setCustomModelResourceLocation(modblock.getItem(), 0, resourceLocation );
         }
     }
-/*
-    public static void Log(final String message) {
-        LOGGER.info(MOD_ID + "::" + message);
-    }
-
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-           init();
-
-            final IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
-
-            for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
-                final IModBlock block = (IModBlock) entry.getValue();
-                if( block.notRequireItemRegistration() )
-                    continue;
-                itemRegistry.register(block.getBlockItem());
-            }
-        }
-
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            init();
-
-            final IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
-            for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
-                blockRegistry.register(entry.getValue());
-        }
-    }
-*/
 }

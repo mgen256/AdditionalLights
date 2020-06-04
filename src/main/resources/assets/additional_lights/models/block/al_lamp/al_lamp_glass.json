@@ -2,6 +2,6 @@
     "parent": "additional_lights:block/al_lamp/template_al_lamp_glass",
     
 	"textures": {
-		"main": "block/glass"
+		"main": "blocks/glass"
 	}
 }

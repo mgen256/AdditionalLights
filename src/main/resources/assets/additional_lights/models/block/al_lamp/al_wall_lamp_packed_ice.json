@@ -2,6 +2,6 @@
     "parent": "additional_lights:block/al_lamp/template_al_wall_lamp_ice",
     
 	"textures": {
-		"main": "block/packed_ice"
+		"main": "blocks/ice_packed"
 	}
 }

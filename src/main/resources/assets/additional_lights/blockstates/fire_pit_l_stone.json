@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_stone" }
+        "normal": { "model": "additional_lights:fire_pit_l/fire_pit_l_stone" }
     }
 }

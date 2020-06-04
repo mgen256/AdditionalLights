@@ -18,8 +18,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 
 public abstract class LampAndTorchBase extends ModBlock {
 
-    public LampAndTorchBase(String basename, Block mainblock, Material material) {
-        super(basename, mainblock, material);
+    public LampAndTorchBase(String basename, Block mainblock, String mainblockName, Material material) {
+        super(basename, mainblock, mainblockName, material);
         blockHardness = 0.0f;
     }
 

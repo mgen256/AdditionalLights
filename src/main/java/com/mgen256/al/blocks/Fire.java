@@ -4,10 +4,15 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import com.mgen256.al.*;
 
+import akka.japi.Predicate;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.*;
@@ -18,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Fire extends ModBlock{
+    
     private static Map<FireBlockList, AxisAlignedBB> SHAPES;
     private static Map<FireBlockList, EnumParticleTypes> PARTICLE_TYPES;
     private static Map<FireBlockList, Double> SMOKE_POS;
@@ -43,7 +49,7 @@ public class Fire extends ModBlock{
     }
 
     public Fire( FireBlockList _baseFireBlock ) {
-        super( "fire_for_" + _baseFireBlock, null, Material.FIRE );
+        super( "fire_for_" + _baseFireBlock, null, null, Material.FIRE );
         baseFireBlock = _baseFireBlock;
         blockHardness = 0.0f;
         lightValue = 15;
@@ -94,6 +100,58 @@ public class Fire extends ModBlock{
         worldIn.spawnParticle(PARTICLE_TYPES.get(baseFireBlock), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
+    }
+
+    private boolean canBlockStay(World worldIn, BlockPos pos) {
+        return !worldIn.isAirBlock(pos.down());
+    }
+
+    /*
+    private boolean canPlaceOn(World worldIn, BlockPos pos){
+        IBlockState state = worldIn.getBlockState(pos);
+        return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
+    }
+    
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
+        for (EnumFacing enumfacing : FACING.getAllowedValues())
+            if (this.canPlaceAt(worldIn, pos, enumfacing))
+                return true;
+                
+        return false;
+    }
+
+    
+    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing){
+        BlockPos blockpos = pos.offset(facing.getOpposite());
+        IBlockState iblockstate = worldIn.getBlockState(blockpos);
+        Block block = iblockstate.getBlock();
+        BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
+
+        if (facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos))
+            return true;
+        else if (facing != EnumFacing.UP && facing != EnumFacing.DOWN)
+            return !isExceptBlockForAttachWithPiston2(block) && blockfaceshape == BlockFaceShape.SOLID;
+        else
+            return false;
+    }
+*/
+    @Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+        this.checkForDrop(worldIn, pos, state);
+    }
+
+    private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
+        if (!this.canBlockStay(worldIn, pos)) {
+            worldIn.setBlockToAir(pos);
+            return false;
+        }
+        else
+            return true;
+    }
     /*
     protected float getFireDamageAmount() {
         return 0.0F;

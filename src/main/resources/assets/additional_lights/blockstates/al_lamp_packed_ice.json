@@ -1,10 +1,10 @@
 {
     "variants": {
-		"facing=up":    { "model":"additional_lights:block/al_lamp/al_lamp_packed_ice"},
-		"facing=down":  { "model":"additional_lights:block/al_lamp/al_lamp_packed_ice", "x": 180 },
-		"facing=east":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_packed_ice", "y": 0 },
-		"facing=south": { "model":"additional_lights:block/al_lamp/al_wall_lamp_packed_ice", "y": 90 },
-		"facing=west":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_packed_ice", "y": 180 },
-		"facing=north": { "model":"additional_lights:block/al_lamp/al_wall_lamp_packed_ice", "y": 270 }
+		"facing=up":    { "model":"additional_lights:al_lamp/al_lamp_packed_ice"},
+		"facing=down":  { "model":"additional_lights:al_lamp/al_lamp_packed_ice", "x": 180 },
+		"facing=east":  { "model":"additional_lights:al_lamp/al_wall_lamp_packed_ice", "y": 0 },
+		"facing=south": { "model":"additional_lights:al_lamp/al_wall_lamp_packed_ice", "y": 90 },
+		"facing=west":  { "model":"additional_lights:al_lamp/al_wall_lamp_packed_ice", "y": 180 },
+		"facing=north": { "model":"additional_lights:al_lamp/al_wall_lamp_packed_ice", "y": 270 }
 	}
 }

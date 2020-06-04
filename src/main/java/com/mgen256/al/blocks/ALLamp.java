@@ -26,8 +26,8 @@ public class ALLamp extends LampAndTorchBase {
         new AxisAlignedBB(0.0, 0.4375, 0.375, 0.25, 0.8125, 0.625), // east
     };
 
-    public ALLamp( Block mainblock ) {
-        super( "al_lamp_", mainblock, mainblock.getMaterial(null) );
+    public ALLamp( Block mainblock, String mainblockName ) {
+        super( "al_lamp_", mainblock, mainblockName, mainblock.getMaterial(null) );
         lightValue = 15;
       }
 

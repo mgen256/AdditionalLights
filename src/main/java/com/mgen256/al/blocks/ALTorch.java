@@ -38,8 +38,8 @@ public class ALTorch extends LampAndTorchBase {
         new AxisAlignedBB( 0.0, 0.125, 0.34375, 0.3125, 0.8125, 0.65625 ), // east
     };
 
-    public ALTorch( Block mainblock ) {
-        super("al_torch_", mainblock,  Material.CIRCUITS );
+    public ALTorch( Block mainblock, String mainblockName ) {
+        super("al_torch_", mainblock, mainblockName, Material.CIRCUITS );
         setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.UP));
         setTickRandomly(true);
         lightValue = 14;
@@ -55,7 +55,8 @@ public class ALTorch extends LampAndTorchBase {
         IBlockState state = worldIn.getBlockState(pos);
         return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
     }
-
+    
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
         for (EnumFacing enumfacing : FACING.getAllowedValues())
         {

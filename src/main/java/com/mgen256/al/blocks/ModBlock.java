@@ -24,20 +24,20 @@ import com.mgen256.al.blocks.IModBlock;
 
 public abstract class ModBlock extends Block implements IModBlock {
 
-    public ModBlock(String basename, Block mainblock, Material material ) {
+    public ModBlock(String basename, Block mainblock, String mainBlockName, Material material ) {
         super(material);
         
         if( mainblock == null )
             name = basename;
         else {
-            name = basename + mainblock.getRegistryName().getPath();
+            name = basename + ( mainBlockName == null ? mainblock.getRegistryName().getPath() : mainBlockName );
             setSoundType(mainblock.getSoundType());
         }
         
         blockRenderLayer = name.contains("glass") ? BlockRenderLayer.CUTOUT : BlockRenderLayer.SOLID;
 
         setTranslationKey(AdditionalLights.MOD_ID + "." + name );
-        setCreativeTab(CreativeTabs.MATERIALS);
+        setCreativeTab( AdditionalLights.MYTAB );
         setRegistryName(name);
         createItem();
     }

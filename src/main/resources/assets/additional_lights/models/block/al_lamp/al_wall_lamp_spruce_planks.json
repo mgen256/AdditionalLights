@@ -2,6 +2,6 @@
     "parent": "additional_lights:block/al_lamp/template_al_wall_lamp_planks",
     
 	"textures": {
-		"main": "block/spruce_planks"
+		"main": "blocks/planks_spruce"
 	}
 }
