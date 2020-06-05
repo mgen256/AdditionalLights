@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_standing_torch_l_nether_bricks",
-	"textures": {
-		"main": "block/red_nether_bricks"
-	}
+    "parent": "additional_lights:block/standing_torch_l/standing_torch_l_red_nether_bricks"
 }

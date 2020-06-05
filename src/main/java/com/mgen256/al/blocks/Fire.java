@@ -4,15 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.annotation.Nullable;
 
 import com.mgen256.al.*;
 
-import akka.japi.Predicate;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.*;
@@ -32,7 +28,7 @@ public class Fire extends ModBlock{
         SHAPES = new LinkedHashMap<FireBlockList, AxisAlignedBB>();
         SHAPES.put( FireBlockList.standing_torch_s, new AxisAlignedBB(0.25, -0.375, 0.25, 0.75, 0.125, 0.75) );
         SHAPES.put( FireBlockList.standing_torch_l, new AxisAlignedBB(0.25, -0.125, 0.25, 0.75, 0.375, 0.75) );
-        SHAPES.put( FireBlockList.fire_pit_s, new AxisAlignedBB(0, -0.625, 0, 1, -0.625, 1) );
+        SHAPES.put( FireBlockList.fire_pit_s, new AxisAlignedBB(0, -0.625, 0, 1, 0.1, 1) );
         SHAPES.put( FireBlockList.fire_pit_l, new AxisAlignedBB(0, -0.125, 0, 1, 0.4375, 1) );
 
         PARTICLE_TYPES = new LinkedHashMap<FireBlockList, EnumParticleTypes>();

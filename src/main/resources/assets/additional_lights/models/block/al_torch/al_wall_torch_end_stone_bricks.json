@@ -1,6 +1,6 @@
 {
     "parent": "additional_lights:block/al_torch/template_al_wall_torch_end_stone_bricks",
     "textures": {
-        "main": "block/end_stone_bricks"
+        "main": "blocks/end_bricks"
         }
 }

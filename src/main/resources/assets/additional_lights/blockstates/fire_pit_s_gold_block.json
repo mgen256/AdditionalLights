@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_s/fire_pit_s_gold_block" }
+        "normal": { "model": "additional_lights:fire_pit_s/fire_pit_s_gold_block" }
     }
 }

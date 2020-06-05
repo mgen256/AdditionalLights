@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_standing_torch_s_polished",
-	"textures": {
-		"main": "block/polished_diorite"
-	}
+    "parent": "additional_lights:block/standing_torch_s/standing_torch_s_polished_diorite"
 }

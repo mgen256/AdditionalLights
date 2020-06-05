@@ -1,6 +1,6 @@
 {
 	"parent": "additional_lights:block/standing_torch_l/template_standing_torch_l_smooth",
 	"textures": {
-		"main": "block/gold_block"
+		"main": "blocks/gold_block"
 	}
 }

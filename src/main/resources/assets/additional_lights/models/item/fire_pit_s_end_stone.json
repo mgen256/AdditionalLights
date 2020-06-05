@@ -1,7 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_fire_pit_s_stone",
-	"textures": {
-		"main": "block/end_stone"
-	}
-	
+    "parent": "additional_lights:block/fire_pit_s/fire_pit_s_end_stone"
 }

@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_end_stone_bricks" }
+        "normal": { "model": "additional_lights:standing_torch_s/standing_torch_s_end_stone_bricks" }
     }
 }

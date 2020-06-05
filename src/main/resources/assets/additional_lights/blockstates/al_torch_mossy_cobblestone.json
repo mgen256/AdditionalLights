@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/al_torch/al_torch_mossy_cobblestone" }
+        "normal": { "model": "additional_lights:al_torch/al_torch_mossy_cobblestone" }
     }
 }

@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/standing_torch_l/standing_torch_l_iron_block" }
+        "normal": { "model": "additional_lights:standing_torch_l/standing_torch_l_iron_block" }
     }
 }

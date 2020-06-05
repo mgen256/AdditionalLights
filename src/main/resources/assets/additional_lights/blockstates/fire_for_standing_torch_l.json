@@ -1,5 +1,5 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire/fire_for_standing_torch_l" }
+        "normal": { "model": "additional_lights:fire/fire_for_standing_torch_l" }
     }
 }

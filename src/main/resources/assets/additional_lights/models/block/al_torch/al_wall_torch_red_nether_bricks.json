@@ -1,6 +1,6 @@
 {
     "parent": "additional_lights:block/al_torch/template_al_wall_torch_nether_bricks",
     "textures": {
-        "main": "block/red_nether_bricks"
+        "main": "blocks/red_nether_brick"
         }
 }

@@ -1,6 +1,3 @@
 {
-    "parent": "additional_lights:item/templates/item_template_standing_torch_s_stone",
-	"textures": {
-		"main": "block/mossy_cobblestone"
-	}
+    "parent": "additional_lights:block/standing_torch_s/standing_torch_s_mossy_cobblestone"
 }
