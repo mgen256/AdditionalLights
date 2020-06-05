@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal": { "model": "additional_lights:al_torch/al_torch_mossy_cobblestone" }
+        "facing=up":  { "model":"additional_lights:al_torch/al_torch_mossy_cobblestone" },
+        "facing=east":  { "model":"additional_lights:al_torch/al_wall_torch_mossy_cobblestone", "y": 0 },
+        "facing=south": { "model":"additional_lights:al_torch/al_wall_torch_mossy_cobblestone", "y": 90 },
+        "facing=west":  { "model":"additional_lights:al_torch/al_wall_torch_mossy_cobblestone", "y": 180 },
+        "facing=north": { "model":"additional_lights:al_torch/al_wall_torch_mossy_cobblestone", "y": 270 }
     }
 }

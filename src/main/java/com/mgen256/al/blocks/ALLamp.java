@@ -28,6 +28,7 @@ public class ALLamp extends LampAndTorchBase {
 
     public ALLamp( Block mainblock, String mainblockName ) {
         super( "al_lamp_", mainblock, mainblockName, mainblock.getMaterial(null) );
+        setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         lightValue = 15;
       }
 

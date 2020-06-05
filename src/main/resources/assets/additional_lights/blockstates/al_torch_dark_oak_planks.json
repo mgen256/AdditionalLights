@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal": { "model": "additional_lights:al_torch/al_torch_dark_oak_planks" }
+        "facing=up":  { "model":"additional_lights:al_torch/al_torch_dark_oak_planks" },
+        "facing=east":  { "model":"additional_lights:al_torch/al_wall_torch_dark_oak_planks", "y": 0 },
+        "facing=south": { "model":"additional_lights:al_torch/al_wall_torch_dark_oak_planks", "y": 90 },
+        "facing=west":  { "model":"additional_lights:al_torch/al_wall_torch_dark_oak_planks", "y": 180 },
+        "facing=north": { "model":"additional_lights:al_torch/al_wall_torch_dark_oak_planks", "y": 270 }
     }
 }

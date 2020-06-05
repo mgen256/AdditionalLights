@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal": { "model": "additional_lights:al_torch/al_torch_packed_ice" }
+        "facing=up":  { "model":"additional_lights:al_torch/al_torch_packed_ice" },
+        "facing=east":  { "model":"additional_lights:al_torch/al_wall_torch_packed_ice", "y": 0 },
+        "facing=south": { "model":"additional_lights:al_torch/al_wall_torch_packed_ice", "y": 90 },
+        "facing=west":  { "model":"additional_lights:al_torch/al_wall_torch_packed_ice", "y": 180 },
+        "facing=north": { "model":"additional_lights:al_torch/al_wall_torch_packed_ice", "y": 270 }
     }
 }

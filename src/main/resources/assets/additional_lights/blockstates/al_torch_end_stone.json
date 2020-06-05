@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal": { "model": "additional_lights:al_torch/al_torch_end_stone" }
+        "facing=up":  { "model":"additional_lights:al_torch/al_torch_end_stone" },
+        "facing=east":  { "model":"additional_lights:al_torch/al_wall_torch_end_stone", "y": 0 },
+        "facing=south": { "model":"additional_lights:al_torch/al_wall_torch_end_stone", "y": 90 },
+        "facing=west":  { "model":"additional_lights:al_torch/al_wall_torch_end_stone", "y": 180 },
+        "facing=north": { "model":"additional_lights:al_torch/al_wall_torch_end_stone", "y": 270 }
     }
 }

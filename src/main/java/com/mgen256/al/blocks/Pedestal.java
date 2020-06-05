@@ -19,6 +19,11 @@ public abstract class Pedestal extends ModBlock {
 
     public Pedestal( String basename, Block mainblock, String mainblockName ) {
         super( basename, mainblock, mainblockName, mainblock.getMaterial(null) );
+        
+        IBlockState defaultState = mainblock.getDefaultState();
+        setResistance( mainblock.getExplosionResistance( null ) );
+        setHarvestLevel(mainblock.getHarvestTool(defaultState), mainblock.getHarvestLevel(defaultState));
+        setHardness(mainblock.getBlockHardness(null, null, null));
     }
 
     protected abstract ModBlockList getFireKey();

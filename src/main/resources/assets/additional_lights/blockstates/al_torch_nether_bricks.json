@@ -1,5 +1,9 @@
 {
     "variants": {
-        "normal": { "model": "additional_lights:al_torch/al_torch_nether_bricks" }
+        "facing=up":  { "model":"additional_lights:al_torch/al_torch_nether_bricks" },
+        "facing=east":  { "model":"additional_lights:al_torch/al_wall_torch_nether_bricks", "y": 0 },
+        "facing=south": { "model":"additional_lights:al_torch/al_wall_torch_nether_bricks", "y": 90 },
+        "facing=west":  { "model":"additional_lights:al_torch/al_wall_torch_nether_bricks", "y": 180 },
+        "facing=north": { "model":"additional_lights:al_torch/al_wall_torch_nether_bricks", "y": 270 }
     }
 }
