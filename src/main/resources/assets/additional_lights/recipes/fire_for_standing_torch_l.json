@@ -2,8 +2,8 @@
     "type": "minecraft:crafting_shapeless",
     "group": "fire",
     "ingredients": [
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ]
+        [ { "item": "minecraft:coal", "data": 0 }, { "item": "minecraft:coal", "data": 1 } ],
+        [ { "item": "minecraft:coal", "data": 0 }, { "item": "minecraft:coal", "data": 1 } ]
       ],
     "result":{
         "item":"additional_lights:fire_for_standing_torch_l",
