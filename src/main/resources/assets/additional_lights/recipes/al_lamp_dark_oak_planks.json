@@ -10,7 +10,7 @@
         "item": "minecraft:glowstone"
       },
       "X": {
-        "item": "minecraft:dark_oak_planks"
+        "item": "minecraft:planks", "data": 5
       }
     },
     "result":{

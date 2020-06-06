@@ -9,15 +9,15 @@
   "key": {
       "#": [
         {
-            "item": "minecraft:coal"
+            "item": "minecraft:coal", "data": 0
         },
         {
-            "item": "minecraft:charcoal"
+            "item": "minecraft:coal", "data": 1
         }
     ]
       ,
       "X": {
-        "item": "minecraft:polished_granite"
+        "item": "minecraft:stone", "data": 2
       }
     },
     "result":{

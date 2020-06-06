@@ -10,7 +10,7 @@
         "item": "minecraft:glowstone"
       },
       "X": {
-        "item": "minecraft:magenta_wool"
+        "item": "minecraft:wool", "data": 2
       }
     },
     "result":{

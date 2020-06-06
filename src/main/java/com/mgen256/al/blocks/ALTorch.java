@@ -6,12 +6,13 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Predicate;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
@@ -182,5 +183,13 @@ public class ALTorch extends LampAndTorchBase {
             worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, dx, dy, dz, 0.0D, 0.0D, 0.0D);
             worldIn.spawnParticle(EnumParticleTypes.FLAME,        dx, dy, dz, 0.0D, 0.0D, 0.0D);
         }
+    }
+
+    @Override
+    protected boolean isExceptionBlockForAttaching2(Block attachBlock) {
+        return attachBlock instanceof BlockShulkerBox || attachBlock instanceof BlockLeaves 
+        || attachBlock instanceof BlockTrapDoor || attachBlock == Blocks.BEACON || attachBlock == Blocks.CAULDRON 
+        || attachBlock == Blocks.GLOWSTONE || attachBlock == Blocks.ICE 
+        || attachBlock == Blocks.SEA_LANTERN || attachBlock == Blocks.STAINED_GLASS;
     }
 }

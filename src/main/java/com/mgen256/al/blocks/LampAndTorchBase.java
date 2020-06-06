@@ -24,6 +24,7 @@ public abstract class LampAndTorchBase extends ModBlock {
     }
 
     abstract PropertyDirection getFacing();
+    abstract boolean isExceptionBlockForAttaching2(Block attachBlock);
 
     @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
@@ -75,10 +76,5 @@ public abstract class LampAndTorchBase extends ModBlock {
         || attachBlock == Blocks.STICKY_PISTON || attachBlock == Blocks.PISTON_HEAD;
     }
 
-    protected boolean isExceptionBlockForAttaching2(Block attachBlock) {
-        return attachBlock instanceof BlockShulkerBox || attachBlock instanceof BlockLeaves 
-        || attachBlock instanceof BlockTrapDoor || attachBlock == Blocks.BEACON || attachBlock == Blocks.CAULDRON 
-        || attachBlock == Blocks.GLOWSTONE || attachBlock == Blocks.ICE 
-        || attachBlock == Blocks.SEA_LANTERN || attachBlock == Blocks.STAINED_GLASS;
-    }
+
 }

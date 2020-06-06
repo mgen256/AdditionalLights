@@ -1,11 +1,14 @@
 package com.mgen256.al.blocks;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockShulkerBox;
+import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -130,4 +133,11 @@ public class ALLamp extends LampAndTorchBase {
         }
     }
 
+    @Override
+    protected boolean isExceptionBlockForAttaching2(Block attachBlock) {
+        return attachBlock instanceof BlockShulkerBox || attachBlock instanceof BlockTrapDoor 
+        || attachBlock == Blocks.BEACON || attachBlock == Blocks.CAULDRON 
+        || attachBlock == Blocks.GLOWSTONE || attachBlock == Blocks.ICE 
+        || attachBlock == Blocks.SEA_LANTERN || attachBlock == Blocks.STAINED_GLASS;
+    }
 }

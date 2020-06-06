@@ -1,15 +1,15 @@
 [
 {
   "modid": "additional_lights",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
-  "version": "${version}",
-  "mcversion": "${mcversion}",
+  "name": "Additional Lights",
+  "description": "",
+  "version": "1.12.2-1.2.0",
+  "mcversion": "1.12.2",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
-  "credits": "The Forge and FML guys, for making this example",
-  "logoFile": "",
+  "authorList": ["mgen256"],
+  "credits": "",
+  "logoFile": "assets/additional_lights/logo.png",
   "screenshots": [],
   "dependencies": []
 }

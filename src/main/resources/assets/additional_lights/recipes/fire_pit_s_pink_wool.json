@@ -8,15 +8,15 @@
   "key": {
       "#": [
         {
-            "item": "minecraft:coal"
+            "item": "minecraft:coal", "data": 0
         },
         {
-            "item": "minecraft:charcoal"
+            "item": "minecraft:coal", "data": 1
         }
     ]
       ,
       "X": {
-        "item": "minecraft:pink_wool"
+        "item": "minecraft:wool", "data": 6
       }
     },
     "result":{

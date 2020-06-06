@@ -11,7 +11,7 @@
         "item": "minecraft:torch"
       },
       "X": {
-        "item": "minecraft:mossy_stone_bricks"
+        "item": "minecraft:stonebrick", "data": 1
       }
     },
     "result":{

@@ -11,7 +11,7 @@
         "item": "minecraft:torch"
       },
       "X": {
-        "item": "minecraft:stone_bricks"
+        "item": "minecraft:stonebrick", "data": 0
       }
     },
     "result":{
