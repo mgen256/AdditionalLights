@@ -130,7 +130,7 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
         Direction direction = state.get(BlockStateProperties.FACING);
         BlockPos blockpos = pos.offset(direction.getOpposite());
 
-        return !worldIn.isAirBlock( blockpos );
+        return !worldIn.isAirBlock( blockpos ) && !( worldIn.getBlockState(blockpos).getBlock() == this );
     }
 
     private boolean GrassIsPlaced( IWorldReader worldIn, BlockPos pos )
