@@ -45,10 +45,17 @@ public class AdditionalLights {
 
     static {
         final ItemGroup itemGroup = new ItemGroup(MOD_ID) {
+
             @Override
             public ItemStack createIcon() {
                 return new ItemStack(modBlocks.get(ModBlockList.ALTorch_Oak));
             }
+
+            @Override
+            public boolean hasSearchBar() {
+                return true;
+            }
+
             @Override
             public void fill(final NonNullList<ItemStack> itemStacks) {
                 itemStacks.clear();
@@ -63,7 +70,8 @@ public class AdditionalLights {
                     itemStacks.add(new ItemStack(item));
                 }
             }
-        };
+            
+        }.setBackgroundImageName("item_search.png").setNoTitle();
         ItemProps = new Item.Properties().group(itemGroup);
     }
 
@@ -174,7 +182,7 @@ public class AdditionalLights {
             put(ModBlockList.StandingTorch_S_Red_Nether_Bricks, new StandingTorch_S(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.StandingTorch_S_Smooth_Stone, new StandingTorch_S(Blocks.SMOOTH_STONE));
             put(ModBlockList.StandingTorch_S_Polished_Andesite, new StandingTorch_S(Blocks.POLISHED_ANDESITE));
-            put(ModBlockList.StandingTorch_S_Polished_Diori, new StandingTorch_S(Blocks.POLISHED_DIORITE));
+            put(ModBlockList.StandingTorch_S_Polished_Diorite, new StandingTorch_S(Blocks.POLISHED_DIORITE));
             put(ModBlockList.StandingTorch_S_Polished_Granite, new StandingTorch_S(Blocks.POLISHED_GRANITE));
             put(ModBlockList.StandingTorch_S_Stone, new StandingTorch_S(Blocks.STONE));
             put(ModBlockList.StandingTorch_S_CobbleStone, new StandingTorch_S(Blocks.COBBLESTONE));
@@ -194,7 +202,7 @@ public class AdditionalLights {
             put(ModBlockList.StandingTorch_L_Red_Nether_Bricks, new StandingTorch_L(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.StandingTorch_L_Smooth_Stone, new StandingTorch_L(Blocks.SMOOTH_STONE));
             put(ModBlockList.StandingTorch_L_Polished_Andesite, new StandingTorch_L(Blocks.POLISHED_ANDESITE));
-            put(ModBlockList.StandingTorch_L_Polished_Diori, new StandingTorch_L(Blocks.POLISHED_DIORITE));
+            put(ModBlockList.StandingTorch_L_Polished_Diorite, new StandingTorch_L(Blocks.POLISHED_DIORITE));
             put(ModBlockList.StandingTorch_L_Polished_Granite, new StandingTorch_L(Blocks.POLISHED_GRANITE));
             put(ModBlockList.StandingTorch_L_Stone, new StandingTorch_L(Blocks.STONE));
             put(ModBlockList.StandingTorch_L_CobbleStone, new StandingTorch_L(Blocks.COBBLESTONE));
@@ -214,7 +222,7 @@ public class AdditionalLights {
             put(ModBlockList.FirePit_S_Red_Nether_Bricks, new FirePit_S(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.FirePit_S_Smooth_Stone, new FirePit_S(Blocks.SMOOTH_STONE));
             put(ModBlockList.FirePit_S_Polished_Andesite, new FirePit_S(Blocks.POLISHED_ANDESITE));
-            put(ModBlockList.FirePit_S_Polished_Diori, new FirePit_S(Blocks.POLISHED_DIORITE));
+            put(ModBlockList.FirePit_S_Polished_Diorite, new FirePit_S(Blocks.POLISHED_DIORITE));
             put(ModBlockList.FirePit_S_Polished_Granite, new FirePit_S(Blocks.POLISHED_GRANITE));
             put(ModBlockList.FirePit_S_Stone, new FirePit_S(Blocks.STONE));
             put(ModBlockList.FirePit_S_CobbleStone, new FirePit_S(Blocks.COBBLESTONE));

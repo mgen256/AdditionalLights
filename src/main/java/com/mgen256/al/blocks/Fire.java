@@ -28,7 +28,7 @@ public class Fire extends ModBlock {
         SHAPES = new LinkedHashMap<FireBlockList, VoxelShape>();
         SHAPES.put( FireBlockList.standing_torch_s, Block.makeCuboidShape(4.0D, -6.0D, 4.0D, 12.0D, 2.0D, 12.0D) );
         SHAPES.put( FireBlockList.standing_torch_l, Block.makeCuboidShape(4.0D, -2.0D, 4.0D, 12.0D, 6.0D, 12.0D) );
-        SHAPES.put( FireBlockList.fire_pit_s, Block.makeCuboidShape(0.0D, -10.0D, 0.0D, 16.0D, -1.0D, 16.0D) );
+        SHAPES.put( FireBlockList.fire_pit_s, Block.makeCuboidShape(0.0D, -10.0D, 0.0D, 16.0D, 2.0D, 16.0D) );
         SHAPES.put( FireBlockList.fire_pit_l, Block.makeCuboidShape(0.0D, -2.0D, 0.0D, 16.0D, 7.0D, 16.0D) );
 
         PARTICLE_TYPES = new LinkedHashMap<FireBlockList, BasicParticleType>();
@@ -45,19 +45,7 @@ public class Fire extends ModBlock {
     }
 
     private static Properties createProps(){
-       Material material = new Material(
-        MaterialColor.AIR,
-        false, //isLiquid
-        false,  //isSolid
-        true, //Blocks Movement
-        true, //isOpaque
-        true, //requires no tool
-        false, //isFlammable
-        false, //isReplaceable
-        PushReaction.NORMAL
-        );
-
-        Properties p = Block.Properties.create(material);
+        Properties p = Block.Properties.create(Material.MISCELLANEOUS);
         p.lightValue(15);
         p.hardnessAndResistance(0.0f);
         p.doesNotBlockMovement();
@@ -115,8 +103,7 @@ public class Fire extends ModBlock {
     }
   
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        BlockState blockstate = worldIn.getBlockState(pos.down());
-        return !worldIn.isAirBlock(pos.down()) && !blockstate.getMaterial().isLiquid();
+        return !worldIn.isAirBlock(pos.down());
         }
 
     @Override
