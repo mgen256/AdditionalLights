@@ -1,8 +1,6 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockShulkerBox;
-import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.*;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -46,19 +44,18 @@ public class ALLamp extends LampAndTorchBase {
     }
 
     @Override
-    public BlockFaceShape getBlockFaceShape( IBlockAccess access, IBlockState state, BlockPos pos, EnumFacing facing) {
-        return BlockFaceShape.UNDEFINED;
-    }
-
-    @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing
     , float hitX, float hitY, float hitZ, int meta,EntityLivingBase placer) {
-        return getDefaultState().withProperty(FACING, facing);//
-    }
 
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.checkForDrop(worldIn, pos, state);
+        for (EnumFacing enumfacing : EnumFacing.Plane.VERTICAL )
+            if (this.canPlaceAt(worldIn, pos, enumfacing))
+                return this.getDefaultState().withProperty(FACING, enumfacing);
+
+        for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL)
+            if (this.canPlaceAt(worldIn, pos, enumfacing))
+                return this.getDefaultState().withProperty(FACING, enumfacing);
+
+        return this.getDefaultState();
     }
 
     @Override
@@ -76,7 +73,7 @@ public class ALLamp extends LampAndTorchBase {
             BlockPos blockpos = pos.offset(enumfacing1);
             boolean flag = false;
 
-            if (worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, enumfacing) != BlockFaceShape.SOLID)
+            if (worldIn.getBlockState(blockpos).getBlockFaceShape(worldIn, blockpos, enumfacing) == BlockFaceShape.UNDEFINED)
                 flag = true;
 
             if (flag)
@@ -95,42 +92,34 @@ public class ALLamp extends LampAndTorchBase {
         return true;
     }
 
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing){
+    public boolean canPlaceTopOrDown(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing)
+    {
+        BlockFaceShape shape = state.getBlockFaceShape(world, pos, facing);
+        return (shape == BlockFaceShape.SOLID || shape == BlockFaceShape.CENTER 
+            || shape == BlockFaceShape.CENTER_BIG) && !isExceptionBlockForAttaching2(this);
+    }
+
+    @Override
+    protected boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing){
         BlockPos blockpos = pos.offset(facing.getOpposite());
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
         BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
-
-        if ( blockfaceshape != BlockFaceShape.UNDEFINED )
-            return !isExceptBlockForAttachWithPiston2(block) ;
+        
+        if ( ( facing.equals(EnumFacing.UP) || facing.equals(EnumFacing.DOWN) ) && canPlaceTopOrDown( iblockstate, worldIn, blockpos, facing))
+            return true;
+        else if (facing != EnumFacing.UP )
+            return !isExceptBlockForAttachWithPiston2(block) && blockfaceshape != BlockFaceShape.UNDEFINED;
         else
             return false;
     }
 
-    //
-    @Override
-    public boolean canPlaceBlockOnSide( World worldIn, BlockPos pos, EnumFacing facing ){
-        return this.canPlaceBlockAt(worldIn, pos);
-    }
-
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
         for (EnumFacing enumfacing : FACING.getAllowedValues())
-            if (this.canPlaceAt(worldIn, pos, enumfacing))
+            if (canPlaceAt(worldIn, pos, enumfacing))
                 return true;
 
         return false;
-    }
-
-    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-        if (state.getBlock() == this && canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING)))
-            return true;
-        else {
-            if (worldIn.getBlockState(pos).getBlock() == this)  {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
-                worldIn.setBlockToAir(pos);
-            }
-        return false;
-        }
     }
 
     @Override

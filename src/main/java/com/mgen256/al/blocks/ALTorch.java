@@ -16,7 +16,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -51,17 +50,12 @@ public class ALTorch extends LampAndTorchBase {
     protected PropertyDirection getFacing(){
         return FACING;
     }
-
-    private boolean canPlaceOn(World worldIn, BlockPos pos){
-        IBlockState state = worldIn.getBlockState(pos);
-        return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
-    }
     
     @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
         for (EnumFacing enumfacing : FACING.getAllowedValues())
         {
-            if (this.canPlaceAt(worldIn, pos, enumfacing))
+            if (canPlaceAt(worldIn, pos, enumfacing))
             {
                 return true;
             }
@@ -69,7 +63,8 @@ public class ALTorch extends LampAndTorchBase {
         return false;
     }
 
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing){
+    @Override
+    protected boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing){
         BlockPos blockpos = pos.offset(facing.getOpposite());
         IBlockState iblockstate = worldIn.getBlockState(blockpos);
         Block block = iblockstate.getBlock();
@@ -93,11 +88,6 @@ public class ALTorch extends LampAndTorchBase {
     }
 
     @Override
-    public BlockFaceShape getBlockFaceShape( IBlockAccess access, IBlockState state, BlockPos pos, EnumFacing facing) {
-        return BlockFaceShape.UNDEFINED;
-    }
-
-    @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing
     , float hitX, float hitY, float hitZ, int meta,EntityLivingBase placer) {
         if (this.canPlaceAt(worldIn, pos, facing))
@@ -109,12 +99,6 @@ public class ALTorch extends LampAndTorchBase {
 
             return this.getDefaultState();
         }
-    }
- 
-    
-    @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-        this.checkForDrop(worldIn, pos, state);
     }
 
     @Override
@@ -146,18 +130,6 @@ public class ALTorch extends LampAndTorchBase {
             }
             else
                 return false;
-        }
-    }
-
-    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-        if (state.getBlock() == this && this.canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(FACING)))
-            return true;
-        else {
-            if (worldIn.getBlockState(pos).getBlock() == this)  {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
-                worldIn.setBlockToAir(pos);
-            }
-            return false;
         }
     }
 

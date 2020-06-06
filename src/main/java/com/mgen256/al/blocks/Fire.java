@@ -105,36 +105,6 @@ public class Fire extends ModBlock{
         return !worldIn.isAirBlock(pos.down());
     }
 
-    /*
-    private boolean canPlaceOn(World worldIn, BlockPos pos){
-        IBlockState state = worldIn.getBlockState(pos);
-        return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
-    }
-    
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
-        for (EnumFacing enumfacing : FACING.getAllowedValues())
-            if (this.canPlaceAt(worldIn, pos, enumfacing))
-                return true;
-                
-        return false;
-    }
-
-    
-    private boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing){
-        BlockPos blockpos = pos.offset(facing.getOpposite());
-        IBlockState iblockstate = worldIn.getBlockState(blockpos);
-        Block block = iblockstate.getBlock();
-        BlockFaceShape blockfaceshape = iblockstate.getBlockFaceShape(worldIn, blockpos, facing);
-
-        if (facing.equals(EnumFacing.UP) && this.canPlaceOn(worldIn, blockpos))
-            return true;
-        else if (facing != EnumFacing.UP && facing != EnumFacing.DOWN)
-            return !isExceptBlockForAttachWithPiston2(block) && blockfaceshape == BlockFaceShape.SOLID;
-        else
-            return false;
-    }
-*/
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         this.checkForDrop(worldIn, pos, state);
@@ -148,24 +118,4 @@ public class Fire extends ModBlock{
         else
             return true;
     }
-    /*
-    protected float getFireDamageAmount() {
-        return 0.0F;
-    }
-
-    @Override
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
-        if (!entityIn.isImmuneToFire() && entityIn instanceof EntityLivingBase 
-            && !EnchantmentHelper.hasFrostWalkerEnchantment((EntityLivingBase)entityIn))
-        {
-            entityIn.attackEntityFrom(DamageSource.IN_FIRE, getFireDamageAmount() );
-        }
-        super.onEntityWalk(worldIn, pos, entityIn);
-    }
-
-    @Override
-    public boolean canEntitySpawn(IBlockState state, Entity entityIn) {
-        return entityIn.isImmuneToFire();
-    }
-    */
 }

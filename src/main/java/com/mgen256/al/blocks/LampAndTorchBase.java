@@ -3,6 +3,7 @@ package com.mgen256.al.blocks;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -11,6 +12,7 @@ import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraft.util.math.AxisAlignedBB;
 
 
@@ -25,6 +27,7 @@ public abstract class LampAndTorchBase extends ModBlock {
 
     abstract PropertyDirection getFacing();
     abstract boolean isExceptionBlockForAttaching2(Block attachBlock);
+    abstract boolean canPlaceAt(World worldIn, BlockPos pos, EnumFacing facing);
 
     @Override
     public boolean isPassable(IBlockAccess worldIn, BlockPos pos) {
@@ -67,6 +70,11 @@ public abstract class LampAndTorchBase extends ModBlock {
     }
 
     @Override
+    public BlockFaceShape getBlockFaceShape( IBlockAccess access, IBlockState state, BlockPos pos, EnumFacing facing) {
+        return BlockFaceShape.UNDEFINED;
+    }
+
+    @Override
     public IBlockState getStateFromMeta( int meta ) {
         return getDefaultState().withProperty( getFacing(), EnumFacing.values()[meta] );
     }
@@ -76,5 +84,26 @@ public abstract class LampAndTorchBase extends ModBlock {
         || attachBlock == Blocks.STICKY_PISTON || attachBlock == Blocks.PISTON_HEAD;
     }
 
+    @Override
+    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+        this.checkForDrop(worldIn, pos, state);
+    }
+    
+    protected boolean canPlaceOn(World worldIn, BlockPos pos){
+        IBlockState state = worldIn.getBlockState(pos);
+        return state.getBlock().canPlaceTorchOnTop(state, worldIn, pos);
+    }
+    
+    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
+        if (state.getBlock() == this && canPlaceAt(worldIn, pos, (EnumFacing)state.getValue(getFacing())))
+            return true;
+        else {
+            if (worldIn.getBlockState(pos).getBlock() == this)  {
+                this.dropBlockAsItem(worldIn, pos, state, 0);
+                worldIn.setBlockToAir(pos);
+            }
+        return false;
+        }
+    }
 
 }
