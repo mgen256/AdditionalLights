@@ -9,7 +9,7 @@
   "updateUrl": "",
   "authorList": ["mgen256"],
   "credits": "",
-  "logoFile": "assets/additional_lights/logo.png",
+  "logoFile": "logo.png",
   "screenshots": [],
   "dependencies": []
 }
