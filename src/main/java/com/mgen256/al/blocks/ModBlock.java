@@ -84,4 +84,9 @@ public abstract class ModBlock extends Block implements IModBlock {
 
         return list;
     }
+
+    protected void Log( String string )
+    {
+        AdditionalLights.Log(string);
+    }
 }

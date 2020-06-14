@@ -1,0 +1,8 @@
+{
+    "parent": "additional_lights:block/fire/fire_for_fire_pit_l_set",
+	"textures": {
+		"fire": "additional_lights:block/fire2",
+		"particle": "additional_lights:block/fire2",
+		"texture2": "additional_lights:block/fire_lit2"
+	}
+}

@@ -177,4 +177,8 @@ Fire_For_StandingTorch_L,
 Fire_For_FirePit_S,
 Fire_For_FirePit_L,
 
+SoulFire_For_StandingTorch_S,
+SoulFire_For_StandingTorch_L,
+SoulFire_For_FirePit_S,
+SoulFire_For_FirePit_L,
 }

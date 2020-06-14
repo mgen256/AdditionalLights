@@ -5,12 +5,12 @@ import com.mgen256.al.*;
 import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
 
-public class Fire extends FireBase {
+public class Fire_Soul extends FireBase {
     
     public static BooleanProperty SET = BooleanProperty.create("set");
 
-    public Fire( PedestalBlockList pedestalKey ) {
-        super( "fire_for_", pedestalKey );
+    public Fire_Soul( PedestalBlockList pedestalKey ) {
+        super( "soul_fire_for_", pedestalKey );
       }
 
     protected float getFireDamageAmount() {
@@ -21,4 +21,5 @@ public class Fire extends FireBase {
     public int getLightValue(BlockState state) {
         return 10;
      }
+
 }

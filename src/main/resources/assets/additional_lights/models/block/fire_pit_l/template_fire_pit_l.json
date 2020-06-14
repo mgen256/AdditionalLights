@@ -1,7 +1,7 @@
 {
 	"textures": {
 		"texture": "#main",
-		"texture2": "additional_lights:block/fire_lit",
+		"texture2": "block/coal_block",
 		"particle": "#main"
 	},
 

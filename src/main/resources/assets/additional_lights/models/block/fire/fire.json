@@ -1,7 +1,7 @@
 {
 	"textures": {
-		"fire": "block/campfire_fire",
-		"particle": "block/campfire_fire"
+		"fire": "additional_lights:block/fire",
+		"particle": "additional_lights:block/fire"
 	},
 
 	"gui_light": "front"

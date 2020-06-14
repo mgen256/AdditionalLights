@@ -1,0 +1,40 @@
+{
+    "parent": "additional_lights:block/fire/fire_for_fire_pit_l",
+	"textures": {
+		"fire": "additional_lights:block/fire",
+		"particle": "additional_lights:block/fire",
+		"texture2": "additional_lights:block/fire_lit"
+	},
+	"elements": [ 	 
+		{
+			"from": [ 0.9289, -2, 8 ],
+			"to": [ 14.9289, 7, 8.001 ],
+			"rotation": { "origin": [ 8, 1, 8 ], "axis": "y", "angle": 45, "rescale": true },
+			"shade": false,
+			"faces": {
+				"north": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" },
+				"south": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" }
+			}
+		},
+		{
+			"from": [ 0.9289, -2, 8 ],
+			"to": [ 14.9289, 7, 8.001 ],
+			"rotation": { "origin": [ 8, 1, 8 ], "axis": "y", "angle": -45, "rescale": true },
+			"shade": false,
+			"faces": {
+				"north": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" },
+				"south": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" }
+			}
+		},
+		{
+			"from": [ 2, -1.9, 2 ],
+			"to": [ 14, -1.9001, 14 ],
+			"faces": {
+				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture2" },
+				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture2" }
+			}
+		}
+	]
+
+
+}

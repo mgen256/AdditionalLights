@@ -1,11 +1,16 @@
 package com.mgen256.al;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
+import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -23,14 +28,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.mgen256.al.blocks.StandingTorch_S;
-import com.mgen256.al.blocks.StandingTorch_L;
-import com.mgen256.al.blocks.FirePit_S;
-import com.mgen256.al.blocks.IModBlock;
-import com.mgen256.al.blocks.ALLamp;
-import com.mgen256.al.blocks.FirePit_L;
-import com.mgen256.al.blocks.ALTorch;
-import com.mgen256.al.blocks.ALTorch_Wall;
-import com.mgen256.al.blocks.Fire;
+import com.mgen256.al.items.*;
+import com.mgen256.al.blocks.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AdditionalLights.MOD_ID)
@@ -40,6 +39,7 @@ public class AdditionalLights {
 
     public static Item.Properties ItemProps; // BlockItem sakusei jini sansho sareru
     public static Map<ModBlockList, Block> modBlocks;
+    public static Map<ModItemList, Item> modItems;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -60,6 +60,7 @@ public class AdditionalLights {
             public void fill(final NonNullList<ItemStack> itemStacks) {
                 itemStacks.clear();
 
+                // blocks
                 for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
                     final IModBlock block = (IModBlock) entry.getValue();
                     if( block.notRequireItemRegistration())
@@ -68,6 +69,11 @@ public class AdditionalLights {
                     final Item item = block.getBlockItem();
                     //if (item.getCreativeTabs().contains(this))
                     itemStacks.add(new ItemStack(item));
+                }
+
+                // items
+                for( Entry<ModItemList, Item> entry : modItems.entrySet() ){
+                    itemStacks.add(new ItemStack(entry.getValue()));  
                 }
             }
 
@@ -257,13 +263,25 @@ public class AdditionalLights {
             put(ModBlockList.FirePit_L_Magenta_Wool, new FirePit_L(Blocks.MAGENTA_WOOL));
 
                                         
-            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( FireBlockList.standing_torch_s ));
-            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( FireBlockList.standing_torch_l ));
-            put(ModBlockList.Fire_For_FirePit_S, new Fire( FireBlockList.fire_pit_s ));
-            put(ModBlockList.Fire_For_FirePit_L, new Fire( FireBlockList.fire_pit_l ));
+            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( PedestalBlockList.standing_torch_s ));
+            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( PedestalBlockList.standing_torch_l ));
+            put(ModBlockList.Fire_For_FirePit_S, new Fire( PedestalBlockList.fire_pit_s ));
+            put(ModBlockList.Fire_For_FirePit_L, new Fire( PedestalBlockList.fire_pit_l ));
+                                                    
+            put(ModBlockList.SoulFire_For_FirePit_L, new Fire_Soul( PedestalBlockList.fire_pit_l ));
+            //put(ModBlockList.Fire_For_StandingTorch_L, new Fire( PedestalBlockList.standing_torch_l ));
+            //put(ModBlockList.Fire_For_FirePit_S, new Fire( PedestalBlockList.fire_pit_s ));
+            //put(ModBlockList.Fire_For_FirePit_L, new Fire( PedestalBlockList.fire_pit_l ));
+
        }
         };
         
+        modItems = new LinkedHashMap<ModItemList, Item>(){ 
+            private static final long serialVersionUID = 3L;
+            {
+                put( ModItemList.SoulWand, new SoulWand() );
+            }};
+
         for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
             ((IModBlock) entry.getValue()).init();
     }
@@ -296,16 +314,21 @@ public class AdditionalLights {
                     continue;
                 itemRegistry.register(block.getBlockItem());
             }
+
+            
+            for( Entry<ModItemList, Item> entry : modItems.entrySet() ){
+                itemRegistry.register( entry.getValue() );
+            }
+            
         }
 
         @SubscribeEvent
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             init();
-
             final IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
             for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
                 blockRegistry.register(entry.getValue());
         }
-
     }
+
 }
