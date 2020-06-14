@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_polished_granite" }
+        "firetype=normal": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_polished_granite" },
+        "firetype=soul": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_polished_granite_soulfire" }
     }
 }
