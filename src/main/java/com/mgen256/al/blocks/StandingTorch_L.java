@@ -23,11 +23,10 @@ public class StandingTorch_L extends StandingTorchBase {
 
     @Override
     protected ModBlockList getFireKey( BlockState state ) {
-
       switch( state.get(FIRE_TYPE) )
       {
         case SOUL:
-          return ModBlockList.Fire_For_StandingTorch_L;
+          return ModBlockList.SoulFire_For_StandingTorch_L;
         default:
           return ModBlockList.Fire_For_StandingTorch_L;
       }

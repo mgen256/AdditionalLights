@@ -1,7 +1,6 @@
 package com.mgen256.al.items;
 
 import com.mgen256.al.FireTypes;
-import com.mgen256.al.blocks.FirePit_L;
 import com.mgen256.al.blocks.Pedestal;
 
 import net.minecraft.block.Block;
@@ -44,14 +43,12 @@ public class SoulWand extends Wand {
         BlockPos pos = blockRayTraceResult.getPos();
         BlockState state = worldIn.getBlockState(pos);
         Block block = state.getBlock();
-
-        if( block instanceof FirePit_L )
+        if( block instanceof Pedestal )
         {
             Pedestal pedestal = (Pedestal)block;
             BlockState newState = pedestal.setFireType( worldIn, pos, state, playerIn.isSneaking() ? FireTypes.NORMAL : FireTypes.SOUL );
             pedestal.setFire(worldIn, pos, newState, true );
         }
-        
         return new ActionResult<ItemStack>(ActionResultType.CONSUME, stack);
     }
 

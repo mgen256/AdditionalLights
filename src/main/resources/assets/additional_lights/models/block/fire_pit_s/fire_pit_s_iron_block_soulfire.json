@@ -1,0 +1,6 @@
+{
+	"parent": "additional_lights:block/fire_pit_s/fire_pit_s_iron_block",
+	"textures": {
+		"texture2": "block/soul_sand"
+	}
+}

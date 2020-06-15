@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/standing_torch_l/standing_torch_l_magenta_wool" }
+        "firetype=normal": { "model": "additional_lights:block/standing_torch_l/standing_torch_l_magenta_wool" },
+        "firetype=soul": { "model": "additional_lights:block/standing_torch_l/standing_torch_l_magenta_wool_soulfire" }
     }
 }

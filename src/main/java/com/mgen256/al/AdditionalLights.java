@@ -1,16 +1,11 @@
 package com.mgen256.al;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -268,10 +263,10 @@ public class AdditionalLights {
             put(ModBlockList.Fire_For_FirePit_S, new Fire( PedestalBlockList.fire_pit_s ));
             put(ModBlockList.Fire_For_FirePit_L, new Fire( PedestalBlockList.fire_pit_l ));
                                                     
+            put(ModBlockList.SoulFire_For_StandingTorch_S, new Fire_Soul( PedestalBlockList.standing_torch_s ));
+            put(ModBlockList.SoulFire_For_StandingTorch_L, new Fire_Soul( PedestalBlockList.standing_torch_l ));
+            put(ModBlockList.SoulFire_For_FirePit_S, new Fire_Soul( PedestalBlockList.fire_pit_s ));
             put(ModBlockList.SoulFire_For_FirePit_L, new Fire_Soul( PedestalBlockList.fire_pit_l ));
-            //put(ModBlockList.Fire_For_StandingTorch_L, new Fire( PedestalBlockList.standing_torch_l ));
-            //put(ModBlockList.Fire_For_FirePit_S, new Fire( PedestalBlockList.fire_pit_s ));
-            //put(ModBlockList.Fire_For_FirePit_L, new Fire( PedestalBlockList.fire_pit_l ));
 
        }
         };

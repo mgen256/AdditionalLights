@@ -19,6 +19,6 @@ public class Fire extends FireBase {
 
     @Override
     public int getLightValue(BlockState state) {
-        return 10;
+        return 15;
      }
 }

@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_polished_diorite" }
+        "firetype=normal": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_polished_diorite" },
+        "firetype=soul": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_polished_diorite_soulfire" }
     }
 }

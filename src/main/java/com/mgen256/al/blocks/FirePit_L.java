@@ -20,7 +20,6 @@ public class FirePit_L extends FirePitBase {
 
     @Override
     protected ModBlockList getFireKey( BlockState state ) {
-      Log("retern " + state.get(FIRE_TYPE));
       switch( state.get(FIRE_TYPE) )
       {
         case SOUL:

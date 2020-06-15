@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "set=false": { "model": "additional_lights:block/fire/soul_fire_for_standing_torch_l" },
+        "set=true": { "model": "additional_lights:block/fire/soul_fire_for_standing_torch_l_set" }
+    }
+}

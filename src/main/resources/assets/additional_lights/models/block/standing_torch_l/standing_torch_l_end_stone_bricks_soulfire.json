@@ -1,0 +1,6 @@
+{
+	"parent": "additional_lights:block/standing_torch_l/standing_torch_l_end_stone_bricks",
+	"textures": {
+		"texture2": "block/soul_sand"
+	}
+}

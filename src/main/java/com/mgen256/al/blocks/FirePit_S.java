@@ -21,11 +21,10 @@ public class FirePit_S extends FirePitBase {
 
     @Override
     protected ModBlockList getFireKey( BlockState state ) {
-
       switch( state.get(FIRE_TYPE) )
       {
         case SOUL:
-          return ModBlockList.Fire_For_FirePit_S;
+          return ModBlockList.SoulFire_For_FirePit_S;
         default:
           return ModBlockList.Fire_For_FirePit_S;
       }

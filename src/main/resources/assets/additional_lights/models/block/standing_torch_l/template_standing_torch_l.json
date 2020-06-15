@@ -1,8 +1,8 @@
 {
 	"textures": {
-		"litlog": "additional_lights:block/fire_lit2",
 		"texture": "#main",
-		"particle": "#main"
+		"particle": "#main",
+		"texture2": "block/coal_block"
 	},
 
 	"display": {

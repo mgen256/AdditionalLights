@@ -3,7 +3,7 @@
 	"textures": {
 		"fire": "additional_lights:block/fire",
 		"particle": "additional_lights:block/fire",
-		"texture2": "additional_lights:block/fire_lit"
+		"texture2": "additional_lights:block/fire_lit_l"
 	},
 	"elements": [ 	 
 		{
@@ -30,8 +30,8 @@
 			"from": [ 2, -1.9, 2 ],
 			"to": [ 14, -1.9001, 14 ],
 			"faces": {
-				"down": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture2" },
-				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture2" }
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" }
 			}
 		}
 	]
