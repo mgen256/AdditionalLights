@@ -1,6 +1,7 @@
 package com.mgen256.al.blocks;
 
 import com.mgen256.al.ModBlockList;
+import com.mgen256.al.PedestalTypes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,6 +19,11 @@ public class FirePit_S extends FirePitBase {
         , mainblock
         , VoxelShapes.or( PART_LOWER, PART_UPPER ) );
     }
+
+    
+    @Override
+    public PedestalTypes getType(){ return PedestalTypes.fire_pit_s; }
+
 
     @Override
     protected ModBlockList getFireKey( BlockState state ) {

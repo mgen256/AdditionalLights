@@ -9,7 +9,7 @@ public class Fire extends FireBase {
     
     public static BooleanProperty SET = BooleanProperty.create("set");
 
-    public Fire( PedestalBlockList pedestalKey ) {
+    public Fire( PedestalTypes pedestalKey ) {
         super( "fire_for_", pedestalKey );
       }
 

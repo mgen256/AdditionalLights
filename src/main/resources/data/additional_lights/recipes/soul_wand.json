@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_wand",
+    "pattern": [
+      "S#S",
+      " X ",
+      " / "
+      ],
+  "key": {
+      "S": {"item": "minecraft:soul_sand" },
+      "/": { "item": "minecraft:stick" },
+      "X": { "item": "minecraft:obsidian" },
+      "#": { "item": "minecraft:diamond" }
+    },
+    "result":{
+        "item":"additional_lights:soul_wand",
+        "count":1
+      }
+}

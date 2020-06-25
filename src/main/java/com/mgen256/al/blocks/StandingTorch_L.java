@@ -1,6 +1,7 @@
 package com.mgen256.al.blocks;
 
 import com.mgen256.al.ModBlockList;
+import com.mgen256.al.PedestalTypes;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,6 +21,11 @@ public class StandingTorch_L extends StandingTorchBase {
         , mainblock
         , VoxelShapes.or( PART_LOWER1, PART_LOWER2, PART_MID, PART_UPPER1, PART_UPPER2 ) );
       }
+
+
+    @Override
+    public PedestalTypes getType(){ return PedestalTypes.standing_torch_l; }
+
 
     @Override
     protected ModBlockList getFireKey( BlockState state ) {

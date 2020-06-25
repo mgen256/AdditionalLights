@@ -6,11 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import com.mgen256.al.*;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.client.renderer.*;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 import net.minecraft.particles.*;
 import net.minecraft.state.BooleanProperty;
@@ -24,29 +27,30 @@ import net.minecraft.world.storage.loot.LootContext;
 public class FireBase extends ModBlock{
     
     public static BooleanProperty SET = BooleanProperty.create("set");
+    public static BooleanProperty SUMMONED = BooleanProperty.create("summoned");
 
-    private static Map<PedestalBlockList, VoxelShape> SHAPES;
-    private static Map<PedestalBlockList, BasicParticleType> PARTICLE_TYPES;
-    private static Map<PedestalBlockList, Double> SMOKE_POS;
+    private static Map<PedestalTypes, VoxelShape> SHAPES;
+    private static Map<PedestalTypes, BasicParticleType> PARTICLE_TYPES;
+    private static Map<PedestalTypes, Double> SMOKE_POS;
 
     static {
-        SHAPES = new LinkedHashMap<PedestalBlockList, VoxelShape>();
-        SHAPES.put( PedestalBlockList.standing_torch_s, Block.makeCuboidShape(4.0D, -6.0D, 4.0D, 12.0D, 2.0D, 12.0D) );
-        SHAPES.put( PedestalBlockList.standing_torch_l, Block.makeCuboidShape(4.0D, -2.0D, 4.0D, 12.0D, 6.0D, 12.0D) );
-        SHAPES.put( PedestalBlockList.fire_pit_s, Block.makeCuboidShape(0.0D, -10.0D, 0.0D, 16.0D, 2.0D, 16.0D) );
-        SHAPES.put( PedestalBlockList.fire_pit_l, Block.makeCuboidShape(0.0D, -2.0D, 0.0D, 16.0D, 7.0D, 16.0D) );
+        SHAPES = new LinkedHashMap<PedestalTypes, VoxelShape>();
+        SHAPES.put( PedestalTypes.standing_torch_s, Block.makeCuboidShape(4.0D, -6.0D, 4.0D, 12.0D, 2.0D, 12.0D) );
+        SHAPES.put( PedestalTypes.standing_torch_l, Block.makeCuboidShape(4.0D, -2.0D, 4.0D, 12.0D, 6.0D, 12.0D) );
+        SHAPES.put( PedestalTypes.fire_pit_s, Block.makeCuboidShape(0.0D, -10.0D, 0.0D, 16.0D, 2.0D, 16.0D) );
+        SHAPES.put( PedestalTypes.fire_pit_l, Block.makeCuboidShape(0.0D, -2.0D, 0.0D, 16.0D, 7.0D, 16.0D) );
 
-        PARTICLE_TYPES = new LinkedHashMap<PedestalBlockList, BasicParticleType>();
-        PARTICLE_TYPES.put( PedestalBlockList.standing_torch_s, ParticleTypes.SMOKE );
-        PARTICLE_TYPES.put( PedestalBlockList.standing_torch_l, ParticleTypes.SMOKE );
-        PARTICLE_TYPES.put( PedestalBlockList.fire_pit_s, ParticleTypes.LARGE_SMOKE );
-        PARTICLE_TYPES.put( PedestalBlockList.fire_pit_l, ParticleTypes.LARGE_SMOKE );
+        PARTICLE_TYPES = new LinkedHashMap<PedestalTypes, BasicParticleType>();
+        PARTICLE_TYPES.put( PedestalTypes.standing_torch_s, ParticleTypes.SMOKE );
+        PARTICLE_TYPES.put( PedestalTypes.standing_torch_l, ParticleTypes.SMOKE );
+        PARTICLE_TYPES.put( PedestalTypes.fire_pit_s, ParticleTypes.LARGE_SMOKE );
+        PARTICLE_TYPES.put( PedestalTypes.fire_pit_l, ParticleTypes.LARGE_SMOKE );
 
-        SMOKE_POS = new LinkedHashMap<PedestalBlockList, Double>();
-        SMOKE_POS.put( PedestalBlockList.standing_torch_s, 0.2 );
-        SMOKE_POS.put( PedestalBlockList.standing_torch_l, 0.7 );
-        SMOKE_POS.put( PedestalBlockList.fire_pit_s, 0.0 );
-        SMOKE_POS.put( PedestalBlockList.fire_pit_l, 0.8 );
+        SMOKE_POS = new LinkedHashMap<PedestalTypes, Double>();
+        SMOKE_POS.put( PedestalTypes.standing_torch_s, 0.2 );
+        SMOKE_POS.put( PedestalTypes.standing_torch_l, 0.7 );
+        SMOKE_POS.put( PedestalTypes.fire_pit_s, 0.0 );
+        SMOKE_POS.put( PedestalTypes.fire_pit_l, 0.8 );
     }
 
     private static Properties createProps(){
@@ -54,26 +58,27 @@ public class FireBase extends ModBlock{
         p.hardnessAndResistance(0.0f);
         p.doesNotBlockMovement();
         //SoundEvents.BLOCK_FIRE_EXTINGUISH
-        p.sound(new SoundType(0.5F, 2.0F, SoundEvents.BLOCK_WOOL_BREAK, SoundEvents.BLOCK_WOOL_STEP
+        p.sound(new SoundType(1.5F, 1.0F,AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), SoundEvents.BLOCK_WOOL_STEP
             , SoundEvents.BLOCK_STONE_PLACE, SoundEvents.BLOCK_WOOL_HIT, SoundEvents.BLOCK_WOOL_FALL) );
             
         return p;
     }
 
-    public FireBase( String basename, PedestalBlockList _pedestalKey ) {
+    public FireBase( String basename, PedestalTypes _pedestalKey ) {
         super( basename + _pedestalKey, null, createProps(), SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
-        this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false)) );
+        this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false) ).with(SUMMONED, false) );
       }
 
       
-    private PedestalBlockList pedestalKey;
+    private PedestalTypes pedestalKey;
     
       
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add( SET );
+        builder.add( SUMMONED );
     }
 
     @Override
@@ -118,10 +123,25 @@ public class FireBase extends ModBlock{
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+        if( state.get(SUMMONED) == false )
+            return super.getDrops( state.with(SET, false), builder );
+
         List<ItemStack> list = new ArrayList<>();
         return list;   
      }
      
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    {
+        Block lowerblock = worldIn.getBlockState(pos.down()).getBlock();
+        if( lowerblock instanceof Pedestal == false )
+            return;
+        
+        Pedestal pedestal = (Pedestal)lowerblock;
+        if( pedestal.getType() == pedestalKey )
+            worldIn.setBlockState( pos, state.with(SET, true ) );
+    }
+  
 /*
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity

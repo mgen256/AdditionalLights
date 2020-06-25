@@ -6,6 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -35,11 +37,12 @@ public class AdditionalLights {
     public static Item.Properties ItemProps; // BlockItem sakusei jini sansho sareru
     public static Map<ModBlockList, Block> modBlocks;
     public static Map<ModItemList, Item> modItems;
+    public static Map<ModSoundList, SoundEvent> modSounds;
 
     private static final Logger LOGGER = LogManager.getLogger();
 
     static {
-        final ItemGroup itemGroup = new ItemGroup(MOD_ID) {
+        ItemGroup itemGroup = new ItemGroup(MOD_ID) {
 
             @Override
             public ItemStack createIcon() {
@@ -52,16 +55,16 @@ public class AdditionalLights {
             }
 
             @Override
-            public void fill(final NonNullList<ItemStack> itemStacks) {
+            public void fill(NonNullList<ItemStack> itemStacks) {
                 itemStacks.clear();
 
                 // blocks
-                for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
-                    final IModBlock block = (IModBlock) entry.getValue();
+                for (Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
+                    IModBlock block = (IModBlock) entry.getValue();
                     if( block.notRequireItemRegistration())
                         continue;
 
-                    final Item item = block.getBlockItem();
+                    Item item = block.getBlockItem();
                     //if (item.getCreativeTabs().contains(this))
                     itemStacks.add(new ItemStack(item));
                 }
@@ -87,11 +90,18 @@ public class AdditionalLights {
     }
  
 
-    // setup() de okonauto nazeka error
     public static void init() {
         if (modBlocks != null)
             return;
 
+        modSounds = new LinkedHashMap<ModSoundList, SoundEvent>(){
+            private static final long serialVersionUID = 4L;
+            {
+                put( ModSoundList.Fire_Ignition_S, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_s" ) ).setRegistryName( "fire_ignition_s" ) );
+                put( ModSoundList.Fire_Ignition_L, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_l" ) ).setRegistryName( "fire_ignition_l" ) );
+                put( ModSoundList.Fire_Extinguish, new SoundEvent(new ResourceLocation( MOD_ID, "fire_extinguish" ) ).setRegistryName( "fire_extinguish" ) );
+            }};
+            
         // init blocks
         modBlocks = new LinkedHashMap<ModBlockList, Block>(){ 
             private static final long serialVersionUID = 2L;
@@ -258,15 +268,15 @@ public class AdditionalLights {
             put(ModBlockList.FirePit_L_Magenta_Wool, new FirePit_L(Blocks.MAGENTA_WOOL));
 
                                         
-            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( PedestalBlockList.standing_torch_s ));
-            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( PedestalBlockList.standing_torch_l ));
-            put(ModBlockList.Fire_For_FirePit_S, new Fire( PedestalBlockList.fire_pit_s ));
-            put(ModBlockList.Fire_For_FirePit_L, new Fire( PedestalBlockList.fire_pit_l ));
+            put(ModBlockList.Fire_For_StandingTorch_S, new Fire( PedestalTypes.standing_torch_s ));
+            put(ModBlockList.Fire_For_StandingTorch_L, new Fire( PedestalTypes.standing_torch_l ));
+            put(ModBlockList.Fire_For_FirePit_S, new Fire( PedestalTypes.fire_pit_s ));
+            put(ModBlockList.Fire_For_FirePit_L, new Fire( PedestalTypes.fire_pit_l ));
                                                     
-            put(ModBlockList.SoulFire_For_StandingTorch_S, new Fire_Soul( PedestalBlockList.standing_torch_s ));
-            put(ModBlockList.SoulFire_For_StandingTorch_L, new Fire_Soul( PedestalBlockList.standing_torch_l ));
-            put(ModBlockList.SoulFire_For_FirePit_S, new Fire_Soul( PedestalBlockList.fire_pit_s ));
-            put(ModBlockList.SoulFire_For_FirePit_L, new Fire_Soul( PedestalBlockList.fire_pit_l ));
+            put(ModBlockList.SoulFire_For_StandingTorch_S, new Fire_Soul( PedestalTypes.standing_torch_s ));
+            put(ModBlockList.SoulFire_For_StandingTorch_L, new Fire_Soul( PedestalTypes.standing_torch_l ));
+            put(ModBlockList.SoulFire_For_FirePit_S, new Fire_Soul( PedestalTypes.fire_pit_s ));
+            put(ModBlockList.SoulFire_For_FirePit_L, new Fire_Soul( PedestalTypes.fire_pit_l ));
 
        }
         };
@@ -277,34 +287,34 @@ public class AdditionalLights {
                 put( ModItemList.SoulWand, new SoulWand() );
             }};
 
-        for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
+        for (Entry<ModBlockList, Block> entry : modBlocks.entrySet())
             ((IModBlock) entry.getValue()).init();
+
     }
 
    
-    private void doClientStuff(final FMLClientSetupEvent event) {
-        for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
+    private void doClientStuff(FMLClientSetupEvent event) {
+        for (Entry<ModBlockList, Block> entry : modBlocks.entrySet())
             ((IModBlock) entry.getValue()).setRenderLayer();
     }
     
-    private void setup(final FMLCommonSetupEvent event) {
-        // init(); koreha dekinai
+    private void setup(FMLCommonSetupEvent event) {
     }
 
-    public static void Log(final String message) {
+    public static void Log(String message) {
         LOGGER.info(MOD_ID + "::" + message);
     }
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
         @SubscribeEvent
-        public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
-           init();
+        public static void onItemsRegistry(RegistryEvent.Register<Item> itemRegistryEvent) {
+            init();
 
-            final IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
+            IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 
-            for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
-                final IModBlock block = (IModBlock) entry.getValue();
+            for (Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
+                IModBlock block = (IModBlock) entry.getValue();
                 if( block.notRequireItemRegistration() )
                     continue;
                 itemRegistry.register(block.getBlockItem());
@@ -318,12 +328,21 @@ public class AdditionalLights {
         }
 
         @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
+        public static void onBlocksRegistry(RegistryEvent.Register<Block> blockRegistryEvent) {
             init();
-            final IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
-            for (final Entry<ModBlockList, Block> entry : modBlocks.entrySet())
+            IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
+            for (Entry<ModBlockList, Block> entry : modBlocks.entrySet())
                 blockRegistry.register(entry.getValue());
         }
+
+        @SubscribeEvent
+        public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
+
+            IForgeRegistry<SoundEvent> soundRegistry = event.getRegistry();
+            for (Entry<ModSoundList, SoundEvent> entry : modSounds.entrySet())
+                soundRegistry.register( entry.getValue() );
+        }
+          
     }
 
 }
