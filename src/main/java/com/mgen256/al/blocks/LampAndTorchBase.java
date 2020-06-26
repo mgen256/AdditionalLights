@@ -63,7 +63,11 @@ public abstract class LampAndTorchBase extends ModBlock {
     public IBlockState withMirror( IBlockState state, Mirror mirrorIn ) {
         return state.withRotation(mirrorIn.toRotation(state.getValue(getFacing())));
     }
-   
+       
+    protected int getMaxMeta( ) {
+        return 6;
+    }
+
     @Override
     public int getMetaFromState( IBlockState state ) {
         return state.getValue(getFacing()).getIndex();
@@ -72,11 +76,6 @@ public abstract class LampAndTorchBase extends ModBlock {
     @Override
     public BlockFaceShape getBlockFaceShape( IBlockAccess access, IBlockState state, BlockPos pos, EnumFacing facing) {
         return BlockFaceShape.UNDEFINED;
-    }
-
-    @Override
-    public IBlockState getStateFromMeta( int meta ) {
-        return getDefaultState().withProperty( getFacing(), EnumFacing.values()[meta] );
     }
 
     protected boolean isExceptBlockForAttachWithPiston2(Block attachBlock) {

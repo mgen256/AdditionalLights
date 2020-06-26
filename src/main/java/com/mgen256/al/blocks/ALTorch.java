@@ -52,6 +52,13 @@ public class ALTorch extends LampAndTorchBase {
     }
     
     @Override
+    public IBlockState getStateFromMeta( int meta ) {
+        if( ( 1 <= meta && meta < getMaxMeta() ) == false )
+            meta = 1;
+        return getDefaultState().withProperty( getFacing(), EnumFacing.values()[meta] );
+    }
+    
+    @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos){
         for (EnumFacing enumfacing : FACING.getAllowedValues())
         {
@@ -81,7 +88,7 @@ public class ALTorch extends LampAndTorchBase {
     @Override
     protected AxisAlignedBB getShapes( IBlockState state )  {
         int index = state.getValue(FACING).getIndex();
-        if( index <= 0 )
+        if( index <= 0 || getMaxMeta() < index )
             return NULL_AABB;
 
         return SHAPES[index-1];

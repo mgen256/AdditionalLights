@@ -44,6 +44,18 @@ public class ALLamp extends LampAndTorchBase {
     }
 
     @Override
+    public int getMaxMeta( ) {
+        return SHAPES.length;
+    }
+    
+    @Override
+    public IBlockState getStateFromMeta( int meta ) {
+        if( ( 0 <= meta && meta < getMaxMeta() ) == false )
+            meta = 0;
+        return getDefaultState().withProperty( getFacing(), EnumFacing.values()[meta] );
+    }
+
+    @Override
     public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing
     , float hitX, float hitY, float hitZ, int meta,EntityLivingBase placer) {
 
