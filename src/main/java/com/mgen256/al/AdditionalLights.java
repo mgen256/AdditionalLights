@@ -97,6 +97,8 @@ public class AdditionalLights {
         modSounds = new LinkedHashMap<ModSoundList, SoundEvent>(){
             private static final long serialVersionUID = 4L;
             {
+                put( ModSoundList.Change, new SoundEvent(new ResourceLocation( MOD_ID, "change" ) ).setRegistryName( "change" ) );
+                put( ModSoundList.Undo, new SoundEvent(new ResourceLocation( MOD_ID, "undo" ) ).setRegistryName( "undo" ) );
                 put( ModSoundList.Fire_Ignition_S, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_s" ) ).setRegistryName( "fire_ignition_s" ) );
                 put( ModSoundList.Fire_Ignition_L, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_l" ) ).setRegistryName( "fire_ignition_l" ) );
                 put( ModSoundList.Fire_Extinguish, new SoundEvent(new ResourceLocation( MOD_ID, "fire_extinguish" ) ).setRegistryName( "fire_extinguish" ) );

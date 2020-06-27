@@ -1,4 +1,20 @@
 {
+    "change": {
+      "category": "player",
+      "sounds": [{
+          "name": "additional_lights:change",
+          "stream": false
+        }
+      ]
+    },
+    "undo": {
+      "category": "player",
+      "sounds": [{
+          "name": "additional_lights:undo",
+          "stream": false
+        }
+      ]
+    },
     "fire_ignition_s": {
       "category": "block",
       "sounds": [{

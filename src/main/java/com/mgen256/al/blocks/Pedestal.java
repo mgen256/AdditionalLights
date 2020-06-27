@@ -25,6 +25,7 @@ import com.mgen256.al.items.*;
 public abstract class Pedestal extends ModBlock implements IWaterLoggable{
 
     public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
+    public static EnumProperty<FireTypes> PREVIOUS_FIRE_TYPE = EnumProperty.create( "previous_firetype", FireTypes.class );
     public static BooleanProperty ISPOWERED = BooleanProperty.create("ispowered");
     public static BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
@@ -34,6 +35,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable{
         setDefaultState( getDefaultState()
             .with( BlockStateProperties.WATERLOGGED, false ) 
             .with( FIRE_TYPE, FireTypes.NORMAL )
+            .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL )
             .with( ISPOWERED, false ) 
             .with( ACTIVATED, false )
             );
@@ -51,16 +53,16 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable{
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add( BlockStateProperties.WATERLOGGED );
         builder.add( FIRE_TYPE );
+        builder.add( PREVIOUS_FIRE_TYPE );
         builder.add( ISPOWERED );
         builder.add( ACTIVATED );
     }
 
-    public BlockState setFireType( World worldIn, BlockPos pos, BlockState state, FireTypes fireType ) {
+    public BlockState setFireType( World worldIn, BlockPos pos, BlockState state, FireTypes fireType, FireTypes prevFireType ) {
         
-        BlockState newState = state.with( FIRE_TYPE, fireType );
+        BlockState newState = state.with( FIRE_TYPE, fireType ).with( PREVIOUS_FIRE_TYPE, prevFireType );
         if( worldIn.setBlockState( pos, newState ) )
             return newState;
-        
         return state;
     }
 
@@ -137,8 +139,6 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable{
 
     private void playIgnitionSound(World worldIn, BlockPos pos)
     {
-        //worldIn.playSound( pos.getX(), pos.getY(), pos.getZ(), ignitionSound, SoundCategory.BLOCKS, 1.5f, 1.0f, false );
-
         worldIn.playSound( null, pos, ignitionSound, SoundCategory.BLOCKS, 1.5f, 1.0f );
     }
 
