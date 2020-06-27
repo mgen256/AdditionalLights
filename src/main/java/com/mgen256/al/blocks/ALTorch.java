@@ -10,6 +10,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
@@ -18,11 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.mgen256.al.ModBlockList;
-import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.blocks.IModBlock;
+import com.mgen256.al.*;
 
 public class ALTorch extends TorchBlock implements IModBlock {
+
+    public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
 
     public static Properties createProps(Block mainblock){
         Properties p = Block.Properties.create(Material.MISCELLANEOUS);
@@ -47,10 +49,16 @@ public class ALTorch extends TorchBlock implements IModBlock {
     @Override
     public void init() {
         setRegistryName(name);
-        blockItem = new WallOrFloorItem(this, AdditionalLights.modBlocks.get(wallKey) , AdditionalLights.ItemProps);
+        blockItem = new WallOrFloorItem(this, AdditionalLights.getBlock(wallKey) , AdditionalLights.ItemProps);
         blockItem.setRegistryName(getRegistryName());
     }
 
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
+        builder.add( FIRE_TYPE );
+    }
+    
     @Override
     public String getName(){
         return name;

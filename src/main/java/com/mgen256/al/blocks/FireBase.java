@@ -81,13 +81,6 @@ public class FireBase extends ModBlock{
         builder.add( SUMMONED );
     }
 
-    @Override
-    public void init() {
-        setRegistryName(name);
-        blockItem = new BlockItem(this, AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getRegistryName());
-    }
-
     protected float getFireDamageAmount() {
         return 0.0F;
     }

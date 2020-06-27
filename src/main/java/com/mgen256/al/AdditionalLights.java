@@ -2,6 +2,7 @@ package com.mgen256.al;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -35,7 +36,7 @@ public class AdditionalLights {
     public static final String MOD_ID = "additional_lights";
 
     public static Item.Properties ItemProps; // BlockItem sakusei jini sansho sareru
-    public static Map<ModBlockList, Block> modBlocks;
+    public static Map<ModBlockList, IModBlock> modBlocks;
     public static Map<ModItemList, Item> modItems;
     public static Map<ModSoundList, SoundEvent> modSounds;
 
@@ -46,7 +47,7 @@ public class AdditionalLights {
 
             @Override
             public ItemStack createIcon() {
-                return new ItemStack(modBlocks.get(ModBlockList.ALTorch_Oak));
+                return new ItemStack( getBlock(ModBlockList.ALTorch_Oak) );
             }
             
             @Override
@@ -59,20 +60,17 @@ public class AdditionalLights {
                 itemStacks.clear();
 
                 // blocks
-                for (Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
-                    IModBlock block = (IModBlock) entry.getValue();
+                modBlocks.forEach( (key, block) -> {
                     if( block.notRequireItemRegistration())
-                        continue;
+                        return;
 
                     Item item = block.getBlockItem();
                     //if (item.getCreativeTabs().contains(this))
                     itemStacks.add(new ItemStack(item));
-                }
+                });
 
                 // items
-                for( Entry<ModItemList, Item> entry : modItems.entrySet() ){
-                    itemStacks.add(new ItemStack(entry.getValue()));  
-                }
+                modItems.forEach( (key, item) -> itemStacks.add(new ItemStack( item )) );
             }
 
         }.setBackgroundImageName("item_search.png").setNoTitle();
@@ -105,7 +103,7 @@ public class AdditionalLights {
             }};
             
         // init blocks
-        modBlocks = new LinkedHashMap<ModBlockList, Block>(){ 
+        modBlocks = new LinkedHashMap<ModBlockList, IModBlock>(){ 
             private static final long serialVersionUID = 2L;
             {
 
@@ -288,16 +286,13 @@ public class AdditionalLights {
             {
                 put( ModItemList.SoulWand, new SoulWand() );
             }};
-
-        for (Entry<ModBlockList, Block> entry : modBlocks.entrySet())
-            ((IModBlock) entry.getValue()).init();
-
+            
+        modBlocks.forEach( ( key, block ) -> block.init() );
     }
 
    
     private void doClientStuff(FMLClientSetupEvent event) {
-        for (Entry<ModBlockList, Block> entry : modBlocks.entrySet())
-            ((IModBlock) entry.getValue()).setRenderLayer();
+        modBlocks.forEach( ( key, block ) -> block.setRenderLayer() );
     }
     
     private void setup(FMLCommonSetupEvent event) {
@@ -315,36 +310,41 @@ public class AdditionalLights {
 
             IForgeRegistry<Item> itemRegistry = itemRegistryEvent.getRegistry();
 
-            for (Entry<ModBlockList, Block> entry : modBlocks.entrySet()) {
-                IModBlock block = (IModBlock) entry.getValue();
+            modBlocks.forEach( ( key, block ) -> {
                 if( block.notRequireItemRegistration() )
-                    continue;
-                itemRegistry.register(block.getBlockItem());
-            }
+                    return;
+                itemRegistry.register(block.getBlockItem());  
+            } );
 
-            
-            for( Entry<ModItemList, Item> entry : modItems.entrySet() ){
-                itemRegistry.register( entry.getValue() );
-            }
-            
+            modItems.forEach( ( key, item ) -> itemRegistry.register( item ) );
         }
 
         @SubscribeEvent
         public static void onBlocksRegistry(RegistryEvent.Register<Block> blockRegistryEvent) {
             init();
             IForgeRegistry<Block> blockRegistry = blockRegistryEvent.getRegistry();
-            for (Entry<ModBlockList, Block> entry : modBlocks.entrySet())
-                blockRegistry.register(entry.getValue());
+            modBlocks.forEach( (key, block) -> blockRegistry.register( (Block)block ) );
         }
 
         @SubscribeEvent
         public static void registerSounds(RegistryEvent.Register<SoundEvent> event){
 
             IForgeRegistry<SoundEvent> soundRegistry = event.getRegistry();
-            for (Entry<ModSoundList, SoundEvent> entry : modSounds.entrySet())
-                soundRegistry.register( entry.getValue() );
+            modSounds.forEach( (key, sound) -> soundRegistry.register( sound ) );
         }
           
+    }
+
+
+    public static Block getBlock( ModBlockList key )
+    {
+        return (Block)modBlocks.get( key );
+    }
+
+
+    public static BlockItem getBlockItem( ModBlockList key )
+    {
+        return modBlocks.get( key ).getBlockItem();
     }
 
 }

@@ -69,18 +69,12 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
     public ALLamp(Block mainblock ) {
         super( "al_lamp_", mainblock, createProps(mainblock), VoxelShapes.empty());
       }
-
-    @Override
-    public void init() {
-        setRegistryName(name);
-        blockItem = new BlockItem(this, AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getRegistryName());
-    }
       
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
+    
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {

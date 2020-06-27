@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.EnumProperty;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -23,11 +25,11 @@ import java.util.Random;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.ModBlockList;
-import com.mgen256.al.blocks.IModBlock;
+import com.mgen256.al.*;
 
 public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
+    
+    public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
 
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap( ImmutableMap.of( 
         Direction.NORTH, Block.makeCuboidShape(5.5D, 2.0D, 11.0D, 10.5D, 13.0D, 16.0D), 
@@ -48,6 +50,12 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     @Override
     public void init() {
         setRegistryName(name);
+    }
+
+    @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
+        builder.add( FIRE_TYPE );
     }
 
     @Override
@@ -97,7 +105,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
        public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
         
            List<ItemStack> list = new ArrayList<>();
-           list.add( new ItemStack( ((IModBlock)AdditionalLights.modBlocks.get(floorKey)).getBlockItem()));
+           list.add( new ItemStack( AdditionalLights.getBlockItem( floorKey ) ) );
    
            return list;
        }

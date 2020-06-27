@@ -77,7 +77,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable{
     }
 
     private Block getFireBlock(BlockState state){
-        return AdditionalLights.modBlocks.get(getFireKey(state));
+        return AdditionalLights.getBlock( getFireKey(state) );
     }
 
     public boolean setFire( World worldIn, BlockPos pos, BlockState state, boolean replaceOnly ) {
