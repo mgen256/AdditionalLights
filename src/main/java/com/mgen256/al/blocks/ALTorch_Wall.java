@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -27,10 +26,8 @@ import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mgen256.al.*;
 
-public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
+public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire {
     
-    public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
-
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap( ImmutableMap.of( 
         Direction.NORTH, Block.makeCuboidShape(5.5D, 2.0D, 11.0D, 10.5D, 13.0D, 16.0D), 
         Direction.SOUTH, Block.makeCuboidShape(5.5D, 2.0D, 0.0D, 10.5D, 13.0D, 5.0D), 
@@ -42,6 +39,10 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         super(ALTorch.createProps(mainblock));
         name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
         floorKey = _floorKey;
+        setDefaultState( stateContainer.getBaseState()
+            .with(HORIZONTAL_FACING, Direction.NORTH)
+            .with(FIRE_TYPE, FireTypes.NORMAL) 
+            .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
     }
 
     private ModBlockList floorKey;
@@ -56,6 +57,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add( FIRE_TYPE );
+        builder.add( PREVIOUS_FIRE_TYPE );
     }
 
     @Override
@@ -100,13 +102,13 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         worldIn.addParticle(ParticleTypes.FLAME, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
        }
 
-        
-       @Override
-       public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        
-           List<ItemStack> list = new ArrayList<>();
-           list.add( new ItemStack( AdditionalLights.getBlockItem( floorKey ) ) );
-   
-           return list;
-       }
+    
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+    
+        List<ItemStack> list = new ArrayList<>();
+        list.add( new ItemStack( AdditionalLights.getBlockItem( floorKey ) ) );
+
+        return list;
+    }
 }

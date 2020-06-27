@@ -1,19 +1,16 @@
 package com.mgen256.al.items;
 
-import com.google.common.collect.PeekingIterator;
 import com.mgen256.al.FireTypes;
-import com.mgen256.al.blocks.Pedestal;
+import com.mgen256.al.blocks.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
@@ -47,36 +44,37 @@ public class SoulWand extends Wand {
         BlockPos pos = blockRayTraceResult.getPos();
         BlockState state = worldIn.getBlockState(pos);
         Block block = state.getBlock();
-        if( block instanceof Pedestal )
-        {
-            Pedestal pedestal = (Pedestal)block;
 
-            FireTypes currentType = state.get( Pedestal.FIRE_TYPE );
-            FireTypes prevType = state.get( Pedestal.PREVIOUS_FIRE_TYPE );
-            if( prevType == FireTypes.SOUL )
-                prevType = FireTypes.NORMAL;
-
-            if( playerIn.isSneaking() )
+        if( block instanceof IHasFire )
             {
-                if( currentType == FireTypes.SOUL )
+                IHasFire modblock = (IHasFire)block;
+
+                FireTypes currentType = state.get( IHasFire.FIRE_TYPE );
+                FireTypes prevType = state.get( IHasFire.PREVIOUS_FIRE_TYPE );
+                if( prevType == FireTypes.SOUL )
+                    prevType = FireTypes.NORMAL;
+        
+                if( playerIn.isSneaking() )
                 {
-                    state = pedestal.setFireType( worldIn, pos, state, prevType, prevType );
-                    playSound( worldIn, playerIn, SoundEvents.UNDO );
+                    if( currentType == FireTypes.SOUL )
+                    {
+                        state = modblock.setFireType( worldIn, pos, state, prevType, prevType );
+                        playSound( worldIn, playerIn, SoundEvents.UNDO );
+                    }
                 }
-            }
-            else
-            {
-                if( currentType != FireTypes.SOUL )
+                else
                 {
-                    state = pedestal.setFireType( worldIn, pos, state, FireTypes.SOUL, prevType );
-                    playSound( worldIn, playerIn, SoundEvents.CHANGE );      
+                    if( currentType != FireTypes.SOUL )
+                    {
+                        state = modblock.setFireType( worldIn, pos, state, FireTypes.SOUL, prevType );
+                        playSound( worldIn, playerIn, SoundEvents.CHANGE );      
+                    }
                 }
+
+                if( block instanceof Pedestal )
+                   ((Pedestal)modblock).setFire(worldIn, pos, state, true );
             }
 
-            pedestal.setFire(worldIn, pos, state, true );
-
-        }
         return new ActionResult<ItemStack>(ActionResultType.CONSUME, stack);
     }
-
 }

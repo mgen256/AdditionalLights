@@ -9,8 +9,9 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -22,9 +23,7 @@ import java.util.Random;
 
 import com.mgen256.al.*;
 
-public class ALTorch extends TorchBlock implements IModBlock {
-
-    public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
+public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
     public static Properties createProps(Block mainblock){
         Properties p = Block.Properties.create(Material.MISCELLANEOUS);
@@ -40,6 +39,9 @@ public class ALTorch extends TorchBlock implements IModBlock {
 
         name = "al_torch_" + mainblock.getRegistryName().getPath();
         wallKey = _wallKey;
+        setDefaultState( stateContainer.getBaseState()
+            .with( FIRE_TYPE, FireTypes.NORMAL )
+            .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
     }
     
     private BlockItem blockItem;
@@ -57,6 +59,7 @@ public class ALTorch extends TorchBlock implements IModBlock {
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         super.fillStateContainer(builder);
         builder.add( FIRE_TYPE );
+        builder.add( PREVIOUS_FIRE_TYPE );
     }
     
     @Override
@@ -79,7 +82,14 @@ public class ALTorch extends TorchBlock implements IModBlock {
         double d1 = (double)pos.getY() + 0.7D;
         double d2 = (double)pos.getZ() + 0.5D;
         worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        
+        IParticleData particleType;
+        if( stateIn.get( FIRE_TYPE ) == FireTypes.SOUL )
+            particleType = AdditionalLights.getParticle( ModParticleList.SoulFire_Flame );
+        else
+            particleType = ParticleTypes.FLAME;
+
+        worldIn.addParticle(particleType, d0, d1, d2, 0.0D, 0.0D, 0.0D);
      }
 
         

@@ -12,7 +12,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 
@@ -22,10 +21,8 @@ import com.mgen256.al.*;
 import com.mgen256.al.items.*;
 
 
-public abstract class Pedestal extends ModBlock implements IWaterLoggable{
+public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasFire {
 
-    public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
-    public static EnumProperty<FireTypes> PREVIOUS_FIRE_TYPE = EnumProperty.create( "previous_firetype", FireTypes.class );
     public static BooleanProperty ISPOWERED = BooleanProperty.create("ispowered");
     public static BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
@@ -56,14 +53,6 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable{
         builder.add( PREVIOUS_FIRE_TYPE );
         builder.add( ISPOWERED );
         builder.add( ACTIVATED );
-    }
-
-    public BlockState setFireType( World worldIn, BlockPos pos, BlockState state, FireTypes fireType, FireTypes prevFireType ) {
-        
-        BlockState newState = state.with( FIRE_TYPE, fireType ).with( PREVIOUS_FIRE_TYPE, prevFireType );
-        if( worldIn.setBlockState( pos, newState ) )
-            return newState;
-        return state;
     }
 
     @Override

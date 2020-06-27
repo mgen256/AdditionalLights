@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.blocks.IModBlock;
 
 public abstract class ModBlock extends Block implements IModBlock {
 
