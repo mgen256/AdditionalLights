@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
@@ -40,8 +41,8 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
         floorKey = _floorKey;
         setDefaultState( stateContainer.getBaseState()
-            .with(HORIZONTAL_FACING, Direction.NORTH)
-            .with(FIRE_TYPE, FireTypes.NORMAL) 
+            .with( HORIZONTAL_FACING, Direction.NORTH )
+            .with( FIRE_TYPE, FireTypes.NORMAL ) 
             .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
     }
 
@@ -99,7 +100,14 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         Direction direction1 = direction.getOpposite();
         double d3 = 0.38D;
         worldIn.addParticle(ParticleTypes.SMOKE, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
+
+        IParticleData particleType;
+        if( stateIn.get( FIRE_TYPE ) == FireTypes.SOUL )
+            particleType = AdditionalLights.getParticle( ModParticleList.SoulFire_Flame );
+        else
+            particleType = ParticleTypes.FLAME;
+            
+        worldIn.addParticle(particleType, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
        }
 
     

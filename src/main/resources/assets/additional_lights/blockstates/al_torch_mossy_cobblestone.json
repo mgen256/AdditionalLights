@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/al_torch/al_torch_mossy_cobblestone" }
+        "firetype=normal": { "model": "additional_lights:block/al_torch/al_torch_mossy_cobblestone" },
+        "firetype=soul": { "model": "additional_lights:block/al_torch/al_soul_torch_mossy_cobblestone" }
     }
 }

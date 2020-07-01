@@ -1,0 +1,7 @@
+{
+    "parent": "additional_lights:block/al_torch/al_wall_torch_end_stone",
+    "textures": {
+        "texture": "additional_lights:block/soul_torch",
+        "particle": "additional_lights:block/soul_torch"
+        }
+}

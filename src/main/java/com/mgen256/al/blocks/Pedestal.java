@@ -11,8 +11,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.*;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
+import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
 
 import javax.annotation.Nullable;
@@ -23,6 +22,7 @@ import com.mgen256.al.items.*;
 
 public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasFire {
 
+    public static BooleanProperty ACCEPT_POWER = BooleanProperty.create("accept_power");
     public static BooleanProperty ISPOWERED = BooleanProperty.create("ispowered");
     public static BooleanProperty ACTIVATED = BooleanProperty.create("activated");
 
@@ -33,6 +33,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
             .with( BlockStateProperties.WATERLOGGED, false ) 
             .with( FIRE_TYPE, FireTypes.NORMAL )
             .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL )
+            .with( ACCEPT_POWER, true )
             .with( ISPOWERED, false ) 
             .with( ACTIVATED, false )
             );
@@ -51,6 +52,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         builder.add( BlockStateProperties.WATERLOGGED );
         builder.add( FIRE_TYPE );
         builder.add( PREVIOUS_FIRE_TYPE );
+        builder.add( ACCEPT_POWER );
         builder.add( ISPOWERED );
         builder.add( ACTIVATED );
     }
@@ -135,7 +137,10 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if( placer.isSneaking() )
+        {
+            worldIn.setBlockState( pos, state.with( ACCEPT_POWER, false ) );
             return;
+        }
         setFire( worldIn, pos, state, false );
     }
 
@@ -143,22 +148,25 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     @Override
     public void neighborChanged(BlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         super.neighborChanged(state, worldIn, pos, blockIn, fromPos, isMoving);
+
+        state = worldIn.getBlockState(pos);
+        if( state.get(ACCEPT_POWER) == false )
+            return;
+
         if( worldIn.isBlockPowered(pos) )
         {
-            if( worldIn.getBlockState(pos).get(ACTIVATED) )
+            if( state.get(ACTIVATED) )
                 return;
 
             if( setFire( worldIn, pos, state, false ) )
                 playIgnitionSound( worldIn, pos );
 
-            worldIn.setBlockState( pos, state.with( ACTIVATED, true ) );
-            worldIn.setBlockState( pos, worldIn.getBlockState(pos).with( ISPOWERED, true ) );
+            worldIn.setBlockState( pos, state.with( ISPOWERED, true ).with( ACTIVATED, true ) );
         }
         else if( state.get( ISPOWERED ) && state.get( ACTIVATED ) )
         {
             RemoveFire( worldIn, pos, state );
-            worldIn.setBlockState( pos, worldIn.getBlockState(pos).with( ACTIVATED, false ) );
-            worldIn.setBlockState( pos, worldIn.getBlockState(pos).with( ISPOWERED, false)  );
+            worldIn.setBlockState( pos, state.with( ISPOWERED, false ).with( ACTIVATED, false ) );
         }
     }
 }
