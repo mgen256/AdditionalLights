@@ -72,6 +72,11 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
     }
 
     @Override
+    public int getLightValue(BlockState state) {
+        return state.get( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
+     }
+
+    @Override
     public boolean notRequireItemRegistration(){
         return true;
     }

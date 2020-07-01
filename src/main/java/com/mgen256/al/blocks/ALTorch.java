@@ -10,7 +10,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
 import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
@@ -66,10 +65,16 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     public String getName(){
         return name;
     }
+
     @Override
     public BlockItem getBlockItem() {
         return blockItem;
     }
+
+    @Override
+    public int getLightValue(BlockState state) {
+        return state.get( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
+     }
 
     @Override
     public void setRenderLayer() {
