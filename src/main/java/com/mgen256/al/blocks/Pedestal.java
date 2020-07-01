@@ -136,6 +136,9 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if( placer.getHeldItemOffhand().getItem() instanceof SoulWand )
+            state = state.with( FIRE_TYPE, FireTypes.SOUL );
+
         if( placer.isSneaking() )
         {
             worldIn.setBlockState( pos, state.with( ACCEPT_POWER, false ) );
