@@ -6,6 +6,7 @@ import net.minecraft.block.TorchBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
@@ -20,7 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import com.mgen256.al.*;
+import com.mgen256.al.items.SoulWand;
 
 public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
@@ -105,5 +109,11 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
         list.add( new ItemStack( blockItem ));
 
         return list;
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if( placer.getHeldItemOffhand().getItem() instanceof SoulWand )
+            worldIn.setBlockState( pos, state.with( FIRE_TYPE, FireTypes.SOUL ) );
     }
 }

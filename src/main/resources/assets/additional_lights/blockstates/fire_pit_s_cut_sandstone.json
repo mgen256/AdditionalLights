@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "firetype=normal": { "model": "additional_lights:block/fire_pit_s/fire_pit_s_cut_sandstone" },
+        "firetype=soul": { "model": "additional_lights:block/fire_pit_s/fire_pit_s_cut_sandstone_soulfire" }
+    }
+}

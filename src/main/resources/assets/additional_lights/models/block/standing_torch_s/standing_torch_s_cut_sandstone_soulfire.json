@@ -1,0 +1,6 @@
+{
+	"parent": "additional_lights:block/standing_torch_s/standing_torch_s_cut_sandstone",
+	"textures": {
+		"texture2": "block/soul_sand"
+	}
+}

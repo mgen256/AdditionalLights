@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
@@ -23,9 +24,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
 import com.mgen256.al.*;
+import com.mgen256.al.items.SoulWand;
 
 public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire {
     
@@ -123,5 +127,11 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         list.add( new ItemStack( AdditionalLights.getBlockItem( floorKey ) ) );
 
         return list;
+    }
+    
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if( placer.getHeldItemOffhand().getItem() instanceof SoulWand )
+            worldIn.setBlockState( pos, state.with( FIRE_TYPE, FireTypes.SOUL ) );
     }
 }

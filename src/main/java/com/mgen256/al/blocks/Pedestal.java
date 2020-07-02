@@ -140,11 +140,12 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
             state = state.with( FIRE_TYPE, FireTypes.SOUL );
 
         if( placer.isSneaking() )
-        {
             worldIn.setBlockState( pos, state.with( ACCEPT_POWER, false ) );
-            return;
+        else
+        {
+            worldIn.setBlockState( pos, state );
+            setFire( worldIn, pos, state, false );
         }
-        setFire( worldIn, pos, state, false );
     }
 
     

@@ -31,7 +31,7 @@
 			"to": [ 14, -1.9001, 14 ],
 			"faces": {
 				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" },
-				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" }
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2", "cullface": "up" }
 			}
 		}
 	]

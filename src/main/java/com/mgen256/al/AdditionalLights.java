@@ -132,10 +132,13 @@ public class AdditionalLights {
             put(ModBlockList.ALLamp_Dark_Oak, new ALLamp(Blocks.DARK_OAK_PLANKS));
             put(ModBlockList.ALLamp_Spruce, new ALLamp(Blocks.SPRUCE_PLANKS));
             put(ModBlockList.ALLamp_Jungle, new ALLamp(Blocks.JUNGLE_PLANKS));
-            put(ModBlockList.ALLamp_Stone, new ALLamp(Blocks.STONE));
             put(ModBlockList.ALLamp_CobbleStone, new ALLamp(Blocks.COBBLESTONE));
             put(ModBlockList.ALLamp_Mossy_CobbleStone, new ALLamp(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.ALLamp_Stone, new ALLamp(Blocks.STONE));
+            put(ModBlockList.ALLamp_Sand_Stone, new ALLamp(Blocks.SANDSTONE));
             put(ModBlockList.ALLamp_End_Stone, new ALLamp(Blocks.END_STONE));
+            put(ModBlockList.ALLamp_Nether_Bricks, new ALLamp(Blocks.NETHER_BRICKS));
+            put(ModBlockList.ALLamp_Red_Nether_Bricks, new ALLamp(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.ALLamp_Glass, new ALLamp(Blocks.GLASS));
             put(ModBlockList.ALLamp_Iron, new ALLamp(Blocks.IRON_BLOCK));
             put(ModBlockList.ALLamp_Gold, new ALLamp(Blocks.GOLD_BLOCK));
@@ -143,8 +146,6 @@ public class AdditionalLights {
             put(ModBlockList.ALLamp_Ice, new ALLamp(Blocks.PACKED_ICE));
             put(ModBlockList.ALLamp_Pink_Wool, new ALLamp(Blocks.PINK_WOOL));
             put(ModBlockList.ALLamp_Magenta_Wool, new ALLamp(Blocks.MAGENTA_WOOL));
-            put(ModBlockList.ALLamp_Nether_Bricks, new ALLamp(Blocks.NETHER_BRICKS));
-            put(ModBlockList.ALLamp_Red_Nether_Bricks, new ALLamp(Blocks.RED_NETHER_BRICKS));
 
 
             put(ModBlockList.ALTorch_Acacia, new ALTorch(Blocks.ACACIA_PLANKS, ModBlockList.ALTorch_Wall_Acacia));
@@ -153,48 +154,42 @@ public class AdditionalLights {
             put(ModBlockList.ALTorch_Dark_Oak, new ALTorch(Blocks.DARK_OAK_PLANKS, ModBlockList.ALTorch_Wall_Dark_Oak));
             put(ModBlockList.ALTorch_Spruce, new ALTorch(Blocks.SPRUCE_PLANKS, ModBlockList.ALTorch_Wall_Spruce));
             put(ModBlockList.ALTorch_Jungle, new ALTorch(Blocks.JUNGLE_PLANKS, ModBlockList.ALTorch_Wall_Jungle));
-   
             put(ModBlockList.ALTorch_Stone, new ALTorch(Blocks.STONE, ModBlockList.ALTorch_Wall_Stone));
             put(ModBlockList.ALTorch_CobbleStone, new ALTorch(Blocks.COBBLESTONE, ModBlockList.ALTorch_Wall_CobbleStone));
             put(ModBlockList.ALTorch_Mossy_CobbleStone, new ALTorch(Blocks.MOSSY_COBBLESTONE, ModBlockList.ALTorch_Wall_Mossy_CobbleStone));
-            put(ModBlockList.ALTorch_End_Stone, new ALTorch(Blocks.END_STONE, ModBlockList.ALTorch_Wall_End_Stone));
-   
-
             put(ModBlockList.ALTorch_Stone_Bricks, new ALTorch(Blocks.STONE_BRICKS, ModBlockList.ALTorch_Wall_Stone_Bricks));
             put(ModBlockList.ALTorch_Mossy_Stone_Bricks, new ALTorch(Blocks.MOSSY_STONE_BRICKS, ModBlockList.ALTorch_Wall_Mossy_Stone_Bricks));
+            put(ModBlockList.ALTorch_Smooth_Stone, new ALTorch(Blocks.SMOOTH_STONE, ModBlockList.ALTorch_Wall_Smooth_Stone));
+            put(ModBlockList.ALTorch_Sand_Stone, new ALTorch(Blocks.SANDSTONE, ModBlockList.ALTorch_Wall_Sand_Stone));
+            put(ModBlockList.ALTorch_End_Stone, new ALTorch(Blocks.END_STONE, ModBlockList.ALTorch_Wall_End_Stone));
             put(ModBlockList.ALTorch_End_Stone_Bricks, new ALTorch(Blocks.END_STONE_BRICKS, ModBlockList.ALTorch_Wall_End_Stone_Bricks));
             put(ModBlockList.ALTorch_Nether_Bricks, new ALTorch(Blocks.NETHER_BRICKS, ModBlockList.ALTorch_Wall_Nether_Bricks));
             put(ModBlockList.ALTorch_Red_Nether_Bricks, new ALTorch(Blocks.RED_NETHER_BRICKS, ModBlockList.ALTorch_Wall_Red_Nether_Bricks));
-            put(ModBlockList.ALTorch_Smooth_Stone, new ALTorch(Blocks.SMOOTH_STONE, ModBlockList.ALTorch_Wall_Smooth_Stone));
-    
             put(ModBlockList.ALTorch_Glass, new ALTorch(Blocks.GLASS, ModBlockList.ALTorch_Wall_Glass));
-
             put(ModBlockList.ALTorch_Iron, new ALTorch(Blocks.IRON_BLOCK, ModBlockList.ALTorch_Wall_Iron));
             put(ModBlockList.ALTorch_Gold, new ALTorch(Blocks.GOLD_BLOCK, ModBlockList.ALTorch_Wall_Gold));
             put(ModBlockList.ALTorch_Diamond, new ALTorch(Blocks.DIAMOND_BLOCK, ModBlockList.ALTorch_Wall_Diamond));
             put(ModBlockList.ALTorch_Ice, new ALTorch(Blocks.PACKED_ICE, ModBlockList.ALTorch_Wall_Ice));
             put(ModBlockList.ALTorch_Pink_Wool, new ALTorch(Blocks.PINK_WOOL, ModBlockList.ALTorch_Wall_Pink_Wool));
             put(ModBlockList.ALTorch_Magenta_Wool, new ALTorch(Blocks.MAGENTA_WOOL, ModBlockList.ALTorch_Wall_Magenta_Wool));
-        
+
             put(ModBlockList.ALTorch_Wall_Acacia, new ALTorch_Wall(Blocks.ACACIA_PLANKS, ModBlockList.ALTorch_Acacia));
             put(ModBlockList.ALTorch_Wall_Birch, new ALTorch_Wall(Blocks.BIRCH_PLANKS, ModBlockList.ALTorch_Birch));
             put(ModBlockList.ALTorch_Wall_Oak, new ALTorch_Wall(Blocks.OAK_PLANKS, ModBlockList.ALTorch_Oak));
             put(ModBlockList.ALTorch_Wall_Dark_Oak, new ALTorch_Wall(Blocks.DARK_OAK_PLANKS, ModBlockList.ALTorch_Dark_Oak));
             put(ModBlockList.ALTorch_Wall_Jungle, new ALTorch_Wall(Blocks.JUNGLE_PLANKS, ModBlockList.ALTorch_Jungle));
             put(ModBlockList.ALTorch_Wall_Spruce, new ALTorch_Wall(Blocks.SPRUCE_PLANKS, ModBlockList.ALTorch_Spruce));
-    
-            put(ModBlockList.ALTorch_Wall_Stone, new ALTorch_Wall(Blocks.STONE, ModBlockList.ALTorch_Stone));
             put(ModBlockList.ALTorch_Wall_CobbleStone, new ALTorch_Wall(Blocks.COBBLESTONE, ModBlockList.ALTorch_CobbleStone));
             put(ModBlockList.ALTorch_Wall_Mossy_CobbleStone, new ALTorch_Wall(Blocks.MOSSY_COBBLESTONE, ModBlockList.ALTorch_Mossy_CobbleStone));
-            put(ModBlockList.ALTorch_Wall_End_Stone, new ALTorch_Wall(Blocks.END_STONE, ModBlockList.ALTorch_End_Stone));
- 
+            put(ModBlockList.ALTorch_Wall_Stone, new ALTorch_Wall(Blocks.STONE, ModBlockList.ALTorch_Stone));
             put(ModBlockList.ALTorch_Wall_Stone_Bricks, new ALTorch_Wall(Blocks.STONE_BRICKS, ModBlockList.ALTorch_Stone_Bricks));
             put(ModBlockList.ALTorch_Wall_Mossy_Stone_Bricks, new ALTorch_Wall(Blocks.MOSSY_STONE_BRICKS, ModBlockList.ALTorch_Mossy_Stone_Bricks));
+            put(ModBlockList.ALTorch_Wall_Smooth_Stone, new ALTorch_Wall(Blocks.SMOOTH_STONE, ModBlockList.ALTorch_Smooth_Stone));
+            put(ModBlockList.ALTorch_Wall_Sand_Stone, new ALTorch_Wall(Blocks.SANDSTONE, ModBlockList.ALTorch_Sand_Stone));
+            put(ModBlockList.ALTorch_Wall_End_Stone, new ALTorch_Wall(Blocks.END_STONE, ModBlockList.ALTorch_End_Stone));
             put(ModBlockList.ALTorch_Wall_End_Stone_Bricks, new ALTorch_Wall(Blocks.END_STONE_BRICKS, ModBlockList.ALTorch_End_Stone_Bricks));
             put(ModBlockList.ALTorch_Wall_Nether_Bricks, new ALTorch_Wall(Blocks.NETHER_BRICKS, ModBlockList.ALTorch_Nether_Bricks));
             put(ModBlockList.ALTorch_Wall_Red_Nether_Bricks, new ALTorch_Wall(Blocks.RED_NETHER_BRICKS, ModBlockList.ALTorch_Red_Nether_Bricks));
-            put(ModBlockList.ALTorch_Wall_Smooth_Stone, new ALTorch_Wall(Blocks.SMOOTH_STONE, ModBlockList.ALTorch_Smooth_Stone));
-
             put(ModBlockList.ALTorch_Wall_Glass, new ALTorch_Wall(Blocks.GLASS, ModBlockList.ALTorch_Glass));
             put(ModBlockList.ALTorch_Wall_Iron, new ALTorch_Wall(Blocks.IRON_BLOCK, ModBlockList.ALTorch_Iron));
             put(ModBlockList.ALTorch_Wall_Gold, new ALTorch_Wall(Blocks.GOLD_BLOCK, ModBlockList.ALTorch_Gold));
@@ -203,21 +198,22 @@ public class AdditionalLights {
             put(ModBlockList.ALTorch_Wall_Pink_Wool, new ALTorch_Wall(Blocks.PINK_WOOL, ModBlockList.ALTorch_Pink_Wool));
             put(ModBlockList.ALTorch_Wall_Magenta_Wool, new ALTorch_Wall(Blocks.MAGENTA_WOOL, ModBlockList.ALTorch_Magenta_Wool));
                           
-    
 
+            put(ModBlockList.StandingTorch_S_CobbleStone, new StandingTorch_S(Blocks.COBBLESTONE));
+            put(ModBlockList.StandingTorch_S_Mossy_CobbleStone, new StandingTorch_S(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.StandingTorch_S_Stone, new StandingTorch_S(Blocks.STONE));
             put(ModBlockList.StandingTorch_S_Stone_Bricks, new StandingTorch_S(Blocks.STONE_BRICKS));
             put(ModBlockList.StandingTorch_S_Mossy_Stone_Bricks, new StandingTorch_S(Blocks.MOSSY_STONE_BRICKS));
-            put(ModBlockList.StandingTorch_S_End_Stone_Bricks, new StandingTorch_S(Blocks.END_STONE_BRICKS));
-            put(ModBlockList.StandingTorch_S_Nether_Bricks, new StandingTorch_S(Blocks.NETHER_BRICKS));
-            put(ModBlockList.StandingTorch_S_Red_Nether_Bricks, new StandingTorch_S(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.StandingTorch_S_Smooth_Stone, new StandingTorch_S(Blocks.SMOOTH_STONE));
             put(ModBlockList.StandingTorch_S_Polished_Andesite, new StandingTorch_S(Blocks.POLISHED_ANDESITE));
             put(ModBlockList.StandingTorch_S_Polished_Diorite, new StandingTorch_S(Blocks.POLISHED_DIORITE));
             put(ModBlockList.StandingTorch_S_Polished_Granite, new StandingTorch_S(Blocks.POLISHED_GRANITE));
-            put(ModBlockList.StandingTorch_S_Stone, new StandingTorch_S(Blocks.STONE));
-            put(ModBlockList.StandingTorch_S_CobbleStone, new StandingTorch_S(Blocks.COBBLESTONE));
-            put(ModBlockList.StandingTorch_S_Mossy_CobbleStone, new StandingTorch_S(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.StandingTorch_S_Sand_Stone, new StandingTorch_S(Blocks.SANDSTONE));
+            put(ModBlockList.StandingTorch_S_Cut_Sand_Stone, new StandingTorch_S(Blocks.CUT_SANDSTONE));
             put(ModBlockList.StandingTorch_S_End_Stone, new StandingTorch_S(Blocks.END_STONE));
+            put(ModBlockList.StandingTorch_S_End_Stone_Bricks, new StandingTorch_S(Blocks.END_STONE_BRICKS));
+            put(ModBlockList.StandingTorch_S_Nether_Bricks, new StandingTorch_S(Blocks.NETHER_BRICKS));
+            put(ModBlockList.StandingTorch_S_Red_Nether_Bricks, new StandingTorch_S(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.StandingTorch_S_Iron, new StandingTorch_S(Blocks.IRON_BLOCK));
             put(ModBlockList.StandingTorch_S_Gold, new StandingTorch_S(Blocks.GOLD_BLOCK));
             put(ModBlockList.StandingTorch_S_Diamond, new StandingTorch_S(Blocks.DIAMOND_BLOCK));
@@ -225,19 +221,22 @@ public class AdditionalLights {
             put(ModBlockList.StandingTorch_S_Pink_Wool, new StandingTorch_S(Blocks.PINK_WOOL));
             put(ModBlockList.StandingTorch_S_Magenta_Wool, new StandingTorch_S(Blocks.MAGENTA_WOOL));
 
+            put(ModBlockList.StandingTorch_L_CobbleStone, new StandingTorch_L(Blocks.COBBLESTONE));
+            put(ModBlockList.StandingTorch_L_Mossy_CobbleStone, new StandingTorch_L(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.StandingTorch_L_Stone, new StandingTorch_L(Blocks.STONE));
             put(ModBlockList.StandingTorch_L_Stone_Bricks, new StandingTorch_L(Blocks.STONE_BRICKS));
             put(ModBlockList.StandingTorch_L_Mossy_Stone_Bricks, new StandingTorch_L(Blocks.MOSSY_STONE_BRICKS));
-            put(ModBlockList.StandingTorch_L_End_Stone_Bricks, new StandingTorch_L(Blocks.END_STONE_BRICKS));
-            put(ModBlockList.StandingTorch_L_Nether_Bricks, new StandingTorch_L(Blocks.NETHER_BRICKS));
-            put(ModBlockList.StandingTorch_L_Red_Nether_Bricks, new StandingTorch_L(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.StandingTorch_L_Smooth_Stone, new StandingTorch_L(Blocks.SMOOTH_STONE));
             put(ModBlockList.StandingTorch_L_Polished_Andesite, new StandingTorch_L(Blocks.POLISHED_ANDESITE));
             put(ModBlockList.StandingTorch_L_Polished_Diorite, new StandingTorch_L(Blocks.POLISHED_DIORITE));
             put(ModBlockList.StandingTorch_L_Polished_Granite, new StandingTorch_L(Blocks.POLISHED_GRANITE));
-            put(ModBlockList.StandingTorch_L_Stone, new StandingTorch_L(Blocks.STONE));
-            put(ModBlockList.StandingTorch_L_CobbleStone, new StandingTorch_L(Blocks.COBBLESTONE));
-            put(ModBlockList.StandingTorch_L_Mossy_CobbleStone, new StandingTorch_L(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.StandingTorch_L_Sand_Stone, new StandingTorch_L(Blocks.SANDSTONE));
+            put(ModBlockList.StandingTorch_L_Cut_Sand_Stone, new StandingTorch_L(Blocks.CUT_SANDSTONE));
+            put(ModBlockList.StandingTorch_L_Cut_Sand_Stone, new StandingTorch_L(Blocks.CUT_SANDSTONE));
             put(ModBlockList.StandingTorch_L_End_Stone, new StandingTorch_L(Blocks.END_STONE));
+            put(ModBlockList.StandingTorch_L_End_Stone_Bricks, new StandingTorch_L(Blocks.END_STONE_BRICKS));
+            put(ModBlockList.StandingTorch_L_Nether_Bricks, new StandingTorch_L(Blocks.NETHER_BRICKS));
+            put(ModBlockList.StandingTorch_L_Red_Nether_Bricks, new StandingTorch_L(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.StandingTorch_L_Iron, new StandingTorch_L(Blocks.IRON_BLOCK));
             put(ModBlockList.StandingTorch_L_Gold, new StandingTorch_L(Blocks.GOLD_BLOCK));
             put(ModBlockList.StandingTorch_L_Diamond, new StandingTorch_L(Blocks.DIAMOND_BLOCK));
@@ -245,19 +244,21 @@ public class AdditionalLights {
             put(ModBlockList.StandingTorch_L_Pink_Wool, new StandingTorch_L(Blocks.PINK_WOOL));
             put(ModBlockList.StandingTorch_L_Magenta_Wool, new StandingTorch_L(Blocks.MAGENTA_WOOL));
     
+            put(ModBlockList.FirePit_S_CobbleStone, new FirePit_S(Blocks.COBBLESTONE));
+            put(ModBlockList.FirePit_S_Mossy_CobbleStone, new FirePit_S(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.FirePit_S_Stone, new FirePit_S(Blocks.STONE));
             put(ModBlockList.FirePit_S_Stone_Bricks, new FirePit_S(Blocks.STONE_BRICKS));
             put(ModBlockList.FirePit_S_Mossy_Stone_Bricks, new FirePit_S(Blocks.MOSSY_STONE_BRICKS));
-            put(ModBlockList.FirePit_S_End_Stone_Bricks, new FirePit_S(Blocks.END_STONE_BRICKS));
-            put(ModBlockList.FirePit_S_Nether_Bricks, new FirePit_S(Blocks.NETHER_BRICKS));
-            put(ModBlockList.FirePit_S_Red_Nether_Bricks, new FirePit_S(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.FirePit_S_Smooth_Stone, new FirePit_S(Blocks.SMOOTH_STONE));
             put(ModBlockList.FirePit_S_Polished_Andesite, new FirePit_S(Blocks.POLISHED_ANDESITE));
             put(ModBlockList.FirePit_S_Polished_Diorite, new FirePit_S(Blocks.POLISHED_DIORITE));
             put(ModBlockList.FirePit_S_Polished_Granite, new FirePit_S(Blocks.POLISHED_GRANITE));
-            put(ModBlockList.FirePit_S_Stone, new FirePit_S(Blocks.STONE));
-            put(ModBlockList.FirePit_S_CobbleStone, new FirePit_S(Blocks.COBBLESTONE));
-            put(ModBlockList.FirePit_S_Mossy_CobbleStone, new FirePit_S(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.FirePit_S_Sand_Stone, new FirePit_S(Blocks.SANDSTONE));
+            put(ModBlockList.FirePit_S_Cut_Sand_Stone, new FirePit_S(Blocks.CUT_SANDSTONE));
             put(ModBlockList.FirePit_S_End_Stone, new FirePit_S(Blocks.END_STONE));
+            put(ModBlockList.FirePit_S_End_Stone_Bricks, new FirePit_S(Blocks.END_STONE_BRICKS));
+            put(ModBlockList.FirePit_S_Nether_Bricks, new FirePit_S(Blocks.NETHER_BRICKS));
+            put(ModBlockList.FirePit_S_Red_Nether_Bricks, new FirePit_S(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.FirePit_S_Iron, new FirePit_S(Blocks.IRON_BLOCK));
             put(ModBlockList.FirePit_S_Gold, new FirePit_S(Blocks.GOLD_BLOCK));
             put(ModBlockList.FirePit_S_Diamond, new FirePit_S(Blocks.DIAMOND_BLOCK));
@@ -266,19 +267,21 @@ public class AdditionalLights {
             put(ModBlockList.FirePit_S_Magenta_Wool, new FirePit_S(Blocks.MAGENTA_WOOL));
 
 
+            put(ModBlockList.FirePit_L_CobbleStone, new FirePit_L(Blocks.COBBLESTONE));
+            put(ModBlockList.FirePit_L_Mossy_CobbleStone, new FirePit_L(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.FirePit_L_Stone, new FirePit_L(Blocks.STONE));
             put(ModBlockList.FirePit_L_Stone_Bricks, new FirePit_L(Blocks.STONE_BRICKS));
             put(ModBlockList.FirePit_L_Mossy_Stone_Bricks, new FirePit_L(Blocks.MOSSY_STONE_BRICKS));
-            put(ModBlockList.FirePit_L_End_Stone_Bricks, new FirePit_L(Blocks.END_STONE_BRICKS));
-            put(ModBlockList.FirePit_L_Nether_Bricks, new FirePit_L(Blocks.NETHER_BRICKS));
-            put(ModBlockList.FirePit_L_Red_Nether_Bricks, new FirePit_L(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.FirePit_L_Smooth_Stone, new FirePit_L(Blocks.SMOOTH_STONE));
             put(ModBlockList.FirePit_L_Polished_Andesite, new FirePit_L(Blocks.POLISHED_ANDESITE));
             put(ModBlockList.FirePit_L_Polished_Diorite, new FirePit_L(Blocks.POLISHED_DIORITE));
             put(ModBlockList.FirePit_L_Polished_Granite, new FirePit_L(Blocks.POLISHED_GRANITE));
-            put(ModBlockList.FirePit_L_Stone, new FirePit_L(Blocks.STONE));
-            put(ModBlockList.FirePit_L_CobbleStone, new FirePit_L(Blocks.COBBLESTONE));
-            put(ModBlockList.FirePit_L_Mossy_CobbleStone, new FirePit_L(Blocks.MOSSY_COBBLESTONE));
+            put(ModBlockList.FirePit_L_Sand_Stone, new FirePit_L(Blocks.SANDSTONE));
+            put(ModBlockList.FirePit_L_Cut_Sand_Stone, new FirePit_L(Blocks.CUT_SANDSTONE));
             put(ModBlockList.FirePit_L_End_Stone, new FirePit_L(Blocks.END_STONE));
+            put(ModBlockList.FirePit_L_End_Stone_Bricks, new FirePit_L(Blocks.END_STONE_BRICKS));
+            put(ModBlockList.FirePit_L_Nether_Bricks, new FirePit_L(Blocks.NETHER_BRICKS));
+            put(ModBlockList.FirePit_L_Red_Nether_Bricks, new FirePit_L(Blocks.RED_NETHER_BRICKS));
             put(ModBlockList.FirePit_L_Iron, new FirePit_L(Blocks.IRON_BLOCK));
             put(ModBlockList.FirePit_L_Gold, new FirePit_L(Blocks.GOLD_BLOCK));
             put(ModBlockList.FirePit_L_Diamond, new FirePit_L(Blocks.DIAMOND_BLOCK));
