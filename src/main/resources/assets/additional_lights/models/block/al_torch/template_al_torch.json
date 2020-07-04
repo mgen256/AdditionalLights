@@ -3,7 +3,7 @@
 	
 	"textures": {
 		"texture": "block/torch",
-		"particle": "block/torch",
+		"particle": "#texture",
 		"texture1": "#main"
 	},
 

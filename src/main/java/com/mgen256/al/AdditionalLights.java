@@ -154,9 +154,9 @@ public class AdditionalLights {
             put(ModBlockList.ALTorch_Dark_Oak, new ALTorch(Blocks.DARK_OAK_PLANKS, ModBlockList.ALTorch_Wall_Dark_Oak));
             put(ModBlockList.ALTorch_Spruce, new ALTorch(Blocks.SPRUCE_PLANKS, ModBlockList.ALTorch_Wall_Spruce));
             put(ModBlockList.ALTorch_Jungle, new ALTorch(Blocks.JUNGLE_PLANKS, ModBlockList.ALTorch_Wall_Jungle));
-            put(ModBlockList.ALTorch_Stone, new ALTorch(Blocks.STONE, ModBlockList.ALTorch_Wall_Stone));
             put(ModBlockList.ALTorch_CobbleStone, new ALTorch(Blocks.COBBLESTONE, ModBlockList.ALTorch_Wall_CobbleStone));
             put(ModBlockList.ALTorch_Mossy_CobbleStone, new ALTorch(Blocks.MOSSY_COBBLESTONE, ModBlockList.ALTorch_Wall_Mossy_CobbleStone));
+            put(ModBlockList.ALTorch_Stone, new ALTorch(Blocks.STONE, ModBlockList.ALTorch_Wall_Stone));
             put(ModBlockList.ALTorch_Stone_Bricks, new ALTorch(Blocks.STONE_BRICKS, ModBlockList.ALTorch_Wall_Stone_Bricks));
             put(ModBlockList.ALTorch_Mossy_Stone_Bricks, new ALTorch(Blocks.MOSSY_STONE_BRICKS, ModBlockList.ALTorch_Wall_Mossy_Stone_Bricks));
             put(ModBlockList.ALTorch_Smooth_Stone, new ALTorch(Blocks.SMOOTH_STONE, ModBlockList.ALTorch_Wall_Smooth_Stone));

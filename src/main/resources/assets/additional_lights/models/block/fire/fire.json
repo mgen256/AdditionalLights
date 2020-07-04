@@ -1,9 +1,0 @@
-{
-	"textures": {
-		"fire": "additional_lights:block/fire",
-		"particle": "additional_lights:block/fire"
-	},
-
-	"gui_light": "front"
-
-}

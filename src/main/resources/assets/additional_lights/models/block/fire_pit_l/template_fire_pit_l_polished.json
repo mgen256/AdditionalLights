@@ -72,7 +72,7 @@
 			"from": [ 2, 10, 2 ],
 			"to": [ 14, 14, 14 ],
 			"faces": {
-				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2", "cullface": "up" }
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" }
 			}
 		}
 	]

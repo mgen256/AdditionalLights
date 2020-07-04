@@ -1,10 +1,6 @@
 {
     "parent": "additional_lights:block/fire/fire_for_fire_pit_l",
-	"textures": {
-		"fire": "additional_lights:block/fire",
-		"particle": "additional_lights:block/fire",
-		"texture2": "additional_lights:block/fire_lit_l"
-	},
+
 	"elements": [ 	 
 		{
 			"from": [ 0.9289, -2, 8 ],
@@ -31,7 +27,7 @@
 			"to": [ 14, -1.9001, 14 ],
 			"faces": {
 				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" },
-				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2", "cullface": "up" }
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" }
 			}
 		}
 	]

@@ -21,6 +21,7 @@
     "block.additional_lights.al_lamp_magenta_wool":  "Magenta Wool Lamp",
     "block.additional_lights.al_lamp_nether_bricks":  "Nether Bricks Lamp",
     "block.additional_lights.al_lamp_red_nether_bricks":  "Red Nether Bricks Lamp",
+    "block.additional_lights.al_lamp_sandstone":  "SandStone Lamp",
 
 
     "block.additional_lights.al_torch_acacia_planks":  "Acacia AlTorch",
@@ -29,27 +30,25 @@
     "block.additional_lights.al_torch_dark_oak_planks":  "Dark Oak AlTorch",
     "block.additional_lights.al_torch_jungle_planks":  "Jungle AlTorch",
     "block.additional_lights.al_torch_spruce_planks":  "Spruce AlTorch",
-
     "block.additional_lights.al_torch_stone":  "Stone AlTorch",
     "block.additional_lights.al_torch_cobblestone":  "CobbleStone AlTorch",
     "block.additional_lights.al_torch_mossy_cobblestone":  "Mossy CobbleStone AlTorch",
     "block.additional_lights.al_torch_end_stone":  "End Stone AlTorch",
-
     "block.additional_lights.al_torch_end_stone_bricks":  "End Stone Bricks AlTorch",
     "block.additional_lights.al_torch_stone_bricks":  "Stone Bricks AlTorch",
     "block.additional_lights.al_torch_mossy_stone_bricks":  "Mossy Stone Bricks AlTorch",
     "block.additional_lights.al_torch_nether_bricks":  "Nether Bricks AlTorch",
     "block.additional_lights.al_torch_red_nether_bricks":  "Red Nether Bricks AlTorch",
     "block.additional_lights.al_torch_smooth_stone":  "Smooth Stone AlTorch",
-
     "block.additional_lights.al_torch_glass":  "Glass AlTorch",
-
     "block.additional_lights.al_torch_iron_block":  "Iron AlTorch",
     "block.additional_lights.al_torch_gold_block":  "Gold AlTorch",
     "block.additional_lights.al_torch_diamond_block":  "Diamond AlTorch",
     "block.additional_lights.al_torch_packed_ice":  "Ice AlTorch",
     "block.additional_lights.al_torch_pink_wool":  "Pink Wool AlTorch",
     "block.additional_lights.al_torch_magenta_wool":  "Magenta Wool AlTorch",
+    "block.additional_lights.al_torch_sandstone":  "SandStone AlTorch",
+
 
     "block.additional_lights.fire_pit_s_stone_bricks":  "Stone Bricks Fire Pit",
     "block.additional_lights.fire_pit_s_mossy_stone_bricks":  "Mossy Stone Bricks Fire Pit",
@@ -70,6 +69,9 @@
     "block.additional_lights.fire_pit_s_packed_ice":  "Ice Fire Pit",
     "block.additional_lights.fire_pit_s_pink_wool":  "Pink Wool Fire Pit",
     "block.additional_lights.fire_pit_s_magenta_wool":  "Magenta Wool Fire Pit",
+    "block.additional_lights.fire_pit_s_sandstone":  "SandStone Fire Pit",
+    "block.additional_lights.fire_pit_s_cut_sandstone":  "Cut SandStone Fire Pit",
+
 
     "block.additional_lights.fire_pit_l_stone_bricks":  "Stone Bricks Fire Pit - L",
     "block.additional_lights.fire_pit_l_mossy_stone_bricks":  "Mossy Stone Bricks Fire Pit - L",
@@ -90,6 +92,9 @@
     "block.additional_lights.fire_pit_l_packed_ice":  "Ice Fire Pit - L",
     "block.additional_lights.fire_pit_l_pink_wool":  "Pink Wool Fire Pit - L",
     "block.additional_lights.fire_pit_l_magenta_wool":  "Magenta Wool Fire Pit - L",
+    "block.additional_lights.fire_pit_l_sandstone":  "SandStone Fire Pit - L",
+    "block.additional_lights.fire_pit_l_cut_sandstone":  "Cut SandStone Fire Pit - L",
+
 
     "block.additional_lights.standing_torch_s_stone_bricks":  "Stone Bricks Standing Torch",
     "block.additional_lights.standing_torch_s_mossy_stone_bricks":  "Mossy Stone Bricks Standing Torch",
@@ -110,6 +115,9 @@
     "block.additional_lights.standing_torch_s_packed_ice":  "Ice Standing Torch",
     "block.additional_lights.standing_torch_s_pink_wool":  "Pink Wool Standing Torch",
     "block.additional_lights.standing_torch_s_magenta_wool":  "Magenta Wool Standing Torch",
+    "block.additional_lights.standing_torch_s_sandstone":  "SandStone Standing Torch",
+    "block.additional_lights.standing_torch_s_cut_sandstone":  "Cut SandStone Standing Torch",
+
 
     "block.additional_lights.standing_torch_l_stone_bricks":  "Stone Bricks Standing Torch - L",
     "block.additional_lights.standing_torch_l_mossy_stone_bricks":  "Mossy Stone Bricks Standing Torch - L",
@@ -130,38 +138,8 @@
     "block.additional_lights.standing_torch_l_packed_ice":  "Ice Standing Torch - L",
     "block.additional_lights.standing_torch_l_pink_wool":  "Pink Wool Standing Torch - L",
     "block.additional_lights.standing_torch_l_magenta_wool":  "Magenta Wool Standing Torch - L",
-
-    "block.additional_lights.al_glowstone_acacia_planks":  "Acacia AlGlowStone",
-    "block.additional_lights.al_glowstone_birch_planks":  "Birch AlGlowStone",
-    "block.additional_lights.al_glowstone_oak_planks":  "Oak AlGlowStone",
-    "block.additional_lights.al_glowstone_dark_oak_planks":  "Dark Oak AlGlowStone",
-    "block.additional_lights.al_glowstone_jungle_planks":  "Jungle AlGlowStone",
-    "block.additional_lights.al_glowstone_spruce_planks":  "Spruce AlGlowStone",
-    "block.additional_lights.al_glowstone_stone":  "Stone AlGlowStone",
-    "block.additional_lights.al_glowstone_cobblestone":  "Cobblestone AlGlowStone",
-    "block.additional_lights.al_glowstone_mossy_cobblestone":  "Mossy Cobblestone AlGlowStone",
-    "block.additional_lights.al_glowstone_end_stone":  "End Stone AlGlowStone",
-    "block.additional_lights.al_glowstone_smooth_stone":  "Smooth Stone AlGlowStone",
-    "block.additional_lights.al_glowstone_glass":  "Glass AlGlowStone",
-    "block.additional_lights.al_glowstone_stone_bricks":  "Stone Bricks AlGlowStone",
-    "block.additional_lights.al_glowstone_mossy_stone_bricks":  "Mossy Stone Bricks AlGlowStone",
-    "block.additional_lights.al_glowstone_end_stone_bricks":  "End Stone Bricks AlGlowStone",
-    "block.additional_lights.al_glowstone_nether_bricks":  "Nether Bricks AlGlowStone",
-    "block.additional_lights.al_glowstone_red_nether_bricks":  "Red Nether Bricks AlGlowStone",
-    "block.additional_lights.al_glowstone_polished_andesite":  "Polished Andesite AlGlowStone",
-    "block.additional_lights.al_glowstone_polished_diorite":  "Polished Diorite AlGlowStone",
-    "block.additional_lights.al_glowstone_polished_granite":  "Polished Granite AlGlowStone",
-    "block.additional_lights.al_glowstone_iron_block":  "Iron AlGlowStone",
-    "block.additional_lights.al_glowstone_gold_block":  "Gold AlGlowStone",
-    "block.additional_lights.al_glowstone_diamond_block":  "Diamond AlGlowStone",
-    "block.additional_lights.al_glowstone_packed_ice":  "Ice AlGlowStone",
-    "block.additional_lights.al_glowstone_bricks":  "Bricks AlGlowStone",
-    "block.additional_lights.al_glowstone_dirt":  "Dirt AlGlowStone",
-    "block.additional_lights.al_glowstone_grass_block":  "Grass AlGlowStone",
-    "block.additional_lights.al_glowstone_grass_block_snow":  "Snow Grass AlGlowStone",
-    "block.additional_lights.al_glowstone_grass_path":  "Grass Path AlGlowStone",
-    "block.additional_lights.al_glowstone_pink_wool":  "Pink Wool AlGlowStone",
-    "block.additional_lights.al_glowstone_magenta_wool":  "Magenta Wool AlGlowStone",
+    "block.additional_lights.standing_torch_l_sandstone":  "SandStone Standing Torch - L",
+    "block.additional_lights.standing_torch_l_cut_sandstone":  "Cut SandStone Standing Torch - L",
 
 
     "block.additional_lights.fire_for_fire_pit_l": "Fire For Fire Pit L",
