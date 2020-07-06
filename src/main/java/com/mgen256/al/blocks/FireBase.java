@@ -28,6 +28,7 @@ public class FireBase extends ModBlock{
     
     public static BooleanProperty SET = BooleanProperty.create("set");
     public static BooleanProperty SUMMONED = BooleanProperty.create("summoned");
+    public static BooleanProperty TEMP = BooleanProperty.create("temp");
 
     private static Map<PedestalTypes, VoxelShape> SHAPES;
     private static Map<PedestalTypes, BasicParticleType> PARTICLE_TYPES;
@@ -68,7 +69,7 @@ public class FireBase extends ModBlock{
         super( basename + _pedestalKey, null, createProps(), SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
-        this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false) ).with(SUMMONED, false) );
+        this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false) ).with(SUMMONED, false).with(TEMP, false) );
       }
 
       
@@ -79,6 +80,7 @@ public class FireBase extends ModBlock{
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add( SET );
         builder.add( SUMMONED );
+        builder.add( TEMP );
     }
 
     protected float getFireDamageAmount() {
@@ -116,7 +118,7 @@ public class FireBase extends ModBlock{
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        if( state.get(SUMMONED) == false )
+        if( state.get(SUMMONED) == false && state.get(TEMP) == false )
             return super.getDrops( state.with(SET, false), builder );
 
         List<ItemStack> list = new ArrayList<>();
