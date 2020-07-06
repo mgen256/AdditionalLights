@@ -2,6 +2,8 @@
 {
     "itemGroup.additional_lights": "Additional Lights",
 
+    "item.additional_lights.soul_wand": "Soul Wand",
+
     "block.additional_lights.al_lamp_acacia_planks":  "Acacia Lamp",
     "block.additional_lights.al_lamp_birch_planks":  "Birch Lamp",
     "block.additional_lights.al_lamp_oak_planks":  "Oak Lamp",
@@ -145,5 +147,10 @@
     "block.additional_lights.fire_for_fire_pit_l": "Fire For Fire Pit L",
     "block.additional_lights.fire_for_fire_pit_s": "Fire For Fire Pit",
     "block.additional_lights.fire_for_standing_torch_l": "Fire For Standing Torch L",
-    "block.additional_lights.fire_for_standing_torch_s": "Fire For Standing Torch"
+    "block.additional_lights.fire_for_standing_torch_s": "Fire For Standing Torch",
+
+    "block.additional_lights.soul_fire_for_fire_pit_l": "Soul Fire For Fire Pit L",
+    "block.additional_lights.soul_fire_for_fire_pit_s": "Soul Fire For Fire Pit",
+    "block.additional_lights.soul_fire_for_standing_torch_l": "Soul Fire For Standing Torch L",
+    "block.additional_lights.soul_fire_for_standing_torch_s": "Soul Fire For Standing Torch"
 }
