@@ -3,6 +3,7 @@ package com.mgen256.al.blocks;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
@@ -28,7 +29,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
 
     public Pedestal( String basename, Block mainblock, Properties props, VoxelShape shape ) {
         super(basename, mainblock, props, shape);
-
+        mapColor = mainblock.getMaterialColor(null, null, null);
         setDefaultState( getDefaultState()
             .with( BlockStateProperties.WATERLOGGED, false ) 
             .with( FIRE_TYPE, FireTypes.NORMAL )
@@ -43,6 +44,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     }
 
 
+    private MaterialColor mapColor;
     private SoundEvent ignitionSound;
     protected abstract ModBlockList getFireKey(BlockState state);
     public abstract PedestalTypes getType( );
@@ -71,6 +73,11 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         return AdditionalLights.getBlock( getFireKey(state) );
     }
 
+    @Override
+    public MaterialColor getMaterialColor(BlockState state, IBlockReader worldIn, BlockPos pos) {
+       return mapColor;
+    }
+    
     public boolean setFire( World worldIn, BlockPos pos, BlockState state, boolean replaceOnly ) {
         BlockPos upperpos = pos.up();
         BlockState upperBlockState = worldIn.getBlockState(upperpos);

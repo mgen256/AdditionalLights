@@ -3,6 +3,7 @@ package com.mgen256.al.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
@@ -65,7 +66,7 @@ public abstract class ModBlock extends Block implements IModBlock {
         RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
     }
 
-    protected static Properties createBasicProps(Block mainblock ){
+    protected static Properties createBasicProps( Block mainblock ){
         Properties p = Block.Properties.create(mainblock.getMaterial(null));
         p.harvestTool(mainblock.getHarvestTool(null));
         p.harvestLevel(mainblock.getHarvestLevel(null));

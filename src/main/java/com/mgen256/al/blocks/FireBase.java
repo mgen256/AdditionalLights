@@ -58,7 +58,6 @@ public class FireBase extends ModBlock{
         Properties p = Block.Properties.create(Material.MISCELLANEOUS);
         p.hardnessAndResistance(0.0f);
         p.doesNotBlockMovement();
-        //SoundEvents.BLOCK_FIRE_EXTINGUISH
         p.sound(new SoundType(1.5F, 1.0F,AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), SoundEvents.BLOCK_WOOL_STEP
             , SoundEvents.BLOCK_STONE_PLACE, SoundEvents.BLOCK_WOOL_HIT, SoundEvents.BLOCK_WOOL_FALL) );
             

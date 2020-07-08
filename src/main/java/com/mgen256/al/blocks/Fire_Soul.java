@@ -3,7 +3,10 @@ package com.mgen256.al.blocks;
 import com.mgen256.al.*;
 
 import net.minecraft.block.*;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.state.BooleanProperty;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 
 public class Fire_Soul extends FireBase {
     
@@ -22,4 +25,8 @@ public class Fire_Soul extends FireBase {
         return 10;
      }
 
+     @Override
+     public MaterialColor getMaterialColor(BlockState state, IBlockReader worldIn, BlockPos pos) {
+        return MaterialColor.DIAMOND;
+     }
 }

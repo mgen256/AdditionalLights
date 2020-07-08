@@ -68,6 +68,9 @@ public class AdditionalLights {
             public void fill(NonNullList<ItemStack> itemStacks) {
                 itemStacks.clear();
 
+                // items
+                modItems.forEach( (key, item) -> itemStacks.add(new ItemStack( item )) );
+
                 // blocks
                 modBlocks.forEach( (key, block) -> {
                     if( block.notRequireItemRegistration())
@@ -77,9 +80,6 @@ public class AdditionalLights {
                     //if (item.getCreativeTabs().contains(this))
                     itemStacks.add(new ItemStack(item));
                 });
-
-                // items
-                modItems.forEach( (key, item) -> itemStacks.add(new ItemStack( item )) );
             }
 
         }.setBackgroundImageName("item_search.png").setNoTitle();
