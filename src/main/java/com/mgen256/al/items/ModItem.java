@@ -4,7 +4,7 @@ import com.mgen256.al.AdditionalLights;
 
 import net.minecraft.item.Item;
 
-public class ModItem extends Item {
+public abstract class ModItem extends Item implements IModItem {
     
     public ModItem( Properties props )
     {

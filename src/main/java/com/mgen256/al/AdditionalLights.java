@@ -44,7 +44,7 @@ public class AdditionalLights {
 
     public static Item.Properties ItemProps; 
     public static Map<ModBlockList, IModBlock> modBlocks;
-    public static Map<ModItemList, Item> modItems;
+    public static Map<ModItemList, IModItem> modItems;
     public static Map<ModSoundList, SoundEvent> modSounds;
     public static Map<ModParticleList, IParticleData> modParticles;
     private static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = new DeferredRegister<>(ForgeRegistries.PARTICLE_TYPES, MOD_ID);
@@ -69,7 +69,7 @@ public class AdditionalLights {
                 itemStacks.clear();
 
                 // items
-                modItems.forEach( (key, item) -> itemStacks.add(new ItemStack( item )) );
+                modItems.forEach( (key, item) -> itemStacks.add(new ItemStack( (Item)item )) );
 
                 // blocks
                 modBlocks.forEach( (key, block) -> {
@@ -303,7 +303,7 @@ public class AdditionalLights {
        }
         };
         
-        modItems = new LinkedHashMap<ModItemList, Item>(){ 
+        modItems = new LinkedHashMap<ModItemList, IModItem>(){ 
             private static final long serialVersionUID = 3L;
             {
                 put( ModItemList.SoulWand, new SoulWand() );
@@ -364,7 +364,7 @@ public class AdditionalLights {
                 registry.register(block.getBlockItem());  
             } );
 
-            modItems.forEach( ( key, item ) -> registry.register( item ) );
+            modItems.forEach( ( key, item ) -> registry.register( (Item)item ) );
         }
 
         @SubscribeEvent

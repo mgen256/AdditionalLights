@@ -2,6 +2,15 @@
 {
     "itemGroup.additional_lights": "Additional Lights",
 
+    "additional_lights.txt.shift": "§7Press <§3Shift§r§7> for info.",
+    "additional_lights.txt.usage": "§6Usage:",
+    "additional_lights.txt.tips": "§6Tips:",
+    "additional_lights.txt.item.soul_wand.rightclick": "- §9Right click:§r Change to soul fire.",
+    "additional_lights.txt.item.soul_wand.lefthand": "- §9Left hand hold:§r The object you placed is automatically applied.",
+    "additional_lights.txt.block.pedestal.rightclick": "- §9Right click:§r Ignition.",
+    "additional_lights.txt.block.pedestal.sneaking": "- §9Sneaking:§r Placed without fire, reject signals.",
+    "additional_lights.txt.block.pedestal.signals": "- Supports redstone signals.",
+
     "item.additional_lights.soul_wand": "Soul Wand",
 
     "block.additional_lights.al_lamp_acacia_planks":  "Acacia Lamp",

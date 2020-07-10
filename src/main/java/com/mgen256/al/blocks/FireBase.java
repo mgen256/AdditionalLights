@@ -24,7 +24,7 @@ import net.minecraft.util.math.shapes.*;
 import net.minecraft.world.*;
 import net.minecraft.world.storage.loot.LootContext;
 
-public class FireBase extends ModBlock{
+public abstract class FireBase extends ModBlock{
     
     public static BooleanProperty SET = BooleanProperty.create("set");
     public static BooleanProperty SUMMONED = BooleanProperty.create("summoned");

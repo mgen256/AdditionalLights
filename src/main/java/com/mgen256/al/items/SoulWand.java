@@ -46,35 +46,46 @@ public class SoulWand extends Wand {
         Block block = state.getBlock();
 
         if( block instanceof IHasFire )
-            {
-                IHasFire modblock = (IHasFire)block;
-
-                FireTypes currentType = state.get( IHasFire.FIRE_TYPE );
-                FireTypes prevType = state.get( IHasFire.PREVIOUS_FIRE_TYPE );
-                if( prevType == FireTypes.SOUL )
-                    prevType = FireTypes.NORMAL;
-        
-                if( playerIn.isSneaking() )
-                {
-                    if( currentType == FireTypes.SOUL )
-                    {
-                        state = modblock.setFireType( worldIn, pos, state, prevType, prevType );
-                        playSound( worldIn, playerIn, SoundEvents.UNDO );
-                    }
-                }
-                else
-                {
-                    if( currentType != FireTypes.SOUL )
-                    {
-                        state = modblock.setFireType( worldIn, pos, state, FireTypes.SOUL, prevType );
-                        playSound( worldIn, playerIn, SoundEvents.CHANGE );      
-                    }
-                }
-
-                if( block instanceof Pedestal )
-                   ((Pedestal)modblock).setFire(worldIn, pos, state, true );
-            }
-
+        {
+            changeFire( worldIn, playerIn, pos, state, (IHasFire)block );
+        }
+        else if( block instanceof FireBase )
+        {
+            BlockPos underPos = pos.down();
+            Block underBlock = worldIn.getBlockState( underPos ).getBlock();
+            if( underBlock instanceof IHasFire )
+                changeFire( worldIn, playerIn, underPos, worldIn.getBlockState(underPos), (IHasFire)underBlock );
+        }
+      
         return new ActionResult<ItemStack>(ActionResultType.CONSUME, stack);
+    }
+
+
+    private void changeFire( World worldIn, PlayerEntity playerIn, BlockPos pos, BlockState state, IHasFire modblock ) {
+
+        FireTypes currentType = state.get( IHasFire.FIRE_TYPE );
+        FireTypes prevType = state.get( IHasFire.PREVIOUS_FIRE_TYPE );
+        if( prevType == FireTypes.SOUL )
+            prevType = FireTypes.NORMAL;
+
+        if( playerIn.isSneaking() )
+        {
+            if( currentType == FireTypes.SOUL )
+            {
+                state = modblock.setFireType( worldIn, pos, state, prevType, prevType );
+                playSound( worldIn, playerIn, SoundEvents.UNDO, 0.6f );
+            }
+        }
+        else
+        {
+            if( currentType != FireTypes.SOUL )
+            {
+                state = modblock.setFireType( worldIn, pos, state, FireTypes.SOUL, prevType );
+                playSound( worldIn, playerIn, SoundEvents.CHANGE, 0.8f );      
+            }
+        }
+
+        if( modblock instanceof Pedestal )
+            ((Pedestal)modblock).setFire(worldIn, pos, state, true );
     }
 }

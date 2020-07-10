@@ -14,6 +14,15 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.state.*;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.*;
+
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -26,6 +35,12 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     public static BooleanProperty ACCEPT_POWER = BooleanProperty.create("accept_power");
     public static BooleanProperty ISPOWERED = BooleanProperty.create("ispowered");
     public static BooleanProperty ACTIVATED = BooleanProperty.create("activated");
+
+    private static StringTextComponent txt_shift;
+    private static StringTextComponent txt_tips;
+    private static StringTextComponent txt_rightclick;
+    private static StringTextComponent txt_sneaking;
+    private static StringTextComponent txt_signals;
 
     public Pedestal( String basename, Block mainblock, Properties props, VoxelShape shape ) {
         super(basename, mainblock, props, shape);
@@ -131,13 +146,13 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         if( setFire( worldIn, pos, state, false ) == false )
             return ActionResultType.PASS;
         
-        playIgnitionSound( worldIn, pos );
+        playIgnitionSound( worldIn, player, pos );
         return ActionResultType.SUCCESS;
     }
 
-    private void playIgnitionSound(World worldIn, BlockPos pos)
+    private void playIgnitionSound(World worldIn, PlayerEntity player, BlockPos pos)
     {
-        worldIn.playSound( null, pos, ignitionSound, SoundCategory.BLOCKS, 1.5f, 1.0f );
+        worldIn.playSound( player, pos, ignitionSound, SoundCategory.BLOCKS, 1.5f, 1.0f );
     }
 
     
@@ -170,7 +185,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
                 return;
 
             if( setFire( worldIn, pos, state, false ) )
-                playIgnitionSound( worldIn, pos );
+                playIgnitionSound( worldIn, null, pos );
 
             worldIn.setBlockState( pos, state.with( ISPOWERED, true ).with( ACTIVATED, true ) );
         }
@@ -178,6 +193,35 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         {
             RemoveFire( worldIn, pos, state );
             worldIn.setBlockState( pos, state.with( ISPOWERED, false ).with( ACTIVATED, false ) );
+        }
+    }
+
+    
+    @OnlyIn(Dist.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        if( txt_shift == null )
+        {
+            if( I18n.hasKey("additional_lights.txt.shift") == false )
+                return;
+
+            txt_shift = new StringTextComponent( I18n.format( "additional_lights.txt.shift" ) );
+            txt_tips = new StringTextComponent( I18n.format( "additional_lights.txt.tips" ) );
+            txt_rightclick = new StringTextComponent( I18n.format( "additional_lights.txt.block.pedestal.rightclick" ) );
+            txt_sneaking = new StringTextComponent( I18n.format( "additional_lights.txt.block.pedestal.sneaking" ) ) ;
+            txt_signals = new StringTextComponent( I18n.format( "additional_lights.txt.block.pedestal.signals" ) );
+        }
+
+        if ( Screen.hasShiftDown() )
+        {
+            tooltip.add( txt_tips );
+            tooltip.add( txt_rightclick );
+            tooltip.add( txt_sneaking );
+            tooltip.add( txt_signals );
+        }
+        else
+        {
+            tooltip.add( txt_shift );
         }
     }
 }

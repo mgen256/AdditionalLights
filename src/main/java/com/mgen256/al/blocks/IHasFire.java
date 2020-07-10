@@ -11,9 +11,9 @@ public interface IHasFire {
     public static EnumProperty<FireTypes> FIRE_TYPE = EnumProperty.create( "firetype", FireTypes.class );
     public static EnumProperty<FireTypes> PREVIOUS_FIRE_TYPE = EnumProperty.create( "previous_firetype", FireTypes.class );
 
-    default BlockState setFireType( World worldIn, BlockPos pos, BlockState state, FireTypes fireType, FireTypes prevFireType ) {
+    default BlockState setFireType( World worldIn, BlockPos pos, BlockState state, FireTypes newFireType, FireTypes prevFireType ) {
         
-        BlockState newState = state.with( FIRE_TYPE, fireType ).with( PREVIOUS_FIRE_TYPE, prevFireType );
+        BlockState newState = state.with( FIRE_TYPE, newFireType ).with( PREVIOUS_FIRE_TYPE, prevFireType );
         if( worldIn.setBlockState( pos, newState ) )
             return newState;
         return state;
