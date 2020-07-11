@@ -1,7 +1,7 @@
 {
     "parent": "additional_lights:block/fire/fire_for_fire_pit_l",
 	"textures": {
-		"fire": "additional_lights:block/soul_fire",
+		"fire": "block/soul_campfire_fire",
 		"particle": "#fire"
 	}
 }

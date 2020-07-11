@@ -22,7 +22,7 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.*;
 import net.minecraft.world.*;
-import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.loot.LootContext;
 
 public abstract class FireBase extends ModBlock{
     
@@ -54,8 +54,8 @@ public abstract class FireBase extends ModBlock{
         SMOKE_POS.put( PedestalTypes.fire_pit_l, 0.8 );
     }
 
-    private static Properties createProps(){
-        Properties p = Block.Properties.create(Material.MISCELLANEOUS);
+    protected static Properties createProps( MaterialColor mapColor ){
+        Properties p = Block.Properties.create( Material.MISCELLANEOUS, mapColor);
         p.hardnessAndResistance(0.0f);
         p.doesNotBlockMovement();
         p.sound(new SoundType(1.5F, 1.0F,AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), SoundEvents.BLOCK_WOOL_STEP
@@ -64,8 +64,8 @@ public abstract class FireBase extends ModBlock{
         return p;
     }
 
-    public FireBase( String basename, PedestalTypes _pedestalKey ) {
-        super( basename + _pedestalKey, null, createProps(), SHAPES.get(_pedestalKey));
+    public FireBase( String basename, PedestalTypes _pedestalKey, Properties props ) {
+        super( basename + _pedestalKey, null, props, SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
         this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false) ).with(SUMMONED, false).with(TEMP, false) );

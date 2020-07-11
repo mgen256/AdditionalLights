@@ -2,18 +2,13 @@ package com.mgen256.al;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.BasicParticleType;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleType;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,8 +16,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.LogManager;
@@ -33,7 +26,6 @@ import java.util.Map;
 
 import com.mgen256.al.blocks.StandingTorch_S;
 import com.mgen256.al.items.*;
-import com.mgen256.al.particles.SoulParticle;
 import com.mgen256.al.blocks.*;
 
 // The value here should match an entry in the META-INF/mods.toml file
@@ -46,8 +38,6 @@ public class AdditionalLights {
     public static Map<ModBlockList, IModBlock> modBlocks;
     public static Map<ModItemList, IModItem> modItems;
     public static Map<ModSoundList, SoundEvent> modSounds;
-    public static Map<ModParticleList, IParticleData> modParticles;
-    private static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = new DeferredRegister<>(ForgeRegistries.PARTICLE_TYPES, MOD_ID);
 
     private static final Logger LOGGER = LogManager.getLogger();
 
@@ -97,7 +87,6 @@ public class AdditionalLights {
         // Register ourselves for server and other game events we are interested in
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
         MinecraftForge.EVENT_BUS.register(this);
-        PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
  
 
@@ -116,11 +105,6 @@ public class AdditionalLights {
             }};
  
             
-        BasicParticleType soul_fire_flame = new BasicParticleType(false);
-        modParticles = new LinkedHashMap<ModParticleList, IParticleData>();
-        modParticles.put( ModParticleList.SoulFire_Flame, soul_fire_flame );
-        PARTICLE_TYPES.register( "soul_fire_flame", () -> soul_fire_flame );
-        
         // init blocks
         modBlocks = new LinkedHashMap<ModBlockList, IModBlock>(){ 
             private static final long serialVersionUID = 2L;
@@ -336,16 +320,6 @@ public class AdditionalLights {
     }
 
 
-    public static IParticleData getParticle( ModParticleList key )
-    {
-        return modParticles.get( key );
-    }
-
-
-
-
-
-
 
 
 
@@ -379,13 +353,6 @@ public class AdditionalLights {
 
             IForgeRegistry<SoundEvent> registry = event.getRegistry();
             modSounds.forEach( (key, sound) -> registry.register( sound ) );
-        }
-
-        @SubscribeEvent
-        public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-
-            Minecraft mc = Minecraft.getInstance();
-            mc.particles.registerFactory( (BasicParticleType)getParticle( ModParticleList.SoulFire_Flame ), SoulParticle.Factory::new );
         }
     }
 

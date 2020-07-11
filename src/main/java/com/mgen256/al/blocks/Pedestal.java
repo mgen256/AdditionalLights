@@ -41,10 +41,21 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     private static StringTextComponent txt_rightclick;
     private static StringTextComponent txt_sneaking;
     private static StringTextComponent txt_signals;
+    
+    private static Properties createProps( Block mainblock ){
+        BlockState state = mainblock.getDefaultState();
+        Material mbm = state.getMaterial();
+        
+        return Block.Properties.create( mbm, state.getMaterialColor(null, null) )
+            .harvestTool( state.getHarvestTool() )
+            .harvestLevel( state.getHarvestLevel() )
+            .hardnessAndResistance( state.getBlockHardness( null, null ), state.getExplosionResistance( null, null, null ) )
+            .sound( state.getSoundType( null, null, null ) );
+    }
 
-    public Pedestal( String basename, Block mainblock, Properties props, VoxelShape shape ) {
-        super(basename, mainblock, props, shape);
-        mapColor = mainblock.getMaterialColor(null, null, null);
+    public Pedestal( String basename, Block mainblock, VoxelShape shape ) {
+        super(basename, mainblock, createProps(mainblock), shape);
+
         setDefaultState( getDefaultState()
             .with( BlockStateProperties.WATERLOGGED, false ) 
             .with( FIRE_TYPE, FireTypes.NORMAL )
@@ -59,7 +70,6 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     }
 
 
-    private MaterialColor mapColor;
     private SoundEvent ignitionSound;
     protected abstract ModBlockList getFireKey(BlockState state);
     public abstract PedestalTypes getType( );
@@ -80,17 +90,12 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     }
 
     @Override
-    public IFluidState getFluidState(final BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     private Block getFireBlock(BlockState state){
         return AdditionalLights.getBlock( getFireKey(state) );
-    }
-
-    @Override
-    public MaterialColor getMaterialColor(BlockState state, IBlockReader worldIn, BlockPos pos) {
-       return mapColor;
     }
     
     public boolean setFire( World worldIn, BlockPos pos, BlockState state, boolean replaceOnly ) {

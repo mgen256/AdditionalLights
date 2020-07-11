@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
@@ -17,7 +18,6 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,8 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
 
          
     public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
-        super(ALTorch.createProps(mainblock));
+        super(ALTorch.createProps(mainblock), ParticleTypes.FLAME);
+
         name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
         floorKey = _floorKey;
         setDefaultState( stateContainer.getBaseState()
@@ -74,12 +75,12 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
     public BlockItem getBlockItem() {
         return null;
     }
-
+/*
     @Override
     public int getLightValue(BlockState state) {
         return state.get( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
      }
-
+*/
     @Override
     public boolean notRequireItemRegistration(){
         return true;
@@ -111,10 +112,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         worldIn.addParticle(ParticleTypes.SMOKE, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
 
         IParticleData particleType;
-        if( stateIn.get( FIRE_TYPE ) == FireTypes.SOUL )
-            particleType = AdditionalLights.getParticle( ModParticleList.SoulFire_Flame );
-        else
-            particleType = ParticleTypes.FLAME;
+        particleType = stateIn.get( FIRE_TYPE ) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
             
         worldIn.addParticle(particleType, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
        }
