@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire/fire_for_fire_pit_s" }
+        "set=false": { "model": "additional_lights:block/fire/fire_for_fire_pit_s" },
+        "set=true": { "model": "additional_lights:block/fire/fire_for_fire_pit_s_set" }
     }
 }

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "firetype=normal": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_cut_sandstone" },
+        "firetype=soul": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_cut_sandstone_soulfire" }
+    }
+}

@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_smooth_stone" }
+        "firetype=normal": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_smooth_stone" },
+        "firetype=soul": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_smooth_stone_soulfire" }
     }
 }

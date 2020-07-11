@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.blocks.IModBlock;
 
 public abstract class ModBlock extends Block implements IModBlock {
 
@@ -66,7 +65,7 @@ public abstract class ModBlock extends Block implements IModBlock {
         RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
     }
 
-    protected static Properties createBasicProps(Block mainblock ){
+    protected static Properties createBasicProps( Block mainblock ){
         Properties p = Block.Properties.create(mainblock.getMaterial(null));
         p.harvestTool(mainblock.getHarvestTool(null));
         p.harvestLevel(mainblock.getHarvestLevel(null));
@@ -83,5 +82,10 @@ public abstract class ModBlock extends Block implements IModBlock {
         list.add( new ItemStack(blockItem) );
 
         return list;
+    }
+
+    protected void Log( String string )
+    {
+        AdditionalLights.Log(string);
     }
 }

@@ -1,5 +1,7 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/al_torch/al_torch_acacia_planks" }
+        "firetype=normal": { "model": "additional_lights:block/al_torch/al_torch_acacia_planks" },
+        "firetype=soul": { "model": "additional_lights:block/al_torch/al_soul_torch_acacia_planks" }
+       
     }
 }

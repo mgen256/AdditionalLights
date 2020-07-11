@@ -1,0 +1,6 @@
+{
+	"parent": "additional_lights:block/standing_torch_s/standing_torch_s_gold_block",
+	"textures": {
+		"texture2": "block/soul_sand"
+	}
+}

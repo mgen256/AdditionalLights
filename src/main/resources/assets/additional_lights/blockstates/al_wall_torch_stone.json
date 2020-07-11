@@ -1,8 +1,13 @@
 {
     "variants": {
-        "facing=east": { "model": "additional_lights:block/al_torch/al_wall_torch_stone" },
-        "facing=south": { "model": "additional_lights:block/al_torch/al_wall_torch_stone", "y": 90 },
-        "facing=west": { "model": "additional_lights:block/al_torch/al_wall_torch_stone", "y": 180 },
-        "facing=north": { "model": "additional_lights:block/al_torch/al_wall_torch_stone", "y": 270 }
+        "facing=east,firetype=normal": { "model": "additional_lights:block/al_torch/al_wall_torch_stone" },
+        "facing=south,firetype=normal": { "model": "additional_lights:block/al_torch/al_wall_torch_stone", "y": 90 },
+        "facing=west,firetype=normal": { "model": "additional_lights:block/al_torch/al_wall_torch_stone", "y": 180 },
+        "facing=north,firetype=normal": { "model": "additional_lights:block/al_torch/al_wall_torch_stone", "y": 270 },
+
+        "facing=east,firetype=soul": { "model": "additional_lights:block/al_torch/al_soul_wall_torch_stone" },
+        "facing=south,firetype=soul": { "model": "additional_lights:block/al_torch/al_soul_wall_torch_stone", "y": 90 },
+        "facing=west,firetype=soul": { "model": "additional_lights:block/al_torch/al_soul_wall_torch_stone", "y": 180 },
+        "facing=north,firetype=soul": { "model": "additional_lights:block/al_torch/al_soul_wall_torch_stone", "y": 270 }
     }
 }

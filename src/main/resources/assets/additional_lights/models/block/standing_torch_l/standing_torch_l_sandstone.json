@@ -1,0 +1,6 @@
+{
+	"parent": "additional_lights:block/standing_torch_l/template_standing_torch_l_sandstone",
+	"textures": {
+		"main": "block/sandstone"
+	}
+}

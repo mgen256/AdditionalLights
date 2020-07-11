@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_iron_block" }
+        "firetype=normal": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_iron_block" },
+        "firetype=soul": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_iron_block_soulfire" }
     }
 }

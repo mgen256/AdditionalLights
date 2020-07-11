@@ -1,5 +1,5 @@
 {
-    "parent": "additional_lights:block/fire/fire",
+    "parent": "additional_lights:block/fire/template_fire_for_fire_pit",
 
 	"elements": [ 	 
 		{

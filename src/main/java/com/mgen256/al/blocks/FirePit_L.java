@@ -18,8 +18,19 @@ public class FirePit_L extends FirePitBase {
 
     }
 
+
     @Override
-    protected ModBlockList getFireKey() {
-      return ModBlockList.Fire_For_FirePit_L;
+    public PedestalTypes getType(){ return PedestalTypes.fire_pit_l; }
+
+
+    @Override
+    protected ModBlockList getFireKey( BlockState state ) {
+      switch( state.get(FIRE_TYPE) )
+      {
+        case SOUL:
+          return ModBlockList.SoulFire_For_FirePit_L;
+        default:
+          return ModBlockList.Fire_For_FirePit_L;
+      }
     }
 }

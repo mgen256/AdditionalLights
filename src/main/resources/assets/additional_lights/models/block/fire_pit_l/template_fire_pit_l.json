@@ -1,7 +1,7 @@
 {
 	"textures": {
 		"texture": "#main",
-		"texture2": "additional_lights:block/fire_lit",
+		"texture2": "block/coal_block",
 		"particle": "#main"
 	},
 
@@ -30,6 +30,9 @@
 		"ground": {
 			"translation":  [ 0, 3, 0 ],
 			"scale":  [ 0.3, 0.3, 0.3 ]
+		},
+		"fixed":{
+			"scale":  [ 0.5, 0.5, 0.5 ]
 		}
 	}
 }

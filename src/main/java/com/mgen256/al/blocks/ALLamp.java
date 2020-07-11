@@ -9,7 +9,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.block.material.PushReaction;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -24,8 +23,6 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.IFluidState;
 import javax.annotation.Nullable;
-
-import com.mgen256.al.AdditionalLights;
 
 
 
@@ -69,18 +66,12 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
     public ALLamp(Block mainblock ) {
         super( "al_lamp_", mainblock, createProps(mainblock), VoxelShapes.empty());
       }
-
-    @Override
-    public void init() {
-        setRegistryName(name);
-        blockItem = new BlockItem(this, AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getRegistryName());
-    }
       
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
+    
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {

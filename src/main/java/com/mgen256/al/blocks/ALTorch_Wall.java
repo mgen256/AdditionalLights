@@ -5,9 +5,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -21,14 +24,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.ModBlockList;
-import com.mgen256.al.blocks.IModBlock;
+import com.mgen256.al.*;
+import com.mgen256.al.items.SoulWand;
 
-public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
-
+public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire {
+    
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap( ImmutableMap.of( 
         Direction.NORTH, Block.makeCuboidShape(5.5D, 2.0D, 11.0D, 10.5D, 13.0D, 16.0D), 
         Direction.SOUTH, Block.makeCuboidShape(5.5D, 2.0D, 0.0D, 10.5D, 13.0D, 5.0D), 
@@ -40,6 +44,10 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         super(ALTorch.createProps(mainblock));
         name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
         floorKey = _floorKey;
+        setDefaultState( stateContainer.getBaseState()
+            .with( HORIZONTAL_FACING, Direction.NORTH )
+            .with( FIRE_TYPE, FireTypes.NORMAL ) 
+            .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
     }
 
     private ModBlockList floorKey;
@@ -51,6 +59,13 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     }
 
     @Override
+    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+        super.fillStateContainer(builder);
+        builder.add( FIRE_TYPE );
+        builder.add( PREVIOUS_FIRE_TYPE );
+    }
+
+    @Override
     public String getName(){
         return name;
     }
@@ -59,6 +74,11 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
     public BlockItem getBlockItem() {
         return null;
     }
+
+    @Override
+    public int getLightValue(BlockState state) {
+        return state.get( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
+     }
 
     @Override
     public boolean notRequireItemRegistration(){
@@ -89,16 +109,29 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock {
         Direction direction1 = direction.getOpposite();
         double d3 = 0.38D;
         worldIn.addParticle(ParticleTypes.SMOKE, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
-        worldIn.addParticle(ParticleTypes.FLAME, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
+
+        IParticleData particleType;
+        if( stateIn.get( FIRE_TYPE ) == FireTypes.SOUL )
+            particleType = AdditionalLights.getParticle( ModParticleList.SoulFire_Flame );
+        else
+            particleType = ParticleTypes.FLAME;
+            
+        worldIn.addParticle(particleType, dx + d3 * (double)direction1.getXOffset(), dy, dz + d3 * (double)direction1.getZOffset(), 0.0D, 0.0D, 0.0D);
        }
 
-        
-       @Override
-       public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        
-           List<ItemStack> list = new ArrayList<>();
-           list.add( new ItemStack( ((IModBlock)AdditionalLights.modBlocks.get(floorKey)).getBlockItem()));
-   
-           return list;
-       }
+    
+    @Override
+    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+    
+        List<ItemStack> list = new ArrayList<>();
+        list.add( new ItemStack( AdditionalLights.getBlockItem( floorKey ) ) );
+
+        return list;
+    }
+    
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if( placer.getHeldItemOffhand().getItem() instanceof SoulWand )
+            worldIn.setBlockState( pos, state.with( FIRE_TYPE, FireTypes.SOUL ) );
+    }
 }

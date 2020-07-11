@@ -84,7 +84,7 @@
 			"to": [ 11, 14, 11 ],
 			"faces": {
 				"down": { "uv": [ 1, 2, 8.5, 9 ], "texture": "#texture" },
-				"up": { "uv": [ 0, 0, 16, 16 ], "texture": "#litlog" },
+				"up": { "uv": [ 5, 5, 11, 11 ], "texture": "#texture2" },
 				"north": { "uv": [ 5.5, 8, 11.5, 10 ], "texture": "#texture" },
 				"south": { "uv": [ 5.5, 8, 11.5, 10 ], "texture": "#texture" },
 				"west": { "uv": [ 5.5, 8, 11.5, 10 ], "texture": "#texture" },

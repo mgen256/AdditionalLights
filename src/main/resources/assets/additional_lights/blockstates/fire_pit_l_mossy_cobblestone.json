@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_mossy_cobblestone" }
+        "firetype=normal": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_mossy_cobblestone" },
+        "firetype=soul": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_mossy_cobblestone_soulfire" }
     }
 }

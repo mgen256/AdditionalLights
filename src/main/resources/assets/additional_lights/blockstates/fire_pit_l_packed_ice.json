@@ -1,5 +1,6 @@
 {
     "variants": {
-        "": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_packed_ice" }
+        "firetype=normal": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_packed_ice" },
+        "firetype=soul": { "model": "additional_lights:block/fire_pit_l/fire_pit_l_packed_ice_soulfire" }
     }
 }

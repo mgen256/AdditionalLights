@@ -1,9 +1,0 @@
-{
-	"textures": {
-		"fire": "block/campfire_fire",
-		"particle": "block/campfire_fire"
-	},
-
-	"gui_light": "front"
-
-}

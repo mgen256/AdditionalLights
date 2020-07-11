@@ -1,0 +1,6 @@
+{
+	"parent": "additional_lights:block/fire_pit_l/fire_pit_l_red_nether_bricks",
+	"textures": {
+		"texture2": "block/soul_sand"
+	}
+}

@@ -1,0 +1,67 @@
+{
+	"parent": "additional_lights:block/fire_pit_s/template_fire_pit_s",
+
+	"textures": {
+		"top": "block/sandstone_top",
+		"bottom": "block/sandstone_bottom"
+	},
+
+	"elements": [ 	 
+		{
+			"from": [ 2, 0, 2 ],
+			"to": [ 14, 6, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#bottom", "cullface": "down" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" },
+				"north": { "uv": [ 1, 2, 13, 8 ], "texture": "#texture" },
+				"south": { "uv": [ 1, 2, 13, 8 ], "texture": "#texture" },
+				"west": { "uv": [ 1, 2, 13, 8 ], "texture": "#texture" },
+				"east": { "uv": [ 1, 2, 13, 8 ], "texture": "#texture" }
+			}
+		},
+		{
+			"from": [ 0, 4, 0 ],
+			"to": [ 16, 8, 2 ],
+			"faces": {
+				"down": { "uv": [ 0, 14, 16, 16 ], "texture": "#texture" },
+				"up": { "uv": [ 0, 0, 16, 2 ], "texture": "#top" },
+				"north": { "uv": [ 0, 0, 16, 4 ], "texture": "#texture", "cullface": "north" },
+				"south": { "uv": [ 0, 0, 16, 4 ], "texture": "#texture" },
+				"west": { "uv": [ 0, 0, 2, 4 ], "texture": "#texture", "cullface": "west" },
+				"east": { "uv": [ 14, 0, 16, 4 ], "texture": "#texture", "cullface": "east" }
+			}
+		},
+		{
+			"from": [ 0, 4, 14 ],
+			"to": [ 16, 8, 16 ],
+			"faces": {
+				"down": { "uv": [ 0, 14, 16, 16 ], "texture": "#bottom" },
+				"up": { "uv": [ 0, 14, 16, 16 ], "texture": "#top" },
+				"north": { "uv": [ 0, 0, 16, 4 ], "texture": "#texture" },
+				"south": { "uv": [ 0, 0, 16, 4 ], "texture": "#texture", "cullface": "south" },
+				"west": { "uv": [ 14, 0, 16, 4 ], "texture": "#texture", "cullface": "west" },
+				"east": { "uv": [ 0, 0, 2, 4 ], "texture": "#texture", "cullface": "east" }
+			}
+		},
+		{
+			"from": [ 0, 4, 2 ],
+			"to": [ 2, 8, 14 ],
+			"faces": {
+				"down": { "uv": [ 0, 2, 2, 14 ], "texture": "#bottom" },
+				"up": { "uv": [ 0, 2, 2, 14 ], "texture": "#top" },
+				"west": { "uv": [ 2, 0, 14, 4 ], "texture": "#texture", "cullface": "west" },
+				"east": { "uv": [ 2, 0, 14, 4 ], "texture": "#texture" }
+			}
+		},
+		{
+			"from": [ 14, 4, 2 ],
+			"to": [ 16, 8, 14 ],
+			"faces": {
+				"down": { "uv": [ 14, 2, 16, 14 ], "texture": "#bottom" },
+				"up": { "uv": [ 14, 2, 16, 14 ], "texture": "#top" },
+				"west": { "uv": [ 2, 0, 14, 4 ], "texture": "#texture" },
+				"east": { "uv": [ 2, 0, 14, 4 ], "texture": "#texture", "cullface": "east" }
+			}
+		}
+	]
+}

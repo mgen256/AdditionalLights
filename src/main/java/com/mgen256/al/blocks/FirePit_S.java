@@ -1,8 +1,10 @@
 package com.mgen256.al.blocks;
 
 import com.mgen256.al.ModBlockList;
+import com.mgen256.al.PedestalTypes;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 
@@ -18,10 +20,19 @@ public class FirePit_S extends FirePitBase {
         , VoxelShapes.or( PART_LOWER, PART_UPPER ) );
     }
 
+    
+    @Override
+    public PedestalTypes getType(){ return PedestalTypes.fire_pit_s; }
+
 
     @Override
-    protected ModBlockList getFireKey(){
-        return ModBlockList.Fire_For_FirePit_S;
+    protected ModBlockList getFireKey( BlockState state ) {
+      switch( state.get(FIRE_TYPE) )
+      {
+        case SOUL:
+          return ModBlockList.SoulFire_For_FirePit_S;
+        default:
+          return ModBlockList.Fire_For_FirePit_S;
+      }
     }
- 
 }
