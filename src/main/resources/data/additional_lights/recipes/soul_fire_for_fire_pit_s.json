@@ -5,7 +5,7 @@
         [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
         [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
         [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        { "item": "minecraft:soul_sand" }
+        [ { "item": "minecraft:soul_sand" }, { "item": "minecraft:soul_soil" } ]
       ],
     "result":{
         "item":"additional_lights:soul_fire_for_fire_pit_s",

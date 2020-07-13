@@ -7,7 +7,7 @@
       " / "
       ],
   "key": {
-      "S": {"item": "minecraft:soul_sand" },
+      "S": [ { "item": "minecraft:soul_sand" }, { "item": "minecraft:soul_soil" } ],
       "/": { "item": "minecraft:stick" },
       "X": { "item": "minecraft:obsidian" },
       "#": { "item": "minecraft:diamond" }

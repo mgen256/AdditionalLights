@@ -3,8 +3,6 @@
     "soul_wand": "additional_lights:item/soul_wand"
   },
 
-  "gui_light": "front",
-
   "elements": [ 	 
 	{
 		"from": [ 7.5, 2, 11 ],
