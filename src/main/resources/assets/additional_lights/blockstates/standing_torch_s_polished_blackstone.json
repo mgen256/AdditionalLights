@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "firetype=normal": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_polished_blackstone" },
+        "firetype=soul": { "model": "additional_lights:block/standing_torch_s/standing_torch_s_polished_blackstone_soulfire" }
+    }
+}

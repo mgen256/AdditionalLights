@@ -1,0 +1,10 @@
+{
+    "variants": {
+		"facing=up":    { "model":"additional_lights:block/al_lamp/al_lamp_warped_planks"},
+		"facing=down":  { "model":"additional_lights:block/al_lamp/al_lamp_warped_planks", "x": 180 },
+		"facing=east":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_warped_planks", "y": 0 },
+		"facing=south": { "model":"additional_lights:block/al_lamp/al_wall_lamp_warped_planks", "y": 90 },
+		"facing=west":  { "model":"additional_lights:block/al_lamp/al_wall_lamp_warped_planks", "y": 180 },
+		"facing=north": { "model":"additional_lights:block/al_lamp/al_wall_lamp_warped_planks", "y": 270 }
+	}
+}

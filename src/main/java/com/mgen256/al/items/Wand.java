@@ -29,6 +29,7 @@ public abstract class Wand extends ModItem {
     private static StringTextComponent txt_usage;
     private static StringTextComponent txt_rightclick;
     private static StringTextComponent txt_lefthand;
+    private static StringTextComponent txt_piglin;
 
     protected static class SoundEvents
     {
@@ -61,6 +62,7 @@ public abstract class Wand extends ModItem {
             txt_usage = new StringTextComponent( I18n.format( "additional_lights.txt.usage" ) );
             txt_rightclick = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.rightclick" ) );
             txt_lefthand = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.lefthand" ) );
+            txt_piglin = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.piglin" ) );
         }
 
         if ( Screen.hasShiftDown() )
@@ -68,6 +70,7 @@ public abstract class Wand extends ModItem {
             tooltip.add( txt_usage );
             tooltip.add( txt_rightclick );
             tooltip.add( txt_lefthand );
+            tooltip.add( txt_piglin );
         }
         else
         {
