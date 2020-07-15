@@ -1,4 +1,4 @@
-##Changelog
+# Changelog
 
 ## [1.16.1-2.1.0] - 2020-07-15
 - Added new Nether Blocks (8)
