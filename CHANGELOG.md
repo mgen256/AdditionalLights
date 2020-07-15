@@ -8,3 +8,4 @@
 
 ## [1.16.1-2.0.0] - 2020-07-12
 - Update to 1.16.1
+- Piglins are afraid of soul fire. (torch does not work)
