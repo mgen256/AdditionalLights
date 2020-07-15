@@ -5,7 +5,7 @@
 - Tweaked all wall torches model (texture mappings)
 - Support for MOD update notifications
 - Created change history log
-- - Fixed wrong model of dark oak in Inventory
+- Fixed wrong model of dark oak in Inventory
 
 ## [1.16.1-2.0.0] - 2020-07-12
 - Update to 1.16.1
