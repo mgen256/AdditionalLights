@@ -54,13 +54,16 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
             .with( ACTIVATED, false )
             );
 
+        if( ignitionSound == null )
+        {
         ignitionSound = basename.contains("_l_") ? AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_L) 
             : AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_S);
+        }
     }
 
 
     private MaterialColor mapColor;
-    private SoundEvent ignitionSound;
+    private static SoundEvent ignitionSound;
     protected abstract ModBlockList getFireKey(BlockState state);
     public abstract PedestalTypes getType( );
 
@@ -146,13 +149,14 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         if( setFire( worldIn, pos, state, false ) == false )
             return ActionResultType.PASS;
         
-        playIgnitionSound( worldIn, player, pos );
+        playIgnitionSound( worldIn, player, state.getBlock(), pos );
         return ActionResultType.SUCCESS;
     }
 
-    private void playIgnitionSound(World worldIn, PlayerEntity player, BlockPos pos)
+    private void playIgnitionSound(World worldIn, PlayerEntity player, Block block, BlockPos pos)
     {
-        worldIn.playSound( player, pos, ignitionSound, SoundCategory.BLOCKS, 1.5f, 1.0f );
+        float volume = block instanceof FirePitBase ? 2.0f : 1.5f;
+        worldIn.playSound( player, pos, ignitionSound, SoundCategory.BLOCKS, volume, 1.0f );
     }
 
     
@@ -185,7 +189,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
                 return;
 
             if( setFire( worldIn, pos, state, false ) )
-                playIgnitionSound( worldIn, null, pos );
+                playIgnitionSound( worldIn, null, state.getBlock(), pos );
 
             worldIn.setBlockState( pos, state.with( ISPOWERED, true ).with( ACTIVATED, true ) );
         }

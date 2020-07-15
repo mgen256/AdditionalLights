@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.15.2-2.0.0'
+version = "${mc_version}-${mod_version}"
 group = 'additional lights' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'additional_lights'
 
