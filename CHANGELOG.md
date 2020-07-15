@@ -1,7 +1,7 @@
 # Changelog
 
 ## [1.15.2-2.0.1] - 2020-07-16
-- Tweaked all wall torched models (texture mappings)
+- Tweaked all wall torches model (texture mappings)
 - Support for MOD update notifications
 - Created change history log
 - Fixed wrong model of dark oak lamp in Inventory
