@@ -376,14 +376,14 @@ public class AdditionalLights {
 
         @SubscribeEvent
         public static void onSoundsRegistry(RegistryEvent.Register<SoundEvent> event){
-
+            init();
             IForgeRegistry<SoundEvent> registry = event.getRegistry();
             modSounds.forEach( (key, sound) -> registry.register( sound ) );
         }
 
         @SubscribeEvent
         public static void registerParticleFactories(ParticleFactoryRegisterEvent event) {
-
+            init();
             Minecraft mc = Minecraft.getInstance();
             mc.particles.registerFactory( (BasicParticleType)getParticle( ModParticleList.SoulFire_Flame ), SoulParticle.Factory::new );
         }

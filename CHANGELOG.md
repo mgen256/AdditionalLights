@@ -1,4 +1,6 @@
 # Changelog
+## [1.15.2-2.0.2] - 2020-07-20
+- Fixed crash on load
 
 ## [1.15.2-2.0.1] - 2020-07-16
 - Tweaked all wall torches model (texture mappings)
