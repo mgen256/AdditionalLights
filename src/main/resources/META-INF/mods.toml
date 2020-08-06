@@ -12,7 +12,7 @@ loaderVersion="[32,)" #mandatory (28 is current forge version)
 # The modid of the mod
 modId="additional_lights" #mandatory
 # The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
-version="2.1.0" #mandatory
+version="2.1.1" #mandatory
 # A display name for the mod
 displayName="Additional Lights" #mandatory
 

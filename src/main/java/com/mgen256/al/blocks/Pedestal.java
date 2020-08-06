@@ -3,11 +3,11 @@ package com.mgen256.al.blocks;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.*;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -20,7 +20,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.*;
 
 import java.util.List;
 
@@ -205,8 +204,6 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         }
     }
 
-    
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if( txt_shift == null )
@@ -232,5 +229,10 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         {
             tooltip.add( txt_shift );
         }
+    }
+    
+    @Override
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+        return false;
     }
 }

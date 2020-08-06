@@ -17,7 +17,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.*;
 
 public abstract class Wand extends ModItem {
     
@@ -49,8 +48,6 @@ public abstract class Wand extends ModItem {
         worldIn.playSound( playerIn, playerIn.getPosition(), sound, SoundCategory.PLAYERS, volume, 1.0f );
     }
     
-
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if( txt_shift == null )
