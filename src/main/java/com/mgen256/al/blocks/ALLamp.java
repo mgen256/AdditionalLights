@@ -58,7 +58,7 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
             );
 
         return Block.Properties.create( material )
-            .setLightValue( p_235418_0_ -> 15 )
+            .setLightLevel( lightLevel -> 15 )
             .hardnessAndResistance(0.0f)
             .doesNotBlockMovement()
             .sound( state.getSoundType() );

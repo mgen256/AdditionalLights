@@ -11,7 +11,7 @@ public class Fire extends FireBase {
 
     public Fire( PedestalTypes pedestalKey ) {
         super( "fire_for_", pedestalKey, createProps( MaterialColor.ADOBE )
-            .setLightValue( p_235838_1_-> 15 ) );
+            .setLightLevel( lightLevel-> 15 ) );
       }
 
     protected float getFireDamageAmount() {

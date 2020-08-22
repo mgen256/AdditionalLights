@@ -35,7 +35,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
         return Block.Properties.create(Material.MISCELLANEOUS)
             .doesNotBlockMovement()
             .hardnessAndResistance(0.0f)
-            .setLightValue( p_235418_0_ -> 14 )
+            .setLightLevel( lightLevel -> 14 )
             .sound( state.getSoundType( null, null, null ) );
     }
     

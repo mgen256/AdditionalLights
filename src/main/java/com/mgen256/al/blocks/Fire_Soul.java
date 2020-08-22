@@ -11,7 +11,7 @@ public class Fire_Soul extends FireBase {
 
     public Fire_Soul( PedestalTypes pedestalKey ) {
         super( "soul_fire_for_", pedestalKey, createProps( MaterialColor.DIAMOND )
-            .setLightValue( p_235838_1_-> 10 ) );
+            .setLightLevel( lightLevel -> 10 ) );
       }
 
     protected float getFireDamageAmount() {
