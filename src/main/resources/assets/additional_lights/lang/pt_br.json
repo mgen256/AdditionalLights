@@ -34,7 +34,8 @@
    "block.additional_lights.al_lamp_red_nether_bricks": "Lampada de Tijolos Vermelhos do Nether",
    "block.additional_lights.al_lamp_sandstone": "Lampada de Arenito",
    "block.additional_lights.al_lamp_blackstone": "Lampada de Pedra-Negra",
-
+   "block.additional_lights.al_lamp_crimson_planks": "Lampada Carmesim",
+   "block.additional_lights.al_lamp_warped_planks": "Lampada Distocida",
 
    "block.additional_lights.al_torch_acacia_planks": "Tocha com Suporte de Acácia",
    "block.additional_lights.al_torch_birch_planks": "Tocha com Suporte de Bétula",
@@ -61,7 +62,8 @@
    "block.additional_lights.al_torch_magenta_wool": "Tocha com Suporte de Lã Magenta",
    "block.additional_lights.al_torch_sandstone": "Tocha com Suporte de Arenito",
    "block.additional_lights.al_torch_blackstone": "Tocha com Suporte de Pedra-Negra",
-
+   "block.additional_lights.al_torch_crimson_planks": "Tocha com Suporte Carmesim",
+   "block.additional_lights.al_torch_warped_planks": "Tocha com Suporte Distocido",
 
    "block.additional_lights.fire_pit_s_stone_bricks": "Fogueira de Tijolos de Pedra",
    "block.additional_lights.fire_pit_s_mossy_stone_bricks": "Fogueira de Tijolos de Pedra Musgosos",
