@@ -1,10 +1,10 @@
 modLoader="javafml" #mandatory
-loaderVersion="[33,)" #mandatory (28 is current forge version)
+loaderVersion="[34,)" #mandatory 
 license="MIT License"
 
 [[mods]] #mandatory
 modId="additional_lights" #mandatory
-version="2.1.1" #mandatory
+version="2.1.2" #mandatory
 displayName="Additional Lights" #mandatory
 
 updateJSONURL="https://gist.githubusercontent.com/mgen256/59abe85e7950f2319e7538afe2f910ba/raw"
@@ -17,13 +17,13 @@ description='''
 [[dependencies.additional_lights]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[33,)" #mandatory
+    versionRange="[34,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.additional_lights]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2]"
+    versionRange="[1.16.3]"
     ordering="NONE"
     side="BOTH"
