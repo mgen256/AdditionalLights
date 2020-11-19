@@ -1,5 +1,5 @@
 modLoader="javafml" #mandatory
-loaderVersion="[34,)" #mandatory 
+loaderVersion="[35,)" #mandatory 
 license="MIT License"
 
 [[mods]] #mandatory
@@ -17,13 +17,13 @@ description='''
 [[dependencies.additional_lights]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[34,)" #mandatory
+    versionRange="[35,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.additional_lights]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.3]"
+    versionRange="[1.16.4]"
     ordering="NONE"
     side="BOTH"
