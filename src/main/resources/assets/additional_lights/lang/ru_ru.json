@@ -6,13 +6,13 @@
     "additional_lights.txt.usage": "§6Применение:",
     "additional_lights.txt.tips": "§6Подсказки:",
     "additional_lights.txt.item.soul_wand.rightclick": "- §9ПКМ:§r Сменить на огонь душ.",
-    "additional_lights.txt.item.soul_wand.lefthand": "- §9Держа в левой руке:§r Размещенный объект применяется автоматически.",
-    "additional_lights.txt.item.soul_wand.piglin": "- Пиглины боятся огня душ. (факела не работают)",
+    "additional_lights.txt.item.soul_wand.lefthand": "- §9Держа в левой руке:§r размещённый объект применяется автоматически.",
+    "additional_lights.txt.item.soul_wand.piglin": "- Пиглины боятся огня душ. (факелы не работают)",
     "additional_lights.txt.block.pedestal.rightclick": "- §9ПКМ:§r Зажечь.",
     "additional_lights.txt.block.pedestal.sneaking": "- §9Присев:§r Установить без огня, отменить сигнал.",
     "additional_lights.txt.block.pedestal.signals": "- Поддерживает сигналы редстоуна.",
 
-    "item.additional_lights.soul_wand": "Жезл Души",
+    "item.additional_lights.soul_wand": "Жезл души",
 
     "block.additional_lights.al_lamp_acacia_planks":  "Акациевая лампа",
     "block.additional_lights.al_lamp_birch_planks":  "Березовая лампа",
