@@ -10,12 +10,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.WallOrFloorItem;
+import net.minecraft.loot.LootContext;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +29,18 @@ import com.mgen256.al.items.SoulWand;
 
 public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
-    public static Properties createProps(Block mainblock){
-        Properties p = Block.Properties.create(Material.MISCELLANEOUS);
-        p.doesNotBlockMovement();
-        p.hardnessAndResistance(0.0f);
-        p.lightValue(14);
-        p.sound(mainblock.getSoundType(null, null, null, null));
-        return p;
+    public static Properties createProps( Block mainblock ){
+        BlockState state = mainblock.getDefaultState();
+        
+        return Block.Properties.create(Material.MISCELLANEOUS)
+            .doesNotBlockMovement()
+            .hardnessAndResistance(0.0f)
+            .setLightLevel( lightLevel -> 14 )
+            .sound( state.getSoundType( null, null, null ) );
     }
     
     public ALTorch( Block mainblock, ModBlockList _wallKey ) {
-        super(createProps(mainblock));
+        super( createProps(mainblock), ParticleTypes.FLAME );
 
         name = "al_torch_" + mainblock.getRegistryName().getPath();
         wallKey = _wallKey;
@@ -76,9 +78,9 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
 
     @Override
-    public int getLightValue(BlockState state) {
+    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
         return state.get( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
-     }
+    }
 
     @Override
     public void setRenderLayer() {
@@ -93,10 +95,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
         worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         
         IParticleData particleType;
-        if( stateIn.get( FIRE_TYPE ) == FireTypes.SOUL )
-            particleType = AdditionalLights.getParticle( ModParticleList.SoulFire_Flame );
-        else
-            particleType = ParticleTypes.FLAME;
+        particleType = stateIn.get( FIRE_TYPE ) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
 
         worldIn.addParticle(particleType, d0, d1, d2, 0.0D, 0.0D, 0.0D);
      }

@@ -17,7 +17,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.*;
 
 public abstract class Wand extends ModItem {
     
@@ -29,6 +28,7 @@ public abstract class Wand extends ModItem {
     private static StringTextComponent txt_usage;
     private static StringTextComponent txt_rightclick;
     private static StringTextComponent txt_lefthand;
+    private static StringTextComponent txt_piglin;
 
     protected static class SoundEvents
     {
@@ -48,8 +48,6 @@ public abstract class Wand extends ModItem {
         worldIn.playSound( playerIn, playerIn.getPosition(), sound, SoundCategory.PLAYERS, volume, 1.0f );
     }
     
-
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if( txt_shift == null )
@@ -61,6 +59,7 @@ public abstract class Wand extends ModItem {
             txt_usage = new StringTextComponent( I18n.format( "additional_lights.txt.usage" ) );
             txt_rightclick = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.rightclick" ) );
             txt_lefthand = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.lefthand" ) );
+            txt_piglin = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.piglin" ) );
         }
 
         if ( Screen.hasShiftDown() )
@@ -68,6 +67,7 @@ public abstract class Wand extends ModItem {
             tooltip.add( txt_usage );
             tooltip.add( txt_rightclick );
             tooltip.add( txt_lefthand );
+            tooltip.add( txt_piglin );
         }
         else
         {

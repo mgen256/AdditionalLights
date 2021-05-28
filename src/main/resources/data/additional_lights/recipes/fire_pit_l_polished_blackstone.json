@@ -1,0 +1,27 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "fire_pit_l",
+    "pattern": [
+      " # ",
+      "XXX",
+      "XXX"
+    ],
+    "key": {
+      "#": [
+        {
+            "item": "minecraft:coal"
+        },
+        {
+            "item": "minecraft:charcoal"
+        }
+    ]
+      ,
+      "X": {
+        "item": "minecraft:polished_blackstone"
+      }
+    },
+    "result":{
+        "item":"additional_lights:fire_pit_l_polished_blackstone",
+        "count":1
+      }
+}

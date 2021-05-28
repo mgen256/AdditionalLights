@@ -11,13 +11,11 @@ ALLamp_Oak,
 ALLamp_Dark_Oak,
 ALLamp_Spruce,
 ALLamp_Jungle,
-
 ALLamp_Stone,
 ALLamp_CobbleStone,
 ALLamp_Mossy_CobbleStone,
 ALLamp_End_Stone,
 ALLamp_Sand_Stone,
-
 ALLamp_Glass,
 ALLamp_Iron,
 ALLamp_Gold,
@@ -28,8 +26,9 @@ ALLamp_Magenta_Wool,
 ALLamp_Nether_Bricks,
 ALLamp_Red_Nether_Bricks,
 
-
-ALLight_Wall_Stone,
+ALLamp_BlackStone,
+ALLamp_CrimsonPlanks,
+ALLamp_WarpedPlanks,
 
 ALTorch_Acacia,
 ALTorch_Birch,
@@ -37,28 +36,28 @@ ALTorch_Oak,
 ALTorch_Dark_Oak,
 ALTorch_Jungle,
 ALTorch_Spruce,
-
 ALTorch_Stone,
 ALTorch_CobbleStone,
 ALTorch_Mossy_CobbleStone,
 ALTorch_End_Stone,
 ALTorch_Sand_Stone,
-
 ALTorch_Stone_Bricks,
 ALTorch_Mossy_Stone_Bricks,
 ALTorch_End_Stone_Bricks,
 ALTorch_Nether_Bricks,
 ALTorch_Red_Nether_Bricks,
 ALTorch_Smooth_Stone,
-
 ALTorch_Glass,
-
 ALTorch_Iron,
 ALTorch_Gold,
 ALTorch_Diamond,
 ALTorch_Ice,
 ALTorch_Pink_Wool,
 ALTorch_Magenta_Wool,
+ALTorch_Crimson,
+ALTorch_Warped,
+ALTorch_BlackStone,
+
 
 
 ALTorch_Wall_Acacia,
@@ -67,29 +66,27 @@ ALTorch_Wall_Oak,
 ALTorch_Wall_Dark_Oak,
 ALTorch_Wall_Jungle,
 ALTorch_Wall_Spruce,
-
 ALTorch_Wall_Stone,
 ALTorch_Wall_CobbleStone,
 ALTorch_Wall_Mossy_CobbleStone,
 ALTorch_Wall_End_Stone,
 ALTorch_Wall_Sand_Stone,
-
 ALTorch_Wall_Stone_Bricks,
 ALTorch_Wall_Mossy_Stone_Bricks,
 ALTorch_Wall_End_Stone_Bricks,
 ALTorch_Wall_Nether_Bricks,
 ALTorch_Wall_Red_Nether_Bricks,
-
 ALTorch_Wall_Smooth_Stone,
-
 ALTorch_Wall_Glass,
-
 ALTorch_Wall_Iron,
 ALTorch_Wall_Gold,
 ALTorch_Wall_Diamond,
 ALTorch_Wall_Ice,
 ALTorch_Wall_Pink_Wool,
 ALTorch_Wall_Magenta_Wool,
+ALTorch_Wall_Crimson,
+ALTorch_Wall_Warped,
+ALTorch_Wall_BlackStone,
 
 
 StandingTorch_S_Stone_Bricks,
@@ -113,6 +110,7 @@ StandingTorch_S_Diamond,
 StandingTorch_S_Ice,
 StandingTorch_S_Pink_Wool,
 StandingTorch_S_Magenta_Wool,
+StandingTorch_S_Polished_BlackStone,
 
 StandingTorch_L_Stone_Bricks,
 StandingTorch_L_Mossy_Stone_Bricks,
@@ -135,6 +133,7 @@ StandingTorch_L_Diamond,
 StandingTorch_L_Ice,
 StandingTorch_L_Pink_Wool,
 StandingTorch_L_Magenta_Wool,
+StandingTorch_L_Polished_BlackStone,
 
 
 FirePit_S_Stone_Bricks,
@@ -158,6 +157,7 @@ FirePit_S_Diamond,
 FirePit_S_Ice,
 FirePit_S_Pink_Wool,
 FirePit_S_Magenta_Wool,
+FirePit_S_Polished_BlackStone,
 
 
 FirePit_L_Stone_Bricks,
@@ -181,6 +181,7 @@ FirePit_L_Diamond,
 FirePit_L_Ice,
 FirePit_L_Pink_Wool,
 FirePit_L_Magenta_Wool,
+FirePit_L_Polished_BlackStone,
 
 
 Fire_For_StandingTorch_S,

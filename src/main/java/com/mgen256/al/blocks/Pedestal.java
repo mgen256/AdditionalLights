@@ -3,11 +3,11 @@ package com.mgen256.al.blocks;
 
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.*;
 import net.minecraft.item.*;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -20,7 +20,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.*;
 
 import java.util.List;
 
@@ -41,10 +40,21 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     private static StringTextComponent txt_rightclick;
     private static StringTextComponent txt_sneaking;
     private static StringTextComponent txt_signals;
+    
+    private static Properties createProps( Block mainblock ){
+        BlockState state = mainblock.getDefaultState();
+        Material mbm = state.getMaterial();
+        
+        return Block.Properties.create( mbm, state.getMaterialColor(null, null) )
+            .harvestTool( state.getHarvestTool() )
+            .harvestLevel( state.getHarvestLevel() )
+            .hardnessAndResistance( state.getBlockHardness( null, null ), state.getExplosionResistance( null, null, null ) )
+            .sound( state.getSoundType( null, null, null ) );
+    }
 
-    public Pedestal( String basename, Block mainblock, Properties props, VoxelShape shape ) {
-        super(basename, mainblock, props, shape);
-        mapColor = mainblock.getMaterialColor(null, null, null);
+    public Pedestal( String basename, Block mainblock, VoxelShape shape ) {
+        super(basename, mainblock, createProps(mainblock), shape);
+
         setDefaultState( getDefaultState()
             .with( BlockStateProperties.WATERLOGGED, false ) 
             .with( FIRE_TYPE, FireTypes.NORMAL )
@@ -54,13 +64,15 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
             .with( ACTIVATED, false )
             );
 
-        ignitionSound = basename.contains("_l_") ? AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_L) 
-            : AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_S);
+        if( ignitionSound == null )
+        {
+            ignitionSound = basename.contains("_l_") ? AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_L) 
+                : AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_S);
+        }
     }
 
 
-    private MaterialColor mapColor;
-    private SoundEvent ignitionSound;
+    private static SoundEvent ignitionSound;
     protected abstract ModBlockList getFireKey(BlockState state);
     public abstract PedestalTypes getType( );
 
@@ -80,17 +92,12 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
     }
 
     @Override
-    public IFluidState getFluidState(final BlockState state) {
+    public FluidState getFluidState(BlockState state) {
         return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     private Block getFireBlock(BlockState state){
         return AdditionalLights.getBlock( getFireKey(state) );
-    }
-
-    @Override
-    public MaterialColor getMaterialColor(BlockState state, IBlockReader worldIn, BlockPos pos) {
-       return mapColor;
     }
     
     public boolean setFire( World worldIn, BlockPos pos, BlockState state, boolean replaceOnly ) {
@@ -146,13 +153,14 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         if( setFire( worldIn, pos, state, false ) == false )
             return ActionResultType.PASS;
         
-        playIgnitionSound( worldIn, player, pos );
+        playIgnitionSound( worldIn, player, state.getBlock(), pos );
         return ActionResultType.SUCCESS;
     }
 
-    private void playIgnitionSound(World worldIn, PlayerEntity player, BlockPos pos)
+    private static void playIgnitionSound(World worldIn, PlayerEntity player, Block block, BlockPos pos)
     {
-        worldIn.playSound( player, pos, ignitionSound, SoundCategory.BLOCKS, 1.5f, 1.0f );
+        float volume = block instanceof FirePitBase ? 2.0f : 1.5f;
+        worldIn.playSound( player, pos, ignitionSound, SoundCategory.BLOCKS, volume, 1.0f );
     }
 
     
@@ -185,7 +193,7 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
                 return;
 
             if( setFire( worldIn, pos, state, false ) )
-                playIgnitionSound( worldIn, null, pos );
+                playIgnitionSound( worldIn, null, state.getBlock(),pos );
 
             worldIn.setBlockState( pos, state.with( ISPOWERED, true ).with( ACTIVATED, true ) );
         }
@@ -196,8 +204,6 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         }
     }
 
-    
-    @OnlyIn(Dist.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if( txt_shift == null )
@@ -223,5 +229,10 @@ public abstract class Pedestal extends ModBlock implements IWaterLoggable, IHasF
         {
             tooltip.add( txt_shift );
         }
+    }
+    
+    @Override
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+        return false;
     }
 }

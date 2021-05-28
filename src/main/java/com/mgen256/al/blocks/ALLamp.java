@@ -21,7 +21,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
+
 import javax.annotation.Nullable;
 
 
@@ -40,27 +41,27 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
     }; 
 
 
-    private static Properties createProps(Block mainblock){
-       Material mbm = mainblock.getMaterial(null);
 
-       Material material = new Material(
-        MaterialColor.AIR,
-        false, //isLiquid
-        true,  //isSolid
-        true, //Blocks Movement
-        mbm.isOpaque(), //isOpaque
-        true, //requires no tool
-        false, //isFlammable
-        false, //isReplaceable
-        PushReaction.NORMAL
-        );
+    private static Properties createProps( Block mainblock ){
+        BlockState state = mainblock.getDefaultState();
+        Material mbm = state.getMaterial();
+        
+        Material material = new Material(
+            MaterialColor.AIR,
+            false, //isLiquid
+            true,  //isSolid
+            true, //Blocks Movement
+            mbm.isOpaque(), //isOpaque
+            false, //flammable
+            false, //replaceable
+            PushReaction.NORMAL
+            );
 
-        Properties p = Block.Properties.create(material);
-        p.lightValue(15);
-        p.hardnessAndResistance(0.0f);
-        p.doesNotBlockMovement();
-        p.sound(mainblock.getSoundType(null));
-        return p;
+        return Block.Properties.create( material )
+            .setLightLevel( lightLevel -> 15 )
+            .hardnessAndResistance(0.0f)
+            .doesNotBlockMovement()
+            .sound( state.getSoundType() );
     }
 
     public ALLamp(Block mainblock ) {
@@ -99,9 +100,8 @@ public class ALLamp extends ModBlock implements IWaterLoggable{
     }
 
     @Override
-    public IFluidState getFluidState(final BlockState state) {
-        return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false)
-                : super.getFluidState(state);
+    public FluidState getFluidState(BlockState state) {
+        return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
     }
 
     @Override

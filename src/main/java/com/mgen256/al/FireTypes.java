@@ -13,10 +13,10 @@ public enum FireTypes implements IStringSerializable {
     }
  
     public String toString() {
-       return this.getName();
+       return this.getString();
     }
  
-    public String getName() {
+    public String getString() {
        return this.name;
     }
 }

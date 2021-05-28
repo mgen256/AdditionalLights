@@ -7,11 +7,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.loot.LootContext;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.storage.loot.LootContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,16 +64,6 @@ public abstract class ModBlock extends Block implements IModBlock {
     public void setRenderLayer() {
         RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
     }
-
-    protected static Properties createBasicProps( Block mainblock ){
-        Properties p = Block.Properties.create(mainblock.getMaterial(null));
-        p.harvestTool(mainblock.getHarvestTool(null));
-        p.harvestLevel(mainblock.getHarvestLevel(null));
-        p.hardnessAndResistance(mainblock.getBlockHardness(null, null, null), mainblock.getExplosionResistance() );
-        p.sound(mainblock.getSoundType(null, null, null, null));
-        return p;
-    }
-
     
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
@@ -84,7 +74,7 @@ public abstract class ModBlock extends Block implements IModBlock {
         return list;
     }
 
-    protected void Log( String string )
+    protected static void Log( String string )
     {
         AdditionalLights.Log(string);
     }

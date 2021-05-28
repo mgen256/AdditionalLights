@@ -16,13 +16,14 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
 import net.minecraft.particles.*;
+import net.minecraft.pathfinding.PathType;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.*;
 import net.minecraft.world.*;
-import net.minecraft.world.storage.loot.LootContext;
+import net.minecraft.loot.LootContext;
 
 public abstract class FireBase extends ModBlock{
     
@@ -33,6 +34,8 @@ public abstract class FireBase extends ModBlock{
     private static Map<PedestalTypes, VoxelShape> SHAPES;
     private static Map<PedestalTypes, BasicParticleType> PARTICLE_TYPES;
     private static Map<PedestalTypes, Double> SMOKE_POS;
+
+    private static final VoxelShape COLLISION_SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 0, 16);
 
     static {
         SHAPES = new LinkedHashMap<PedestalTypes, VoxelShape>();
@@ -54,18 +57,16 @@ public abstract class FireBase extends ModBlock{
         SMOKE_POS.put( PedestalTypes.fire_pit_l, 0.8 );
     }
 
-    private static Properties createProps(){
-        Properties p = Block.Properties.create(Material.MISCELLANEOUS);
-        p.hardnessAndResistance(0.0f);
-        p.doesNotBlockMovement();
-        p.sound(new SoundType(1.5F, 1.0F,AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), SoundEvents.BLOCK_WOOL_STEP
+    protected static Properties createProps( MaterialColor mapColor ){
+        return Block.Properties.create( Material.MISCELLANEOUS, mapColor)
+            .hardnessAndResistance(0.0f)
+            .doesNotBlockMovement()
+            .sound(new SoundType(1.5F, 1.0F,AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), SoundEvents.BLOCK_WOOL_STEP
             , SoundEvents.BLOCK_STONE_PLACE, SoundEvents.BLOCK_WOOL_HIT, SoundEvents.BLOCK_WOOL_FALL) );
-            
-        return p;
     }
 
-    public FireBase( String basename, PedestalTypes _pedestalKey ) {
-        super( basename + _pedestalKey, null, createProps(), SHAPES.get(_pedestalKey));
+    public FireBase( String basename, PedestalTypes _pedestalKey, Properties props ) {
+        super( basename + _pedestalKey, null, props, SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
         this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false) ).with(SUMMONED, false).with(TEMP, false) );
@@ -73,8 +74,7 @@ public abstract class FireBase extends ModBlock{
 
       
     private PedestalTypes pedestalKey;
-    
-      
+
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add( SET );
@@ -84,6 +84,11 @@ public abstract class FireBase extends ModBlock{
 
     protected float getFireDamageAmount() {
         return 0.0F;
+    }
+    
+    @Override
+    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return COLLISION_SHAPE;
     }
 
     @Override
@@ -97,10 +102,10 @@ public abstract class FireBase extends ModBlock{
     }
     
     @Override
-    public void animateTick(final BlockState stateIn, final World worldIn, final BlockPos pos, final Random rand) {
-        final double d0 = (double) pos.getX() + 0.5D;
-        final double d1 = (double) pos.getY() + SMOKE_POS.get(pedestalKey);
-        final double d2 = (double) pos.getZ() + 0.5D;
+    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
+        double d0 = (double) pos.getX() + 0.5D;
+        double d1 = (double) pos.getY() + SMOKE_POS.get(pedestalKey);
+        double d2 = (double) pos.getZ() + 0.5D;
         worldIn.addParticle(PARTICLE_TYPES.get(pedestalKey), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
@@ -135,7 +140,11 @@ public abstract class FireBase extends ModBlock{
         if( pedestal.getType() == pedestalKey )
             worldIn.setBlockState( pos, state.with(SET, true ) );
     }
-  
+      
+    @Override
+    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+        return false;
+    }
 /*
     public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
         if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity
