@@ -1,0 +1,109 @@
+{
+    "replace": false,
+    "values": [
+        "additional_lights:standing_torch_s_stone",
+        "additional_lights:standing_torch_l_stone",
+        "additional_lights:fire_pit_s_stone",
+        "additional_lights:fire_pit_l_stone",
+
+        "additional_lights:standing_torch_s_stone_bricks",
+        "additional_lights:standing_torch_l_stone_bricks",
+        "additional_lights:fire_pit_s_stone_bricks",
+        "additional_lights:fire_pit_l_stone_bricks",
+
+        "additional_lights:standing_torch_s_smooth_stone",
+        "additional_lights:standing_torch_l_smooth_stone",
+        "additional_lights:fire_pit_s_smooth_stone",
+        "additional_lights:fire_pit_l_smooth_stone",
+
+        "additional_lights:standing_torch_s_sandstone",
+        "additional_lights:standing_torch_l_sandstone",
+        "additional_lights:fire_pit_s_sandstone",
+        "additional_lights:fire_pit_l_sandstone",
+
+        "additional_lights:standing_torch_s_red_nether_bricks",
+        "additional_lights:standing_torch_l_red_nether_bricks",
+        "additional_lights:fire_pit_s_red_nether_bricks",
+        "additional_lights:fire_pit_l_red_nether_bricks",
+
+        "additional_lights:fire_pit_s_polished_granite",
+        "additional_lights:fire_pit_l_polished_granite",
+        "additional_lights:standing_torch_s_polished_granite",
+        "additional_lights:standing_torch_l_polished_granite",
+        
+        "additional_lights:fire_pit_s_polished_diorite",
+        "additional_lights:fire_pit_l_polished_diorite",
+        "additional_lights:standing_torch_s_polished_diorite",
+        "additional_lights:standing_torch_l_polished_diorite",
+        
+        "additional_lights:fire_pit_s_polished_blackstone",
+        "additional_lights:fire_pit_l_polished_blackstone",
+        "additional_lights:standing_torch_s_polished_blackstone",
+        "additional_lights:standing_torch_l_polished_blackstone",
+        
+        "additional_lights:fire_pit_s_polished_blackstone",
+        "additional_lights:fire_pit_l_polished_blackstone",
+        "additional_lights:standing_torch_s_polished_blackstone",
+        "additional_lights:standing_torch_l_polished_blackstone",
+        
+        "additional_lights:fire_pit_s_polished_andesite",
+        "additional_lights:fire_pit_l_polished_andesite",
+        "additional_lights:standing_torch_s_polished_andesite",
+        "additional_lights:standing_torch_l_polished_andesite",
+        
+        "additional_lights:fire_pit_s_packed_ice",
+        "additional_lights:fire_pit_l_packed_ice",
+        "additional_lights:standing_torch_s_packed_ice",
+        "additional_lights:standing_torch_l_packed_ice",
+        
+        "additional_lights:fire_pit_s_nether_bricks",
+        "additional_lights:fire_pit_l_nether_bricks",
+        "additional_lights:standing_torch_s_nether_bricks",
+        "additional_lights:standing_torch_l_nether_bricks",
+        
+        "additional_lights:fire_pit_s_mossy_stone_bricks",
+        "additional_lights:fire_pit_l_mossy_stone_bricks",
+        "additional_lights:standing_torch_s_mossy_stone_bricks",
+        "additional_lights:standing_torch_l_mossy_stone_bricks",
+        
+        "additional_lights:fire_pit_s_mossy_cobblestone",
+        "additional_lights:fire_pit_l_mossy_cobblestone",
+        "additional_lights:standing_torch_s_mossy_cobblestone",
+        "additional_lights:standing_torch_l_mossy_cobblestone",
+        
+        "additional_lights:fire_pit_s_iron_block",
+        "additional_lights:fire_pit_l_iron_block",
+        "additional_lights:standing_torch_s_iron_block",
+        "additional_lights:standing_torch_l_iron_block",
+        
+        "additional_lights:fire_pit_s_gold_block",
+        "additional_lights:fire_pit_l_gold_block",
+        "additional_lights:standing_torch_s_gold_block",
+        "additional_lights:standing_torch_l_gold_block",
+        
+        "additional_lights:fire_pit_s_end_stone",
+        "additional_lights:fire_pit_l_end_stone",
+        "additional_lights:standing_torch_s_end_stone",
+        "additional_lights:standing_torch_l_end_stone",
+             
+        "additional_lights:fire_pit_s_end_stone_bricks",
+        "additional_lights:fire_pit_l_end_stone_bricks",
+        "additional_lights:standing_torch_s_end_stone_bricks",
+        "additional_lights:standing_torch_l_end_stone_bricks",
+   
+        "additional_lights:fire_pit_s_diamond_block",
+        "additional_lights:fire_pit_l_diamond_block",
+        "additional_lights:standing_torch_s_diamond_block",
+        "additional_lights:standing_torch_l_diamond_block",
+        
+        "additional_lights:fire_pit_s_cut_sandstone",
+        "additional_lights:fire_pit_l_cut_sandstone",
+        "additional_lights:standing_torch_s_cut_sandstone",
+        "additional_lights:standing_torch_l_cut_sandstone",
+        
+        "additional_lights:fire_pit_s_cobblestone",
+        "additional_lights:fire_pit_l_cobblestone",
+        "additional_lights:standing_torch_s_cobblestone",
+        "additional_lights:standing_torch_l_cobblestone"
+    ]
+}

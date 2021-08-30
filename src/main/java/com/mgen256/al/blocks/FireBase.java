@@ -1,5 +1,8 @@
 package com.mgen256.al.blocks;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -10,20 +13,34 @@ import javax.annotation.Nullable;
 
 import com.mgen256.al.*;
 
-import net.minecraft.block.*;
-import net.minecraft.block.material.*;
-import net.minecraft.client.renderer.*;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.*;
-import net.minecraft.particles.*;
-import net.minecraft.pathfinding.PathType;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.*;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.*;
-import net.minecraft.world.*;
-import net.minecraft.loot.LootContext;
+
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.common.util.ForgeSoundType;
+import net.minecraftforge.common.util.Constants.BlockFlags;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.storage.loot.LootContext;
+
 
 public abstract class FireBase extends ModBlock{
     
@@ -32,19 +49,19 @@ public abstract class FireBase extends ModBlock{
     public static BooleanProperty TEMP = BooleanProperty.create("temp");
 
     private static Map<PedestalTypes, VoxelShape> SHAPES;
-    private static Map<PedestalTypes, BasicParticleType> PARTICLE_TYPES;
+    private static Map<PedestalTypes, SimpleParticleType> PARTICLE_TYPES;
     private static Map<PedestalTypes, Double> SMOKE_POS;
 
-    private static final VoxelShape COLLISION_SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 0, 16);
+    private static final VoxelShape COLLISION_SHAPE = Block.box(0, 0, 0, 16, 0, 16);
 
     static {
         SHAPES = new LinkedHashMap<PedestalTypes, VoxelShape>();
-        SHAPES.put( PedestalTypes.standing_torch_s, Block.makeCuboidShape(4.0D, -6.0D, 4.0D, 12.0D, 2.0D, 12.0D) );
-        SHAPES.put( PedestalTypes.standing_torch_l, Block.makeCuboidShape(4.0D, -2.0D, 4.0D, 12.0D, 6.0D, 12.0D) );
-        SHAPES.put( PedestalTypes.fire_pit_s, Block.makeCuboidShape(0.0D, -10.0D, 0.0D, 16.0D, 2.0D, 16.0D) );
-        SHAPES.put( PedestalTypes.fire_pit_l, Block.makeCuboidShape(0.0D, -2.0D, 0.0D, 16.0D, 7.0D, 16.0D) );
+        SHAPES.put( PedestalTypes.standing_torch_s, Block.box(4.0D, -6.0D, 4.0D, 12.0D, 2.0D, 12.0D) );
+        SHAPES.put( PedestalTypes.standing_torch_l, Block.box(4.0D, -2.0D, 4.0D, 12.0D, 6.0D, 12.0D) );
+        SHAPES.put( PedestalTypes.fire_pit_s, Block.box(0.0D, -10.0D, 0.0D, 16.0D, 2.0D, 16.0D) );
+        SHAPES.put( PedestalTypes.fire_pit_l, Block.box(0.0D, -2.0D, 0.0D, 16.0D, 7.0D, 16.0D) );
 
-        PARTICLE_TYPES = new LinkedHashMap<PedestalTypes, BasicParticleType>();
+        PARTICLE_TYPES = new LinkedHashMap<PedestalTypes, SimpleParticleType>();
         PARTICLE_TYPES.put( PedestalTypes.standing_torch_s, ParticleTypes.SMOKE );
         PARTICLE_TYPES.put( PedestalTypes.standing_torch_l, ParticleTypes.SMOKE );
         PARTICLE_TYPES.put( PedestalTypes.fire_pit_s, ParticleTypes.LARGE_SMOKE );
@@ -56,27 +73,27 @@ public abstract class FireBase extends ModBlock{
         SMOKE_POS.put( PedestalTypes.fire_pit_s, 0.0 );
         SMOKE_POS.put( PedestalTypes.fire_pit_l, 0.8 );
     }
-
+    
     protected static Properties createProps( MaterialColor mapColor ){
-        return Block.Properties.create( Material.MISCELLANEOUS, mapColor)
-            .hardnessAndResistance(0.0f)
-            .doesNotBlockMovement()
-            .sound(new SoundType(1.5F, 1.0F,AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), SoundEvents.BLOCK_WOOL_STEP
-            , SoundEvents.BLOCK_STONE_PLACE, SoundEvents.BLOCK_WOOL_HIT, SoundEvents.BLOCK_WOOL_FALL) );
+        return BlockBehaviour.Properties.of( Material.DECORATION, mapColor)
+            .instabreak()
+            .noCollission()
+            .sound(new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), () -> SoundEvents.WOOL_STEP
+            , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) );
     }
 
-    public FireBase( String basename, PedestalTypes _pedestalKey, Properties props ) {
+    protected FireBase( String basename, PedestalTypes _pedestalKey, Properties props ) {
         super( basename + _pedestalKey, null, props, SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
-        this.setDefaultState(this.stateContainer.getBaseState().with(SET, Boolean.valueOf(false) ).with(SUMMONED, false).with(TEMP, false) );
+        this.registerDefaultState(this.stateDefinition.any().setValue(SET, Boolean.valueOf(false) ).setValue(SUMMONED, false).setValue(TEMP, false) );
       }
 
       
     private PedestalTypes pedestalKey;
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add( SET );
         builder.add( SUMMONED );
         builder.add( TEMP );
@@ -87,72 +104,71 @@ public abstract class FireBase extends ModBlock{
     }
     
     @Override
-    public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getCollisionShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
         return COLLISION_SHAPE;
     }
 
     @Override
     public void setRenderLayer() {
-        RenderTypeLookup.setRenderLayer(this, RenderType.getCutout());
+        ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout());
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
         return SHAPES.get(pedestalKey);
     }
     
     @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double d0 = (double) pos.getX() + 0.5D;
-        double d1 = (double) pos.getY() + SMOKE_POS.get(pedestalKey);
-        double d2 = (double) pos.getZ() + 0.5D;
-        worldIn.addParticle(PARTICLE_TYPES.get(pedestalKey), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+    public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+        double d0 = pos.getX() + 0.5D;
+        double d1 = pos.getY() + SMOKE_POS.get(pedestalKey);
+        double d2 = pos.getZ() + 0.5D;
+        level.addParticle(PARTICLE_TYPES.get(pedestalKey), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState
-        , IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
-        return facing == Direction.DOWN && !isValidPosition(stateIn, worldIn, currentPos) 
-        ? Blocks.AIR.getDefaultState() : stateIn;
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState
+        , LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        return ( facing == Direction.DOWN ) && !isValidPosition(stateIn, level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return !worldIn.isAirBlock(pos.down());
+    public boolean isValidPosition(BlockState state, LevelAccessor level, BlockPos pos) {
+        return !level.isEmptyBlock(pos.below()) && level.getBlockState(pos.below()).getMaterial() != Material.WATER;
      }
 
     @Override
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-        if( state.get(SUMMONED) == false && state.get(TEMP) == false )
-            return super.getDrops( state.with(SET, false), builder );
+        if( state.getValue(SUMMONED) == FALSE && state.getValue(TEMP) == FALSE )
+            return super.getDrops( state.setValue(SET, false), builder );
 
         List<ItemStack> list = new ArrayList<>();
         return list;   
      }
      
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
     {
-        Block lowerblock = worldIn.getBlockState(pos.down()).getBlock();
-        if( lowerblock instanceof Pedestal == false )
+        Block lowerblock = level.getBlockState(pos.below()).getBlock();
+        if( lowerblock instanceof Pedestal != TRUE )
             return;
         
         Pedestal pedestal = (Pedestal)lowerblock;
         if( pedestal.getType() == pedestalKey )
-            worldIn.setBlockState( pos, state.with(SET, true ) );
+            level.setBlock( pos, state.setValue(SET, true ), BlockFlags.DEFAULT );
     }
       
     @Override
-    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+    public boolean isPathfindable(BlockState state, BlockGetter blockgetter, BlockPos pos, PathComputationType type) {
         return false;
     }
 /*
-    public void onEntityWalk(World worldIn, BlockPos pos, Entity entityIn) {
+    public void onEntityWalk(Level level, BlockPos pos, Entity entityIn) {
         if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity
                 && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
             entityIn.attackEntityFrom(DamageSource.IN_FIRE, getFireDamageAmount());
         }
 
-        super.onEntityWalk(worldIn, pos, entityIn);
+        super.onEntityWalk(level, pos, entityIn);
     }
 */
 }

@@ -1,22 +1,25 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.TorchBlock;
-import net.minecraft.block.material.Material;
+
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraftforge.common.util.Constants.BlockFlags;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.WallOrFloorItem;
-import net.minecraft.loot.LootContext;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.state.StateContainer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.StandingAndWallBlockItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +33,12 @@ import com.mgen256.al.items.SoulWand;
 public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
     public static Properties createProps( Block mainblock ){
-        BlockState state = mainblock.getDefaultState();
+        BlockState state = mainblock.defaultBlockState();
         
-        return Block.Properties.create(Material.MISCELLANEOUS)
-            .doesNotBlockMovement()
-            .hardnessAndResistance(0.0f)
-            .setLightLevel( lightLevel -> 14 )
+        return BlockBehaviour.Properties.of(Material.DECORATION)
+            .noCollission()
+            .instabreak()
+            .lightLevel( lightLevel -> 14 )
             .sound( state.getSoundType( null, null, null ) );
     }
     
@@ -44,9 +47,9 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
         name = "al_torch_" + mainblock.getRegistryName().getPath();
         wallKey = _wallKey;
-        setDefaultState( stateContainer.getBaseState()
-            .with( FIRE_TYPE, FireTypes.NORMAL )
-            .with( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
+        registerDefaultState( stateDefinition.any()
+            .setValue( FIRE_TYPE, FireTypes.NORMAL )
+            .setValue( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
     }
     
     private BlockItem blockItem;
@@ -56,19 +59,19 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     @Override
     public void init() {
         setRegistryName(name);
-        blockItem = new WallOrFloorItem(this, AdditionalLights.getBlock(wallKey) , AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getRegistryName());
+        blockItem = new StandingAndWallBlockItem(this, AdditionalLights.getBlock(wallKey) , AdditionalLights.ItemProps);
+        blockItem.setRegistryName(getModRegistryName());
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        super.fillStateContainer(builder);
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
         builder.add( FIRE_TYPE );
         builder.add( PREVIOUS_FIRE_TYPE );
     }
     
     @Override
-    public String getName(){
+    public String getModRegistryName(){
         return name;
     }
 
@@ -78,26 +81,26 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
 
     @Override
-    public int getLightValue(BlockState state, IBlockReader world, BlockPos pos) {
-        return state.get( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
+    public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
+        return state.getValue( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
     }
 
     @Override
     public void setRenderLayer() {
-        RenderTypeLookup.setRenderLayer(this, name.contains("glass") ? RenderType.getCutout() : RenderType.getSolid() );
+        ItemBlockRenderTypes.setRenderLayer(this, name.contains("glass") ? RenderType.cutout() : RenderType.solid() );
     }
     
     @Override
-    public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        double d0 = (double)pos.getX() + 0.5D;
-        double d1 = (double)pos.getY() + 0.7D;
-        double d2 = (double)pos.getZ() + 0.5D;
-        worldIn.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+    public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+        double d0 = pos.getX() + 0.5D;
+        double d1 = pos.getY() + 0.7D;
+        double d2 = pos.getZ() + 0.5D;
+        level.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         
-        IParticleData particleType;
-        particleType = stateIn.get( FIRE_TYPE ) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
+        ParticleOptions particleOption;
+        particleOption = stateIn.getValue( FIRE_TYPE ) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
 
-        worldIn.addParticle(particleType, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        level.addParticle(particleOption, d0, d1, d2, 0.0D, 0.0D, 0.0D);
      }
 
         
@@ -111,8 +114,8 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
 
     @Override
-    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if( placer.getHeldItemOffhand().getItem() instanceof SoulWand )
-            worldIn.setBlockState( pos, state.with( FIRE_TYPE, FireTypes.SOUL ) );
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if( placer.getOffhandItem().getItem() instanceof SoulWand )
+            level.setBlock( pos, state.setValue( FIRE_TYPE, FireTypes.SOUL ), BlockFlags.DEFAULT );
     }
 }

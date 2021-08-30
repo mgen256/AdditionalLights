@@ -1,14 +1,33 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "group": "fire",
-    "ingredients": [
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:soul_sand" }, { "item": "minecraft:soul_soil" } ]
-      ],
-    "result":{
-        "item":"additional_lights:soul_fire_for_fire_pit_s",
-        "count":1
+  "type": "minecraft:crafting_shaped",
+  "group": "fire",
+  
+  "pattern": [
+    " #",
+    "X#",
+    "##"
+    ],
+"key": {
+    "#": [
+      {
+          "item": "minecraft:coal"
+      },
+      {
+          "item": "minecraft:charcoal"
       }
+  ]
+    ,
+    "X": [
+      {
+          "item": "minecraft:soul_sand"
+      },
+      {
+          "item": "minecraft:soul_soil"
+      }
+  ]
+  },
+  "result":{
+      "item":"additional_lights:soul_fire_for_fire_pit_s",
+      "count":2
+    }
 }

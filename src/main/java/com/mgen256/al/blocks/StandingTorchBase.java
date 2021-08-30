@@ -1,8 +1,8 @@
 
 package com.mgen256.al.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 
 public abstract class StandingTorchBase extends Pedestal  {

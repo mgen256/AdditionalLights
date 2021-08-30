@@ -1,12 +1,11 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.item.BlockItem;
-
+import net.minecraft.world.item.BlockItem;
 
 public interface IModBlock 
 {
     void init();
-    String getName();
+    String getModRegistryName();
     BlockItem getBlockItem();
 
     default boolean notRequireItemRegistration(){
