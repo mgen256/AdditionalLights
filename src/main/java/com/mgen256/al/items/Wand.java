@@ -7,28 +7,29 @@ import javax.annotation.Nullable;
 import com.mgen256.al.AdditionalLights;
 import com.mgen256.al.ModSoundList;
 
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.World;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
+
 
 public abstract class Wand extends ModItem {
     
-    public Wand( Properties props ) {
+    protected Wand( Properties props ) {
         super( props );
     }
 
-    private static StringTextComponent txt_shift;
-    private static StringTextComponent txt_usage;
-    private static StringTextComponent txt_rightclick;
-    private static StringTextComponent txt_lefthand;
-    private static StringTextComponent txt_piglin;
+    private static Component txt_shift;
+    private static Component txt_usage;
+    private static Component txt_rightclick;
+    private static Component txt_lefthand;
+    private static Component txt_piglin;
 
     protected static class SoundEvents
     {
@@ -43,23 +44,23 @@ public abstract class Wand extends ModItem {
     }
 
 
-    protected void playSound( World worldIn, PlayerEntity playerIn, SoundEvent sound, float volume )
+    protected void playSound( Level level, Player player, SoundEvent sound, float volume )
     {
-        worldIn.playSound( playerIn, playerIn.getPosition(), sound, SoundCategory.PLAYERS, volume, 1.0f );
+        level.playSound( player, player.blockPosition(), sound, SoundSource.PLAYERS, volume, 1.0f );
     }
     
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flagIn) {
         if( txt_shift == null )
         {
-            if( I18n.hasKey("additional_lights.txt.shift") == false )
+            if( I18n.exists("additional_lights.txt.shift") == false )
                 return;
                 
-            txt_shift = new StringTextComponent( I18n.format( "additional_lights.txt.shift" ) );
-            txt_usage = new StringTextComponent( I18n.format( "additional_lights.txt.usage" ) );
-            txt_rightclick = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.rightclick" ) );
-            txt_lefthand = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.lefthand" ) );
-            txt_piglin = new StringTextComponent( I18n.format( "additional_lights.txt.item.soul_wand.piglin" ) );
+            txt_shift = new TranslatableComponent( "additional_lights.txt.shift" );
+            txt_usage = new TranslatableComponent( "additional_lights.txt.usage" );
+            txt_rightclick = new TranslatableComponent( "additional_lights.txt.item.soul_wand.rightclick" );
+            txt_lefthand = new TranslatableComponent( "additional_lights.txt.item.soul_wand.lefthand" );
+            txt_piglin = new TranslatableComponent( "additional_lights.txt.item.soul_wand.piglin" );
         }
 
         if ( Screen.hasShiftDown() )

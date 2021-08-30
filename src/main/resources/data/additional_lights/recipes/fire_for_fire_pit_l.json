@@ -1,14 +1,24 @@
 {
-    "type": "minecraft:crafting_shapeless",
-    "group": "fire",
-    "ingredients": [
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ],
-        [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ]
-      ],
-    "result":{
-        "item":"additional_lights:fire_for_fire_pit_l",
-        "count":1
+  "type": "minecraft:crafting_shaped",
+  "group": "fire",
+
+  "pattern": [
+    "##",
+    " #",
+    " #"
+    ],
+  "key": {
+    "#": [
+      {
+          "item": "minecraft:coal"
+      },
+      {
+          "item": "minecraft:charcoal"
       }
+  ]
+  },
+  "result":{
+      "item":"additional_lights:fire_for_fire_pit_l",
+      "count":2
+    }
 }

@@ -1,8 +1,8 @@
 package com.mgen256.al;
 
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.StringRepresentable;
 
-public enum FireTypes implements IStringSerializable {
+public enum FireTypes implements StringRepresentable {
     NORMAL("normal"),
     SOUL("soul");
 
@@ -13,10 +13,10 @@ public enum FireTypes implements IStringSerializable {
     }
  
     public String toString() {
-       return this.getString();
+       return this.getSerializedName();
     }
  
-    public String getString() {
+    public String getSerializedName() {
        return this.name;
     }
 }

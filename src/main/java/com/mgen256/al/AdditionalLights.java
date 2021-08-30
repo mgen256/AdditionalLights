@@ -1,14 +1,16 @@
 package com.mgen256.al;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+//import net.minecraft.item.item.ItemGroup;
+import net.minecraft.world.item.ItemStack;
+//import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,6 +18,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +35,7 @@ import com.mgen256.al.blocks.*;
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AdditionalLights.MOD_ID)
 public class AdditionalLights {
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, AdditionalLights.MOD_ID);
 
     public static final String MOD_ID = "additional_lights";
 
@@ -42,10 +47,10 @@ public class AdditionalLights {
     private static final Logger LOGGER = LogManager.getLogger();
 
     static {
-        ItemGroup itemGroup = new ItemGroup(MOD_ID) {
+        CreativeModeTab category = new CreativeModeTab(MOD_ID) {
 
             @Override
-            public ItemStack createIcon() {
+            public ItemStack makeIcon() {
                 return new ItemStack( getBlock(ModBlockList.ALTorch_Oak) );
             }
             
@@ -55,7 +60,7 @@ public class AdditionalLights {
             }
 
             @Override
-            public void fill(NonNullList<ItemStack> itemStacks) {
+            public void fillItemList(NonNullList<ItemStack> itemStacks) {
                 itemStacks.clear();
 
                 // items
@@ -72,10 +77,9 @@ public class AdditionalLights {
                 });
             }
 
-        }.setBackgroundImageName("item_search.png").setNoTitle();
-        ItemProps = new Item.Properties().group(itemGroup);
+        }.setBackgroundSuffix( "item_search.png" ).hideTitle();
+        ItemProps = new Item.Properties().tab(category);
     }
-
 
 
 

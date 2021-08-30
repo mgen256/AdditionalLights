@@ -2,8 +2,8 @@ package com.mgen256.al.blocks;
 
 import com.mgen256.al.*;
 
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.state.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.MaterialColor;
 
 public class Fire_Soul extends FireBase {
     
@@ -11,9 +11,10 @@ public class Fire_Soul extends FireBase {
 
     public Fire_Soul( PedestalTypes pedestalKey ) {
         super( "soul_fire_for_", pedestalKey, createProps( MaterialColor.DIAMOND )
-            .setLightLevel( lightLevel -> 10 ) );
+            .lightLevel( lightLevel -> 10 ) );
       }
 
+    @Override
     protected float getFireDamageAmount() {
         return 0.0F;
     }

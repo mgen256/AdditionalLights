@@ -1,132 +1,136 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IWaterLoggable;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.material.MaterialColor;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.fluid.Fluids;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.fluid.FluidState;
+import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.RenderShape;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
 
 
-public class ALLamp extends ModBlock implements IWaterLoggable{
+public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
 
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    
     // D-U-N-S-W-E
     private static VoxelShape[] SHAPES = {
-        Block.makeCuboidShape( 5.0, 14.0, 5.0, 11.0, 16.0, 11.0), // down
-        Block.makeCuboidShape( 5.0, 0.0, 5.0, 11.0, 2.0, 11.0), // up
+        Block.box( 5.0, 14.0, 5.0, 11.0, 16.0, 11.0), // down
+        Block.box( 5.0, 0.0, 5.0, 11.0, 2.0, 11.0), // up
 
-        Block.makeCuboidShape(6.0, 7.0, 12.0, 10.0, 13.0, 16.0), // north
-        Block.makeCuboidShape(6.0, 7.0, 0.0, 10.0, 13.0, 4.0), // south
-        Block.makeCuboidShape(12.0, 7.0, 6.0, 16.0, 13.0, 10.0), // west
-        Block.makeCuboidShape(0.0, 7.0, 6.0, 4.0, 13.0, 10.0), // east
+        Block.box(6.0, 7.0, 12.0, 10.0, 13.0, 16.0), // north
+        Block.box(6.0, 7.0, 0.0, 10.0, 13.0, 4.0), // south
+        Block.box(12.0, 7.0, 6.0, 16.0, 13.0, 10.0), // west
+        Block.box(0.0, 7.0, 6.0, 4.0, 13.0, 10.0), // east
     }; 
 
 
 
     private static Properties createProps( Block mainblock ){
-        BlockState state = mainblock.getDefaultState();
+        BlockState state = mainblock.defaultBlockState();
         Material mbm = state.getMaterial();
         
         Material material = new Material(
-            MaterialColor.AIR,
+            MaterialColor.NONE,
             false, //isLiquid
             true,  //isSolid
-            true, //Blocks Movement
-            mbm.isOpaque(), //isOpaque
+            true, //blocksMotion
+            mbm.isSolidBlocking(), //solidBlocking
             false, //flammable
             false, //replaceable
             PushReaction.NORMAL
             );
 
-        return Block.Properties.create( material )
-            .setLightLevel( lightLevel -> 15 )
-            .hardnessAndResistance(0.0f)
-            .doesNotBlockMovement()
+        return BlockBehaviour.Properties.of( material )
+            .instabreak()
+            .lightLevel( lightLevel -> 15 )
+            .noCollission()
             .sound( state.getSoundType() );
     }
 
     public ALLamp(Block mainblock ) {
-        super( "al_lamp_", mainblock, createProps(mainblock), VoxelShapes.empty());
+        super( "al_lamp_", mainblock, createProps(mainblock), Shapes.empty());
       }
       
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
     
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        boolean waterlogged = context.getWorld().getFluidState(context.getPos()).getFluid() == Fluids.WATER;
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        boolean waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
 
         Direction direction;
-        direction = GrassIsPlaced( context.getWorld(), context.getPos() ) ? Direction.UP : context.getFace();
-        return getDefaultState().with(BlockStateProperties.FACING, direction).with(BlockStateProperties.WATERLOGGED, waterlogged);
+        direction = GrassIsPlaced( context.getLevel(), context.getClickedPos() ) ? Direction.UP : context.getClickedFace();
+        return defaultBlockState().setValue(BlockStateProperties.FACING, direction).setValue(BlockStateProperties.WATERLOGGED, waterlogged);
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        Direction facing = state.get(BlockStateProperties.FACING);
-        return SHAPES[facing.getIndex()];
+    public VoxelShape getShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
+        Direction facing = state.getValue(BlockStateProperties.FACING);
+        return SHAPES[facing.get3DDataValue()];
     }
 
     @Override
-    public BlockRenderType getRenderType(final BlockState state) {
-        return BlockRenderType.MODEL;
+    public RenderShape getRenderShape( BlockState state ) {
+        return RenderShape.MODEL;
     }
     
     @Override
-    public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.get(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+        return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override
-    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState
-        , IWorld worldIn, BlockPos currentPos, BlockPos facingPos) 
+    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState
+        , LevelAccessor level, BlockPos currentPos, BlockPos facingPos) 
     {
-        return facing == stateIn.get(BlockStateProperties.FACING).getOpposite() 
-            && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn;
+        return facing == stateIn.getValue(BlockStateProperties.FACING).getOpposite() 
+            && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 
     @Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
+    public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 
-        if( GrassIsPlaced( worldIn, pos ) )
-            return !worldIn.isAirBlock(pos.down());
+        if( GrassIsPlaced( level, pos ) )
+            return !level.isEmptyBlock(pos.below());
 
-        Direction direction = state.get(BlockStateProperties.FACING);
-        BlockPos blockpos = pos.offset(direction.getOpposite());
+        Direction direction = state.getValue(BlockStateProperties.FACING);
+        BlockPos blockpos = pos.relative(direction.getOpposite());
 
-        return !worldIn.isAirBlock( blockpos ) && !( worldIn.getBlockState(blockpos).getBlock() == this );
+        return !level.isEmptyBlock( blockpos ) && !( level.getBlockState(blockpos).getBlock() == this );
     }
 
-    private boolean GrassIsPlaced( IWorldReader worldIn, BlockPos pos )
+    private boolean GrassIsPlaced( LevelReader level, BlockPos pos )
     {
-        Material material = worldIn.getBlockState(pos).getMaterial();
-        return ( material == Material.TALL_PLANTS || material == Material.PLANTS || material == Material.SEA_GRASS );
+        Material material = level.getBlockState(pos).getMaterial();
+        return material == Material.REPLACEABLE_PLANT;
     }
 }

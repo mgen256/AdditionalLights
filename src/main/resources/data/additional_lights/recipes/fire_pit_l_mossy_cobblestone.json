@@ -3,9 +3,9 @@
     "group": "fire_pit_l",
 
     "pattern": [
-      " # ",
-      "XXX",
-      "XXX"
+      "##",
+      "XX",
+      "XX"
     ],
     "key": {
       "#": [
