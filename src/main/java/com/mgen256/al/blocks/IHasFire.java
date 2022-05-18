@@ -5,7 +5,6 @@ import com.mgen256.al.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraftforge.common.util.Constants;
 import net.minecraft.core.BlockPos;
 
 public interface IHasFire {
@@ -18,7 +17,7 @@ public interface IHasFire {
             .setValue( FIRE_TYPE, newFireType )
             .setValue( PREVIOUS_FIRE_TYPE, prevFireType );
 
-        if( level.setBlock( pos, newState, Constants.BlockFlags.DEFAULT ) )
+        if( level.setBlockAndUpdate( pos, newState ) )
             return newState;
         return state;
     }

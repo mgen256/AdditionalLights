@@ -229,7 +229,6 @@ public class AdditionalLights {
             put(ModBlockList.StandingTorch_L_Polished_Granite, new StandingTorch_L(Blocks.POLISHED_GRANITE));
             put(ModBlockList.StandingTorch_L_Sand_Stone, new StandingTorch_L(Blocks.SANDSTONE));
             put(ModBlockList.StandingTorch_L_Cut_Sand_Stone, new StandingTorch_L(Blocks.CUT_SANDSTONE));
-            put(ModBlockList.StandingTorch_L_Cut_Sand_Stone, new StandingTorch_L(Blocks.CUT_SANDSTONE));
             put(ModBlockList.StandingTorch_L_End_Stone, new StandingTorch_L(Blocks.END_STONE));
             put(ModBlockList.StandingTorch_L_End_Stone_Bricks, new StandingTorch_L(Blocks.END_STONE_BRICKS));
             put(ModBlockList.StandingTorch_L_Nether_Bricks, new StandingTorch_L(Blocks.NETHER_BRICKS));
