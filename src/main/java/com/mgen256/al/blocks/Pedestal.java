@@ -12,7 +12,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.common.util.Constants;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -141,10 +140,9 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         if( firebase != null && level.getBlockState( upperpos ).getValue(FireBase.SUMMONED) == false )
             level.destroyBlock( upperpos, true );
 
-        return level.setBlock( upperpos, getFireBlock(state).defaultBlockState()
+        return level.setBlockAndUpdate( upperpos, getFireBlock(state).defaultBlockState()
             .setValue(FireBase.SET, true)
-            .setValue(FireBase.SUMMONED, true)
-            , Constants.BlockFlags.DEFAULT );
+            .setValue(FireBase.SUMMONED, true) );
     }
 
     public void removeFire(Level level, BlockPos pos, BlockState state )
@@ -152,7 +150,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         if( level.getBlockState(pos.above()).getBlock() instanceof FireBase == false )
             return;
 
-        level.setBlock(pos.above(), Blocks.AIR.defaultBlockState(), Constants.BlockFlags.DEFAULT );
+        level.setBlockAndUpdate(pos.above(), Blocks.AIR.defaultBlockState() );
     }
 
 
@@ -187,10 +185,10 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
             state = state.setValue( FIRE_TYPE, FireTypes.SOUL );
 
         if( placer.isSuppressingSlidingDownLadder() )
-            level.setBlock( pos, state.setValue( ACCEPT_POWER, false ), Constants.BlockFlags.DEFAULT );
+            level.setBlockAndUpdate( pos, state.setValue( ACCEPT_POWER, false ) );
         else
         {
-            level.setBlock( pos, state, Constants.BlockFlags.DEFAULT );
+            level.setBlockAndUpdate( pos, state );
             setFire( level, pos, state, false );
         }
     }
@@ -210,12 +208,12 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
             if( setFire( level, pos, state, false ) )
                 playIgnitionSound( level, null, state.getBlock(),pos );
 
-            level.setBlock( pos, state.setValue( ISPOWERED, true ).setValue( ACTIVATED, true ), Constants.BlockFlags.DEFAULT );
+            level.setBlockAndUpdate( pos, state.setValue( ISPOWERED, true ).setValue( ACTIVATED, true ) );
         }
         else if( state.getValue( ISPOWERED ) && state.getValue( ACTIVATED ) )
         {
             removeFire( level, pos, state );
-            level.setBlock( pos, state.setValue( ISPOWERED, false ).setValue( ACTIVATED, false ), Constants.BlockFlags.DEFAULT );
+            level.setBlockAndUpdate( pos, state.setValue( ISPOWERED, false ).setValue( ACTIVATED, false ) );
         }
         super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
     }

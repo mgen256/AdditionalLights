@@ -7,7 +7,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraftforge.common.util.Constants.BlockFlags;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -131,6 +130,6 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if( placer.getOffhandItem().getItem() instanceof SoulWand )
-            level.setBlock( pos, state.setValue( FIRE_TYPE, FireTypes.SOUL ), BlockFlags.DEFAULT );
+            level.setBlockAndUpdate( pos, state.setValue( FIRE_TYPE, FireTypes.SOUL ) );
     }
 }
