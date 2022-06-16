@@ -3,16 +3,14 @@ package com.mgen256.al;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.NonNullList;
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-//import net.minecraft.item.item.ItemGroup;
 import net.minecraft.world.item.ItemStack;
-//import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -20,7 +18,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegisterEvent;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -101,11 +99,11 @@ public class AdditionalLights {
         modSounds = new LinkedHashMap<ModSoundList, SoundEvent>(){
             private static final long serialVersionUID = 4L;
             {
-                put( ModSoundList.Change, new SoundEvent(new ResourceLocation( MOD_ID, "change" ) ).setRegistryName( "change" ) );
-                put( ModSoundList.Undo, new SoundEvent(new ResourceLocation( MOD_ID, "undo" ) ).setRegistryName( "undo" ) );
-                put( ModSoundList.Fire_Ignition_S, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_s" ) ).setRegistryName( "fire_ignition_s" ) );
-                put( ModSoundList.Fire_Ignition_L, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_l" ) ).setRegistryName( "fire_ignition_l" ) );
-                put( ModSoundList.Fire_Extinguish, new SoundEvent(new ResourceLocation( MOD_ID, "fire_extinguish" ) ).setRegistryName( "fire_extinguish" ) );
+                put( ModSoundList.Change, new SoundEvent(new ResourceLocation( MOD_ID, "change" ) ) );
+                put( ModSoundList.Undo, new SoundEvent(new ResourceLocation( MOD_ID, "undo" ) ) );
+                put( ModSoundList.Fire_Ignition_S, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_s" ) ) );
+                put( ModSoundList.Fire_Ignition_L, new SoundEvent(new ResourceLocation( MOD_ID, "fire_ignition_l" ) ) );
+                put( ModSoundList.Fire_Extinguish, new SoundEvent(new ResourceLocation( MOD_ID, "fire_extinguish" ) ) );
             }};
  
             
@@ -342,32 +340,27 @@ public class AdditionalLights {
     public static class RegistryEvents {
         
         @SubscribeEvent
-        public static void onItemsRegistry(RegistryEvent.Register<Item> event) {
+        public static void onItemsRegistry(RegisterEvent event) {
             init();
-
-            IForgeRegistry<Item> registry = event.getRegistry();
 
             modBlocks.forEach( ( key, block ) -> {
                 if( block.notRequireItemRegistration() )
                     return;
-                registry.register(block.getBlockItem());  
+                event.register( Registry.ITEM_REGISTRY, (reg) -> reg.register( block.getModRegistryName(), block.getBlockItem() ) );
             } );
 
-            modItems.forEach( ( key, item ) -> registry.register( (Item)item ) );
+            modItems.forEach( ( key, item ) -> event.register( Registry.ITEM_REGISTRY, (reg) -> reg.register( item.getModRegistryName(), (Item)item ) ) );
         }
 
         @SubscribeEvent
-        public static void onBlocksRegistry(RegistryEvent.Register<Block> event) {
+        public static void onBlocksRegistry(RegisterEvent event) {
             init();
-            IForgeRegistry<Block> registry = event.getRegistry();
-            modBlocks.forEach( (key, block) -> registry.register( (Block)block ) );
+            modBlocks.forEach( (key, block) -> event.register( Registry.BLOCK_REGISTRY, (reg) -> reg.register(block.getModRegistryName() ,(Block)block )) );
         }
 
         @SubscribeEvent
-        public static void onSoundsRegistry(RegistryEvent.Register<SoundEvent> event){
-
-            IForgeRegistry<SoundEvent> registry = event.getRegistry();
-            modSounds.forEach( (key, sound) -> registry.register( sound ) );
+        public static void onSoundsRegistry(RegisterEvent event){
+            modSounds.forEach( (key, sound) -> event.register( Registry.SOUND_EVENT_REGISTRY, (reg) -> reg.register( sound.getLocation().getPath() ,sound) ) );
         }
     }
 

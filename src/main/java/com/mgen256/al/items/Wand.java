@@ -10,7 +10,6 @@ import com.mgen256.al.ModSoundList;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
@@ -21,8 +20,8 @@ import net.minecraft.world.level.Level;
 
 public abstract class Wand extends ModItem {
     
-    protected Wand( Properties props ) {
-        super( props );
+    protected Wand( Properties props, String name ) {
+        super( props, name );
     }
 
     private static Component txt_shift;
@@ -56,11 +55,11 @@ public abstract class Wand extends ModItem {
             if( I18n.exists("additional_lights.txt.shift") == false )
                 return;
                 
-            txt_shift = new TranslatableComponent( "additional_lights.txt.shift" );
-            txt_usage = new TranslatableComponent( "additional_lights.txt.usage" );
-            txt_rightclick = new TranslatableComponent( "additional_lights.txt.item.soul_wand.rightclick" );
-            txt_lefthand = new TranslatableComponent( "additional_lights.txt.item.soul_wand.lefthand" );
-            txt_piglin = new TranslatableComponent( "additional_lights.txt.item.soul_wand.piglin" );
+            txt_shift = Component.translatable( "additional_lights.txt.shift" );
+            txt_usage = Component.translatable( "additional_lights.txt.usage" );
+            txt_rightclick = Component.translatable( "additional_lights.txt.item.soul_wand.rightclick" );
+            txt_lefthand = Component.translatable( "additional_lights.txt.item.soul_wand.lefthand" );
+            txt_piglin = Component.translatable( "additional_lights.txt.item.soul_wand.piglin" );
         }
 
         if ( Screen.hasShiftDown() )

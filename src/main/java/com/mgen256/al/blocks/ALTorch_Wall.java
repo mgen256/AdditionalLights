@@ -5,8 +5,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,8 +44,8 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
          
     public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
         super(ALTorch.createProps(mainblock), ParticleTypes.FLAME);
-
-        name = "al_wall_torch_" + mainblock.getRegistryName().getPath();
+        
+        name = "al_wall_torch_" + Registry.BLOCK.getKey(mainblock).getPath();
         floorKey = _floorKey;
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH )
@@ -56,7 +58,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
 
     @Override
     public void init() {
-        setRegistryName(name);
+        //setRegistryName(name);
     }
 
     @Override
@@ -101,7 +103,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
     }
     
     @Override
-    public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+    public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
         Direction direction = stateIn.getValue(BlockStateProperties.HORIZONTAL_FACING);
         double dx = pos.getX() + 0.5D;
         double dy = pos.getY() + 0.9D;

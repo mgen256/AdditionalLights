@@ -24,9 +24,7 @@ public class SoulWand extends Wand {
     }
 
     public SoulWand() {
-        super( createProps() );
-
-        setRegistryName( "soul_wand" );
+        super( createProps(), "soul_wand" );
     }
 
     @Override

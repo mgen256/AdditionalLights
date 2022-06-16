@@ -24,6 +24,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.entity.LivingEntity;
@@ -118,7 +119,7 @@ public abstract class FireBase extends ModBlock{
     }
     
     @Override
-    public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+    public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
         double d0 = pos.getX() + 0.5D;
         double d1 = pos.getY() + SMOKE_POS.get(pedestalKey);
         double d2 = pos.getZ() + 0.5D;

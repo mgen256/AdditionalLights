@@ -7,7 +7,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
@@ -225,11 +224,11 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
             if( I18n.exists("additional_lights.txt.shift") != TRUE )
                 return;
 
-            txt_shift = new TranslatableComponent( "additional_lights.txt.shift" );
-            txt_tips = new TranslatableComponent( "additional_lights.txt.tips" );
-            txt_rightclick = new TranslatableComponent( "additional_lights.txt.block.pedestal.rightclick" );
-            txt_sneaking = new TranslatableComponent( "additional_lights.txt.block.pedestal.sneaking" );
-            txt_signals = new TranslatableComponent( "additional_lights.txt.block.pedestal.signals" );
+            txt_shift = Component.translatable( "additional_lights.txt.shift" );
+            txt_tips = Component.translatable( "additional_lights.txt.tips" );
+            txt_rightclick = Component.translatable( "additional_lights.txt.block.pedestal.rightclick" );
+            txt_sneaking = Component.translatable( "additional_lights.txt.block.pedestal.sneaking" );
+            txt_signals = Component.translatable( "additional_lights.txt.block.pedestal.signals" );
         }
 
         if ( Screen.hasShiftDown() )

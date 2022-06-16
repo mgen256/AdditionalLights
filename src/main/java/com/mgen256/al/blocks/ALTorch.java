@@ -5,8 +5,10 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -44,7 +46,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     public ALTorch( Block mainblock, ModBlockList _wallKey ) {
         super( createProps(mainblock), ParticleTypes.FLAME );
 
-        name = "al_torch_" + mainblock.getRegistryName().getPath();
+        name = "al_torch_" + Registry.BLOCK.getKey(mainblock).getPath();
         wallKey = _wallKey;
         registerDefaultState( stateDefinition.any()
             .setValue( FIRE_TYPE, FireTypes.NORMAL )
@@ -57,9 +59,9 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
     @Override
     public void init() {
-        setRegistryName(name);
+        //setRegistryName(name);
         blockItem = new StandingAndWallBlockItem(this, AdditionalLights.getBlock(wallKey) , AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getModRegistryName());
+        //blockItem.setRegistryName(getModRegistryName());
     }
 
     @Override
@@ -90,7 +92,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
     
     @Override
-    public void animateTick(BlockState stateIn, Level level, BlockPos pos, Random rand) {
+    public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
         double d0 = pos.getX() + 0.5D;
         double d1 = pos.getY() + 0.7D;
         double d2 = pos.getZ() + 0.5D;

@@ -8,6 +8,7 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -25,7 +26,7 @@ public abstract class ModBlock extends Block implements IModBlock {
         if( mainblock == null )
             name = basename;
         else
-            name = basename + mainblock.getRegistryName().getPath();
+            name = basename + Registry.BLOCK.getKey(mainblock).getPath();
         voxelShape = shape;
     }
 
@@ -35,9 +36,7 @@ public abstract class ModBlock extends Block implements IModBlock {
 
     @Override
     public void init() {
-        setRegistryName(name);
         blockItem = new BlockItem(this, AdditionalLights.ItemProps);
-        blockItem.setRegistryName(getModRegistryName());
     }
 
     @Override
