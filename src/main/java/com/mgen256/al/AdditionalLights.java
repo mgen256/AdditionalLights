@@ -360,6 +360,7 @@ public class AdditionalLights {
 
         @SubscribeEvent
         public static void onSoundsRegistry(RegisterEvent event){
+            init();
             modSounds.forEach( (key, sound) -> event.register( Registry.SOUND_EVENT_REGISTRY, (reg) -> reg.register( sound.getLocation().getPath() ,sound) ) );
         }
     }
