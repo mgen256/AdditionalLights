@@ -14,10 +14,7 @@ public class FirePit_L extends FirePitBase {
     private static final VoxelShape PART_UPPER = Block.box(0.0D, 10.0D, 0.0D, 16.0D, 16.0D, 16.0D);
 
     public FirePit_L(Block mainblock) {
-        super("fire_pit_l_"
-        , mainblock
-        , Shapes.or( PART_LOWER, PART_MID, PART_UPPER ) );
-
+        super( mainblock, Shapes.or( PART_LOWER, PART_MID, PART_UPPER ), SIZE.L );
     }
 
 

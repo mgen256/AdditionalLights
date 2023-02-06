@@ -7,7 +7,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class StandingTorchBase extends Pedestal  {
 
-    public StandingTorchBase(String basename, Block mainblock, VoxelShape shape) {
-        super(basename, mainblock, shape);
+    public StandingTorchBase(Block mainblock, VoxelShape shape, SIZE size) {
+        super(mainblock, shape, size);
     }
 }

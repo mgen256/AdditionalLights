@@ -1,5 +1,6 @@
 {
     "gui_light": "front",
+	"render_type": "cutout",
 
     "textures": {
 		"fire": "block/campfire_fire",

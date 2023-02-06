@@ -1,5 +1,6 @@
 {
 	"parent": "additional_lights:block/al_lamp/template_al_wall_lamp",
+	"render_type": "cutout",
 
 	"elements": [ 	 
 		{

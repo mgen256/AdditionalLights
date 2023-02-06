@@ -16,9 +16,7 @@ public class StandingTorch_S extends StandingTorchBase{
 
   
     public StandingTorch_S( Block mainblock ) {
-      super( "standing_torch_s_"
-      , mainblock      
-      , Shapes.or( PART_LOWER, PART_MID, PART_UPPER ) );
+      super( mainblock, Shapes.or( PART_LOWER, PART_MID, PART_UPPER ), SIZE.S );
     }
 
 

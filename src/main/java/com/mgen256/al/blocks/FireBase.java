@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -17,8 +16,6 @@ import com.mgen256.al.*;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -78,12 +75,12 @@ public abstract class FireBase extends ModBlock{
         return BlockBehaviour.Properties.of( Material.DECORATION, mapColor)
             .instabreak()
             .noCollission()
-            .sound(new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.modSounds.get(ModSoundList.Fire_Extinguish), () -> SoundEvents.WOOL_STEP
+            .sound(new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
             , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) );
     }
 
-    protected FireBase( String basename, PedestalTypes _pedestalKey, Properties props ) {
-        super( basename + _pedestalKey, null, props, SHAPES.get(_pedestalKey));
+    protected FireBase( PedestalTypes _pedestalKey, Properties props ) {
+        super( null, props, SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
         this.registerDefaultState(this.stateDefinition.any().setValue(SET, Boolean.valueOf(false) ).setValue(SUMMONED, false).setValue(TEMP, false) );
@@ -106,11 +103,6 @@ public abstract class FireBase extends ModBlock{
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
         return COLLISION_SHAPE;
-    }
-
-    @Override
-    public void setRenderLayer() {
-        ItemBlockRenderTypes.setRenderLayer(this, RenderType.cutout());
     }
 
     @Override
@@ -161,14 +153,5 @@ public abstract class FireBase extends ModBlock{
     public boolean isPathfindable(BlockState state, BlockGetter blockgetter, BlockPos pos, PathComputationType type) {
         return false;
     }
-/*
-    public void onEntityWalk(Level level, BlockPos pos, Entity entityIn) {
-        if (!entityIn.isImmuneToFire() && entityIn instanceof LivingEntity
-                && !EnchantmentHelper.hasFrostWalker((LivingEntity) entityIn)) {
-            entityIn.attackEntityFrom(DamageSource.IN_FIRE, getFireDamageAmount());
-        }
 
-        super.onEntityWalk(level, pos, entityIn);
-    }
-*/
 }

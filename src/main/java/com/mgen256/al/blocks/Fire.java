@@ -10,7 +10,7 @@ public class Fire extends FireBase {
     public static BooleanProperty SET = BooleanProperty.create("set");
 
     public Fire( PedestalTypes pedestalKey ) {
-        super( "fire_for_", pedestalKey, createProps( MaterialColor.FIRE )
+        super( pedestalKey, createProps( MaterialColor.FIRE )
             .lightLevel( lightLevel-> 15 ) );
       }
 

@@ -50,6 +50,9 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     private static Component txt_rightclick;
     private static Component txt_sneaking;
     private static Component txt_signals;
+
+    enum SIZE {S,L};
+    protected SIZE size;
     
     private static Properties createProps( Block mainblock ){
         BlockState mainblockState = mainblock.defaultBlockState();
@@ -66,8 +69,8 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         return prop;
     }
 
-    protected Pedestal( String basename, Block mainblock, VoxelShape shape ) {
-        super(basename, mainblock, createProps(mainblock), shape);
+    protected Pedestal( Block mainblock, VoxelShape shape, SIZE size ) {
+        super(mainblock, createProps(mainblock), shape);
 
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.WATERLOGGED, false ) 
@@ -78,10 +81,12 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
             .setValue( ACTIVATED, false )
             );
 
+        this.size = size;
+
         if( ignitionSound == null )
         {
-            ignitionSound = basename.contains("_l_") ? AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_L) 
-                : AdditionalLights.modSounds.get(ModSoundList.Fire_Ignition_S);
+            ignitionSound = size == SIZE.L ? AdditionalLights.getSound(ModSoundList.Fire_Ignition_L)
+                : AdditionalLights.getSound( ModSoundList.Fire_Ignition_S );
         }
     }
 
@@ -180,6 +185,9 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if( placer == null )
+            return;
+            
         if( placer.getOffhandItem().getItem() instanceof SoulWand )
             state = state.setValue( FIRE_TYPE, FireTypes.SOUL );
 

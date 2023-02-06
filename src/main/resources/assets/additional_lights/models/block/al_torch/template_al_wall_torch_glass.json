@@ -1,5 +1,6 @@
 {
 	"parent": "additional_lights:block/al_torch/template_al_wall_torch",
+	"render_type": "cutout",
 
 	"elements": [ 	 
 		{

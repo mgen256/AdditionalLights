@@ -34,8 +34,8 @@ public abstract class Wand extends ModItem {
     {
         static 
         {
-            CHANGE = AdditionalLights.modSounds.get( ModSoundList.Change );
-            UNDO = AdditionalLights.modSounds.get( ModSoundList.Undo );
+            CHANGE = AdditionalLights.getSound( ModSoundList.Change );
+            UNDO = AdditionalLights.getSound( ModSoundList.Undo );
         }
 
         public static SoundEvent CHANGE;

@@ -10,7 +10,7 @@ public class Fire_Soul extends FireBase {
     public static BooleanProperty SET = BooleanProperty.create("set");
 
     public Fire_Soul( PedestalTypes pedestalKey ) {
-        super( "soul_fire_for_", pedestalKey, createProps( MaterialColor.DIAMOND )
+        super( pedestalKey, createProps( MaterialColor.DIAMOND )
             .lightLevel( lightLevel -> 10 ) );
       }
 

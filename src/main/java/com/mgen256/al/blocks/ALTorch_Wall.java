@@ -5,7 +5,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
@@ -17,15 +16,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -33,7 +28,7 @@ import com.google.common.collect.Maps;
 import com.mgen256.al.*;
 import com.mgen256.al.items.SoulWand;
 
-public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire {
+public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
     
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap( Map.of( 
         Direction.NORTH, Block.box(5.5D, 2.0D, 11.0D, 10.5D, 13.0D, 16.0D), 
@@ -44,8 +39,6 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
          
     public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
         super(ALTorch.createProps(mainblock), ParticleTypes.FLAME);
-        
-        name = "al_wall_torch_" + Registry.BLOCK.getKey(mainblock).getPath();
         floorKey = _floorKey;
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH )
@@ -54,9 +47,8 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
     }
 
     private ModBlockList floorKey;
-    private String name;
 
-    @Override
+    // @Override
     public void init() {
         //setRegistryName(name);
     }
@@ -68,25 +60,20 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         builder.add( PREVIOUS_FIRE_TYPE );
     }
 
-    @Override
-    public String getModRegistryName(){
-        return name;
-    }
-
-    @Override
-    public BlockItem getBlockItem() {
-        return null;
-    }
+    // @Override
+    // public BlockItem getBlockItem() {
+    //     return null;
+    // }
     
     @Override
     public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
         return state.getValue( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
     }
 
-    @Override
-    public boolean notRequireItemRegistration(){
-        return true;
-    }
+    // @Override
+    // public boolean notRequireItemRegistration(){
+    //     return true;
+    // }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
@@ -97,10 +84,10 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         return SHAPES.get(p_220289_0_.getValue(BlockStateProperties.HORIZONTAL_FACING));
     }
  
-    @Override
-    public void setRenderLayer() {
-        ItemBlockRenderTypes.setRenderLayer(this, name.contains("glass") ? RenderType.cutout() : RenderType.solid() );
-    }
+    // @Override
+    // public void setRenderLayer() {
+    //     ItemBlockRenderTypes.setRenderLayer(this, name.contains("glass") ? RenderType.cutout() : RenderType.solid() );
+    // }
     
     @Override
     public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {

@@ -1,6 +1,7 @@
 {
 	"parent": "additional_lights:block/al_lamp/template_al_lamp",
-
+	"render_type": "cutout",
+	
 	"elements": [ 	 
 		{
 			"from": [ 6, 0, 6 ],

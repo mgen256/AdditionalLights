@@ -69,7 +69,7 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
     }
 
     public ALLamp(Block mainblock ) {
-        super( "al_lamp_", mainblock, createProps(mainblock), Shapes.empty());
+        super( mainblock, createProps(mainblock), Shapes.empty());
       }
       
     @Override

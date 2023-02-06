@@ -6,7 +6,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public abstract class FirePitBase extends Pedestal  {
 
-    public FirePitBase( String basename, Block mainblock, VoxelShape shape ) {
-        super(basename, mainblock, shape);
+    public FirePitBase( Block mainblock, VoxelShape shape, SIZE size ) {
+        super(mainblock, shape, size);
     }
 }
