@@ -1,7 +1,7 @@
 # Changelog
 
 ## [1.19.3-2.1.6] - 2023-02-25
-- Added ko_kr translation [Mikeliro]
+- Added ko_kr translation [RapiK4y]
 
 ## [1.19.3-2.1.5] - 2023-02-05
 - Update to 1.19.3
