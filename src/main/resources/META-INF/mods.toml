@@ -4,7 +4,7 @@ license="MIT License"
 
 [[mods]] #mandatory
 modId="additional_lights" #mandatory
-version="2.1.5" #mandatory
+version="2.1.6" #mandatory
 displayName="Additional Lights" #mandatory
 
 updateJSONURL="https://gist.githubusercontent.com/mgen256/59abe85e7950f2319e7538afe2f910ba/raw"
