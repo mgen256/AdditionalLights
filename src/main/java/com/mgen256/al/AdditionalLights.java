@@ -77,7 +77,7 @@ public class AdditionalLights {
                 .title( Component.literal("Additional Lights"))
                 .hideTitle()
                 .withSearchBar()
-                .displayItems( ( featureFlagSet, output, hasOpPermissions ) -> 
+                .displayItems( ( param, output ) -> 
                     {
                         modItems.forEach( (key, item) -> output.accept( item.get() ));
                         modBlockItems.forEach( (key, item) -> output.accept( item.get() ));
