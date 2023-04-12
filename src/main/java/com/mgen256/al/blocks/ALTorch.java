@@ -14,6 +14,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.item.ItemStack;
 
 import java.util.ArrayList;
@@ -24,7 +26,9 @@ import javax.annotation.Nullable;
 import com.mgen256.al.*;
 import com.mgen256.al.items.SoulWand;
 
-public class ALTorch extends TorchBlock implements IHasFire {
+public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
+
+    protected static final VoxelShape SHAPE = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 10.0D, 10.5D);
 
     public static Properties createProps( Block mainblock ){
         BlockState state = mainblock.defaultBlockState();
@@ -44,10 +48,11 @@ public class ALTorch extends TorchBlock implements IHasFire {
             .setValue( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
     }
     
-    private ModBlockList wallkey;
-
-    public void init( ModBlockList wallkey ) {
-        this.wallkey = wallkey;
+    private ModBlockList myKey;
+    
+    @Override
+    public void setMyKey(ModBlockList key) {
+        myKey = key;
     }
 
     @Override
@@ -63,6 +68,10 @@ public class ALTorch extends TorchBlock implements IHasFire {
         return state.getValue( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
     }
     
+    @Override
+    public VoxelShape getShape(BlockState p_57510_, BlockGetter p_57511_, BlockPos p_57512_, CollisionContext p_57513_) {
+        return SHAPE;
+    }
 
     @Override
     public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
@@ -82,7 +91,7 @@ public class ALTorch extends TorchBlock implements IHasFire {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
 
         List<ItemStack> list = new ArrayList<>();
-        list.add( new ItemStack( wallkey.getBlockItem() ));
+        list.add( new ItemStack( myKey.getBlockItem() ));
 
         return list;
     }

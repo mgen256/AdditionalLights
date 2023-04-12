@@ -28,14 +28,13 @@ import com.google.common.collect.Maps;
 import com.mgen256.al.*;
 import com.mgen256.al.items.SoulWand;
 
-public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
+public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire {
     
     private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap( Map.of( 
         Direction.NORTH, Block.box(5.5D, 2.0D, 11.0D, 10.5D, 13.0D, 16.0D), 
         Direction.SOUTH, Block.box(5.5D, 2.0D, 0.0D, 10.5D, 13.0D, 5.0D), 
         Direction.WEST, Block.box(11.0D, 2.0D, 5.5D, 16.0D, 13.0D, 10.5D), 
         Direction.EAST, Block.box(0.0D, 2.0D, 5.5D, 5.0D, 13.0D, 10.5D)) );
-
          
     public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
         super(ALTorch.createProps(mainblock), ParticleTypes.FLAME);
@@ -47,10 +46,11 @@ public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
     }
 
     private ModBlockList floorKey;
-
-    // @Override
-    public void init() {
-        //setRegistryName(name);
+    private ModBlockList myKey;
+    
+    @Override
+    public void setMyKey(ModBlockList key) {
+        myKey = key;
     }
 
     @Override
@@ -60,28 +60,18 @@ public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
         builder.add( PREVIOUS_FIRE_TYPE );
     }
 
-    // @Override
-    // public BlockItem getBlockItem() {
-    //     return null;
-    // }
-    
     @Override
     public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
         return state.getValue( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
     }
 
-    // @Override
-    // public boolean notRequireItemRegistration(){
-    //     return true;
-    // }
-
     @Override
-    public VoxelShape getShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
-        return func_220289_j(state);
+    public VoxelShape getShape(BlockState p_58152_, BlockGetter p_58153_, BlockPos p_58154_, CollisionContext p_58155_) {
+        return getShape(p_58152_);
     }
 
-    public static VoxelShape func_220289_j(BlockState p_220289_0_) {
-        return SHAPES.get(p_220289_0_.getValue(BlockStateProperties.HORIZONTAL_FACING));
+    public static VoxelShape getShape(BlockState p_58157_) {
+        return SHAPES.get(p_58157_.getValue(FACING));
     }
  
     // @Override
@@ -111,7 +101,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
     public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
     
         List<ItemStack> list = new ArrayList<>();
-        list.add( new ItemStack( AdditionalLights.getBlockItem( floorKey ) ) );
+        list.add( new ItemStack( floorKey.getBlockItem() ) );
 
         return list;
     }

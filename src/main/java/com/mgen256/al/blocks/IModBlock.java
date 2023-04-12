@@ -1,17 +1,8 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.world.item.BlockItem;
+import com.mgen256.al.ModBlockList;
 
 public interface IModBlock 
 {
-    void init();
-    String getModRegistryName();
-    BlockItem getBlockItem();
-
-    default boolean notRequireItemRegistration(){
-        return false;
-    }
-
-    default void setRenderLayer(){
-    }
+    void setMyKey( ModBlockList key );
 }

@@ -9,6 +9,7 @@ import com.mgen256.al.blocks.Fire;
 import com.mgen256.al.blocks.FirePit_L;
 import com.mgen256.al.blocks.FirePit_S;
 import com.mgen256.al.blocks.Fire_Soul;
+import com.mgen256.al.blocks.IModBlock;
 import com.mgen256.al.blocks.StandingTorch_L;
 import com.mgen256.al.blocks.StandingTorch_S;
 
@@ -223,6 +224,10 @@ public enum ModBlockList {
         return AdditionalLights.getBlockItem( this );
     }
 
+    public void init() {
+        ((IModBlock)getBlock()).setMyKey(this) ;
+    }
+
     public void register(){
         AdditionalLights.modBlocks.put( this, AdditionalLights.BLOCKS.register( getRegName(), () -> sup.get() ) );
 
@@ -232,7 +237,7 @@ public enum ModBlockList {
         if( name.contains("al_torch") )
         {
             var wallkey = ModBlockList.valueOf( this.name().replace("ALTorch", "ALTorch_Wall") );
-            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new StandingAndWallBlockItem( getBlock(), wallkey.getBlock() , new Item.Properties(), Direction.SOUTH )));
+            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new StandingAndWallBlockItem( getBlock(), wallkey.getBlock() , new Item.Properties(), Direction.DOWN )));
         }
         else
             AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new BlockItem( getBlock(), new Item.Properties())));

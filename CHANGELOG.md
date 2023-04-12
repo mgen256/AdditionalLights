@@ -1,4 +1,8 @@
 # Changelog
+## [1.19.3-2.1.7] - 2023-04-12
+- Fixed incorrect torch hitbox size
+- Fixed incorrect torch placement
+- Fixed not dropping correctly
 
 ## [1.19.3-2.1.6] - 2023-02-25
 - Added ko_kr translation [RapiK4y]
