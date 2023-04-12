@@ -1,4 +1,8 @@
 # Changelog
+## [1.19.4-2.1.7] - 2023-04-12
+- Fixed incorrect torch hitbox size
+- Fixed incorrect torch placement
+- Fixed not dropping correctly
 
 ## [1.19.4-2.1.6] - 2023-04-03
 - Update to 1.19.4
