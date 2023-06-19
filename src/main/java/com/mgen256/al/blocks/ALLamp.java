@@ -9,8 +9,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -44,28 +43,14 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
         Block.box(0.0, 7.0, 6.0, 4.0, 13.0, 10.0), // east
     }; 
 
-
-
     private static Properties createProps( Block mainblock ){
-        BlockState state = mainblock.defaultBlockState();
-        Material mbm = state.getMaterial();
-        
-        Material material = new Material(
-            MaterialColor.NONE,
-            false, //isLiquid
-            true,  //isSolid
-            true, //blocksMotion
-            mbm.isSolidBlocking(), //solidBlocking
-            false, //flammable
-            false, //replaceable
-            PushReaction.NORMAL
-            );
-
-        return BlockBehaviour.Properties.of( material )
+        return BlockBehaviour.Properties.of()
+            .sound( mainblock.defaultBlockState().getSoundType() )
+            .mapColor( MapColor.NONE )
+            .pushReaction( PushReaction.NORMAL )
             .instabreak()
             .lightLevel( lightLevel -> 15 )
-            .noCollission()
-            .sound( state.getSoundType() );
+            .noCollission();
     }
 
     public ALLamp(Block mainblock ) {
@@ -80,10 +65,9 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        boolean waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        var waterlogged = context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER;
+        var direction = willBeReplaced( context.getLevel(), context.getClickedPos() ) ? Direction.UP : context.getClickedFace();
 
-        Direction direction;
-        direction = GrassIsPlaced( context.getLevel(), context.getClickedPos() ) ? Direction.UP : context.getClickedFace();
         return defaultBlockState().setValue(BlockStateProperties.FACING, direction).setValue(BlockStateProperties.WATERLOGGED, waterlogged);
     }
 
@@ -119,18 +103,17 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 
-        if( GrassIsPlaced( level, pos ) )
+        if( willBeReplaced( level, pos ) ) 
             return !level.isEmptyBlock(pos.below());
 
-        Direction direction = state.getValue(BlockStateProperties.FACING);
-        BlockPos blockpos = pos.relative(direction.getOpposite());
+        var direction = state.getValue(BlockStateProperties.FACING);
+        var blockpos = pos.relative(direction.getOpposite());
 
         return !level.isEmptyBlock( blockpos ) && !( level.getBlockState(blockpos).getBlock() == this );
     }
 
-    private boolean GrassIsPlaced( LevelReader level, BlockPos pos )
-    {
-        Material material = level.getBlockState(pos).getMaterial();
-        return material == Material.REPLACEABLE_PLANT;
+    private boolean willBeReplaced( LevelReader level, BlockPos pos ) {
+        var blockstate = level.getBlockState(pos);
+        return blockstate.canBeReplaced() && ( blockstate.isAir() == false && blockstate.getBlock() != Blocks.WATER );
     }
 }

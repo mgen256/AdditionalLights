@@ -33,10 +33,10 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 
 
 public abstract class FireBase extends ModBlock{
@@ -71,11 +71,12 @@ public abstract class FireBase extends ModBlock{
         SMOKE_POS.put( PedestalTypes.fire_pit_l, 0.8 );
     }
     
-    protected static Properties createProps( MaterialColor mapColor ){
-        return BlockBehaviour.Properties.of( Material.DECORATION, mapColor)
+    protected static Properties createProps( MapColor mapColor ){
+        return BlockBehaviour.Properties.of()
             .instabreak()
             .noCollission()
-            .sound(new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
+            .mapColor( mapColor )
+            .sound( new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
             , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) );
     }
 
@@ -125,11 +126,14 @@ public abstract class FireBase extends ModBlock{
     }
 
     public boolean isValidPosition(BlockState state, LevelAccessor level, BlockPos pos) {
-        return !level.isEmptyBlock(pos.below()) && level.getBlockState(pos.below()).getMaterial() != Material.WATER;
+        var belowPos = pos.below();
+        var belowState = level.getBlockState(belowPos);
+
+        return !level.isEmptyBlock(belowPos) && belowState.getBlock() != Blocks.WATER;
      }
 
     @Override
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
         if( state.getValue(SUMMONED) == FALSE && state.getValue(TEMP) == FALSE )
             return super.getDrops( state.setValue(SET, false), builder );
 

@@ -1,14 +1,15 @@
 package com.mgen256.al;
 
 import net.minecraft.world.level.block.Block;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -36,11 +37,13 @@ public class AdditionalLights {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);
+    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
 
     public static Map<ModBlockList, RegistryObject<Block>> modBlocks= new LinkedHashMap<ModBlockList, RegistryObject<Block>>();
     public static Map<ModBlockList, RegistryObject<BlockItem>> modBlockItems = new LinkedHashMap<ModBlockList, RegistryObject<BlockItem>>();
     public static Map<ModItemList, RegistryObject<Item>> modItems = new LinkedHashMap<ModItemList, RegistryObject<Item>>();
-    public static Map<ModSoundList, RegistryObject<SoundEvent>> modSounds;
+    public static Map<ModSoundList, RegistryObject<SoundEvent>> modSounds;    
+    public static RegistryObject<CreativeModeTab> CREATIVE_TAB;
 
     static {
         modSounds = new LinkedHashMap<ModSoundList, RegistryObject<SoundEvent>>(){
@@ -63,12 +66,23 @@ public class AdditionalLights {
     public AdditionalLights() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEventBus.addListener(AdditionalLights::addTab);
         modEventBus.addListener(this::commonSetup);
+        
+        CREATIVE_TAB = CREATIVE_MODE_TABS.register("creative_tab", () -> CreativeModeTab.builder()
+        .title(Component.translatable("Additional Lights"))
+        .icon(() -> new ItemStack(modBlockItems.get( ModBlockList.ALTorch_Oak ).get() ))
+        .withSearchBar()
+        .hideTitle()
+        .displayItems(( param, output ) -> {
+            modItems.forEach( (key, item) -> output.accept( item.get() ));
+            modBlockItems.forEach( (key, item) -> output.accept( item.get() ));
+            }).build());
+
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);
         SOUNDS.register(modEventBus);
-        
+        CREATIVE_MODE_TABS.register(modEventBus);
+
         MinecraftForge.EVENT_BUS.register(this);
     }
      
@@ -76,21 +90,6 @@ public class AdditionalLights {
         for (ModBlockList block : ModBlockList.values()) {
             block.init();
         }
-    }
-    
-    private static void addTab(CreativeModeTabEvent.Register event) {
-        event.registerCreativeModeTab( new ResourceLocation(MOD_ID, "tab")
-            , builder -> builder
-                .icon( () -> new ItemStack(modBlockItems.get( ModBlockList.ALTorch_Oak ).get() ) )
-                .title( Component.literal("Additional Lights"))
-                .hideTitle()
-                .withSearchBar()
-                .displayItems( ( param, output ) -> 
-                    {
-                        modItems.forEach( (key, item) -> output.accept( item.get() ));
-                        modBlockItems.forEach( (key, item) -> output.accept( item.get() ));
-                    }
-                ));
     }
 
     public static void Log(String message) {

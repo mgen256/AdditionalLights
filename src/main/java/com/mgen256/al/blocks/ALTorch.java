@@ -8,12 +8,11 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.item.ItemStack;
@@ -31,13 +30,11 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     protected static final VoxelShape SHAPE = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 10.0D, 10.5D);
     
     public static Properties createProps( Block mainblock ){
-        BlockState state = mainblock.defaultBlockState();
-        
-        return BlockBehaviour.Properties.of(Material.DECORATION)
+        return BlockBehaviour.Properties.of()
             .noCollission()
             .instabreak()
             .lightLevel( lightLevel -> 14 )
-            .sound( state.getSoundType( null, null, null ) );
+            .sound( mainblock.defaultBlockState().getSoundType() );
     }
     
     public ALTorch( Block mainblock ) {
@@ -88,7 +85,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
         
     @Override
-    public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 
         List<ItemStack> list = new ArrayList<>();
         list.add( new ItemStack( myKey.getBlockItem() ));

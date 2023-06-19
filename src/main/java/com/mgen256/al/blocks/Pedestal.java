@@ -25,7 +25,6 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 
 import static java.lang.Boolean.TRUE;
@@ -55,15 +54,14 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     protected SIZE size;
     
     private static Properties createProps( Block mainblock ){
-        BlockState mainblockState = mainblock.defaultBlockState();
-        Material mbm = mainblockState.getMaterial();
+        var mbs = mainblock.defaultBlockState();
+        
+        var prop = BlockBehaviour.Properties.of()
+            .destroyTime( mbs.getDestroySpeed(null, null) )
+            .explosionResistance( mbs.getExplosionResistance( null, null, null ) )
+            .sound( mbs.getSoundType() );
 
-        var prop = BlockBehaviour.Properties.of( mbm, mainblockState.getMapColor(null, null) )
-            .destroyTime( mainblockState.getDestroySpeed( null, null ) )
-            .explosionResistance( mainblockState.getExplosionResistance( null, null, null ) )
-            .sound( mainblockState.getSoundType( null, null, null ) );
-
-        if( mainblockState.requiresCorrectToolForDrops() )
+        if( mbs.requiresCorrectToolForDrops() )
             return prop.requiresCorrectToolForDrops();
             
         return prop;
@@ -137,7 +135,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         }
         else
         {
-            if( ( upperBlockState.isAir() || upperBlockState.getMaterial() == Material.WATER || firebase != null ) == false )
+            if( ( upperBlockState.isAir() || upperBlockState.getBlock() == Blocks.WATER || firebase != null ) == false )
                 return false;
         }
         
