@@ -36,7 +36,7 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         Direction.EAST, Block.box(0.0D, 2.0D, 5.5D, 5.0D, 13.0D, 10.5D)) );
 
     public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
-        super(ALTorch.createProps(mainblock), ParticleTypes.FLAME);
+        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock) );
         floorKey = _floorKey;
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH )

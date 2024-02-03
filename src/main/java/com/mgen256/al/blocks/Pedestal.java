@@ -16,7 +16,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -104,7 +103,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    public boolean canPlaceLiquid(BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
     }
 

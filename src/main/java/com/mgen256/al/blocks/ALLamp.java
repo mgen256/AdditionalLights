@@ -13,6 +13,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
@@ -83,7 +84,7 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
     }
     
     @Override
-    public boolean canPlaceLiquid(BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
     }
 

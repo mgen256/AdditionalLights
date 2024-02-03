@@ -38,7 +38,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
     
     public ALTorch( Block mainblock ) {
-        super( createProps(mainblock), ParticleTypes.FLAME );
+        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock) );
 
         registerDefaultState( stateDefinition.any()
             .setValue( FIRE_TYPE, FireTypes.NORMAL )
