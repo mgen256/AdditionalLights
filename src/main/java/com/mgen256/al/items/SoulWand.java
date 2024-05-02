@@ -17,9 +17,8 @@ public class SoulWand extends Wand {
     
     private static Properties createProps(){
         Properties p = new Item.Properties();
-        p.setNoRepair();
         p.stacksTo(1);
-        p.defaultDurability(1);
+        p.durability(1);
         return p;
     }
 

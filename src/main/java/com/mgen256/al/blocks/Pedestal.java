@@ -14,6 +14,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -154,23 +155,19 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         level.setBlockAndUpdate(pos.above(), Blocks.AIR.defaultBlockState() );
     }
 
+    @Override
+    protected ItemInteractionResult useItemOn(
+        ItemStack p_330929_, BlockState p_335716_, Level p_336112_, BlockPos p_328869_, Player p_332840_, InteractionHand p_336117_, BlockHitResult p_332723_
+    ) {
+        if( p_330929_.getItem() instanceof Wand )
+            return ItemInteractionResult.FAIL;
 
-   @Override
-   public InteractionResult use(BlockState state, Level level, BlockPos pos
-        , Player player, InteractionHand handIn, BlockHitResult hit) {
-    
-        if( handIn == InteractionHand.OFF_HAND )
-            return InteractionResult.PASS;
-    
-        ItemStack stack = player.getItemInHand(handIn);
-        if( stack.getItem() instanceof Wand )
-            return InteractionResult.FAIL;
-            
-        if( setFire( level, pos, state, false ) == false )
-            return InteractionResult.PASS;
-        
-        playIgnitionSound( level, player, state.getBlock(), pos );
-        return InteractionResult.SUCCESS;
+        if( setFire( p_336112_, p_328869_, p_335716_, false ) == false )
+            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+
+        playIgnitionSound( p_336112_, p_332840_, p_335716_.getBlock(), p_328869_ );
+
+        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
     }
 
     private static void playIgnitionSound(Level level, Player player, Block block, BlockPos pos)
@@ -223,7 +220,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, @Nullable BlockGetter blockgetter, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flagIn) {
         if( txt_shift == null )
         {
             if( I18n.exists("additional_lights.txt.shift") != TRUE )
@@ -250,7 +247,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     }
     
     @Override
-    public boolean isPathfindable(BlockState state, BlockGetter blockgetter, BlockPos pos, PathComputationType type) {
+    public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
     }
 }
