@@ -14,7 +14,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_lamp_glass",
+        "id":"additional_lights:al_lamp_glass",
         "count":4
       }
 }

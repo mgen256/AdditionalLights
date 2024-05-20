@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_blackstone",
+        "id":"additional_lights:al_torch_blackstone",
         "count":4
       }
 }

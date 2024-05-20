@@ -1,4 +1,8 @@
 # Changelog
+
+## [1.20.6-2.1.9] - 2024-05-20
+- Fixed the issue where crafting was not possible
+
 ## [1.20.6-2.1.8] - 2024-05-10
 - Fixed crash during mod loading
 

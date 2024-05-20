@@ -13,7 +13,7 @@
       "#": { "item": "minecraft:diamond" }
     },
     "result":{
-        "item":"additional_lights:soul_wand",
+        "id":"additional_lights:soul_wand",
         "count":1
       }
 }

@@ -14,7 +14,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_lamp_sandstone",
+        "id":"additional_lights:al_lamp_sandstone",
         "count":4
       }
 }

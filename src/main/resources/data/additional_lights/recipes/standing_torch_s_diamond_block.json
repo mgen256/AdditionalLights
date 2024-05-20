@@ -20,7 +20,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:standing_torch_s_diamond_block",
+        "id":"additional_lights:standing_torch_s_diamond_block",
         "count":1
       }
 }

@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_mossy_cobblestone",
+        "id":"additional_lights:al_torch_mossy_cobblestone",
         "count":4
       }
 }

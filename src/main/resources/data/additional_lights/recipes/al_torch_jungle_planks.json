@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_jungle_planks",
+        "id":"additional_lights:al_torch_jungle_planks",
         "count":4
       }
 }

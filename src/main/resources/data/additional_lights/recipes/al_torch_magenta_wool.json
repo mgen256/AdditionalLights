@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_magenta_wool",
+        "id":"additional_lights:al_torch_magenta_wool",
         "count":4
       }
 }

@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_nether_bricks",
+        "id":"additional_lights:al_torch_nether_bricks",
         "count":4
       }
 }

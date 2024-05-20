@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_gold_block",
+        "id":"additional_lights:al_torch_gold_block",
         "count":4
       }
 }

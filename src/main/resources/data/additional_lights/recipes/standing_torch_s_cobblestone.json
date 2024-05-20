@@ -20,7 +20,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:standing_torch_s_cobblestone",
+        "id":"additional_lights:standing_torch_s_cobblestone",
         "count":1
       }
 }

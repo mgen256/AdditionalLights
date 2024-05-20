@@ -15,7 +15,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_torch_glass",
+        "id":"additional_lights:al_torch_glass",
         "count":4
       }
 }

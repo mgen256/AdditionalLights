@@ -21,7 +21,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:fire_pit_l_gold_block",
+        "id":"additional_lights:fire_pit_l_gold_block",
         "count":1
       }
 }

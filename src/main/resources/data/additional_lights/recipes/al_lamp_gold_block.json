@@ -14,7 +14,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_lamp_gold_block",
+        "id":"additional_lights:al_lamp_gold_block",
         "count":4
       }
 }

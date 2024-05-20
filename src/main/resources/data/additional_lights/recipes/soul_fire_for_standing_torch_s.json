@@ -6,7 +6,7 @@
         [ { "item": "minecraft:soul_sand" }, { "item": "minecraft:soul_soil" } ]
       ],
     "result":{
-        "item":"additional_lights:soul_fire_for_standing_torch_s",
+        "id":"additional_lights:soul_fire_for_standing_torch_s",
         "count":1
       }
 }

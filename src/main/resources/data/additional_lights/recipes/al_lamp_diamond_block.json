@@ -14,7 +14,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_lamp_diamond_block",
+        "id":"additional_lights:al_lamp_diamond_block",
         "count":4
       }
 }

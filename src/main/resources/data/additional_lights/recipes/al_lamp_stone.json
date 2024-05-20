@@ -14,7 +14,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:al_lamp_stone",
+        "id":"additional_lights:al_lamp_stone",
         "count":4
       }
 }

@@ -5,7 +5,7 @@
         [ { "item": "minecraft:coal" }, { "item": "minecraft:charcoal" } ]
       ],
     "result":{
-        "item":"additional_lights:fire_for_standing_torch_s",
+        "id":"additional_lights:fire_for_standing_torch_s",
         "count":1
       }
 }

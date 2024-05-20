@@ -21,7 +21,7 @@
       }
     },
     "result":{
-        "item":"additional_lights:fire_pit_l_end_stone",
+        "id":"additional_lights:fire_pit_l_end_stone",
         "count":1
       }
 }
