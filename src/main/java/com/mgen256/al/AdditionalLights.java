@@ -49,11 +49,11 @@ public class AdditionalLights {
         modSounds = new LinkedHashMap<ModSoundList, RegistryObject<SoundEvent>>(){
             private static final long serialVersionUID = 4L;
             {
-                put( ModSoundList.Change, SOUNDS.register( "change", ()-> SoundEvent.createVariableRangeEvent(new ResourceLocation( MOD_ID, "change" ) )));
-                put( ModSoundList.Undo, SOUNDS.register( "undo",  ()-> SoundEvent.createVariableRangeEvent(new ResourceLocation( MOD_ID, "undo" ) ) ) );
-                put( ModSoundList.Fire_Ignition_S, SOUNDS.register( "fire_ignition_s", ()-> SoundEvent.createVariableRangeEvent(new ResourceLocation( MOD_ID, "fire_ignition_s" ) ) ) );
-                put( ModSoundList.Fire_Ignition_L, SOUNDS.register( "fire_ignition_l", ()-> SoundEvent.createVariableRangeEvent(new ResourceLocation( MOD_ID, "fire_ignition_l" ) ) ) );
-                put( ModSoundList.Fire_Extinguish, SOUNDS.register( "fire_extinguish", ()-> SoundEvent.createVariableRangeEvent(new ResourceLocation( MOD_ID, "fire_extinguish" ) ) ) );
+                put( ModSoundList.Change, SOUNDS.register( "change", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "change" ) )));
+                put( ModSoundList.Undo, SOUNDS.register( "undo",  ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "undo" ) ) ) );
+                put( ModSoundList.Fire_Ignition_S, SOUNDS.register( "fire_ignition_s", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "fire_ignition_s" ) ) ) );
+                put( ModSoundList.Fire_Ignition_L, SOUNDS.register( "fire_ignition_l", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "fire_ignition_l" ) ) ) );
+                put( ModSoundList.Fire_Extinguish, SOUNDS.register( "fire_extinguish", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "fire_extinguish" ) ) ) );
             }};
 
         for (ModBlockList block : ModBlockList.values()) {

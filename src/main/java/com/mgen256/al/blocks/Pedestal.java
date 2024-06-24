@@ -52,23 +52,9 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
 
     enum SIZE {S,L};
     protected SIZE size;
-    
-    private static Properties createProps( Block mainblock ){
-        var mbs = mainblock.defaultBlockState();
-        
-        var prop = BlockBehaviour.Properties.of()
-            .destroyTime( mbs.getDestroySpeed(null, null) )
-            .explosionResistance( mbs.getExplosionResistance( null, null, null ) )
-            .sound( mbs.getSoundType() );
-
-        if( mbs.requiresCorrectToolForDrops() )
-            return prop.requiresCorrectToolForDrops();
-            
-        return prop;
-    }
 
     protected Pedestal( Block mainblock, VoxelShape shape, SIZE size ) {
-        super(mainblock, createProps(mainblock), shape);
+        super(mainblock, mainblock.properties(), shape);
 
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.WATERLOGGED, false ) 

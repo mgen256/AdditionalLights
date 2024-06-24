@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.21-2.1.9] - 2024-06-24
+- Update to 1.21
+
 ## [1.20.6-2.1.9] - 2024-05-20
 - Fixed the issue where crafting was not possible
 
