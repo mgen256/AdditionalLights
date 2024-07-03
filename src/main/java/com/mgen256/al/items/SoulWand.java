@@ -1,80 +1,74 @@
 package com.mgen256.al.items;
 
-import com.mgen256.al.FireTypes;
+import com.mgen256.al.*;
 import com.mgen256.al.blocks.*;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.ClipContext;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.block.BlockState;
+
 
 public class SoulWand extends Wand {
-    
-    private static Properties createProps(){
-        Properties p = new Item.Properties();
-        p.stacksTo(1);
-        p.durability(1);
-        return p;
+        
+    private static Settings createSettings(){
+        return new Item.Settings()
+        .maxCount(1)
+        .maxDamage(1)
+        ;
     }
 
     public SoulWand() {
-        super( createProps(), "soul_wand" );
+        super(createSettings(), "soul_wand");
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand handIn)
-    {
-        var stack = player.getItemInHand(handIn);
-        var hitresult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.NONE);
-        var pos = hitresult.getBlockPos();
-        var state = level.getBlockState(pos);
+    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+        var stack = user.getStackInHand(hand);
+        var hitResult = (BlockHitResult) user.raycast(20.0D, 0.0F, false);
+        var pos = hitResult.getBlockPos();
+        var state = world.getBlockState(pos);
         var block = state.getBlock();
 
-        if( block instanceof IHasFire )
-        {
-            changeFire( level, player, pos, state, (IHasFire)block );
+        if (block instanceof IHasFire) {
+            changeFire(world, user, pos, state, (IHasFire) block);
+        } 
+        else if (block instanceof FireBase) {
+            var underPos = pos.down();
+            var underBlock = world.getBlockState(underPos).getBlock();
+            if (underBlock instanceof IHasFire) {
+                changeFire(world, user, underPos, world.getBlockState(underPos), (IHasFire) underBlock);
+            }
         }
-        else if( block instanceof FireBase )
-        {
-            var underPos = pos.below();
-            var underBlock = level.getBlockState( underPos ).getBlock();
-            if( underBlock instanceof IHasFire )
-                changeFire( level, player, underPos, level.getBlockState(underPos), (IHasFire)underBlock );
-        }
-        return InteractionResultHolder.consume(stack);
+        return TypedActionResult.consume(stack);
     }
-
-
-    private void changeFire( Level level, Player player, BlockPos pos, BlockState state, IHasFire modblock ) {
-
-        FireTypes currentType = state.getValue( IHasFire.FIRE_TYPE );
-        FireTypes prevType = state.getValue( IHasFire.PREVIOUS_FIRE_TYPE );
-        if( prevType == FireTypes.SOUL )
+    
+    private void changeFire(World world, PlayerEntity player, BlockPos pos, BlockState state, IHasFire modblock) {
+        var currentType = state.get(IHasFire.FIRE_TYPE);
+        var prevType = state.get(IHasFire.PREVIOUS_FIRE_TYPE);
+        if (prevType == FireTypes.SOUL) {
             prevType = FireTypes.NORMAL;
-
-        if( player.isSuppressingSlidingDownLadder() )
-        {
-            if( currentType == FireTypes.SOUL )
-            {
-                state = modblock.setFireType( level, pos, state, prevType, prevType );
-                playSound( level, player, SoundEvents.UNDO, 0.6f );
-            }
         }
-        else
-        {
-            if( currentType != FireTypes.SOUL )
-            {
-                state = modblock.setFireType( level, pos, state, FireTypes.SOUL, prevType );
-                playSound( level, player, SoundEvents.CHANGE, 0.8f );      
+
+        if (player.isSneaking()) {
+            if (currentType == FireTypes.SOUL) {
+                state = modblock.setFireType(world, pos, state, prevType, prevType);
+                playSound(world, player, ModSoundList.Undo.get(), 0.6f);
+            }
+        } else {
+            if (currentType != FireTypes.SOUL) {
+                state = modblock.setFireType(world, pos, state, FireTypes.SOUL, prevType);
+                playSound(world, player, ModSoundList.Change.get(), 0.8f);
             }
         }
 
-        if( modblock instanceof Pedestal )
-            ((Pedestal)modblock).setFire(level, pos, state, true );
+        if (modblock instanceof Pedestal) {
+            ((Pedestal) modblock).igniteFire(world, pos, state, true);
+        }
     }
 }

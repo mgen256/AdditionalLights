@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "block": "additional_lights:soul_fire_for_standing_torch_s",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "summoned": "false"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "additional_lights:soul_fire_for_standing_torch_s"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

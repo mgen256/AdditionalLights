@@ -1,113 +1,80 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.item.ItemStack;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.block.*;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particle.ParticleTypes;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.Properties;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.util.shape.VoxelShapes;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
-import com.google.common.collect.Maps;
 import com.mgen256.al.*;
+ // Import the LootParams class
+// import com.mgen256.al.items.SoulWand;
 import com.mgen256.al.items.SoulWand;
 
-public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire {
-    
-    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap( Map.of( 
-        Direction.NORTH, Block.box(5.5D, 2.0D, 11.0D, 10.5D, 13.0D, 16.0D), 
-        Direction.SOUTH, Block.box(5.5D, 2.0D, 0.0D, 10.5D, 13.0D, 5.0D), 
-        Direction.WEST, Block.box(11.0D, 2.0D, 5.5D, 16.0D, 13.0D, 10.5D), 
-        Direction.EAST, Block.box(0.0D, 2.0D, 5.5D, 5.0D, 13.0D, 10.5D)) );
 
-    public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
-        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock) );
-        floorKey = _floorKey;
-        registerDefaultState( stateDefinition.any()
-            .setValue( BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH )
-            .setValue( FIRE_TYPE, FireTypes.NORMAL ) 
-            .setValue( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL ) );
-    }
+public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
+    private static final Map<Direction, VoxelShape> SHAPES = Map.of(
+        Direction.NORTH, VoxelShapes.cuboid(5.5D / 16.0D, 2.0D / 16.0D, 11.0D / 16.0D, 10.5D / 16.0D, 13.0D / 16.0D, 16.0D / 16.0D),
+        Direction.SOUTH, VoxelShapes.cuboid(5.5D / 16.0D, 2.0D / 16.0D, 0.0D / 16.0D, 10.5D / 16.0D, 13.0D / 16.0D, 5.0D / 16.0D),
+        Direction.WEST, VoxelShapes.cuboid(11.0D / 16.0D, 2.0D / 16.0D, 5.5D / 16.0D, 16.0D / 16.0D, 13.0D / 16.0D, 10.5D / 16.0D),
+        Direction.EAST, VoxelShapes.cuboid(0.0D / 16.0D, 2.0D / 16.0D, 5.5D / 16.0D, 5.0D / 16.0D, 13.0D / 16.0D, 10.5D / 16.0D)
+    );
 
-    private ModBlockList floorKey;
-    private ModBlockList myKey;
-    
-    @Override
-    public void setMyKey(ModBlockList key) {
-        myKey = key;
-    }
- 
-    @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        super.createBlockStateDefinition(builder);
-        builder.add( FIRE_TYPE );
-        builder.add( PREVIOUS_FIRE_TYPE );
-    }
-    
-    @Override
-    public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-        return state.getValue( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
+    public ALTorch_Wall(Block mainblock) {
+        super(ParticleTypes.FLAME, ALTorch.createSettings(mainblock));
+        setDefaultState(getStateManager().getDefaultState()
+        .with(Properties.HORIZONTAL_FACING, Direction.NORTH)
+        .with(FIRE_TYPE, FireTypes.NORMAL)
+        .with(PREVIOUS_FIRE_TYPE, FireTypes.NORMAL));
     }
 
     @Override
-    public VoxelShape getShape(BlockState p_58152_, BlockGetter p_58153_, BlockPos p_58154_, CollisionContext p_58155_) {
-        return getShape(p_58152_);
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        super.appendProperties(builder);
+        builder.add(FIRE_TYPE);
+        builder.add(PREVIOUS_FIRE_TYPE);
     }
 
-    public static VoxelShape getShape(BlockState p_58157_) {
-        return SHAPES.get(p_58157_.getValue(FACING));
+    @Override
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+        return SHAPES.get(state.get(Properties.HORIZONTAL_FACING));
     }
- 
-    // @Override
-    // public void setRenderLayer() {
-    //     ItemBlockRenderTypes.setRenderLayer(this, name.contains("glass") ? RenderType.cutout() : RenderType.solid() );
-    // }
-    
+
+    @Environment(EnvType.CLIENT)
     @Override
-    public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
-        Direction direction = stateIn.getValue(BlockStateProperties.HORIZONTAL_FACING);
-        double dx = pos.getX() + 0.5D;
-        double dy = pos.getY() + 0.9D;
-        double dz = pos.getZ() + 0.5D;
-  
-        Direction direction1 = direction.getOpposite();
-        double d3 = 0.38D;
-        level.addParticle(ParticleTypes.SMOKE, dx + d3 * direction1.getStepX(), dy, dz + d3 * direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {
+        var direction = state.get(Properties.HORIZONTAL_FACING);
+        var x = pos.getX() + 0.5;
+        var y = pos.getY() + 0.9;
+        var z = pos.getZ() + 0.5;
+        var opposite = direction.getOpposite();
+        var offset = 0.38;
 
-        ParticleOptions particleOption;
-        particleOption = stateIn.getValue( FIRE_TYPE ) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
-            
-        level.addParticle(particleOption, dx + d3 * direction1.getStepX(), dy, dz + d3 * direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
-       }
+        world.addParticle(ParticleTypes.SMOKE, x + offset * opposite.getOffsetX(), y, z + offset * opposite.getOffsetZ(), 0.0, 0.0, 0.0);
 
-    
-    @Override
-    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-    
-        List<ItemStack> list = new ArrayList<>();
-        list.add( new ItemStack( floorKey.getBlockItem() ) );
+        var particleOption = state.get(FIRE_TYPE) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
 
-        return list;
+        world.addParticle(particleOption, x + offset * opposite.getOffsetX(), y, z + offset * opposite.getOffsetZ(), 0.0, 0.0, 0.0);
     }
-    
+
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if( placer.getOffhandItem().getItem() instanceof SoulWand )
-            level.setBlockAndUpdate( pos, state.setValue( FIRE_TYPE, FireTypes.SOUL ) );
+    public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
+        if (placer == null)
+            return;
+
+        if (placer.getOffHandStack().getItem() instanceof SoulWand)
+            world.setBlockState(pos, state.with(FIRE_TYPE, FireTypes.SOUL), 3);
     }
 }

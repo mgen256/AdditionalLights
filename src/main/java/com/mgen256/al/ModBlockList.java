@@ -2,23 +2,17 @@ package com.mgen256.al;
 
 import java.util.function.Supplier;
 
-import com.mgen256.al.blocks.ALLamp;
-import com.mgen256.al.blocks.ALTorch;
-import com.mgen256.al.blocks.ALTorch_Wall;
-import com.mgen256.al.blocks.Fire;
-import com.mgen256.al.blocks.FirePit_L;
-import com.mgen256.al.blocks.FirePit_S;
-import com.mgen256.al.blocks.Fire_Soul;
-import com.mgen256.al.blocks.IModBlock;
-import com.mgen256.al.blocks.StandingTorch_L;
-import com.mgen256.al.blocks.StandingTorch_S;
+import com.mgen256.al.blocks.*;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.core.Direction;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.StandingAndWallBlockItem;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.VerticallyAttachableBlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Direction;
 
 public enum ModBlockList {
 
@@ -74,33 +68,33 @@ public enum ModBlockList {
     ALTorch_Warped("al_torch_warped_planks", () -> new ALTorch( Blocks.WARPED_PLANKS )),
     ALTorch_BlackStone("al_torch_blackstone", () -> new ALTorch( Blocks.BLACKSTONE )),
     
-    ALTorch_Wall_Acacia("al_wall_torch_acacia_planks", () -> new ALTorch_Wall( Blocks.ACACIA_PLANKS, ALTorch_Acacia ) ),
-    ALTorch_Wall_Birch("al_wall_torch_birch_planks", () -> new ALTorch_Wall( Blocks.BIRCH_PLANKS, ALTorch_Birch ) ),
-    ALTorch_Wall_Oak("al_wall_torch_oak_planks", () -> new ALTorch_Wall( Blocks.OAK_PLANKS, ALTorch_Oak ) ),
-    ALTorch_Wall_Dark_Oak("al_wall_torch_dark_oak_planks", () -> new ALTorch_Wall( Blocks.DARK_OAK_PLANKS, ALTorch_Dark_Oak ) ),
-    ALTorch_Wall_Jungle("al_wall_torch_jungle_planks", () -> new ALTorch_Wall( Blocks.JUNGLE_PLANKS, ALTorch_Jungle ) ),
-    ALTorch_Wall_Spruce("al_wall_torch_spruce_planks", () -> new ALTorch_Wall( Blocks.SPRUCE_PLANKS, ALTorch_Spruce ) ),
-    ALTorch_Wall_Stone("al_wall_torch_stone", () -> new ALTorch_Wall( Blocks.STONE, ALTorch_Stone ) ),
-    ALTorch_Wall_CobbleStone("al_wall_torch_cobblestone", () -> new ALTorch_Wall( Blocks.COBBLESTONE, ALTorch_CobbleStone ) ),
-    ALTorch_Wall_Mossy_CobbleStone("al_wall_torch_mossy_cobblestone", () -> new ALTorch_Wall( Blocks.MOSSY_COBBLESTONE, ALTorch_Mossy_CobbleStone ) ),
-    ALTorch_Wall_End_Stone("al_wall_torch_end_stone", () -> new ALTorch_Wall( Blocks.END_STONE, ALTorch_End_Stone ) ),
-    ALTorch_Wall_Sand_Stone("al_wall_torch_sandstone", () -> new ALTorch_Wall( Blocks.SANDSTONE, ALTorch_Sand_Stone ) ),
-    ALTorch_Wall_Stone_Bricks("al_wall_torch_stone_bricks", () -> new ALTorch_Wall( Blocks.STONE_BRICKS, ALTorch_Stone_Bricks ) ),
-    ALTorch_Wall_Mossy_Stone_Bricks("al_wall_torch_mossy_stone_bricks", () -> new ALTorch_Wall( Blocks.MOSSY_STONE_BRICKS, ALTorch_Mossy_Stone_Bricks ) ),
-    ALTorch_Wall_End_Stone_Bricks("al_wall_torch_end_stone_bricks", () -> new ALTorch_Wall( Blocks.END_STONE_BRICKS, ALTorch_End_Stone_Bricks ) ),
-    ALTorch_Wall_Nether_Bricks("al_wall_torch_nether_bricks", () -> new ALTorch_Wall( Blocks.NETHER_BRICKS, ALTorch_Nether_Bricks ) ),
-    ALTorch_Wall_Red_Nether_Bricks("al_wall_torch_red_nether_bricks", () -> new ALTorch_Wall( Blocks.RED_NETHER_BRICKS, ALTorch_Red_Nether_Bricks ) ),
-    ALTorch_Wall_Smooth_Stone("al_wall_torch_smooth_stone", () -> new ALTorch_Wall( Blocks.SMOOTH_STONE, ALTorch_Smooth_Stone ) ),
-    ALTorch_Wall_Glass("al_wall_torch_glass", () -> new ALTorch_Wall( Blocks.GLASS, ALTorch_Glass ) ),
-    ALTorch_Wall_Iron("al_wall_torch_iron_block", () -> new ALTorch_Wall( Blocks.IRON_BLOCK, ALTorch_Iron ) ),
-    ALTorch_Wall_Gold("al_wall_torch_gold_block", () -> new ALTorch_Wall( Blocks.GOLD_BLOCK, ALTorch_Gold ) ),
-    ALTorch_Wall_Diamond("al_wall_torch_diamond_block", () -> new ALTorch_Wall( Blocks.DIAMOND_BLOCK, ALTorch_Diamond ) ),
-    ALTorch_Wall_Ice("al_wall_torch_packed_ice", () -> new ALTorch_Wall( Blocks.PACKED_ICE, ALTorch_Ice ) ),
-    ALTorch_Wall_Pink_Wool("al_wall_torch_pink_wool", () -> new ALTorch_Wall( Blocks.PINK_WOOL, ALTorch_Pink_Wool ) ),
-    ALTorch_Wall_Magenta_Wool("al_wall_torch_magenta_wool", () -> new ALTorch_Wall( Blocks.MAGENTA_WOOL, ALTorch_Magenta_Wool ) ),
-    ALTorch_Wall_Crimson("al_wall_torch_crimson_planks", () -> new ALTorch_Wall( Blocks.CRIMSON_PLANKS, ALTorch_Crimson ) ),
-    ALTorch_Wall_Warped("al_wall_torch_warped_planks", () -> new ALTorch_Wall( Blocks.WARPED_PLANKS, ALTorch_Warped ) ),
-    ALTorch_Wall_BlackStone("al_wall_torch_blackstone", () -> new ALTorch_Wall( Blocks.BLACKSTONE, ALTorch_BlackStone ) ),
+    ALTorch_Wall_Acacia("al_wall_torch_acacia_planks", () -> new ALTorch_Wall( Blocks.ACACIA_PLANKS ) ),
+    ALTorch_Wall_Birch("al_wall_torch_birch_planks", () -> new ALTorch_Wall( Blocks.BIRCH_PLANKS ) ),
+    ALTorch_Wall_Oak("al_wall_torch_oak_planks", () -> new ALTorch_Wall( Blocks.OAK_PLANKS ) ),
+    ALTorch_Wall_Dark_Oak("al_wall_torch_dark_oak_planks", () -> new ALTorch_Wall( Blocks.DARK_OAK_PLANKS ) ),
+    ALTorch_Wall_Jungle("al_wall_torch_jungle_planks", () -> new ALTorch_Wall( Blocks.JUNGLE_PLANKS ) ),
+    ALTorch_Wall_Spruce("al_wall_torch_spruce_planks", () -> new ALTorch_Wall( Blocks.SPRUCE_PLANKS ) ),
+    ALTorch_Wall_Stone("al_wall_torch_stone", () -> new ALTorch_Wall( Blocks.STONE ) ),
+    ALTorch_Wall_CobbleStone("al_wall_torch_cobblestone", () -> new ALTorch_Wall( Blocks.COBBLESTONE ) ),
+    ALTorch_Wall_Mossy_CobbleStone("al_wall_torch_mossy_cobblestone", () -> new ALTorch_Wall( Blocks.MOSSY_COBBLESTONE ) ),
+    ALTorch_Wall_End_Stone("al_wall_torch_end_stone", () -> new ALTorch_Wall( Blocks.END_STONE ) ),
+    ALTorch_Wall_Sand_Stone("al_wall_torch_sandstone", () -> new ALTorch_Wall( Blocks.SANDSTONE ) ),
+    ALTorch_Wall_Stone_Bricks("al_wall_torch_stone_bricks", () -> new ALTorch_Wall( Blocks.STONE_BRICKS ) ),
+    ALTorch_Wall_Mossy_Stone_Bricks("al_wall_torch_mossy_stone_bricks", () -> new ALTorch_Wall( Blocks.MOSSY_STONE_BRICKS ) ),
+    ALTorch_Wall_End_Stone_Bricks("al_wall_torch_end_stone_bricks", () -> new ALTorch_Wall( Blocks.END_STONE_BRICKS ) ),
+    ALTorch_Wall_Nether_Bricks("al_wall_torch_nether_bricks", () -> new ALTorch_Wall( Blocks.NETHER_BRICKS ) ),
+    ALTorch_Wall_Red_Nether_Bricks("al_wall_torch_red_nether_bricks", () -> new ALTorch_Wall( Blocks.RED_NETHER_BRICKS ) ),
+    ALTorch_Wall_Smooth_Stone("al_wall_torch_smooth_stone", () -> new ALTorch_Wall( Blocks.SMOOTH_STONE ) ),
+    ALTorch_Wall_Glass("al_wall_torch_glass", () -> new ALTorch_Wall( Blocks.GLASS ) ),
+    ALTorch_Wall_Iron("al_wall_torch_iron_block", () -> new ALTorch_Wall( Blocks.IRON_BLOCK ) ),
+    ALTorch_Wall_Gold("al_wall_torch_gold_block", () -> new ALTorch_Wall( Blocks.GOLD_BLOCK ) ),
+    ALTorch_Wall_Diamond("al_wall_torch_diamond_block", () -> new ALTorch_Wall( Blocks.DIAMOND_BLOCK ) ),
+    ALTorch_Wall_Ice("al_wall_torch_packed_ice", () -> new ALTorch_Wall( Blocks.PACKED_ICE ) ),
+    ALTorch_Wall_Pink_Wool("al_wall_torch_pink_wool", () -> new ALTorch_Wall( Blocks.PINK_WOOL ) ),
+    ALTorch_Wall_Magenta_Wool("al_wall_torch_magenta_wool", () -> new ALTorch_Wall( Blocks.MAGENTA_WOOL ) ),
+    ALTorch_Wall_Crimson("al_wall_torch_crimson_planks", () -> new ALTorch_Wall( Blocks.CRIMSON_PLANKS ) ),
+    ALTorch_Wall_Warped("al_wall_torch_warped_planks", () -> new ALTorch_Wall( Blocks.WARPED_PLANKS ) ),
+    ALTorch_Wall_BlackStone("al_wall_torch_blackstone", () -> new ALTorch_Wall( Blocks.BLACKSTONE ) ),
 
     StandingTorch_S_Stone_Bricks("standing_torch_s_stone_bricks", () -> new StandingTorch_S( Blocks.STONE_BRICKS ) ),
     StandingTorch_S_Mossy_Stone_Bricks("standing_torch_s_mossy_stone_bricks", () -> new StandingTorch_S( Blocks.MOSSY_STONE_BRICKS ) ),
@@ -204,42 +198,48 @@ public enum ModBlockList {
     SoulFire_For_FirePit_S("soul_fire_for_fire_pit_s", () -> new Fire_Soul( PedestalTypes.fire_pit_s )),
     SoulFire_For_FirePit_L("soul_fire_for_fire_pit_l", () -> new Fire_Soul( PedestalTypes.fire_pit_l ));
 
-    private final String name;
-    private Supplier<? extends Block> sup;
 
-    <I> ModBlockList(String name, Supplier<? extends Block> sup) {
+    private final String name;
+    private Block block;
+    private Supplier<Block> blockSupplier;
+    private BlockItem blockItem;
+
+    <I> ModBlockList(String name, Supplier<Block> blockSupplier) {
         this.name = name;
-        this.sup = sup;
+        this.blockSupplier = blockSupplier;
     }
 
     public String getRegName() {
         return name;
     }
 
-    public Block getBlock() {
-        return AdditionalLights.getBlock( this );
+    public Block get() {
+        if (block == null) {
+            block = blockSupplier.get();
+        }
+        return block;
     }
 
-    public Item getBlockItem() {
-        return AdditionalLights.getBlockItem( this );
-    }
-
-    public void init() {
-        ((IModBlock)getBlock()).setMyKey(this) ;
+    public BlockItem getBlockItem() {
+        return blockItem;
     }
 
     public void register(){
-        AdditionalLights.modBlocks.put( this, AdditionalLights.BLOCKS.register( getRegName(), () -> sup.get() ) );
+        Registry.register(Registries.BLOCK, Identifier.of(AdditionalLights.MOD_ID, name), get());
 
         if( name.contains("al_wall_torch") )
             return;
 
         if( name.contains("al_torch") )
         {
-            var wallkey = ModBlockList.valueOf( this.name().replace("ALTorch", "ALTorch_Wall") );
-            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new StandingAndWallBlockItem( getBlock(), wallkey.getBlock() , new Item.Properties(), Direction.DOWN )));
+            var wallblock = ModBlockList.valueOf( this.name().replace("ALTorch", "ALTorch_Wall") );
+            blockItem = new VerticallyAttachableBlockItem(get(), wallblock.get(), new Item.Settings(), Direction.DOWN);
+            Registry.register(Registries.ITEM, Identifier.of(AdditionalLights.MOD_ID, name), blockItem);
         }
         else
-            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new BlockItem( getBlock(), new Item.Properties())));
+        {
+            blockItem = new BlockItem(get(), new Item.Settings());
+            Registry.register(Registries.ITEM, Identifier.of(AdditionalLights.MOD_ID, name), blockItem );
+        }
     }
 }

@@ -1,114 +1,68 @@
 package com.mgen256.al;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraft.client.render.RenderLayer;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 
-import com.mgen256.al.items.SoulWand;
+public class AdditionalLights implements ModInitializer {
+	public static final String MOD_ID = "additional_lights";
+	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+	private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
+		.icon(() -> new ItemStack( ModBlockList.ALTorch_Acacia.get()) )
+		.displayName(Text.translatable("Additional Lights"))
+		.entries( (context, entries) -> { 
+			entries.add( ModItemList.SoulWand.getItem() );
+			
+			for (var block : ModBlockList.values()) {
+				var item = block.getBlockItem();
+				if( item != null )
+					entries.add(item);
+			}
+		 	})
+		.build();
 
+	@Override
+	public void onInitialize() {
+		for (var sound: ModSoundList.values())
+			sound.register();
 
-// The value here should match an entry in the META-INF/mods.toml file
-@Mod(AdditionalLights.MOD_ID)
-public class AdditionalLights {
-    public static final String MOD_ID = "additional_lights";
-
-    private static final Logger LOGGER = LogManager.getLogger();
-
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, MOD_ID);
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MOD_ID);
-    public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, MOD_ID);
-    public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
-
-    public static Map<ModBlockList, RegistryObject<Block>> modBlocks= new LinkedHashMap<ModBlockList, RegistryObject<Block>>();
-    public static Map<ModBlockList, RegistryObject<BlockItem>> modBlockItems = new LinkedHashMap<ModBlockList, RegistryObject<BlockItem>>();
-    public static Map<ModItemList, RegistryObject<Item>> modItems = new LinkedHashMap<ModItemList, RegistryObject<Item>>();
-    public static Map<ModSoundList, RegistryObject<SoundEvent>> modSounds;    
-    public static RegistryObject<CreativeModeTab> CREATIVE_TAB;
-
-    static {
-        modSounds = new LinkedHashMap<ModSoundList, RegistryObject<SoundEvent>>(){
-            private static final long serialVersionUID = 4L;
-            {
-                put( ModSoundList.Change, SOUNDS.register( "change", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "change" ) )));
-                put( ModSoundList.Undo, SOUNDS.register( "undo",  ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "undo" ) ) ) );
-                put( ModSoundList.Fire_Ignition_S, SOUNDS.register( "fire_ignition_s", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "fire_ignition_s" ) ) ) );
-                put( ModSoundList.Fire_Ignition_L, SOUNDS.register( "fire_ignition_l", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "fire_ignition_l" ) ) ) );
-                put( ModSoundList.Fire_Extinguish, SOUNDS.register( "fire_extinguish", ()-> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath( MOD_ID, "fire_extinguish" ) ) ) );
-            }};
-
-        for (ModBlockList block : ModBlockList.values()) {
+		for (var block : ModBlockList.values()) 
             block.register();
-        }
+		
+		for (var item : ModItemList.values())
+			item.Register();
 
-        modItems.put( ModItemList.SoulWand, ITEMS.register( "soul_wand", () -> new SoulWand()));
-    }
+		Registry.register(Registries.ITEM_GROUP, Identifier.of(MOD_ID, "al"), ITEM_GROUP);
+		
+		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
+			setupBlockRenderLayers();
+	}
 
-    public AdditionalLights() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	@Environment(EnvType.CLIENT)
+	private void setupBlockRenderLayers() {
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_FirePit_S.get(), RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_FirePit_L.get(), RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_StandingTorch_S.get(), RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_StandingTorch_L.get(), RenderLayer.getCutout());
+	
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_FirePit_S.get(), RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_FirePit_L.get(), RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_StandingTorch_S.get(), RenderLayer.getCutout());
+		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_StandingTorch_L.get(), RenderLayer.getCutout());
+	}
 
-        modEventBus.addListener(this::commonSetup);
-        
-        CREATIVE_TAB = CREATIVE_MODE_TABS.register("creative_tab", () -> CreativeModeTab.builder()
-        .title(Component.translatable("Additional Lights"))
-        .icon(() -> new ItemStack(modBlockItems.get( ModBlockList.ALTorch_Oak ).get() ))
-        .withSearchBar()
-        .hideTitle()
-        .displayItems(( param, output ) -> {
-            modItems.forEach( (key, item) -> output.accept( item.get() ));
-            modBlockItems.forEach( (key, item) -> output.accept( item.get() ));
-            }).build());
-
-        BLOCKS.register(modEventBus);
-        ITEMS.register(modEventBus);
-        SOUNDS.register(modEventBus);
-        CREATIVE_MODE_TABS.register(modEventBus);
-
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-     
-    private void commonSetup(final FMLCommonSetupEvent event) {
-        for (ModBlockList block : ModBlockList.values()) {
-            block.init();
-        }
-    }
-
-    public static void Log(String message) {
-        LOGGER.info(MOD_ID + "::" + message);
-    }
-
-    public static Block getBlock( ModBlockList key )
-    {
-        return modBlocks.get( key ).get();
-    }
-
-    public static BlockItem getBlockItem( ModBlockList key )
-    {
-        return modBlockItems.get( key ).get();
-    }
-
-
-    public static SoundEvent getSound( ModSoundList key )
-    {
-        return modSounds.get( key ).get();
-    }
 }

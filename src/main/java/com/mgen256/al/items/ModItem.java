@@ -2,14 +2,15 @@ package com.mgen256.al.items;
 
 import com.mgen256.al.AdditionalLights;
 
-import net.minecraft.world.item.Item;
+import net.minecraft.item.Item;
+
 
 public abstract class ModItem extends Item implements IModItem {
     
-    public ModItem( Properties props, String _name )
+    public ModItem( Settings settings, String name )
     {
-        super(props);
-        name = _name;
+        super(settings);
+        this.name = name;
     }
 
     protected String name;
@@ -22,6 +23,6 @@ public abstract class ModItem extends Item implements IModItem {
 
     protected void Log( String string )
     {
-        AdditionalLights.Log(string);
+        AdditionalLights.LOGGER.info(string);
     }
 }

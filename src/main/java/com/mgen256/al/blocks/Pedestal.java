@@ -1,239 +1,226 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.language.I18n;
-import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.*;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.level.material.FluidState;
-import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.pathfinder.PathComputationType;
-
-import static java.lang.Boolean.TRUE;
-
-import java.util.List;
-
-import javax.annotation.Nullable;
-
 import com.mgen256.al.*;
 import com.mgen256.al.items.*;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.Waterloggable;
 
-public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBlock, IHasFire {
+import net.minecraft.client.gui.screen.Screen;
 
-    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    public static final BooleanProperty ACCEPT_POWER = BooleanProperty.create("accept_power");
-    public static final BooleanProperty ISPOWERED = BooleanProperty.create("ispowered");
-    public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.pathing.NavigationType;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.state.StateManager;
+import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.state.property.Properties;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.shape.VoxelShape;
+import net.minecraft.world.BlockView;
+import net.minecraft.world.World;
 
-    private static Component txt_shift;
-    private static Component txt_tips;
-    private static Component txt_rightclick;
-    private static Component txt_sneaking;
-    private static Component txt_signals;
+import org.jetbrains.annotations.Nullable;
 
-    enum SIZE {S,L};
+import java.util.List;
+
+public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFire {
+
+    public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
+    public static final BooleanProperty ACCEPT_POWER = BooleanProperty.of("accept_power");
+    public static final BooleanProperty ISPOWERED = BooleanProperty.of("ispowered");
+    public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
+
+    private static Text txt_shift;
+    private static Text txt_tips;
+    private static Text txt_rightclick;
+    private static Text txt_sneaking;
+    private static Text txt_signals;
+
+    enum SIZE {S,L}
     protected SIZE size;
 
-    protected Pedestal( Block mainblock, VoxelShape shape, SIZE size ) {
-        super(mainblock, mainblock.properties(), shape);
-
-        registerDefaultState( stateDefinition.any()
-            .setValue( BlockStateProperties.WATERLOGGED, false ) 
-            .setValue( FIRE_TYPE, FireTypes.NORMAL )
-            .setValue( PREVIOUS_FIRE_TYPE, FireTypes.NORMAL )
-            .setValue( ACCEPT_POWER, true )
-            .setValue( ISPOWERED, false )
-            .setValue( ACTIVATED, false )
-            );
-
+    protected Pedestal(Block mainblock, VoxelShape shape, SIZE size) {
+        super(Settings.copy(mainblock),shape);
         this.size = size;
 
-        if( ignitionSound == null )
-        {
-            ignitionSound = size == SIZE.L ? AdditionalLights.getSound(ModSoundList.Fire_Ignition_L)
-                : AdditionalLights.getSound( ModSoundList.Fire_Ignition_S );
+        setDefaultState(getStateManager().getDefaultState()
+            .with(WATERLOGGED, false)
+            .with(FIRE_TYPE, FireTypes.NORMAL)
+            .with(PREVIOUS_FIRE_TYPE, FireTypes.NORMAL)
+            .with(ACCEPT_POWER, true)
+            .with(ISPOWERED, false)
+            .with(ACTIVATED, false)
+        );
+
+        if (ignitionSound == null) {
+            ignitionSound = size == SIZE.L ? ModSoundList.Fire_Ignition_L.get()
+                : ModSoundList.Fire_Ignition_S.get();
         }
     }
 
-
     private static SoundEvent ignitionSound;
-    protected abstract ModBlockList getFireKey(BlockState state);
-    public abstract PedestalTypes getType( );
+    protected abstract ModBlockList getFireBlock(BlockState state);
+    public abstract PedestalTypes getType();
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add( BlockStateProperties.WATERLOGGED );
-        builder.add( FIRE_TYPE );
-        builder.add( PREVIOUS_FIRE_TYPE );
-        builder.add( ACCEPT_POWER );
-        builder.add( ISPOWERED );
-        builder.add( ACTIVATED );
+    protected void appendProperties(StateManager.Builder<Block, BlockState> builder) {
+        builder.add(WATERLOGGED, FIRE_TYPE, PREVIOUS_FIRE_TYPE, ACCEPT_POWER, ISPOWERED, ACTIVATED);
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canFillWithFluid(@Nullable PlayerEntity player, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
         return true;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        
-        return state.getValue(BlockStateProperties.WATERLOGGED)  == Boolean.TRUE 
-            ? Fluids.WATER.getSource(false) : super.getFluidState(state);
+        return state.get(WATERLOGGED) ? Fluids.WATER.getStill(false) : super.getFluidState(state);
     }
 
-    private Block getFireBlock(BlockState state){
-        return AdditionalLights.getBlock( getFireKey(state) );
-    }
-    
-    public boolean setFire( Level level, BlockPos pos, BlockState state, boolean replaceOnly ) {
-        BlockPos upperpos = pos.above();
-        BlockState upperBlockState = level.getBlockState(upperpos);
-        Block upperblock = upperBlockState.getBlock();
+    public boolean igniteFire(World world, BlockPos pos, BlockState state, boolean replaceOnly) {
+        var upperPos = pos.up();
+        var upperBlockState = world.getBlockState(upperPos);
+        var upperBlock = upperBlockState.getBlock();
 
-        FireBase firebase = null;
-        if( upperblock instanceof FireBase )
-            firebase = (FireBase)upperblock;
-
-        if( replaceOnly )
-        {
-            if( firebase == null )
-                return false;
+        FireBase fireBase = null;
+        if (upperBlock instanceof FireBase) {
+            fireBase = (FireBase) upperBlock;
         }
-        else
-        {
-            if( ( upperBlockState.isAir() || upperBlockState.getBlock() == Blocks.WATER || firebase != null ) == false )
-                return false;
-        }
-        
-        if( firebase != null && level.getBlockState( upperpos ).getValue(FireBase.SUMMONED) == false )
-            level.destroyBlock( upperpos, true );
 
-        return level.setBlockAndUpdate( upperpos, getFireBlock(state).defaultBlockState()
-            .setValue(FireBase.SET, true)
-            .setValue(FireBase.SUMMONED, true) );
+        if (replaceOnly) {
+            if (fireBase == null) {
+                return false;
+            }
+        } else {
+            if (!(upperBlockState.isAir() || upperBlock == Blocks.WATER || fireBase != null)) {
+                return false;
+            }
+        }
+
+        if (fireBase != null && !world.getBlockState(upperPos).get(FireBase.SUMMONED)) {
+            world.breakBlock(upperPos, true);
+        }
+
+        return world.setBlockState(upperPos, getFireBlock(state).get().getDefaultState()
+            .with(FireBase.SET, true)
+            .with(FireBase.SUMMONED, true));
     }
 
-    public void removeFire(Level level, BlockPos pos, BlockState state )
-    {
-        if( level.getBlockState(pos.above()).getBlock() instanceof FireBase == false )
+    public void removeFire(World world, BlockPos pos, BlockState state) {
+        if (!(world.getBlockState(pos.up()).getBlock() instanceof FireBase)) {
             return;
-
-        level.setBlockAndUpdate(pos.above(), Blocks.AIR.defaultBlockState() );
+        }
+        world.setBlockState(pos.up(), Blocks.AIR.getDefaultState());
     }
 
     @Override
-    protected ItemInteractionResult useItemOn(
-        ItemStack p_330929_, BlockState p_335716_, Level p_336112_, BlockPos p_328869_, Player p_332840_, InteractionHand p_336117_, BlockHitResult p_332723_
-    ) {
-        if( p_330929_.getItem() instanceof Wand )
-            return ItemInteractionResult.FAIL;
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (!igniteFire(world, pos, state, false))
+            return ActionResult.PASS;
 
-        if( setFire( p_336112_, p_328869_, p_335716_, false ) == false )
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-
-        playIgnitionSound( p_336112_, p_332840_, p_335716_.getBlock(), p_328869_ );
-
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        playIgnitionSound(world, player, state.getBlock(), pos);
+        return ActionResult.SUCCESS;
     }
 
-    private static void playIgnitionSound(Level level, Player player, Block block, BlockPos pos)
-    {
+    @Override
+    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+        if (stack.getItem() instanceof Wand) 
+            return ItemActionResult.FAIL;
+        
+        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
+
+    private static void playIgnitionSound(World world, PlayerEntity player, Block block, BlockPos pos) {
         float volume = block instanceof FirePitBase ? 2.0f : 1.5f;
-        level.playSound( player, pos, ignitionSound, SoundSource.BLOCKS, volume, 1.0f );
+        world.playSound(player, pos, ignitionSound, SoundCategory.BLOCKS, volume, 1.0f);
     }
 
-    
     @Override
-    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if( placer == null )
+    public void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack) {
+        if (placer == null) {
             return;
-            
-        if( placer.getOffhandItem().getItem() instanceof SoulWand )
-            state = state.setValue( FIRE_TYPE, FireTypes.SOUL );
+        }
 
-        if( placer.isSuppressingSlidingDownLadder() )
-            level.setBlockAndUpdate( pos, state.setValue( ACCEPT_POWER, false ) );
-        else
-        {
-            level.setBlockAndUpdate( pos, state );
-            setFire( level, pos, state, false );
+        if (placer.getOffHandStack().getItem() instanceof SoulWand) {
+            state = state.with(FIRE_TYPE, FireTypes.SOUL);
+        }
+
+        if (placer.isSneaking()) {
+            world.setBlockState(pos, state.with(ACCEPT_POWER, false));
+        } else {
+            world.setBlockState(pos, state);
+            igniteFire(world, pos, state, false);
         }
     }
 
-    
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
-        state = level.getBlockState(pos);
-        if( state.getValue(ACCEPT_POWER) != TRUE )
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+        state = world.getBlockState(pos);
+        if (!state.get(ACCEPT_POWER)) {
+            return;
+        }
+
+        if (world.isReceivingRedstonePower(pos)) {
+            if (state.get(ACTIVATED)) {
+                return;
+            }
+
+            if (igniteFire(world, pos, state, false)) {
+                playIgnitionSound(world, null, state.getBlock(), pos);
+            }
+
+            world.setBlockState(pos, state.with(ISPOWERED, true).with(ACTIVATED, true));
+        } else if (state.get(ISPOWERED) && state.get(ACTIVATED)) {
+            removeFire(world, pos, state);
+            world.setBlockState(pos, state.with(ISPOWERED, false).with(ACTIVATED, false));
+        }
+    }
+
+    @Override
+    @Environment(EnvType.CLIENT)
+    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
+        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT)
             return;
 
-        if( level.hasNeighborSignal(pos) )
-        {
-            if( state.getValue(ACTIVATED) == TRUE )
-                return;
-
-            if( setFire( level, pos, state, false ) )
-                playIgnitionSound( level, null, state.getBlock(),pos );
-
-            level.setBlockAndUpdate( pos, state.setValue( ISPOWERED, true ).setValue( ACTIVATED, true ) );
+        if (txt_shift == null) {
+            txt_shift = Text.translatable("additional_lights.txt.shift");
+            txt_tips = Text.translatable("additional_lights.txt.tips");
+            txt_rightclick = Text.translatable("additional_lights.txt.block.pedestal.rightclick");
+            txt_sneaking = Text.translatable("additional_lights.txt.block.pedestal.sneaking");
+            txt_signals = Text.translatable("additional_lights.txt.block.pedestal.signals");
         }
-        else if( state.getValue( ISPOWERED ) && state.getValue( ACTIVATED ) )
-        {
-            removeFire( level, pos, state );
-            level.setBlockAndUpdate( pos, state.setValue( ISPOWERED, false ).setValue( ACTIVATED, false ) );
+
+        if (Screen.hasShiftDown()) {
+            tooltip.add(txt_tips);
+            tooltip.add(txt_rightclick);
+            tooltip.add(txt_sneaking);
+            tooltip.add(txt_signals);
+        } else {
+            tooltip.add(txt_shift);
         }
-        super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flagIn) {
-        if( txt_shift == null )
-        {
-            if( I18n.exists("additional_lights.txt.shift") != TRUE )
-                return;
-
-            txt_shift = Component.translatable( "additional_lights.txt.shift" );
-            txt_tips = Component.translatable( "additional_lights.txt.tips" );
-            txt_rightclick = Component.translatable( "additional_lights.txt.block.pedestal.rightclick" );
-            txt_sneaking = Component.translatable( "additional_lights.txt.block.pedestal.sneaking" );
-            txt_signals = Component.translatable( "additional_lights.txt.block.pedestal.signals" );
-        }
-
-        if ( Screen.hasShiftDown() )
-        {
-            tooltip.add( txt_tips );
-            tooltip.add( txt_rightclick );
-            tooltip.add( txt_sneaking );
-            tooltip.add( txt_signals );
-        }
-        else
-        {
-            tooltip.add( txt_shift );
-        }
-    }
-    
-    @Override
-    public boolean isPathfindable(BlockState state, PathComputationType type) {
+    public boolean canPathfindThrough(BlockState state, NavigationType type) {
         return false;
     }
 }

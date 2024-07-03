@@ -2,20 +2,20 @@ package com.mgen256.al.blocks;
 
 import com.mgen256.al.*;
 
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.block.Blocks;
+import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.state.property.BooleanProperty;
 
 public class Fire extends FireBase {
     
-    public static BooleanProperty SET = BooleanProperty.create("set");
+    public static final BooleanProperty SET = BooleanProperty.of("set");
 
     public Fire( PedestalTypes pedestalKey ) {
-        super( pedestalKey, createProps( MapColor.FIRE )
-            .lightLevel( lightLevel-> 15 ) );
-      }
-
-    @Override
-    protected float getFireDamageAmount() {
-        return 0.0F;
+        super(pedestalKey, Settings.create()
+            .noCollision()
+            .breakInstantly()
+            .mapColor(Blocks.FIRE.getDefaultState().getMapColor(null, null))
+            .sounds(BlockSoundGroup.WOOL)
+            .luminance(state -> 15));
     }
 }

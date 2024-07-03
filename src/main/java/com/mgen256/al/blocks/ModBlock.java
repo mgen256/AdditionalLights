@@ -1,59 +1,32 @@
 package com.mgen256.al.blocks;
 
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.BlockView;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockRenderType;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.ShapeContext;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.item.BlockItem;
+import net.minecraft.util.shape.VoxelShape;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import com.mgen256.al.AdditionalLights;
-import com.mgen256.al.ModBlockList;
+public abstract class ModBlock extends Block {
 
-public abstract class ModBlock extends Block implements IModBlock {
-
-    protected ModBlock(Block mainblock, Properties props, VoxelShape shape) {
-        super(props);
-        voxelShape = shape;
+    protected ModBlock(Settings settings, VoxelShape shape) {
+        super(settings);
+        this.voxelShape = shape;
     }
 
     protected BlockItem blockItem;
     private VoxelShape voxelShape;
-    private ModBlockList myKey;
 
     @Override
-    public void setMyKey(ModBlockList key) {
-        myKey = key;
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+    public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return voxelShape;
     }
     
     @Override
-    public RenderShape getRenderShape(BlockState state) {
-        return RenderShape.MODEL;
-    }
-
-    @Override
-    public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-
-        List<ItemStack> list = new ArrayList<>();
-        list.add( new ItemStack( myKey.getBlockItem() ) );
-
-        return list;
-    }
-
-    protected static void Log( String string )
-    {
-        AdditionalLights.Log(string);
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
     }
 }
