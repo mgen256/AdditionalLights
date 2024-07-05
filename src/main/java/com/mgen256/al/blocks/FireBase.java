@@ -28,7 +28,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.util.ForgeSoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -36,6 +35,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.storage.loot.LootParams;
+import net.neoforged.neoforge.common.util.DeferredSoundType;
 
 
 public abstract class FireBase extends ModBlock{
@@ -75,7 +75,7 @@ public abstract class FireBase extends ModBlock{
             .instabreak()
             .noCollission()
             .mapColor( mapColor )
-            .sound( new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
+            .sound( new DeferredSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
             , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) );
     }
 

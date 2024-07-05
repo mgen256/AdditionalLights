@@ -20,10 +20,7 @@ build
 # other
 eclipse
 run
-.vscode
+runs
+run-data
 
-# Files from Forge MDK
-forge*changelog.txt
-FAILURE
-changelog.txt
-README.txt
+repo

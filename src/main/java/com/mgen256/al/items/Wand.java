@@ -2,8 +2,6 @@ package com.mgen256.al.items;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import com.mgen256.al.AdditionalLights;
 import com.mgen256.al.ModSoundList;
 
