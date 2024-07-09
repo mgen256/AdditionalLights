@@ -19,8 +19,6 @@ import net.minecraft.util.shape.VoxelShapes;
 import java.util.Map;
 
 import com.mgen256.al.*;
- // Import the LootParams class
-// import com.mgen256.al.items.SoulWand;
 import com.mgen256.al.items.SoulWand;
 
 

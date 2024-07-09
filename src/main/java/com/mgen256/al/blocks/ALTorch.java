@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import net.minecraft.util.shape.VoxelShape;
 
 import com.mgen256.al.*;
-// import com.mgen256.al.items.SoulWand;
 import com.mgen256.al.items.SoulWand;
 
 public class ALTorch extends TorchBlock implements IHasFire  {
@@ -23,7 +22,8 @@ public class ALTorch extends TorchBlock implements IHasFire  {
 
     
     public static Settings createSettings(Block mainblock) {
-        return Settings.copy(mainblock)
+        return Settings.create()
+            .sounds(mainblock.getDefaultState().getSoundGroup())
             .noCollision()
             .breakInstantly()
             .luminance((value)->value.get(FIRE_TYPE) == FireTypes.SOUL ? 10 : 14);

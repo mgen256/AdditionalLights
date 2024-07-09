@@ -36,8 +36,9 @@ public class ALLamp extends Block implements Waterloggable {
         Block.createCuboidShape(0.0, 7.0, 6.0, 4.0, 13.0, 10.0),    // east
     };
 
-    public ALLamp(Block mainBlock) {
-        super(Settings.copy(mainBlock)
+    public ALLamp(Block mainblock) {
+        super(Settings.create()
+            .sounds(mainblock.getDefaultState().getSoundGroup())
             .noCollision()
             .breakInstantly()
             .luminance((state) -> 15));
