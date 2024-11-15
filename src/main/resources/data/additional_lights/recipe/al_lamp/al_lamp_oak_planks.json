@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_lamp",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#":"minecraft:glowstone",
+      "X":"minecraft:oak_planks"
+    },
+    "result":{
+        "id":"additional_lights:al_lamp_oak_planks",
+        "count":4
+      }
+}

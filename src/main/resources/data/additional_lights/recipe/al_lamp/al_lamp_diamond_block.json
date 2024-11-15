@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_lamp",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#":"minecraft:glowstone",
+      "X":"minecraft:diamond_block"
+    },
+    "result":{
+        "id":"additional_lights:al_lamp_diamond_block",
+        "count":4
+      }
+}

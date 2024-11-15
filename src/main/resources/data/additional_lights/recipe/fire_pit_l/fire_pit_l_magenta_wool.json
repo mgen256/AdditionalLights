@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "fire_pit_l",
+    "pattern": [
+      "##",
+      "XX",
+      "XX"
+    ],
+    "key": {
+      "#": [
+                   "minecraft:coal",
+                   "minecraft:charcoal"
+    ]
+      ,
+      "X":"minecraft:magenta_wool"
+    },
+    "result":{
+        "id":"additional_lights:fire_pit_l_magenta_wool",
+        "count":1
+      }
+}

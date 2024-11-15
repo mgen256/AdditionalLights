@@ -13,11 +13,12 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RenderShape;
@@ -26,6 +27,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
+
+import com.mgen256.al.AdditionalLights;
 
 
 
@@ -44,20 +47,22 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
         Block.box(0.0, 7.0, 6.0, 4.0, 13.0, 10.0), // east
     }; 
 
-    private static Properties createProps( Block mainblock ){
+    private static Properties createProps( Block mainblock, String name ){
         return BlockBehaviour.Properties.of()
             .sound( mainblock.defaultBlockState().getSoundType() )
             .mapColor( MapColor.NONE )
             .pushReaction( PushReaction.NORMAL )
             .instabreak()
             .lightLevel( lightLevel -> 15 )
-            .noCollission();
+            .noCollission()
+            .setId(AdditionalLights.createResourceKey(name))
+            ;
     }
 
-    public ALLamp(Block mainblock ) {
-        super( mainblock, createProps(mainblock), Shapes.empty());
+    public ALLamp(Block mainblock, String name) {
+        super( mainblock, name, createProps(mainblock, name), Shapes.empty());
       }
-      
+    
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
@@ -94,9 +99,16 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState
-        , LevelAccessor level, BlockPos currentPos, BlockPos facingPos) 
-    {
+    public BlockState updateShape(
+        BlockState stateIn, 
+        LevelReader level, 
+        ScheduledTickAccess sta, 
+        BlockPos currentPos, 
+        Direction facing, 
+        BlockPos facingPos,
+        BlockState facingState, 
+        RandomSource randomSource
+        ) {
         return facing == stateIn.getValue(BlockStateProperties.FACING).getOpposite() 
             && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }

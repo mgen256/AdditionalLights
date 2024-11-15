@@ -35,9 +35,10 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         Direction.WEST, Block.box(11.0D, 2.0D, 5.5D, 16.0D, 13.0D, 10.5D), 
         Direction.EAST, Block.box(0.0D, 2.0D, 5.5D, 5.0D, 13.0D, 10.5D)) );
 
-    public ALTorch_Wall(Block mainblock, ModBlockList _floorKey ) {
-        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock) );
+    public ALTorch_Wall(Block mainblock, ModBlockList _floorKey, String name ) {
+        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock, name) );
         floorKey = _floorKey;
+        this.name = name;
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH )
             .setValue( FIRE_TYPE, FireTypes.NORMAL ) 
@@ -46,10 +47,16 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
 
     private ModBlockList floorKey;
     private ModBlockList myKey;
+    private String name;
     
     @Override
     public void setMyKey(ModBlockList key) {
         myKey = key;
+    }
+
+    @Override
+    public String getRegName() {
+        return name;
     }
  
     @Override
@@ -73,11 +80,6 @@ public class ALTorch_Wall extends WallTorchBlock implements IModBlock, IHasFire 
         return SHAPES.get(p_58157_.getValue(FACING));
     }
  
-    // @Override
-    // public void setRenderLayer() {
-    //     ItemBlockRenderTypes.setRenderLayer(this, name.contains("glass") ? RenderType.cutout() : RenderType.solid() );
-    // }
-    
     @Override
     public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
         Direction direction = stateIn.getValue(BlockStateProperties.HORIZONTAL_FACING);

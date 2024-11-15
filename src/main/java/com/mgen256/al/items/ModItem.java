@@ -6,16 +6,16 @@ import net.minecraft.world.item.Item;
 
 public abstract class ModItem extends Item implements IModItem {
     
-    public ModItem( Properties props, String _name )
+    public ModItem( Properties props, String name )
     {
         super(props);
-        name = _name;
+        this.name = name;
     }
 
     protected String name;
 
     @Override
-    public String getModRegistryName(){
+    public String getRegName(){
         return name;
     }
 

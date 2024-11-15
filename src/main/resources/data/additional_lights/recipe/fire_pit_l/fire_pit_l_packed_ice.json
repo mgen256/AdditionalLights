@@ -1,0 +1,22 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "fire_pit_l",
+
+    "pattern": [
+      "##",
+      "XX",
+      "XX"
+    ],
+    "key": {
+      "#": [
+                   "minecraft:coal",
+                   "minecraft:charcoal"
+    ]
+      ,
+      "X":"minecraft:packed_ice"
+    },
+    "result":{
+        "id":"additional_lights:fire_pit_l_packed_ice",
+        "count":1
+      }
+}

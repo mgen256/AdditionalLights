@@ -3,6 +3,7 @@ package com.mgen256.al;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
@@ -20,8 +21,6 @@ import net.minecraftforge.registries.RegistryObject;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.mgen256.al.items.SoulWand;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -46,6 +45,14 @@ public class AdditionalLights {
     public static RegistryObject<CreativeModeTab> CREATIVE_TAB;
 
     static {
+
+    }
+
+    public AdditionalLights() {
+        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        modEventBus.addListener(this::commonSetup);
+
         modSounds = new LinkedHashMap<ModSoundList, RegistryObject<SoundEvent>>(){
             private static final long serialVersionUID = 4L;
             {
@@ -60,13 +67,9 @@ public class AdditionalLights {
             block.register();
         }
 
-        modItems.put( ModItemList.SoulWand, ITEMS.register( "soul_wand", () -> new SoulWand()));
-    }
-
-    public AdditionalLights() {
-        IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modEventBus.addListener(this::commonSetup);
+        for (ModItemList item : ModItemList.values()) {
+            item.register();
+        }
         
         CREATIVE_TAB = CREATIVE_MODE_TABS.register("creative_tab", () -> CreativeModeTab.builder()
         .title(Component.translatable("Additional Lights"))
@@ -85,7 +88,7 @@ public class AdditionalLights {
 
         MinecraftForge.EVENT_BUS.register(this);
     }
-     
+
     private void commonSetup(final FMLCommonSetupEvent event) {
         for (ModBlockList block : ModBlockList.values()) {
             block.init();
@@ -110,5 +113,20 @@ public class AdditionalLights {
     public static SoundEvent getSound( ModSoundList key )
     {
         return modSounds.get( key ).get();
+    }
+
+        
+    static public ResourceKey<Block> createResourceKey(String name) {
+        return ResourceKey.create(
+                ForgeRegistries.BLOCKS.getRegistryKey(),
+                ResourceLocation.parse(String.format("%s:%s", AdditionalLights.MOD_ID, name))
+                );
+    }
+
+    static public ResourceKey<Item> createItemResourceKey(String name) {
+        return ResourceKey.create(
+                ForgeRegistries.ITEMS.getRegistryKey(),
+                ResourceLocation.parse(String.format("%s:%s", AdditionalLights.MOD_ID, name))
+                );
     }
 }

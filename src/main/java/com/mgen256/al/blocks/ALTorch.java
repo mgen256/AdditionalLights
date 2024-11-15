@@ -29,16 +29,20 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
     protected static final VoxelShape SHAPE = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 10.0D, 10.5D);
     
-    public static Properties createProps( Block mainblock ){
+    public static Properties createProps( Block mainblock, String name ){
         return BlockBehaviour.Properties.of()
             .noCollission()
             .instabreak()
-            .lightLevel( lightLevel -> 14 )
-            .sound( mainblock.defaultBlockState().getSoundType() );
+            .lightLevel((state) -> state.getValue(FIRE_TYPE) == FireTypes.SOUL ? 10 : 14 )
+            .sound( mainblock.defaultBlockState().getSoundType() )
+            .setId(AdditionalLights.createResourceKey(name))
+            ;
     }
     
-    public ALTorch( Block mainblock ) {
-        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock) );
+    public ALTorch( Block mainblock, String name ) {
+        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock, name) );
+
+        this.name = name;
 
         registerDefaultState( stateDefinition.any()
             .setValue( FIRE_TYPE, FireTypes.NORMAL )
@@ -46,10 +50,16 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
         
     private ModBlockList myKey;
+    private String name;
     
     @Override
     public void setMyKey(ModBlockList key) {
         myKey = key;
+    }
+
+    @Override
+    public String getRegName() {
+        return name;
     }
 
     @Override
@@ -59,10 +69,9 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
         builder.add( PREVIOUS_FIRE_TYPE );
     }
 
-
-    @Override
-    public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
-        return state.getValue( FIRE_TYPE ) == FireTypes.SOUL ? 10 : 14;
+    public void changeLightLevel(Level level, BlockPos pos, BlockState state, FireTypes newType) {
+        level.setBlock(pos, state.setValue(FIRE_TYPE, newType), Block.UPDATE_ALL);
+        level.sendBlockUpdated(pos, state, state.setValue(FIRE_TYPE, newType), Block.UPDATE_ALL);
     }
 
     @Override

@@ -15,7 +15,8 @@ import com.mgen256.al.*;
 
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -70,17 +71,19 @@ public abstract class FireBase extends ModBlock{
         SMOKE_POS.put( PedestalTypes.fire_pit_l, 0.8 );
     }
     
-    protected static Properties createProps( MapColor mapColor ){
+    protected static Properties createProps( MapColor mapColor, String name ){
         return BlockBehaviour.Properties.of()
             .instabreak()
             .noCollission()
             .mapColor( mapColor )
             .sound( new ForgeSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
-            , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) );
+            , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) )
+            .setId(AdditionalLights.createResourceKey(name))
+            ;
     }
 
-    protected FireBase( PedestalTypes _pedestalKey, Properties props ) {
-        super( null, props, SHAPES.get(_pedestalKey));
+    protected FireBase( PedestalTypes _pedestalKey, String name, Properties props ) {
+        super( null, name, props, SHAPES.get(_pedestalKey));
 
         pedestalKey = _pedestalKey;
         this.registerDefaultState(this.stateDefinition.any().setValue(SET, Boolean.valueOf(false) ).setValue(SUMMONED, false).setValue(TEMP, false) );
@@ -119,12 +122,20 @@ public abstract class FireBase extends ModBlock{
     }
 
     @Override
-    public BlockState updateShape(BlockState stateIn, Direction facing, BlockState facingState
-        , LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+    public BlockState updateShape(
+        BlockState stateIn, 
+        LevelReader level, 
+        ScheduledTickAccess sta, 
+        BlockPos currentPos, 
+        Direction facing, 
+        BlockPos facingPos,
+        BlockState facingState, 
+        RandomSource randomSource
+        ) {
         return ( facing == Direction.DOWN ) && !isValidPosition(stateIn, level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 
-    public boolean isValidPosition(BlockState state, LevelAccessor level, BlockPos pos) {
+    public boolean isValidPosition(BlockState state, LevelReader level, BlockPos pos) {
         var belowPos = pos.below();
         var belowState = level.getBlockState(belowPos);
 

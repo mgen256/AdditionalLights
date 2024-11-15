@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "fire",
+
+  "pattern": [
+    " #",
+    " #",
+    "##"
+    ],
+  "key": {
+    "#": [
+          "minecraft:coal",
+          "minecraft:charcoal"
+  ]
+  },
+  "result":{
+      "id":"additional_lights:fire_for_fire_pit_s",
+      "count":2
+    }
+}

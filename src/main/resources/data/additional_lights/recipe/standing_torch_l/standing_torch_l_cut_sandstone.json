@@ -1,0 +1,21 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "standing_torch_l",
+    "pattern": [
+      "#",
+      "X",
+      "X"
+      ],
+  "key": {
+      "#": [
+                   "minecraft:coal",
+                   "minecraft:charcoal"
+    ]
+      ,
+      "X":"minecraft:cut_sandstone"
+    },
+    "result":{
+        "id":"additional_lights:standing_torch_l_cut_sandstone",
+        "count":1
+      }
+}
