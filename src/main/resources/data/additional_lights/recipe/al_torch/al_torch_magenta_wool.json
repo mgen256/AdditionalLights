@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_torch",
+    "pattern": [
+      "##",
+      "##",
+      "X "
+    ],
+    "key": {
+      "#":"minecraft:torch",
+      "X":"minecraft:magenta_wool"
+    },
+    "result":{
+        "id":"additional_lights:al_torch_magenta_wool",
+        "count":4
+      }
+}

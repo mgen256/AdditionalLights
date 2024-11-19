@@ -16,8 +16,8 @@ public class StandingTorch_L extends StandingTorchBase {
     private static final VoxelShape PART_UPPER1 = Block.box(5.0D, 12.0D, 5.0D, 11.0D, 14.0D, 11.0D);
     private static final VoxelShape PART_UPPER2 = Block.box(4.0D, 14.0D, 4.0D, 12.0D, 16.0D, 12.0D);
 
-    public StandingTorch_L(Block mainblock ) {
-        super( mainblock, Shapes.or( PART_LOWER1, PART_LOWER2, PART_MID, PART_UPPER1, PART_UPPER2 ), SIZE.L );
+    public StandingTorch_L(Block mainblock, String name) {
+        super( mainblock, name, Shapes.or( PART_LOWER1, PART_LOWER2, PART_MID, PART_UPPER1, PART_UPPER2 ), SIZE.L );
       }
 
 

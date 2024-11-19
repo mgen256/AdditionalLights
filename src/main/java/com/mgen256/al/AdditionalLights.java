@@ -6,8 +6,10 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
@@ -18,8 +20,6 @@ import net.minecraft.world.level.block.Block;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import com.mgen256.al.items.SoulWand;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -42,7 +42,10 @@ public class AdditionalLights {
     public static Map<ModSoundList, DeferredHolder<SoundEvent, SoundEvent>> modSounds;    
     public static DeferredHolder<CreativeModeTab, CreativeModeTab> CREATIVE_TAB;
 
-    static {
+
+    public AdditionalLights(IEventBus modEventBus, ModContainer modContainer) {
+        modEventBus.addListener(this::commonSetup);
+        
         modSounds = new LinkedHashMap<>() {{
             put(ModSoundList.Change, SOUNDS.register("change", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "change"))));
             put(ModSoundList.Undo, SOUNDS.register("undo", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "undo"))));
@@ -50,17 +53,16 @@ public class AdditionalLights {
             put(ModSoundList.Fire_Ignition_L, SOUNDS.register("fire_ignition_l", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fire_ignition_l"))));
             put(ModSoundList.Fire_Extinguish, SOUNDS.register("fire_extinguish", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fire_extinguish"))));
         }};
+
         
         for (ModBlockList block : ModBlockList.values()) {
             block.register();
         }
 
-        modItems.put( ModItemList.SoulWand, ITEMS.register( "soul_wand", () -> new SoulWand()));
-    }
+        for (ModItemList item : ModItemList.values()) {
+            item.register();
+        }
 
-    public AdditionalLights(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::commonSetup);
-        
         CREATIVE_TAB = CREATIVE_MODE_TABS.register("creative_tab", () -> CreativeModeTab.builder()
         .title(Component.translatable("Additional Lights"))
         .icon(() -> new ItemStack(modBlockItems.get( ModBlockList.ALTorch_Oak ).get() ))
@@ -97,9 +99,22 @@ public class AdditionalLights {
         return modBlockItems.get( key ).get();
     }
 
-
     public static SoundEvent getSound( ModSoundList key )
     {
         return modSounds.get( key ).get();
+    }
+            
+    static public ResourceKey<Block> createResourceKey(String name) {
+        return ResourceKey.create(
+                BuiltInRegistries.BLOCK.key(),
+                ResourceLocation.fromNamespaceAndPath(AdditionalLights.MOD_ID, name)
+                );
+    }
+
+    static public ResourceKey<Item> createItemResourceKey(String name) {
+        return ResourceKey.create(
+                BuiltInRegistries.ITEM.key(),
+                ResourceLocation.fromNamespaceAndPath(AdditionalLights.MOD_ID, name)
+                );
     }
 }

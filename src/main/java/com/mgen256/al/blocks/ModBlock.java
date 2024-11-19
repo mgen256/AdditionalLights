@@ -19,11 +19,13 @@ import com.mgen256.al.ModBlockList;
 
 public abstract class ModBlock extends Block implements IModBlock {
 
-    protected ModBlock(Block mainblock, Properties props, VoxelShape shape) {
+    protected ModBlock(Block mainblock, String name, Properties props, VoxelShape shape) {
         super(props);
         voxelShape = shape;
+        this.name = name;
     }
 
+    private String name;
     protected BlockItem blockItem;
     private VoxelShape voxelShape;
     private ModBlockList myKey;
@@ -33,6 +35,11 @@ public abstract class ModBlock extends Block implements IModBlock {
         myKey = key;
     }
 
+    @Override
+    public String getRegName() {
+        return name;
+    }
+    
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return voxelShape;

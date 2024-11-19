@@ -11,7 +11,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -29,16 +28,20 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
 
     protected static final VoxelShape SHAPE = Block.box(5.5D, 0.0D, 5.5D, 10.5D, 10.0D, 10.5D);
     
-    public static Properties createProps( Block mainblock ){
+    public static Properties createProps( Block mainblock, String name ){
         return BlockBehaviour.Properties.of()
             .noCollission()
             .instabreak()
             .lightLevel( lightLevel -> 14 )
-            .sound( mainblock.defaultBlockState().getSoundType() );
+            .sound( mainblock.defaultBlockState().getSoundType() )
+            .setId(AdditionalLights.createResourceKey(name))
+            ;
     }
     
-    public ALTorch( Block mainblock ) {
-        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock) );
+    public ALTorch( Block mainblock, String name ) {
+        super(ParticleTypes.FLAME, ALTorch.createProps(mainblock, name) );
+
+        this.name = name;
 
         registerDefaultState( stateDefinition.any()
             .setValue( FIRE_TYPE, FireTypes.NORMAL )
@@ -46,10 +49,16 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     }
         
     private ModBlockList myKey;
+    private String name;
     
     @Override
     public void setMyKey(ModBlockList key) {
         myKey = key;
+    }
+    
+    @Override
+    public String getRegName() {
+        return name;
     }
 
     @Override

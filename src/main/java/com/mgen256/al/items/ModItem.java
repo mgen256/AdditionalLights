@@ -15,7 +15,7 @@ public abstract class ModItem extends Item implements IModItem {
     protected String name;
 
     @Override
-    public String getModRegistryName(){
+    public String getRegName(){
         return name;
     }
 

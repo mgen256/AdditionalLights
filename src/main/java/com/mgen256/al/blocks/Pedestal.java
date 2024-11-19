@@ -25,6 +25,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.level.redstone.Orientation;
 
 import static java.lang.Boolean.TRUE;
 
@@ -52,8 +53,8 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     enum SIZE {S,L};
     protected SIZE size;
 
-    protected Pedestal( Block mainblock, VoxelShape shape, SIZE size ) {
-        super(mainblock, mainblock.properties(), shape);
+    protected Pedestal( Block mainblock, String name, VoxelShape shape, SIZE size ) {
+        super(mainblock, name, mainblock.properties(), shape);
 
         registerDefaultState( stateDefinition.any()
             .setValue( BlockStateProperties.WATERLOGGED, false ) 
@@ -139,20 +140,20 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
 
         level.setBlockAndUpdate(pos.above(), Blocks.AIR.defaultBlockState() );
     }
-
+    
     @Override
-    protected ItemInteractionResult useItemOn(
+    protected InteractionResult useItemOn(
         ItemStack p_330929_, BlockState p_335716_, Level p_336112_, BlockPos p_328869_, Player p_332840_, InteractionHand p_336117_, BlockHitResult p_332723_
     ) {
         if( p_330929_.getItem() instanceof Wand )
-            return ItemInteractionResult.FAIL;
+            return InteractionResult.FAIL;
 
         if( setFire( p_336112_, p_328869_, p_335716_, false ) == false )
-            return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return InteractionResult.PASS;
 
         playIgnitionSound( p_336112_, p_332840_, p_335716_.getBlock(), p_328869_ );
 
-        return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return InteractionResult.PASS;
     }
 
     private static void playIgnitionSound(Level level, Player player, Block block, BlockPos pos)
@@ -179,9 +180,8 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         }
     }
 
-    
     @Override
-    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
+    public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
         state = level.getBlockState(pos);
         if( state.getValue(ACCEPT_POWER) != TRUE )
             return;
@@ -201,7 +201,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
             removeFire( level, pos, state );
             level.setBlockAndUpdate( pos, state.setValue( ISPOWERED, false ).setValue( ACTIVATED, false ) );
         }
-        super.neighborChanged(state, level, pos, blockIn, fromPos, isMoving);
+        super.neighborChanged(state, level, pos, blockIn, orientation, isMoving);
     }
 
     @Override
