@@ -1101,9 +1101,9 @@ public enum ModBlockList {
         if( getRegName().contains("al_torch") )
         {
             var wallkey = ModBlockList.valueOf( this.name().replace("ALTorch", "ALTorch_Wall") );
-            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new StandingAndWallBlockItem( getBlock(), wallkey.getBlock(), Direction.DOWN, new Item.Properties().useItemDescriptionPrefix( ).setId( AdditionalLights.createItemResourceKey(regName)) )));
+            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new StandingAndWallBlockItem( getBlock(), wallkey.getBlock(), Direction.DOWN, new Item.Properties().setId( AdditionalLights.createItemResourceKey(regName)) )));
         }
         else
-            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new BlockItem( getBlock(), new Item.Properties().useItemDescriptionPrefix( ).setId( AdditionalLights.createItemResourceKey(regName)))));
+            AdditionalLights.modBlockItems.put( this, AdditionalLights.ITEMS.register( getRegName(), () -> new BlockItem( getBlock(), new Item.Properties().setId( AdditionalLights.createItemResourceKey(regName)))));
     }
 }

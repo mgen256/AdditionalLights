@@ -1,4 +1,8 @@
 # Changelog
+## [1.21.3-2.1.10] - 2024-11-19
+- Fixed an issue where item names were not displaying correctly
+- Added ja_jp translation
+
 ## [1.21.3-2.1.9] - 2024-11-15
 - Update to 1.21.3
 
