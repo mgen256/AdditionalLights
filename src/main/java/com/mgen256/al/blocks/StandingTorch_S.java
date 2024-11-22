@@ -4,6 +4,7 @@ import com.mgen256.al.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 
@@ -14,8 +15,8 @@ public class StandingTorch_S extends StandingTorchBase{
     private static final VoxelShape PART_UPPER = Block.createCuboidShape(4.0D, 8.0D, 4.0D, 12.0D, 12.0D, 12.0D);
 
   
-    public StandingTorch_S( Block mainblock ) {
-      super( mainblock, VoxelShapes.union( PART_LOWER, PART_MID, PART_UPPER ), SIZE.S );
+    public StandingTorch_S( Block mainblock, RegistryKey<Block> key ) {
+      super( mainblock, key, VoxelShapes.union( PART_LOWER, PART_MID, PART_UPPER ), SIZE.S );
     }
 
 

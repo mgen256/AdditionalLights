@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 
 public abstract class Wand extends ModItem {
     
-    protected Wand( Settings settings, String name ) {
-        super( settings, name );
+    protected Wand( Settings settings ) {
+        super( settings );
     }
 
     private static Text txt_shift;

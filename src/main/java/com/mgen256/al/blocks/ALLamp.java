@@ -7,25 +7,27 @@ import net.minecraft.block.Waterloggable;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
-import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.EnumProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.BlockMirror;
 import net.minecraft.util.BlockRotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.random.Random;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.WorldAccess;
 import net.minecraft.world.WorldView;
+import net.minecraft.world.tick.ScheduledTickView;
 
 import org.jetbrains.annotations.Nullable;
 
 public class ALLamp extends Block implements Waterloggable {
 
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
-    public static final DirectionProperty FACING = Properties.FACING;
+    public static final EnumProperty<Direction> FACING = Properties.FACING;
 
     private static final VoxelShape[] SHAPES = {
         Block.createCuboidShape(5.0, 14.0, 5.0, 11.0, 16.0, 11.0),  // down
@@ -36,12 +38,14 @@ public class ALLamp extends Block implements Waterloggable {
         Block.createCuboidShape(0.0, 7.0, 6.0, 4.0, 13.0, 10.0),    // east
     };
 
-    public ALLamp(Block mainblock) {
-        super(Settings.create()
+    public ALLamp(Block mainblock, RegistryKey<Block> key) {
+        super(Block.Settings.create()
             .sounds(mainblock.getDefaultState().getSoundGroup())
             .noCollision()
             .breakInstantly()
-            .luminance((state) -> 15));
+            .luminance((state) -> 15)
+            .registryKey(key)
+        );
     }
 
     @Override
@@ -75,7 +79,7 @@ public class ALLamp extends Block implements Waterloggable {
     }
 
     @Override
-    public BlockState getStateForNeighborUpdate(BlockState state, Direction direction, BlockState neighborState, WorldAccess world, BlockPos pos, BlockPos neighborPos) {
+    public BlockState getStateForNeighborUpdate(BlockState state, WorldView world, ScheduledTickView tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, Random random) {
         if (direction == state.get(FACING).getOpposite() && !state.canPlaceAt(world, pos)) {
             return net.minecraft.block.Blocks.AIR.getDefaultState();
         }

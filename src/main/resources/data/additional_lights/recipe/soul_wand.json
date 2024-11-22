@@ -7,10 +7,10 @@
       " / "
       ],
   "key": {
-      "S": [ { "item": "minecraft:soul_sand" }, { "item": "minecraft:soul_soil" } ],
-      "/": { "item": "minecraft:stick" },
-      "X": { "item": "minecraft:obsidian" },
-      "#": { "item": "minecraft:diamond" }
+      "S": [ "minecraft:soul_sand", "minecraft:soul_soil" ],
+      "/":"minecraft:stick",
+      "X":"minecraft:obsidian",
+      "#":"minecraft:diamond"
     },
     "result":{
         "id":"additional_lights:soul_wand",

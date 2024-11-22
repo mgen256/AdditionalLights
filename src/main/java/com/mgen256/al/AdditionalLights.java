@@ -8,12 +8,16 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.render.RenderLayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
@@ -25,7 +29,7 @@ public class AdditionalLights implements ModInitializer {
 		.icon(() -> new ItemStack( ModBlockList.ALTorch_Acacia.get()) )
 		.displayName(Text.translatable("Additional Lights"))
 		.entries( (context, entries) -> { 
-			entries.add( ModItemList.SoulWand.getItem() );
+			entries.add( ModItemList.SoulWand.get() );
 			
 			for (var block : ModBlockList.values()) {
 				var item = block.getBlockItem();
@@ -54,15 +58,19 @@ public class AdditionalLights implements ModInitializer {
 
 	@Environment(EnvType.CLIENT)
 	private void setupBlockRenderLayers() {
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_FirePit_S.get(), RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_FirePit_L.get(), RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_StandingTorch_S.get(), RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.Fire_For_StandingTorch_L.get(), RenderLayer.getCutout());
-	
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_FirePit_S.get(), RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_FirePit_L.get(), RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_StandingTorch_S.get(), RenderLayer.getCutout());
-		BlockRenderLayerMap.INSTANCE.putBlock(ModBlockList.SoulFire_For_StandingTorch_L.get(), RenderLayer.getCutout());
+		for (var block : ModBlockList.values()) {
+			var name = block.getRegName();
+			if( name.contains("fire_for_") || name.contains("glass") )
+				BlockRenderLayerMap.INSTANCE.putBlock(block.get(), RenderLayer.getCutout());
+		}
 	}
 
+	static public RegistryKey<Block> createRegistryKey(String name) {
+        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(AdditionalLights.MOD_ID, name));
+    }
+
+
+	static public RegistryKey<Item> createItemRegistryKey(String name) {
+        return RegistryKey.of(RegistryKeys.ITEM, Identifier.of(AdditionalLights.MOD_ID, name));
+    }
 }

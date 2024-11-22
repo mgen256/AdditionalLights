@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "fire",
+
+  "pattern": [
+    "#",
+    "#"
+    ],
+  "key": {
+    "#": [
+          "minecraft:coal",
+          "minecraft:charcoal"
+  ]
+  },
+  "result":{
+      "id":"additional_lights:fire_for_standing_torch_l",
+      "count":2
+    }
+}

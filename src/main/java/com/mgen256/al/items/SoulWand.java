@@ -4,9 +4,9 @@ import com.mgen256.al.*;
 import com.mgen256.al.blocks.*;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -16,20 +16,20 @@ import net.minecraft.block.BlockState;
 
 public class SoulWand extends Wand {
         
-    private static Settings createSettings(){
+    private static Settings createSettings(RegistryKey<Item> key) {
         return new Item.Settings()
         .maxCount(1)
         .maxDamage(1)
+        .registryKey(key)
         ;
     }
 
-    public SoulWand() {
-        super(createSettings(), "soul_wand");
+    public SoulWand(RegistryKey<Item> key) {
+        super(createSettings(key));
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
-        var stack = user.getStackInHand(hand);
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         var hitResult = (BlockHitResult) user.raycast(20.0D, 0.0F, false);
         var pos = hitResult.getBlockPos();
         var state = world.getBlockState(pos);
@@ -45,7 +45,7 @@ public class SoulWand extends Wand {
                 changeFire(world, user, underPos, world.getBlockState(underPos), (IHasFire) underBlock);
             }
         }
-        return TypedActionResult.consume(stack);
+        return ActionResult.CONSUME;
     }
     
     private void changeFire(World world, PlayerEntity player, BlockPos pos, BlockState state, IHasFire modblock) {

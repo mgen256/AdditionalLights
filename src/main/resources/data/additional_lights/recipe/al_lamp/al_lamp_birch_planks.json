@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_lamp",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#":"minecraft:glowstone",
+      "X":"minecraft:birch_planks"
+    },
+    "result":{
+        "id":"additional_lights:al_lamp_birch_planks",
+        "count":4
+      }
+}

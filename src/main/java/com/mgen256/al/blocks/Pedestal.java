@@ -22,6 +22,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
@@ -30,12 +31,12 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
+import net.minecraft.world.block.WireOrientation;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -57,10 +58,9 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
     enum SIZE {S,L}
     protected SIZE size;
 
-    protected Pedestal(Block mainblock, VoxelShape shape, SIZE size) {
-        super(Settings.copy(mainblock),shape);
+    protected Pedestal(Block mainblock, RegistryKey<Block> key, VoxelShape shape, SIZE size) {
+        super(Block.Settings.copy(mainblock).registryKey(key),shape);
         this.size = size;
-
         setDefaultState(getStateManager().getDefaultState()
             .with(WATERLOGGED, false)
             .with(FIRE_TYPE, FireTypes.NORMAL)
@@ -99,12 +99,10 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
         var upperPos = pos.up();
         var upperBlockState = world.getBlockState(upperPos);
         var upperBlock = upperBlockState.getBlock();
-
         FireBase fireBase = null;
         if (upperBlock instanceof FireBase) {
             fireBase = (FireBase) upperBlock;
         }
-
         if (replaceOnly) {
             if (fireBase == null) {
                 return false;
@@ -114,14 +112,14 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
                 return false;
             }
         }
-
         if (fireBase != null && !world.getBlockState(upperPos).get(FireBase.SUMMONED)) {
             world.breakBlock(upperPos, true);
         }
-
-        return world.setBlockState(upperPos, getFireBlock(state).get().getDefaultState()
+        var ret = world.setBlockState(upperPos, getFireBlock(state).get().getDefaultState()
             .with(FireBase.SET, true)
             .with(FireBase.SUMMONED, true));
+
+    return ret;
     }
 
     public void removeFire(World world, BlockPos pos, BlockState state) {
@@ -139,15 +137,14 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
         playIgnitionSound(world, player, state.getBlock(), pos);
         return ActionResult.SUCCESS;
     }
-
+    
     @Override
-    protected ItemActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
+    protected ActionResult onUseWithItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (stack.getItem() instanceof Wand) 
-            return ItemActionResult.FAIL;
+            return ActionResult.PASS;
         
-        return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
     }
-
 
     private static void playIgnitionSound(World world, PlayerEntity player, Block block, BlockPos pos) {
         float volume = block instanceof FirePitBase ? 2.0f : 1.5f;
@@ -173,7 +170,7 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
     }
 
     @Override
-    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block block, BlockPos fromPos, boolean notify) {
+    public void neighborUpdate(BlockState state, World world, BlockPos pos, Block sourceBlock, @Nullable WireOrientation wireOrientation, boolean notify) {
         state = world.getBlockState(pos);
         if (!state.get(ACCEPT_POWER)) {
             return;

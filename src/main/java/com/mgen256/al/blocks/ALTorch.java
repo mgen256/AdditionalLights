@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.state.StateManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -21,17 +22,19 @@ public class ALTorch extends TorchBlock implements IHasFire  {
     protected static final VoxelShape SHAPE = Block.createCuboidShape(5.5D, 0.0D, 5.5D, 10.5D, 10.0D, 10.5D);
 
     
-    public static Settings createSettings(Block mainblock) {
+    public static Settings createSettings(Block mainblock, RegistryKey<Block> key) {
         return Settings.create()
             .sounds(mainblock.getDefaultState().getSoundGroup())
             .noCollision()
             .breakInstantly()
-            .luminance((value)->value.get(FIRE_TYPE) == FireTypes.SOUL ? 10 : 14);
+            .luminance((value)->value.get(FIRE_TYPE) == FireTypes.SOUL ? 10 : 14)
+            .registryKey(key)
+            ;
     }
 
     
-    public ALTorch(Block mainblock) {
-        super(ParticleTypes.FLAME, createSettings(mainblock));
+    public ALTorch(Block mainblock, RegistryKey<Block> key) {
+        super(ParticleTypes.FLAME, createSettings(mainblock, key));
         setDefaultState(getStateManager().getDefaultState()
             .with(FIRE_TYPE, FireTypes.NORMAL)
             .with(PREVIOUS_FIRE_TYPE, FireTypes.NORMAL));

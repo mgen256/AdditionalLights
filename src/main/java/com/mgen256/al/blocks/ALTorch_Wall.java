@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
@@ -30,8 +31,8 @@ public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
         Direction.EAST, VoxelShapes.cuboid(0.0D / 16.0D, 2.0D / 16.0D, 5.5D / 16.0D, 5.0D / 16.0D, 13.0D / 16.0D, 10.5D / 16.0D)
     );
 
-    public ALTorch_Wall(Block mainblock) {
-        super(ParticleTypes.FLAME, ALTorch.createSettings(mainblock));
+    public ALTorch_Wall(Block mainblock, RegistryKey<Block> key) {
+        super(ParticleTypes.FLAME, ALTorch.createSettings(mainblock, key));
         setDefaultState(getStateManager().getDefaultState()
         .with(Properties.HORIZONTAL_FACING, Direction.NORTH)
         .with(FIRE_TYPE, FireTypes.NORMAL)
