@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "additional_lights",
-	"version": "${version}",
+	"version": "2.1.12",
 	"name": "Additional Lights",
 	"description": "",
 	"authors": [
@@ -24,7 +24,7 @@
 	},
 	"depends": {
 		"fabricloader": ">=0.16.9",
-		"minecraft": "~1.21.3",
+		"minecraft": "~1.21.4",
 		"java": ">=21",
 		"fabric-api": "*"
 	},

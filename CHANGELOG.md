@@ -1,4 +1,8 @@
 # Changelog
+## [1.21.4-2.1.12] - 2024-12-17
+- Update to 1.21.4
+- Fixed an issue where ALLamp and ALTorch could not be crafted with Crimson Planks and Warped Planks
+
 ## [1.21.3-2.1.11] - 2024-11-20
 - Update to 1.21.3
 - Fixed an issue where glass lanterns and torches were not transparent

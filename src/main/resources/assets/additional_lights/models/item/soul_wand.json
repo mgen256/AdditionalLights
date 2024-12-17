@@ -1,4 +1,5 @@
 {
+  "parent": "item/handheld",
   "textures": {
     "soul_wand": "additional_lights:item/soul_wand"
   },
