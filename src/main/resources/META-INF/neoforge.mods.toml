@@ -7,7 +7,7 @@ modId="additional_lights" #mandatory
 version="2.1.10" #mandatory
 displayName="Additional Lights" #mandatory
 
-updateJSONURL="https://gist.githubusercontent.com/mgen256/59abe85e7950f2319e7538afe2f910ba/raw"
+updateJSONURL="https://gist.githubusercontent.com/mgen256/cb537b95f984855b7eab5f6df6a047a3/raw"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/additional-lights" #optional
 logoFile="logo.png" #optional
 authors="mgen256" #optional
@@ -17,13 +17,13 @@ description=''''''
 [[dependencies.additional_lights]] #optional
     modId="neoforge" #mandatory
     type="required"
-    versionRange="[21.3.0,)" #mandatory
+    versionRange="[21.4.0-beta,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.additional_lights]]
     modId="minecraft"
     type="required"
-    versionRange="[1.21.3, 1.22)"
+    versionRange="[1.21.4, 1.22)"
     ordering="NONE"
     side="BOTH"

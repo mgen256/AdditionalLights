@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "additional_lights:block/al_torch/al_torch_glass"
+  }
+}

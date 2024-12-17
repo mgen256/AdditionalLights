@@ -1,4 +1,7 @@
 # Changelog
+## [1.21.4-2.1.11] - 2024-12-17
+- Update to 1.21.4
+- Fixed an issue where Crimson Planks and Warped Planks could not be crafted using ALLamp and ALTorch
 
 ## [1.21.3-2.1.10] - 2024-11-19
 - Update to 1.21.3
