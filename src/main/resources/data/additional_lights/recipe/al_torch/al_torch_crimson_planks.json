@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_torch",
+    "pattern": [
+      "##",
+      "##",
+      "X "
+    ],
+    "key": {
+      "#":"minecraft:torch",
+      "X":"minecraft:crimson_planks"
+    },
+    "result":{
+        "id":"additional_lights:al_torch_crimson_planks",
+        "count":4
+      }
+}

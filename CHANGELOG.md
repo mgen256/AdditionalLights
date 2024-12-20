@@ -1,4 +1,8 @@
 # Changelog
+## [1.21.4-2.1.11] - 2024-12-20
+- Update to 1.21.4
+- Fixed an issue where ALLamp and ALTorch could not be crafted with Crimson Planks and Warped Planks
+
 ## [1.21.3-2.1.10] - 2024-11-19
 - Fixed an issue where item names were not displaying correctly
 - Added ja_jp translation
