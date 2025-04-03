@@ -3,10 +3,7 @@ package com.mgen256.al.blocks;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
-import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
@@ -14,9 +11,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -28,8 +23,6 @@ import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.redstone.Orientation;
 
 import static java.lang.Boolean.TRUE;
-
-import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -43,12 +36,6 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     public static final BooleanProperty ACCEPT_POWER = BooleanProperty.create("accept_power");
     public static final BooleanProperty ISPOWERED = BooleanProperty.create("ispowered");
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
-
-    private static Component txt_shift;
-    private static Component txt_tips;
-    private static Component txt_rightclick;
-    private static Component txt_sneaking;
-    private static Component txt_signals;
 
     enum SIZE {S,L};
     protected SIZE size;
@@ -90,7 +77,7 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
+    public boolean canPlaceLiquid(@Nullable LivingEntity p_393688_, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
     }
 
@@ -204,33 +191,6 @@ public abstract class Pedestal extends ModBlock implements SimpleWaterloggedBloc
         super.neighborChanged(state, level, pos, blockIn, orientation, isMoving);
     }
 
-    @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flagIn) {
-        if( txt_shift == null )
-        {
-            if( I18n.exists("additional_lights.txt.shift") != TRUE )
-                return;
-
-            txt_shift = Component.translatable( "additional_lights.txt.shift" );
-            txt_tips = Component.translatable( "additional_lights.txt.tips" );
-            txt_rightclick = Component.translatable( "additional_lights.txt.block.pedestal.rightclick" );
-            txt_sneaking = Component.translatable( "additional_lights.txt.block.pedestal.sneaking" );
-            txt_signals = Component.translatable( "additional_lights.txt.block.pedestal.signals" );
-        }
-
-        if ( Screen.hasShiftDown() )
-        {
-            tooltip.add( txt_tips );
-            tooltip.add( txt_rightclick );
-            tooltip.add( txt_sneaking );
-            tooltip.add( txt_signals );
-        }
-        else
-        {
-            tooltip.add( txt_shift );
-        }
-    }
-    
     @Override
     public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;

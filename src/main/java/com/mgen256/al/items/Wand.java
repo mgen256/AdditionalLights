@@ -1,6 +1,6 @@
 package com.mgen256.al.items;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import com.mgen256.al.AdditionalLights;
 import com.mgen256.al.ModSoundList;
@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 
 
@@ -48,7 +49,7 @@ public abstract class Wand extends ModItem {
     }
     
     @Override
-    public void appendHoverText(ItemStack stack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flagIn) {
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> consumer, TooltipFlag flag) {
         if( txt_shift == null )
         {
             if( I18n.exists("additional_lights.txt.shift") == false )
@@ -63,14 +64,14 @@ public abstract class Wand extends ModItem {
 
         if ( Screen.hasShiftDown() )
         {
-            tooltip.add( txt_usage );
-            tooltip.add( txt_rightclick );
-            tooltip.add( txt_lefthand );
-            tooltip.add( txt_piglin );
+            consumer.accept( txt_usage );
+            consumer.accept( txt_rightclick );
+            consumer.accept( txt_lefthand );
+            consumer.accept( txt_piglin );
         }
         else
         {
-            tooltip.add( txt_shift );
+            consumer.accept( txt_shift );
         }
     }
 }

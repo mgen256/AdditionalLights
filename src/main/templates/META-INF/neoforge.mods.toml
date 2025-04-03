@@ -1,29 +1,29 @@
 modLoader="javafml" #mandatory
-loaderVersion="[4,)" #mandatory 
+loaderVersion="${loader_version_range}" #mandatory 
 license="MIT License"
 
 [[mods]] #mandatory
-modId="additional_lights" #mandatory
-version="2.1.11" #mandatory
-displayName="Additional Lights" #mandatory
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
+displayName="${mod_name}" #mandatory
 
 updateJSONURL="https://gist.githubusercontent.com/mgen256/cb537b95f984855b7eab5f6df6a047a3/raw"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/additional-lights" #optional
 logoFile="logo.png" #optional
-authors="mgen256" #optional
+authors="${mod_authors}" #optional
 description=''''''
 
 
-[[dependencies.additional_lights]] #optional
+[[dependencies.${mod_id}]] #optional
     modId="neoforge" #mandatory
     type="required"
-    versionRange="[21.4.0-beta,)" #mandatory
+    versionRange="${neo_version_range}" #mandatory
     ordering="NONE"
     side="BOTH"
 
-[[dependencies.additional_lights]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     type="required"
-    versionRange="[1.21.4, 1.22)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
