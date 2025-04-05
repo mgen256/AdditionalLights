@@ -61,11 +61,11 @@ public class ALTorch_Wall extends WallTorchBlock implements IHasFire {
         var opposite = direction.getOpposite();
         var offset = 0.38;
 
-        world.addParticle(ParticleTypes.SMOKE, x + offset * opposite.getOffsetX(), y, z + offset * opposite.getOffsetZ(), 0.0, 0.0, 0.0);
+        world.addParticleClient(ParticleTypes.SMOKE, x + offset * opposite.getOffsetX(), y, z + offset * opposite.getOffsetZ(), 0.0, 0.0, 0.0);
 
         var particleOption = state.get(FIRE_TYPE) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
 
-        world.addParticle(particleOption, x + offset * opposite.getOffsetX(), y, z + offset * opposite.getOffsetZ(), 0.0, 0.0, 0.0);
+        world.addParticleClient(particleOption, x + offset * opposite.getOffsetX(), y, z + offset * opposite.getOffsetZ(), 0.0, 0.0, 0.0);
     }
 
     @Override

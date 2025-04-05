@@ -89,7 +89,7 @@ public abstract class FireBase extends Block {
         double d2 = pos.getZ() + 0.5D;
         
         ParticleEffect particleType = PARTICLE_TYPES.get(pedestalKey);
-        world.addParticle(particleType, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        world.addParticleClient(particleType, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override

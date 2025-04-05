@@ -1,9 +1,10 @@
 package com.mgen256.al.items;
 
-import java.util.List;
+import java.util.function.Consumer;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.resource.language.I18n;
+import net.minecraft.component.type.TooltipDisplayComponent;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
@@ -30,7 +31,7 @@ public abstract class Wand extends ModItem {
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+    public void appendTooltip(ItemStack stack, TooltipContext context, TooltipDisplayComponent displayComponent, Consumer<Text> textConsumer, TooltipType type) {
         if (txt_shift == null) {
             if (!I18n.hasTranslation("additional_lights.txt.shift")) {
                 return;
@@ -44,12 +45,12 @@ public abstract class Wand extends ModItem {
         }
 
         if (Screen.hasShiftDown()) {
-            tooltip.add(txt_usage);
-            tooltip.add(txt_rightclick);
-            tooltip.add(txt_lefthand);
-            tooltip.add(txt_piglin);
+            textConsumer.accept(txt_usage);
+            textConsumer.accept(txt_rightclick);
+            textConsumer.accept(txt_lefthand);
+            textConsumer.accept(txt_piglin);
         } else {
-            tooltip.add(txt_shift);
+            textConsumer.accept(txt_shift);
         }
     }
 }

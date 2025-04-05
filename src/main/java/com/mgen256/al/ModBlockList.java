@@ -3,6 +3,7 @@ package com.mgen256.al;
 import java.util.function.Function;
 
 import com.mgen256.al.blocks.*;
+import com.mgen256.al.items.PedestalBlockItem;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -253,7 +254,10 @@ public enum ModBlockList {
         }
         else
         {
-            blockItem = new BlockItem(get(), settings);
+            if ( get() instanceof com.mgen256.al.blocks.Pedestal) 
+                blockItem = new PedestalBlockItem(get(), settings);
+            else 
+                blockItem = new BlockItem(get(), settings);
             Registry.register(Registries.ITEM, id, blockItem );
         }
     }

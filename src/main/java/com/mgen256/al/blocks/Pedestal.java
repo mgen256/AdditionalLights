@@ -3,15 +3,10 @@ package com.mgen256.al.blocks;
 import com.mgen256.al.*;
 import com.mgen256.al.items.*;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.Waterloggable;
-
-import net.minecraft.client.gui.screen.Screen;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.pathing.NavigationType;
@@ -19,16 +14,13 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.state.property.Properties;
-import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -40,7 +32,6 @@ import net.minecraft.world.block.WireOrientation;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 
 public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFire {
 
@@ -48,12 +39,6 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
     public static final BooleanProperty ACCEPT_POWER = BooleanProperty.of("accept_power");
     public static final BooleanProperty ISPOWERED = BooleanProperty.of("ispowered");
     public static final BooleanProperty ACTIVATED = BooleanProperty.of("activated");
-
-    private static Text txt_shift;
-    private static Text txt_tips;
-    private static Text txt_rightclick;
-    private static Text txt_sneaking;
-    private static Text txt_signals;
 
     enum SIZE {S,L}
     protected SIZE size;
@@ -86,7 +71,7 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
     }
 
     @Override
-    public boolean canFillWithFluid(@Nullable PlayerEntity player, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
+    public boolean canFillWithFluid(@Nullable LivingEntity filler, BlockView world, BlockPos pos, BlockState state, Fluid fluid) {
         return true;
     }
 
@@ -189,30 +174,6 @@ public abstract class Pedestal extends ModBlock implements Waterloggable, IHasFi
         } else if (state.get(ISPOWERED) && state.get(ACTIVATED)) {
             removeFire(world, pos, state);
             world.setBlockState(pos, state.with(ISPOWERED, false).with(ACTIVATED, false));
-        }
-    }
-
-    @Override
-    @Environment(EnvType.CLIENT)
-    public void appendTooltip(ItemStack stack, Item.TooltipContext context, List<Text> tooltip, TooltipType options) {
-        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT)
-            return;
-
-        if (txt_shift == null) {
-            txt_shift = Text.translatable("additional_lights.txt.shift");
-            txt_tips = Text.translatable("additional_lights.txt.tips");
-            txt_rightclick = Text.translatable("additional_lights.txt.block.pedestal.rightclick");
-            txt_sneaking = Text.translatable("additional_lights.txt.block.pedestal.sneaking");
-            txt_signals = Text.translatable("additional_lights.txt.block.pedestal.signals");
-        }
-
-        if (Screen.hasShiftDown()) {
-            tooltip.add(txt_tips);
-            tooltip.add(txt_rightclick);
-            tooltip.add(txt_sneaking);
-            tooltip.add(txt_signals);
-        } else {
-            tooltip.add(txt_shift);
         }
     }
 

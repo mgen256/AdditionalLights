@@ -22,6 +22,8 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.WorldView;
 import net.minecraft.world.tick.ScheduledTickView;
 
+import java.util.Map;
+
 import org.jetbrains.annotations.Nullable;
 
 public class ALLamp extends Block implements Waterloggable {
@@ -29,14 +31,14 @@ public class ALLamp extends Block implements Waterloggable {
     public static final BooleanProperty WATERLOGGED = Properties.WATERLOGGED;
     public static final EnumProperty<Direction> FACING = Properties.FACING;
 
-    private static final VoxelShape[] SHAPES = {
-        Block.createCuboidShape(5.0, 14.0, 5.0, 11.0, 16.0, 11.0),  // down
-        Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 2.0, 11.0),    // up
-        Block.createCuboidShape(6.0, 7.0, 12.0, 10.0, 13.0, 16.0),  // north
-        Block.createCuboidShape(6.0, 7.0, 0.0, 10.0, 13.0, 4.0),    // south
-        Block.createCuboidShape(12.0, 7.0, 6.0, 16.0, 13.0, 10.0),  // west
-        Block.createCuboidShape(0.0, 7.0, 6.0, 4.0, 13.0, 10.0),    // east
-    };
+    private static final Map<Direction, VoxelShape> SHAPES = Map.of(
+        Direction.DOWN, Block.createCuboidShape(5.0, 14.0, 5.0, 11.0, 16.0, 11.0),
+        Direction.UP, Block.createCuboidShape(5.0, 0.0, 5.0, 11.0, 2.0, 11.0),
+        Direction.NORTH, Block.createCuboidShape(6.0, 7.0, 12.0, 10.0, 13.0, 16.0),
+        Direction.SOUTH, Block.createCuboidShape(6.0, 7.0, 0.0, 10.0, 13.0, 4.0),
+        Direction.WEST, Block.createCuboidShape(12.0, 7.0, 6.0, 16.0, 13.0, 10.0),
+        Direction.EAST, Block.createCuboidShape(0.0, 7.0, 6.0, 4.0, 13.0, 10.0)
+    );
 
     public ALLamp(Block mainblock, RegistryKey<Block> key) {
         super(Block.Settings.create()
@@ -64,7 +66,7 @@ public class ALLamp extends Block implements Waterloggable {
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         var facing = state.get(FACING);
-        return SHAPES[facing.getId()];
+        return SHAPES.get(facing);
     }
 
     @Override

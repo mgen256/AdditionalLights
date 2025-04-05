@@ -57,11 +57,11 @@ public class ALTorch extends TorchBlock implements IHasFire  {
         var d0 = pos.getX() + 0.5D;
         var d1 = pos.getY() + 0.7D;
         var d2 = pos.getZ() + 0.5D;
-        world.addParticle(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        world.addParticleClient(ParticleTypes.SMOKE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
 
         var particleOption = state.get(FIRE_TYPE) == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
 
-        world.addParticle(particleOption, d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        world.addParticleClient(particleOption, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
