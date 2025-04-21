@@ -19,10 +19,7 @@
     ,
     "X": [
       {
-          "item": "minecraft:soul_sand"
-      },
-      {
-          "item": "minecraft:soul_soil"
+          "tag": "minecraft:soul_fire_base_blocks"
       }
   ]
   },
