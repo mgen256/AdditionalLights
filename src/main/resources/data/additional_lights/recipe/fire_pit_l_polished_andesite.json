@@ -8,14 +8,9 @@
       "XX"
     ],
     "key": {
-      "#": [
-        {
-            "item": "minecraft:coal"
-        },
-        {
-            "item": "minecraft:charcoal"
+      "#": {
+            "tag": "minecraft:coals"
         }
-    ]
       ,
       "X": {
         "item": "minecraft:polished_andesite"

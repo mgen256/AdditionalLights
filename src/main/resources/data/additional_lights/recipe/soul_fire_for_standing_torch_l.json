@@ -6,20 +6,13 @@
     "X#"
     ],
 "key": {
-    "#": [
-      {
-          "item": "minecraft:coal"
-      },
-      {
-          "item": "minecraft:charcoal"
-      }
-  ]
+    "#": {
+          "tag": "minecraft:coals"
+       }
     ,
-    "X": [
-      {
+    "X": {
           "tag": "minecraft:soul_fire_base_blocks"
       }
-  ]
   },
   "result":{
       "id":"additional_lights:soul_fire_for_standing_torch_l",

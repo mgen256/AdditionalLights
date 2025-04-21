@@ -8,14 +8,9 @@
     " #"
     ],
   "key": {
-    "#": [
-      {
-          "item": "minecraft:coal"
-      },
-      {
-          "item": "minecraft:charcoal"
-      }
-  ]
+    "#": {
+          "tag": "minecraft:coals"
+       }
   },
   "result":{
       "id":"additional_lights:fire_for_fire_pit_l",
