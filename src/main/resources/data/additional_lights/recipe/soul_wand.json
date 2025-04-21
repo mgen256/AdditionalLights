@@ -7,7 +7,7 @@
       " / "
       ],
   "key": {
-      "S": [ { "item": "minecraft:soul_sand" }, { "item": "minecraft:soul_soil" } ],
+      "S": { "tag": "minecraft:soul_fire_base_blocks" },
       "/": { "item": "minecraft:stick" },
       "X": { "item": "minecraft:obsidian" },
       "#": { "item": "minecraft:diamond" }
