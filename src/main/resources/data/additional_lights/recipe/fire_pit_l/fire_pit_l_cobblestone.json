@@ -7,12 +7,9 @@
       "XX"
     ],
     "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:cobblestone"
+      "X": "minecraft:cobblestone"
     },
     "result":{
         "id":"additional_lights:fire_pit_l_cobblestone",

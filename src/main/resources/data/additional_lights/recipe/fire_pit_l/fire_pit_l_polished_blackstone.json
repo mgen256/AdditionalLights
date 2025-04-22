@@ -7,12 +7,9 @@
       "XX"
     ],
     "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:polished_blackstone"
+      "X": "minecraft:polished_blackstone"
     },
     "result":{
         "id":"additional_lights:fire_pit_l_polished_blackstone",

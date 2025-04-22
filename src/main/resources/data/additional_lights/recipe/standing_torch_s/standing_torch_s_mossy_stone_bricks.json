@@ -6,12 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:mossy_stone_bricks"
+      "X": "minecraft:mossy_stone_bricks"
     },
     "result":{
         "id":"additional_lights:standing_torch_s_mossy_stone_bricks",

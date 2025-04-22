@@ -7,12 +7,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:polished_andesite"
+      "X": "minecraft:polished_andesite"
     },
     "result":{
         "id":"additional_lights:standing_torch_l_polished_andesite",

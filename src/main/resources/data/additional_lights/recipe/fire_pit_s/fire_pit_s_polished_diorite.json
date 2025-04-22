@@ -6,12 +6,9 @@
       "XX"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:polished_diorite"
+      "X": "minecraft:polished_diorite"
     },
     "result":{
         "id":"additional_lights:fire_pit_s_polished_diorite",

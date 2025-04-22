@@ -6,12 +6,9 @@
       "XX"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:cut_sandstone"
+      "X": "minecraft:cut_sandstone"
     },
     "result":{
         "id":"additional_lights:fire_pit_s_cut_sandstone",

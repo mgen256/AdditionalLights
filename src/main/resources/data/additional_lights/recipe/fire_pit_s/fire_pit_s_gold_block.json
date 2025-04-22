@@ -6,12 +6,9 @@
       "XX"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:gold_block"
+      "X": "minecraft:gold_block"
     },
     "result":{
         "id":"additional_lights:fire_pit_s_gold_block",

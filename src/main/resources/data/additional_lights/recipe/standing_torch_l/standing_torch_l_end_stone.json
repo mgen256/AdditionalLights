@@ -7,12 +7,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:end_stone"
+      "X": "minecraft:end_stone"
     },
     "result":{
         "id":"additional_lights:standing_torch_l_end_stone",

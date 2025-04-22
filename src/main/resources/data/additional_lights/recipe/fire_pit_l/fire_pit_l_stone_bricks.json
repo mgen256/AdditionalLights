@@ -8,12 +8,8 @@
       "XX"
     ],
     "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
-      ,
-      "X":"minecraft:stone_bricks"
+      "#": "#minecraft:coals",
+      "X": "minecraft:stone_bricks"
     },
     "result":{
         "id":"additional_lights:fire_pit_l_stone_bricks",

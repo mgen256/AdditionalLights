@@ -6,12 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:nether_bricks"
+      "X": "minecraft:nether_bricks"
     },
     "result":{
         "id":"additional_lights:standing_torch_s_nether_bricks",
