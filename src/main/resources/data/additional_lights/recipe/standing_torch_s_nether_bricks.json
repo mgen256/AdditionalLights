@@ -6,14 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-        {
-            "item": "minecraft:coal"
-        },
-        {
-            "item": "minecraft:charcoal"
+      "#": {
+            "tag": "minecraft:coals"
         }
-    ]
       ,
       "X": {
         "item": "minecraft:nether_bricks"
