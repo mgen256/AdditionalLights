@@ -7,10 +7,7 @@
     "#"
     ],
   "key": {
-    "#": [
-          "minecraft:coal",
-          "minecraft:charcoal"
-  ]
+    "#": "#minecraft:coals"
   },
   "result":{
       "id":"additional_lights:fire_for_standing_torch_l",

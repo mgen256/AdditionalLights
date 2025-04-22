@@ -6,12 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:polished_blackstone"
+      "X": "minecraft:polished_blackstone"
     },
     "result":{
         "id":"additional_lights:standing_torch_s_polished_blackstone",

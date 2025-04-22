@@ -6,12 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:magenta_wool"
+      "X": "minecraft:magenta_wool"
     },
     "result":{
         "id":"additional_lights:standing_torch_s_magenta_wool",

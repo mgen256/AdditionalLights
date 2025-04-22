@@ -6,12 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:diamond_block"
+      "X": "minecraft:diamond_block"
     },
     "result":{
         "id":"additional_lights:standing_torch_s_diamond_block",

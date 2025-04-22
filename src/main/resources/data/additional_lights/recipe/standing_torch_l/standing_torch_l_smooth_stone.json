@@ -7,12 +7,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:smooth_stone"
+      "X": "minecraft:smooth_stone"
     },
     "result":{
         "id":"additional_lights:standing_torch_l_smooth_stone",

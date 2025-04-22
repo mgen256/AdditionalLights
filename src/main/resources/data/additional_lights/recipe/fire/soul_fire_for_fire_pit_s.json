@@ -8,15 +8,8 @@
     "##"
     ],
 "key": {
-    "#": [
-          "minecraft:coal",
-          "minecraft:charcoal"
-  ]
-    ,
-    "X": [
-          "minecraft:soul_sand",
-          "minecraft:soul_soil"
-  ]
+    "#": "#minecraft:coals",
+    "X": "#minecraft:soul_fire_base_blocks"
   },
   "result":{
       "id":"additional_lights:soul_fire_for_fire_pit_s",

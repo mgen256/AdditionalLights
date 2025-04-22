@@ -8,12 +8,9 @@
       "XX"
     ],
     "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:pink_wool"
+      "X": "minecraft:pink_wool"
     },
     "result":{
         "id":"additional_lights:fire_pit_l_pink_wool",

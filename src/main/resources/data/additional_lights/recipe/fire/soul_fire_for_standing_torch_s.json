@@ -2,8 +2,8 @@
     "type": "minecraft:crafting_shapeless",
     "group": "fire",
     "ingredients": [
-        [ "minecraft:coal", "minecraft:charcoal" ],
-        [ "minecraft:soul_sand", "minecraft:soul_soil" ]
+        "#minecraft:coals",
+        "#minecraft:soul_fire_base_blocks"
       ],
     "result":{
         "id":"additional_lights:soul_fire_for_standing_torch_s",

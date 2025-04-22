@@ -6,12 +6,9 @@
       "XX"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:smooth_stone"
+      "X": "minecraft:smooth_stone"
     },
     "result":{
         "id":"additional_lights:fire_pit_s_smooth_stone",

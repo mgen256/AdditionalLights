@@ -6,12 +6,9 @@
       "X"
       ],
   "key": {
-      "#": [
-                   "minecraft:coal",
-                   "minecraft:charcoal"
-    ]
+      "#": "#minecraft:coals"
       ,
-      "X":"minecraft:packed_ice"
+      "X": "minecraft:packed_ice"
     },
     "result":{
         "id":"additional_lights:standing_torch_s_packed_ice",
