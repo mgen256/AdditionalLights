@@ -1,4 +1,7 @@
 # Changelog
+## [1.21.7-2.1.13] - 2025-07-08
+- Update to 1.21.7
+
 ## [1.21.6-2.1.13] - 2025-07-08
 - Update to 1.21.6
 - Unified all recipes (e.g., Fire Pit / Standing Torch) to use the

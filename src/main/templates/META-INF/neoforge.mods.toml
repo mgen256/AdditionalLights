@@ -1,5 +1,4 @@
 modLoader="javafml" #mandatory
-loaderVersion="${loader_version_range}" #mandatory 
 license="MIT License"
 
 [[mods]] #mandatory
@@ -17,7 +16,7 @@ description=''''''
 [[dependencies.${mod_id}]] #optional
     modId="neoforge" #mandatory
     type="required"
-    versionRange="${neo_version_range}" #mandatory
+    versionRange="[${neo_version},)" #mandatory
     ordering="NONE"
     side="BOTH"
 
