@@ -1,4 +1,10 @@
 # Changelog
+## [1.21.6-2.1.13] - 2025-07-08
+- Update to 1.21.6
+- Unified all recipes (e.g., Fire Pit / Standing Torch) to use the
+ `#minecraft:coals` tag instead of individually specifying `minecraft:coal`
+  and `minecraft:charcoal`.
+
 ## [1.21.5-2.1.12]
 - Update to 1.21.5
 - Added zh_tw translation [DraJoGan777]
