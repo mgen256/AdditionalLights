@@ -3,7 +3,8 @@ package com.mgen256.al;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.minecraft.client.render.BlockRenderLayer; 
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
@@ -61,7 +62,7 @@ public class AdditionalLights implements ModInitializer {
 		for (var block : ModBlockList.values()) {
 			var name = block.getRegName();
 			if( name.contains("fire_for_") || name.contains("glass") )
-				BlockRenderLayerMap.INSTANCE.putBlock(block.get(), RenderLayer.getCutout());
+				BlockRenderLayerMap.putBlock(block.get(), BlockRenderLayer.CUTOUT);
 		}
 	}
 
