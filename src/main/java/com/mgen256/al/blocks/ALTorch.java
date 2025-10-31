@@ -30,7 +30,7 @@ public class ALTorch extends TorchBlock implements IModBlock, IHasFire {
     
     public static Properties createProps( Block mainblock, String name ){
         return BlockBehaviour.Properties.of()
-            .noCollission()
+            .noCollision()
             .instabreak()
             .lightLevel( lightLevel -> 14 )
             .sound( mainblock.defaultBlockState().getSoundType() )

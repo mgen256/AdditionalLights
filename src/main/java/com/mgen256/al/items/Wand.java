@@ -5,6 +5,7 @@ import java.util.function.Consumer;
 import com.mgen256.al.AdditionalLights;
 import com.mgen256.al.ModSoundList;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
@@ -62,7 +63,7 @@ public abstract class Wand extends ModItem {
             txt_piglin = Component.translatable( "additional_lights.txt.item.soul_wand.piglin" );
         }
 
-        if ( Screen.hasShiftDown() )
+        if ( Minecraft.getInstance().hasShiftDown() )
         {
             consumer.accept( txt_usage );
             consumer.accept( txt_rightclick );

@@ -74,7 +74,7 @@ public abstract class FireBase extends ModBlock{
     protected static Properties createProps( MapColor mapColor, String name ){
         return BlockBehaviour.Properties.of()
             .instabreak()
-            .noCollission()
+            .noCollision()
             .mapColor( mapColor )
             .sound( new DeferredSoundType(1.5F, 1.0F,() -> AdditionalLights.getSound( ModSoundList.Fire_Extinguish ), () -> SoundEvents.WOOL_STEP
             , () -> SoundEvents.STONE_PLACE, () -> SoundEvents.WOOL_HIT, () -> SoundEvents.WOOL_FALL ) )

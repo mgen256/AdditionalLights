@@ -54,7 +54,7 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock{
             .pushReaction( PushReaction.NORMAL )
             .instabreak()
             .lightLevel( lightLevel -> 15 )
-            .noCollission()
+            .noCollision()
             .setId(AdditionalLights.createResourceKey(name))
             ;
     }

@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.network.chat.Component;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.world.level.block.Block;
 import java.util.function.Consumer;
@@ -44,7 +44,7 @@ public class PedestalBlockItem extends BlockItem {
         txt_sneaking = Component.translatable("additional_lights.txt.block.pedestal.sneaking");
         txt_signals = Component.translatable("additional_lights.txt.block.pedestal.signals");
         
-        if (Screen.hasShiftDown()) {
+        if (Minecraft.getInstance().hasShiftDown()) {
             consumer.accept(txt_tips);
             consumer.accept(txt_rightclick);
             consumer.accept(txt_sneaking);
