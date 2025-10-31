@@ -1,12 +1,7 @@
 package com.mgen256.al;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.client.render.BlockRenderLayer; 
-import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -17,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -52,18 +46,6 @@ public class AdditionalLights implements ModInitializer {
 			item.Register();
 
 		Registry.register(Registries.ITEM_GROUP, Identifier.of(MOD_ID, "al"), ITEM_GROUP);
-		
-		if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT)
-			setupBlockRenderLayers();
-	}
-
-	@Environment(EnvType.CLIENT)
-	private void setupBlockRenderLayers() {
-		for (var block : ModBlockList.values()) {
-			var name = block.getRegName();
-			if( name.contains("fire_for_") || name.contains("glass") )
-				BlockRenderLayerMap.putBlock(block.get(), BlockRenderLayer.CUTOUT);
-		}
 	}
 
 	static public RegistryKey<Block> createRegistryKey(String name) {
