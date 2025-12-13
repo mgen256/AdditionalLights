@@ -1,9 +1,4 @@
 # Changelog
-## [1.21.11-2.2.0] - 2025-12-13
-- Update to 1.21.11
-- In-game config screen (Mods -> Additional Lights) to enable/disable Fire/Soul Fire crafting recipes (default: off).
-- Recipe book unlocking (advancements) for all Additional Lights recipes.
-
 ## [1.21.10-2.1.13] - 2025-10-31
 - Update to 1.21.10
 
