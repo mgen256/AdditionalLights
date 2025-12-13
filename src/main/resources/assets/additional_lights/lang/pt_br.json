@@ -1,6 +1,14 @@
 {
    "itemGroup.additional_lights":"Additional Lights",
 
+   "additional_lights.configuration.title":"Configurações de %s",
+   "additional_lights.configuration.section.additional.lights.common.toml":"Configurações de %s",
+   "additional_lights.configuration.section.additional.lights.common.toml.title":"Configurações de %s",
+
+   "additional_lights.configuration.recipes":"Receitas",
+   "additional_lights.configuration.enableFireCrafting":"Ativar criação de fogo",
+   "additional_lights.configuration.enableFireCrafting.tooltip":"Quando ativado, adiciona receitas de criação para os blocos de fogo do Additional Lights (fire_for_* / soul_fire_for_*). Aplique com /reload ou reentrando.",
+
    "additional_lights.txt.shift":"§7Pressione <§3Shift§r§7> para informações.",
    "additional_lights.txt.usage":"§6Uso:",
    "additional_lights.txt.tips":"§6Dicas:",
