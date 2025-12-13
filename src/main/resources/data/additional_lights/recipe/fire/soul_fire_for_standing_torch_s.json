@@ -1,4 +1,9 @@
 {
+    "neoforge:conditions": [
+        {
+            "type": "additional_lights:enable_fire_crafting"
+        }
+    ],
     "type": "minecraft:crafting_shapeless",
     "group": "fire",
     "ingredients": [
