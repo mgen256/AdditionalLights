@@ -1,5 +1,13 @@
 {
     "itemGroup.additional_lights": "Additional Lights",
+
+    "additional_lights.configuration.title": "%s 설정",
+    "additional_lights.configuration.section.additional.lights.common.toml": "%s 설정",
+    "additional_lights.configuration.section.additional.lights.common.toml.title": "%s 설정",
+
+    "additional_lights.configuration.recipes": "레시피",
+    "additional_lights.configuration.enableFireCrafting": "불 제작 가능",
+    "additional_lights.configuration.enableFireCrafting.tooltip": "활성화하면 Additional Lights의 불 블록(fire_for_* / soul_fire_for_*) 제작 레시피가 추가됩니다. 적용하려면 /reload 또는 재접속이 필요합니다.",
     "additional_lights.txt.shift": "<§3Shift§r§7>를 눌러 정보를 확인하세요.",
     "additional_lights.txt.usage": "§6사용처:",
     "additional_lights.txt.tips": "§6팁:",

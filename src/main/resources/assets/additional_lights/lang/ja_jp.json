@@ -1,5 +1,13 @@
 {
-    "itemGroup.additional_lights": "追加の光源",
+    "itemGroup.additional_lights": "Additional Lights",
+
+    "additional_lights.configuration.title": "%sの設定",
+    "additional_lights.configuration.section.additional.lights.common.toml": "%sの設定",
+    "additional_lights.configuration.section.additional.lights.common.toml.title": "%sの設定",
+
+    "additional_lights.configuration.recipes": "レシピ",
+    "additional_lights.configuration.enableFireCrafting": "炎のクラフトを有効にする",
+    "additional_lights.configuration.enableFireCrafting.tooltip": "有効にすると Additional Lightsの炎ブロック（fire_for_* / soul_fire_for_*）のクラフトレシピが追加されます。反映には /reload またはワールド再入場が必要です。",
 
     "additional_lights.txt.shift": "§7<§3Shift§r§7>キーを押すと情報が表示されます。",
     "additional_lights.txt.usage": "§6使い方:",

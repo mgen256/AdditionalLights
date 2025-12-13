@@ -1,11 +1,17 @@
 package com.mgen256.al;
 
+import com.mgen256.al.conditions.EnableFireCraftingCondition;
+import com.mgen256.al.config.AdditionalLightsConfig;
+import com.mojang.serialization.MapCodec;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -35,6 +41,12 @@ public class AdditionalLights {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUNDS = DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MOD_ID);
+    public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS =
+            DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, MOD_ID);
+
+    static {
+        CONDITION_CODECS.register("enable_fire_crafting", () -> EnableFireCraftingCondition.CODEC);
+    }
 
     public static Map<ModBlockList, DeferredHolder<Block, Block>> modBlocks = new LinkedHashMap<>();
     public static Map<ModBlockList, DeferredHolder<Item, BlockItem>> modBlockItems = new LinkedHashMap<>();
@@ -44,6 +56,7 @@ public class AdditionalLights {
 
 
     public AdditionalLights(IEventBus modEventBus, ModContainer modContainer) {
+        modContainer.registerConfig(ModConfig.Type.COMMON, AdditionalLightsConfig.SPEC);
         modEventBus.addListener(this::commonSetup);
         
         modSounds = new LinkedHashMap<>() {{
@@ -77,6 +90,7 @@ public class AdditionalLights {
         ITEMS.register(modEventBus);
         SOUNDS.register(modEventBus);
         CREATIVE_MODE_TABS.register(modEventBus);
+        CONDITION_CODECS.register(modEventBus);
     }
      
     private void commonSetup(final FMLCommonSetupEvent event) {
