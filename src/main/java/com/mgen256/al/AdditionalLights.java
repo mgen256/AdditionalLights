@@ -9,8 +9,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -47,11 +47,11 @@ public class AdditionalLights {
         modEventBus.addListener(this::commonSetup);
         
         modSounds = new LinkedHashMap<>() {{
-            put(ModSoundList.Change, SOUNDS.register("change", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "change"))));
-            put(ModSoundList.Undo, SOUNDS.register("undo", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "undo"))));
-            put(ModSoundList.Fire_Ignition_S, SOUNDS.register("fire_ignition_s", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fire_ignition_s"))));
-            put(ModSoundList.Fire_Ignition_L, SOUNDS.register("fire_ignition_l", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fire_ignition_l"))));
-            put(ModSoundList.Fire_Extinguish, SOUNDS.register("fire_extinguish", () -> SoundEvent.createVariableRangeEvent(ResourceLocation.fromNamespaceAndPath(MOD_ID, "fire_extinguish"))));
+            put(ModSoundList.Change, SOUNDS.register("change", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, "change"))));
+            put(ModSoundList.Undo, SOUNDS.register("undo", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, "undo"))));
+            put(ModSoundList.Fire_Ignition_S, SOUNDS.register("fire_ignition_s", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, "fire_ignition_s"))));
+            put(ModSoundList.Fire_Ignition_L, SOUNDS.register("fire_ignition_l", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, "fire_ignition_l"))));
+            put(ModSoundList.Fire_Extinguish, SOUNDS.register("fire_extinguish", () -> SoundEvent.createVariableRangeEvent(Identifier.fromNamespaceAndPath(MOD_ID, "fire_extinguish"))));
         }};
 
         
@@ -107,14 +107,14 @@ public class AdditionalLights {
     static public ResourceKey<Block> createResourceKey(String name) {
         return ResourceKey.create(
                 BuiltInRegistries.BLOCK.key(),
-                ResourceLocation.fromNamespaceAndPath(AdditionalLights.MOD_ID, name)
+                Identifier.fromNamespaceAndPath(AdditionalLights.MOD_ID, name)
                 );
     }
 
     static public ResourceKey<Item> createItemResourceKey(String name) {
         return ResourceKey.create(
                 BuiltInRegistries.ITEM.key(),
-                ResourceLocation.fromNamespaceAndPath(AdditionalLights.MOD_ID, name)
+                Identifier.fromNamespaceAndPath(AdditionalLights.MOD_ID, name)
                 );
     }
 }
