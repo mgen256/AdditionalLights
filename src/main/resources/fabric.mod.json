@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "additional_lights",
-	"version": "2.1.14",
+	"version": "2.2.0",
 	"name": "Additional Lights",
 	"description": "",
 	"authors": [
@@ -21,17 +21,22 @@
 		"client": [
 			"com.mgen256.al.AdditionalLightsClient"
 		],
+		"modmenu": [
+			"com.mgen256.al.compat.modmenu.AdditionalLightsModMenu"
+		],
 		"fabric-datagen": [
 			"com.mgen256.al.DataGenerator"
 		]
 	},
 	"depends": {
 		"fabricloader": ">=0.17.3",
-		"minecraft": "~1.21.10",
+		"minecraft": "~1.21.11",
 		"java": ">=21",
 		"fabric-api": "*"
 	},
 	"suggests": {
-		"another-mod": "*"
+		"modmenu": "*",
+		"cloth-config": "*",
+		"cloth-config2": "*"
 	}
 }

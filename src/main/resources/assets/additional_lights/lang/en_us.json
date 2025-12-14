@@ -2,6 +2,14 @@
 {
     "itemGroup.additional_lights": "Additional Lights",
 
+    "additional_lights.configuration.title": "%s Settings",
+    "additional_lights.configuration.section.additional.lights.common.toml": "%s Settings",
+    "additional_lights.configuration.section.additional.lights.common.toml.title": "%s Settings",
+
+    "additional_lights.configuration.recipes": "Recipes",
+    "additional_lights.configuration.enableFireCrafting": "Enable fire crafting",
+    "additional_lights.configuration.enableFireCrafting.tooltip": "Enables crafting recipes for Additional Lights fire blocks (fire_for_* / soul_fire_for_*). Apply with /reload or by rejoining.",
+
     "additional_lights.txt.shift": "§7Press <§3Shift§r§7> for info.",
     "additional_lights.txt.usage": "§6Usage:",
     "additional_lights.txt.tips": "§6Tips:",

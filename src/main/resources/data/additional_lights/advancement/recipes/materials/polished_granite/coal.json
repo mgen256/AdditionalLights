@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_granite_and_coal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:polished_granite"
+            ]
+          },
+          {
+            "items": "#minecraft:coals"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:fire_pit_l/fire_pit_l_polished_granite",
+      "additional_lights:fire_pit_s/fire_pit_s_polished_granite",
+      "additional_lights:standing_torch_l/standing_torch_l_polished_granite",
+      "additional_lights:standing_torch_s/standing_torch_s_polished_granite"
+    ]
+  }
+}
+

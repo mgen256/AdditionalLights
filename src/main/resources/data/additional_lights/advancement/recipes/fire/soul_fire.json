@@ -1,0 +1,35 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "additional_lights:enable_fire_crafting"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coal_and_soul_fire_base_block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:coals"
+          },
+          {
+            "items": [
+              "minecraft:soul_sand",
+              "minecraft:soul_soil"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:fire/soul_fire_for_fire_pit_l",
+      "additional_lights:fire/soul_fire_for_fire_pit_s",
+      "additional_lights:fire/soul_fire_for_standing_torch_l",
+      "additional_lights:fire/soul_fire_for_standing_torch_s"
+    ]
+  }
+}
+

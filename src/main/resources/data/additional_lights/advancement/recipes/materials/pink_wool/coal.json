@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_pink_wool_and_coal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:pink_wool"
+            ]
+          },
+          {
+            "items": "#minecraft:coals"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:fire_pit_l/fire_pit_l_pink_wool",
+      "additional_lights:fire_pit_s/fire_pit_s_pink_wool",
+      "additional_lights:standing_torch_l/standing_torch_l_pink_wool",
+      "additional_lights:standing_torch_s/standing_torch_s_pink_wool"
+    ]
+  }
+}
+
