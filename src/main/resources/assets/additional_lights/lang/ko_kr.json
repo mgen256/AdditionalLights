@@ -1,5 +1,13 @@
 {
     "itemGroup.additional_lights": "Additional Lights",
+
+    "additional_lights.configuration.title": "%s ??",
+    "additional_lights.configuration.section.additional.lights.common.toml": "%s ??",
+    "additional_lights.configuration.section.additional.lights.common.toml.title": "%s ??",
+
+    "additional_lights.configuration.recipes": "???",
+    "additional_lights.configuration.enableFireCrafting": "? ?? ??",
+    "additional_lights.configuration.enableFireCrafting.tooltip": "????? Additional Lights? ? ??(fire_for_* / soul_fire_for_*) ?? ???? ?????. ????? /reload ?? ???? ?????.",
     "additional_lights.txt.shift": "<§3Shift§r§7>를 눌러 정보를 확인하세요.",
     "additional_lights.txt.usage": "§6사용처:",
     "additional_lights.txt.tips": "§6팁:",

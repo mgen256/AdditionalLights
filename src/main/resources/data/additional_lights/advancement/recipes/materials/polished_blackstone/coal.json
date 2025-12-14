@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_polished_blackstone_and_coal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:polished_blackstone"
+            ]
+          },
+          {
+            "items": "#minecraft:coals"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:fire_pit_l/fire_pit_l_polished_blackstone",
+      "additional_lights:fire_pit_s/fire_pit_s_polished_blackstone",
+      "additional_lights:standing_torch_l/standing_torch_l_polished_blackstone",
+      "additional_lights:standing_torch_s/standing_torch_s_polished_blackstone"
+    ]
+  }
+}
+

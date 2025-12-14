@@ -2,6 +2,14 @@
 {
     "itemGroup.additional_lights": "Additional Lights",
 
+    "additional_lights.configuration.title": "Настройки %s",
+    "additional_lights.configuration.section.additional.lights.common.toml": "Настройки %s",
+    "additional_lights.configuration.section.additional.lights.common.toml.title": "Настройки %s",
+
+    "additional_lights.configuration.recipes": "Рецепты",
+    "additional_lights.configuration.enableFireCrafting": "Разрешить создание огня",
+    "additional_lights.configuration.enableFireCrafting.tooltip": "Если включено, добавляет рецепты крафта для блоков огня Additional Lights (fire_for_* / soul_fire_for_*). Примените через /reload или перезайдите.",
+
     "additional_lights.txt.shift": "§7Нажми <§3Shift§r§7> для информации.",
     "additional_lights.txt.usage": "§6Применение:",
     "additional_lights.txt.tips": "§6Подсказки:",

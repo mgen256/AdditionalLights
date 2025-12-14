@@ -1,6 +1,14 @@
 {
     "itemGroup.additional_lights": "附加燈光",
 
+    "additional_lights.configuration.title": "%s 設定",
+    "additional_lights.configuration.section.additional.lights.common.toml": "%s 設定",
+    "additional_lights.configuration.section.additional.lights.common.toml.title": "%s 設定",
+
+    "additional_lights.configuration.recipes": "配方",
+    "additional_lights.configuration.enableFireCrafting": "允許合成火?",
+    "additional_lights.configuration.enableFireCrafting.tooltip": "?用後會載入 Additional Lights 的火?方塊(fire_for_* / soul_fire_for_*)合成配方。需要 /reload 或重新進入世界生效。",
+
     "additional_lights.txt.shift": "§7按下 <§3Shift§r§7> 以獲取資訊。",
     "additional_lights.txt.usage": "§6使用方式:",
     "additional_lights.txt.tips": "§6提示:",

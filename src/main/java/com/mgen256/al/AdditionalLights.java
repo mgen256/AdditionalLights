@@ -1,7 +1,10 @@
 package com.mgen256.al;
 
+import com.mgen256.al.conditions.EnableFireCraftingCondition;
+import com.mgen256.al.config.AdditionalLightsConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.resource.conditions.v1.ResourceConditions;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -36,6 +39,9 @@ public class AdditionalLights implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		AdditionalLightsConfig.load();
+		ResourceConditions.register(EnableFireCraftingCondition.TYPE);
+
 		for (var sound: ModSoundList.values())
 			sound.register();
 
