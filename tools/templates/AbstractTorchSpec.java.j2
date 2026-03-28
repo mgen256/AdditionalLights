@@ -1,0 +1,7 @@
+package com.mgen256.al;
+
+public sealed interface AbstractTorchSpec extends BlockSpec
+        permits FloorTorchSpec, WallTorchSpec {
+    @Override String key();
+    @Override String regName();
+}

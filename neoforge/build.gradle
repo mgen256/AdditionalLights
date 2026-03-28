@@ -1,0 +1,85 @@
+import org.gradle.api.file.DuplicatesStrategy
+
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev'
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(25)
+
+neoForge {
+    version = libs.versions.neoforge.get()
+
+    runs {
+        client {
+            client()
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        server {
+            server()
+            programArgument '--nogui'
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+        }
+
+        data {
+            clientData()
+            programArguments.addAll '--mod', project.mod_id, '--all',
+                '--output', file('src/generated/resources/').getAbsolutePath(),
+                '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'oshi.util.wmi.timeout', '2000'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${project.mod_id}" {
+            sourceSet sourceSets.main
+            sourceSet project(':common').sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    implementation(project(":common"))
+    compileOnly("org.jetbrains:annotations:24.1.0")
+    compileOnly("com.google.code.findbugs:jsr305:3.0.2")
+}
+
+sourceSets.main.resources.srcDir(rootProject.layout.buildDirectory.dir("generated/datagen/resources"))
+def rootGeneratedNeo = rootProject.layout.buildDirectory.dir("generated/neoforge")
+sourceSets.main.resources.srcDir(rootGeneratedNeo)
+
+tasks.named("processResources", ProcessResources).configure {
+    dependsOn(rootProject.tasks.named("generateModMetadata"))
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from(rootGeneratedNeo)
+}
+
+tasks.named("sourcesJar", Jar).configure {
+    dependsOn(rootProject.tasks.named("generateModMetadata"))
+}
+
+tasks.named("jar", Jar).configure {
+    dependsOn(":common:classes")
+    from(project(":common").sourceSets.main.output)
+}
+
+tasks.named("runClient").configure {
+    dependsOn(":common:classes")
+}
+
+tasks.register("runNeoforgeClient") {
+    group = "neoforge"
+    description = "Run the NeoForge client"
+    dependsOn("runClient")
+}

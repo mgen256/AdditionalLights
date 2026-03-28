@@ -1,7 +1,0 @@
-{
-    "parent": "additional_lights:block/al_lamp/template_al_wall_lamp_wool",
-    
-	"textures": {
-		"main": "block/pink_wool"
-	}
-}

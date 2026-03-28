@@ -1,0 +1,34 @@
+{
+    "parent": "additional_lights:block/fire/fire_for_fire_pit_s",
+
+	"elements": [ 	 
+		{
+			"from": [ 0.9289, -10, 8 ],
+			"to": [ 14.6289, -1, 8.001 ],
+			"rotation": { "origin": [ 8, -7, 8 ], "axis": "y", "angle": 45, "rescale": true },
+			"shade": false,
+			"faces": {
+				"north": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" },
+				"south": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" }
+			}
+		},
+		{
+			"from": [ 0.9289, -10, 8 ],
+			"to": [ 14.6289, -1, 8.001 ],
+			"rotation": { "origin": [ 8, -7, 8 ], "axis": "y", "angle": -45, "rescale": true },
+			"shade": false,
+			"faces": {
+				"north": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" },
+				"south": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" }
+			}
+		},
+		{
+			"from": [ 2, -9.9, 2 ],
+			"to": [ 14, -9.9001, 14 ],
+			"faces": {
+				"down": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" },
+				"up": { "uv": [ 2, 2, 14, 14 ], "texture": "#texture2" }
+			}
+		}
+	]
+}

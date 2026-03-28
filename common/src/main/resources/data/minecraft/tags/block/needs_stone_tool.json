@@ -1,0 +1,10 @@
+{
+    "replace": false,
+    "values": [
+        "additional_lights:fire_pit_s_iron_block",
+        "additional_lights:fire_pit_l_iron_block",
+        "additional_lights:standing_torch_s_iron_block",
+        "additional_lights:standing_torch_l_iron_block"
+    ]
+}
+

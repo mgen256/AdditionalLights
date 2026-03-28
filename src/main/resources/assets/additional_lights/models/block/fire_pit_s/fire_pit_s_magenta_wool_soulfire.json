@@ -1,6 +1,0 @@
-{
-	"parent": "additional_lights:block/fire_pit_s/fire_pit_s_magenta_wool",
-	"textures": {
-		"texture2": "block/soul_sand"
-	}
-}

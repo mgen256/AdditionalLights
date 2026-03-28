@@ -1,6 +1,0 @@
-{
-	"parent": "additional_lights:block/standing_torch_s/template_standing_torch_s_smooth",
-	"textures": {
-		"main": "block/cobblestone"
-	}
-}

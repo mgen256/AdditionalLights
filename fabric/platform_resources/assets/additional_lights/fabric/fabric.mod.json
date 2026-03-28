@@ -1,0 +1,43 @@
+{
+	"schemaVersion": 1,
+	"id": "additional_lights",
+	"version": "${mod_version}",
+	"name": "Additional Lights",
+	"description": "",
+	"authors": [
+		"mgen256"
+	],
+	"contact": {
+		"homepage": "https://www.curseforge.com/minecraft/mc-mods/additional-lights",
+		"sources": "https://github.com/mgen256/AdditionalLights"
+	},
+	"license": "MIT License",
+	"icon": "logo.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+                        "com.mgen256.al.AdditionalLightsFabric"
+		],
+		"client": [
+			"com.mgen256.al.client.AdditionalLightsFabricClientSetupBehavior"
+		],
+		"modmenu": [
+			"com.mgen256.al.compat.modmenu.AdditionalLightsModMenu"
+		],
+		"fabric-datagen": [
+			"com.mgen256.al.DataGenerator"
+		]
+	},
+	"mixins": [
+		"additional_lights.fabric.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~26.1",
+		"java": ">=25",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"modmenu": "*"
+	}
+}

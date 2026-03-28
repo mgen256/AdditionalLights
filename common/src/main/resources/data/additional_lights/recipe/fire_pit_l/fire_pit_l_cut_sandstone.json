@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "fire_pit_l",
+    "pattern": [
+      "##",
+      "XX",
+      "XX"
+    ],
+    "key": {
+      "#": "#minecraft:coals"
+      ,
+      "X": "minecraft:cut_sandstone"
+    },
+    "result":{
+        "id":"additional_lights:fire_pit_l_cut_sandstone",
+        "count":1
+      }
+}

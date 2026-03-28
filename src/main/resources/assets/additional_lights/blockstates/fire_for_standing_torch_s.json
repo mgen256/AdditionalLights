@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "set=false": { "model": "additional_lights:block/fire/fire_for_standing_torch_s" },
-        "set=true": { "model": "additional_lights:block/fire/fire_for_standing_torch_s_set" }
-    }
-}

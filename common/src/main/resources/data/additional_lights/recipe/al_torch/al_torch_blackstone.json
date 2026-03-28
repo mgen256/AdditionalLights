@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_torch",
+    "pattern": [
+      "##",
+      "##",
+      "X "
+    ],
+    "key": {
+      "#":"minecraft:torch",
+      "X":"minecraft:blackstone"
+    },
+    "result":{
+        "id":"additional_lights:al_torch_blackstone",
+        "count":4
+      }
+}

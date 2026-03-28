@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_torch",
+    "pattern": [
+      "##",
+      "##",
+      "X "
+    ],
+    "key": {
+      "#":"minecraft:torch",
+      "X":"minecraft:end_stone_bricks"
+    },
+    "result":{
+        "id":"additional_lights:al_torch_end_stone_bricks",
+        "count":4
+      }
+}

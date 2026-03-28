@@ -1,0 +1,13 @@
+package com.mgen256.al;
+
+import java.util.Map;
+
+public final class VanillaBlockMap {
+    private VanillaBlockMap() {}
+
+    public static final Map<String, String> REG_TO_BLOCK_FIELD = Map.ofEntries(
+{% for reg, field in entries %}
+        Map.entry("{{ reg }}", "{{ field }}"){{ "," if not loop.last else "" }}
+{% endfor %}
+    );
+}

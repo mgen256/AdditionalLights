@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "fire_pit_s",
+    "pattern": [
+      "##",
+      "XX"
+      ],
+  "key": {
+      "#": "#minecraft:coals"
+      ,
+      "X": "minecraft:gold_block"
+    },
+    "result":{
+        "id":"additional_lights:fire_pit_s_gold_block",
+        "count":1
+      }
+}

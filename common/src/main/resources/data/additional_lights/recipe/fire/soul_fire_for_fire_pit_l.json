@@ -1,0 +1,27 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "additional_lights:enable_fire_crafting"
+    }
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "additional_lights:enable_fire_crafting"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "group": "fire",
+  "pattern": [
+    "##",
+    "X#",
+    " #"
+    ],
+"key": {
+    "#": "#minecraft:coals",
+    "X": "#minecraft:soul_fire_base_blocks"
+  },
+  "result":{
+      "id":"additional_lights:soul_fire_for_fire_pit_l",
+      "count":2
+    }
+}

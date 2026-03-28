@@ -1,0 +1,21 @@
+{
+    "neoforge:conditions": [
+        {
+            "type": "additional_lights:enable_fire_crafting"
+        }
+    ],
+    "fabric:load_conditions": [
+        {
+            "condition": "additional_lights:enable_fire_crafting"
+        }
+    ],
+    "type": "minecraft:crafting_shapeless",
+    "group": "fire",
+    "ingredients": [
+        "#minecraft:coals"
+      ],
+    "result":{
+        "id":"additional_lights:fire_for_standing_torch_s",
+        "count":1
+      }
+}

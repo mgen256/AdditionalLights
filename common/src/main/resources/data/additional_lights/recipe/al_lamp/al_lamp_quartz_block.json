@@ -1,0 +1,16 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_lamp",
+    "pattern": [
+      "#",
+      "X"
+    ],
+    "key": {
+      "#":"minecraft:glowstone",
+      "X":"minecraft:quartz_block"
+    },
+    "result":{
+        "id":"additional_lights:al_lamp_quartz_block",
+        "count":4
+      }
+}

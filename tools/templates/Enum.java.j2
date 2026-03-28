@@ -1,0 +1,47 @@
+package com.mgen256.al;
+
+{% if name in ('WallTorchSpec', 'FloorTorchSpec') %}
+public enum {{ name }} implements AbstractTorchSpec {
+{% else %}
+public enum {{ name }} implements BlockSpec {
+{% endif %}
+{% for const in consts %}
+    {{ const }}{% if not loop.last %},{% else %};{% endif %}
+{% endfor %}
+
+{% if name in ('WallTorchSpec', 'FloorTorchSpec') %}
+    private final String key;
+    private final String regName;
+    private final String {{ extra }};
+    private final boolean cutout;
+
+    {{ name }}(String key, String regName, String {{ extra }}, boolean cutout) {
+        this.key = key;
+        this.regName = regName;
+        this.{{ extra }} = {{ extra }};
+        this.cutout = cutout;
+    }
+    @Override public String key() { return key; }
+    @Override public String regName() { return regName; }
+    @Override public boolean isCutout() { return cutout; }
+    {% if name == 'WallTorchSpec' %}
+    @Override public BlockSpec getFloorTorchKey() { return ModBlockList.get(floorKey); }
+    {% else %}
+    @Override public BlockSpec getWallTorchKey() { return ModBlockList.get(wallKey); }
+    {% endif %}
+{% else %}
+    private final String key;
+    private final String regName;
+    private final boolean cutout;
+
+    {{ name }}(String key, String regName, boolean cutout) {
+        this.key = key;
+        this.regName = regName;
+        this.cutout = cutout;
+    }
+
+    @Override public String key() { return key; }
+    @Override public String regName() { return regName; }
+    @Override public boolean isCutout() { return cutout; }
+{% endif %}
+}

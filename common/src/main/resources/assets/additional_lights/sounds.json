@@ -1,0 +1,42 @@
+{
+    "change": {
+      "category": "player",
+      "sounds": [{
+          "name": "additional_lights:change",
+          "stream": false
+        }
+      ]
+    },
+    "undo": {
+      "category": "player",
+      "sounds": [{
+          "name": "additional_lights:undo",
+          "stream": false
+        }
+      ]
+    },
+    "fire_ignition_s": {
+      "category": "block",
+      "sounds": [{
+          "name": "additional_lights:fire_ignition_s",
+          "stream": false
+        }
+      ]
+    },
+    "fire_ignition_l": {
+        "category": "block",
+        "sounds": [{
+            "name": "additional_lights:fire_ignition_l",
+            "stream": false
+          }
+        ]
+      },
+    "fire_extinguish": {
+        "category": "block",
+        "sounds": [{
+            "name": "additional_lights:fire_extinguish",
+            "stream": false
+          }
+        ]
+      }
+  }

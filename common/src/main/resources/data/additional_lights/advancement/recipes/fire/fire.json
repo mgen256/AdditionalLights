@@ -1,0 +1,33 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "additional_lights:enable_fire_crafting"
+    }
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "additional_lights:enable_fire_crafting"
+    }
+  ],
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_coal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "#minecraft:coals"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:fire/fire_for_fire_pit_l",
+      "additional_lights:fire/fire_for_fire_pit_s",
+      "additional_lights:fire/fire_for_standing_torch_l",
+      "additional_lights:fire/fire_for_standing_torch_s"
+    ]
+  }
+}

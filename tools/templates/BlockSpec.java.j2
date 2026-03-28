@@ -1,0 +1,52 @@
+package com.mgen256.al;
+
+public sealed interface BlockSpec permits {{ perms | join(', ') }} {
+    String key();
+    String regName();
+    default String getBaseBlockName() {
+        if (regName().startsWith("fire_for") || regName().startsWith("soul_fire_for")) {
+            return null;
+        }
+        String base = regName()
+                .replaceFirst("^al_lamp_", "")
+                .replaceFirst("^al_wall_(?:lamp|torch)_", "")
+                .replaceFirst("^al_torch_", "")
+                .replaceFirst("^standing_torch_[sl]_", "")
+                .replaceFirst("^fire_pit_[sl]_", "");
+        return base.toUpperCase(java.util.Locale.ROOT);
+    }
+    default BlockSpec getFloorTorchKey() {
+        throw new IllegalStateException(key() + " is not a wall torch");
+    }
+    default BlockSpec getWallTorchKey() {
+        throw new IllegalStateException(key() + " is not a floor torch");
+    }
+
+    default ModItemFactory.ItemType getItemType() {
+        String name = regName();
+        if (name.contains("al_wall_torch")) {
+            return null;
+        }
+        if (name.contains("al_torch")) {
+            return ModItemFactory.ItemType.VERTICALLY_ATTACHABLE;
+        }
+        if (this instanceof FirePitSSpec || this instanceof FirePitLSpec
+                || this instanceof StandingTorchSSpec || this instanceof StandingTorchLSpec) {
+            return ModItemFactory.ItemType.PEDESTAL;
+        }
+        return ModItemFactory.ItemType.STANDARD;
+    }
+
+    default boolean isCutout() {
+        String name = regName();
+        return name.contains("fire_for_") || name.contains("glass");
+    }
+
+    default boolean isTranslucent() {
+        String name = regName();
+        return name.startsWith("standing_torch_l_")
+            || name.startsWith("fire_pit_l_")
+            || name.startsWith("fire_pit_s_");
+    }
+
+}

@@ -1,0 +1,21 @@
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+        maven(url = "https://maven.fabricmc.net/")
+        maven(url = "https://maven.neoforged.net/releases")
+        maven(url = "https://maven.parchmentmc.org/")
+    }
+
+    plugins {
+        id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT"
+        id("net.neoforged.moddev") version "2.0.141"
+    }
+}
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+}
+
+rootProject.name = "additional_lights"
+
+include("common", "fabric", "neoforge", "tools")

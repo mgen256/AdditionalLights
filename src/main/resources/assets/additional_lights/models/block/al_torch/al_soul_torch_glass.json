@@ -1,7 +1,0 @@
-{
-    "parent": "additional_lights:block/al_torch/al_torch_glass",
-    "textures": {
-        "texture": "block/soul_torch",
-        "particle": "block/soul_torch"
-        }
-}

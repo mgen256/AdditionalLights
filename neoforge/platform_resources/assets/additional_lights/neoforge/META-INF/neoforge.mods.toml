@@ -1,0 +1,27 @@
+license="MIT License"
+
+[[mods]] #mandatory
+modId="${mod_id}" #mandatory
+version="${mod_version}" #mandatory
+displayName="${mod_name}" #mandatory
+
+updateJSONURL="https://gist.githubusercontent.com/mgen256/cb537b95f984855b7eab5f6df6a047a3/raw"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/additional-lights" #optional
+logoFile="logo.png" #optional
+authors="${mod_authors}" #optional
+description='''${mod_description}'''
+
+
+[[dependencies.${mod_id}]] #optional
+    modId="neoforge" #mandatory
+    type="required"
+    versionRange="[${neo_version},)" #mandatory
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"

@@ -22,6 +22,15 @@ eclipse
 run
 runs
 run-data
-.vscode
+.vscode/
 repo
-AGENTS.md
+build/generated/
+
+
+# python
+__pycache__/
+*.py[cod]
+gradle-test.log
+.kotlin/
+.venv/
+common/logs/

@@ -1,0 +1,27 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_quartz_block_and_glowstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:quartz_block"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:glowstone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:al_lamp/al_lamp_quartz_block"
+    ]
+  }
+}

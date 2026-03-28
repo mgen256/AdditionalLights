@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "standing_torch_s",
+    "pattern": [
+      "#",
+      "X"
+      ],
+  "key": {
+      "#": "#minecraft:coals"
+      ,
+      "X": "minecraft:quartz_block"
+    },
+    "result":{
+        "id":"additional_lights:standing_torch_s_quartz_block",
+        "count":1
+      }
+}

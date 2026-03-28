@@ -1,0 +1,19 @@
+package com.mgen256.al;
+
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public final class ModBlockList {
+    private static final Map<String, BlockSpec> VALUES = new LinkedHashMap<>();
+    private ModBlockList() {}
+    static void register(BlockSpec spec) { VALUES.put(spec.key(), spec); }
+    public static Collection<BlockSpec> values() { return VALUES.values(); }
+    public static BlockSpec get(String key) { return VALUES.get(key); }
+
+    static {
+{% for name in enum_names %}
+        for (var e : {{ name }}.values()) register(e);
+{% endfor %}
+    }
+}

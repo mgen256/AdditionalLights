@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "fire_pit_l",
+
+    "pattern": [
+      "##",
+      "XX",
+      "XX"
+    ],
+    "key": {
+      "#": "#minecraft:coals"
+      ,
+      "X": "minecraft:smooth_stone"
+    },
+    "result":{
+        "id":"additional_lights:fire_pit_l_smooth_stone",
+        "count":1
+      }
+}

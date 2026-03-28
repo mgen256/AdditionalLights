@@ -1,0 +1,7 @@
+{
+	"textures": {
+		"texture": "block/torch",
+		"particle": "#texture",
+		"texture1": "#main"
+	}
+}

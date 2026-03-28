@@ -1,0 +1,17 @@
+[versions]
+minecraft = "26.1"
+neoforge = "26.1.0.2-beta"
+fabricLoader = "0.18.4"
+fabricApi = "0.144.3+26.1"
+modmenu = "18.0.0-alpha.8"
+junitJupiter = "5.10.2"
+junitPlatform = "1.10.2"
+
+[libraries]
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+fabric-loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabricLoader" }
+fabric-api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabricApi" }
+modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
