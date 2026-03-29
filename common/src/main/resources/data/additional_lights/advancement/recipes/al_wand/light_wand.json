@@ -1,0 +1,37 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_light_wand_ingredients": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:diamond"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:obsidian"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:stick"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:glowstone"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "additional_lights:light_wand"
+    ]
+  }
+}

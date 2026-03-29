@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "group": "al_wand",
+    "pattern": [
+      "S#S",
+      " X ",
+      " / "
+      ],
+  "key": {
+      "S":"minecraft:glowstone",
+      "/":"minecraft:stick",
+      "X":"minecraft:obsidian",
+      "#":"minecraft:diamond"
+    },
+    "result":{
+        "id":"additional_lights:light_wand",
+        "count":1
+      }
+}

@@ -1,4 +1,7 @@
 # Changelog
+## [26.1-3.0.1] - 2026-03-28
+- Added a crafting recipe and recipe book unlocking for the Light Wand.
+
 ## [26.1-3.0.0] - 2026-03-28
 - Update to 26.1.
 - Added the Light Wand to switch supported flames into Light mode.
