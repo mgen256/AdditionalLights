@@ -1,4 +1,7 @@
 # Changelog
+## [26.1-3.0.2] - 2026-04-02
+- Added support for Minecraft 26.1.1.
+
 ## [26.1-3.0.1] - 2026-03-28
 - Added a crafting recipe and recipe book unlocking for the Light Wand.
 

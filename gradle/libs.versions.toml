@@ -1,6 +1,6 @@
 [versions]
-minecraft = "26.1"
-neoforge = "26.1.0.2-beta"
+minecraft = "26.1.1"
+neoforge = "26.1.1.1-beta"
 fabricLoader = "0.18.4"
 fabricApi = "0.144.3+26.1"
 modmenu = "18.0.0-alpha.8"
