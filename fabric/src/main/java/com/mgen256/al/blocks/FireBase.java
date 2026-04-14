@@ -13,6 +13,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -113,6 +114,24 @@ public abstract class FireBase extends Block
     @Override
     public BlockState updateShape(BlockState state, LevelReader world, ScheduledTickAccess tickView, BlockPos pos, Direction direction, BlockPos neighborPos, BlockState neighborState, RandomSource random) {
         return direction == Direction.DOWN && !this.canSurvive(state, world, pos) ? Blocks.AIR.defaultBlockState() : state;
+    }
+
+    private void updatePedestalComparatorBelow(Level world, BlockPos pos, BlockState state) {
+        if (!state.getValue(SUMMONED)) {
+            return;
+        }
+
+        BlockPos belowPos = pos.below();
+        BlockState belowState = world.getBlockState(belowPos);
+        if (belowState.getBlock() instanceof Pedestal pedestal) {
+            pedestal.updateComparatorOutput(world, belowPos);
+        }
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel world, BlockPos pos, boolean movedByPiston) {
+        updatePedestalComparatorBelow(world, pos, state);
+        super.affectNeighborsAfterRemoval(state, world, pos, movedByPiston);
     }
 
     public boolean canSurvive(BlockState state, LevelReader world, BlockPos pos) {

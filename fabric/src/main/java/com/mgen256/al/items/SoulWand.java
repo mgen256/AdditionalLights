@@ -53,6 +53,7 @@ public class SoulWand extends Wand implements SoulWandTrait {
     }
 
     private void changeFire(Level world, Player player, BlockPos pos, BlockState state, FabricFireTrait modblock) {
+        int previousOutput = modblock instanceof Pedestal pedestal ? pedestal.getComparatorOutput(world, pos, state) : 0;
         var currentType = state.getValue(FabricFireTrait.FIRE_TYPE).toCore();
         var prevType = state.getValue(FabricFireTrait.PREVIOUS_FIRE_TYPE).toCore();
 
@@ -67,7 +68,9 @@ public class SoulWand extends Wand implements SoulWandTrait {
 
         if (modblock instanceof Pedestal) {
             boolean replaceOnly = FireTypeWandCore.shouldReplacePedestalFireOnly(currentType);
-            ((Pedestal) modblock).igniteFire(world, pos, state, replaceOnly);
+            Pedestal pedestal = (Pedestal) modblock;
+            pedestal.igniteFire(world, pos, state, replaceOnly);
+            pedestal.updateComparatorOutputIfChanged(world, pos, previousOutput);
         }
     }
 }

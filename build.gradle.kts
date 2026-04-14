@@ -187,6 +187,7 @@ tasks.register<Copy>("generateModMetadata") {
         "minecraft_version" to minecraft_version,
         "minecraft_version_range" to project.property("minecraft_version_range"),
         "neo_version" to neoVersion,
+        "neoforge_version_range" to project.property("neoforge_version_range"),
         "mod_id" to mod_id,
         "mod_name" to project.property("mod_name"),
         "mod_license" to project.property("mod_license"),

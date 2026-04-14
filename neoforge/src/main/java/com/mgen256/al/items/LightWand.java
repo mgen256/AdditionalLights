@@ -56,6 +56,7 @@ public class LightWand extends Wand implements LightWandTrait {
     }
 
     private void changeFire(Level level, Player player, BlockPos pos, BlockState state, NeoForgeFireTrait modblock) {
+        int previousOutput = modblock instanceof Pedestal pedestal ? pedestal.getComparatorOutput(level, pos, state) : 0;
         var currentType = state.getValue(NeoForgeFireTrait.FIRE_TYPE).toCore();
         var prevType = state.getValue(NeoForgeFireTrait.PREVIOUS_FIRE_TYPE).toCore();
 
@@ -75,6 +76,7 @@ public class LightWand extends Wand implements LightWandTrait {
             }
             boolean replaceOnly = FireTypeWandCore.shouldReplacePedestalFireOnly(currentType);
             pedestal.igniteFire(level, pos, state, replaceOnly);
+            pedestal.updateComparatorOutputIfChanged(level, pos, previousOutput);
         }
     }
 }

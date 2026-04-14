@@ -57,6 +57,7 @@ public class SoulWand extends Wand implements SoulWandTrait {
 
 
     private void changeFire( Level level, Player player, BlockPos pos, BlockState state, NeoForgeFireTrait modblock ) {
+        int previousOutput = modblock instanceof Pedestal pedestal ? pedestal.getComparatorOutput(level, pos, state) : 0;
 
         FireTypes currentType = state.getValue(NeoForgeFireTrait.FIRE_TYPE).toCore();
         FireTypes prevType = state.getValue(NeoForgeFireTrait.PREVIOUS_FIRE_TYPE).toCore();
@@ -74,7 +75,9 @@ public class SoulWand extends Wand implements SoulWandTrait {
         if (modblock instanceof Pedestal)
         {
             boolean replaceOnly = FireTypeWandCore.shouldReplacePedestalFireOnly(currentType);
-            ((Pedestal)modblock).igniteFire(level, pos, state, replaceOnly);
+            Pedestal pedestal = (Pedestal)modblock;
+            pedestal.igniteFire(level, pos, state, replaceOnly);
+            pedestal.updateComparatorOutputIfChanged(level, pos, previousOutput);
         }
     }
 }

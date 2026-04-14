@@ -4,6 +4,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
@@ -157,6 +158,11 @@ public abstract class Pedestal extends ModBlock
     public boolean getLit(BlockState state) { return state.getValue(LIT); }
 
     @Override
+    public int getActiveComparatorOutput(BlockState state) {
+        return PedestalComparatorOutputSpec.resolve(state.getValue(FIRE_TYPE).toCore());
+    }
+
+    @Override
     public BlockState setIsPowered(BlockState state, boolean value) { return state.setValue(ISPOWERED, value); }
 
     @Override
@@ -164,6 +170,11 @@ public abstract class Pedestal extends ModBlock
 
     @Override
     public BlockState setLit(BlockState state, boolean value) { return state.setValue(LIT, value); }
+
+    @Override
+    public void updateComparatorOutput(Level level, BlockPos pos) {
+        level.updateNeighbourForOutputSignal(pos, this);
+    }
 
     @Override
     public void onIgnited(Level level, BlockPos pos) {
@@ -234,9 +245,11 @@ public abstract class Pedestal extends ModBlock
         if( p_330929_.getItem() instanceof Wand )
             return InteractionResult.FAIL;
 
+        int previousOutput = getComparatorOutput(p_336112_, p_328869_, p_335716_);
         if( !igniteByInteraction( p_336112_, p_328869_, p_335716_ ) )
             return InteractionResult.PASS;
 
+        updateComparatorOutputIfChanged(p_336112_, p_328869_, previousOutput);
         playIgnitionSound( p_336112_, p_332840_, p_335716_.getBlock(), p_328869_ );
 
         return InteractionResult.SUCCESS;
@@ -251,6 +264,7 @@ public abstract class Pedestal extends ModBlock
     
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        int previousOutput = getComparatorOutput(level, pos, state);
         if( placer == null )
             return;
             
@@ -276,16 +290,30 @@ public abstract class Pedestal extends ModBlock
             level.setBlockAndUpdate( pos, state );
             igniteFire( level, pos, state, false );
         }
+
+        updateComparatorOutputIfChanged(level, pos, previousOutput);
     }
 
     @Override
     public void neighborChanged(BlockState state, Level level, BlockPos pos, Block blockIn, @Nullable Orientation orientation, boolean isMoving) {
+        int previousOutput = getComparatorOutput(level, pos, state);
         handleNeighborUpdate(state, level, pos);
+        updateComparatorOutputIfChanged(level, pos, previousOutput);
         super.neighborChanged(state, level, pos, blockIn, orientation, isMoving);
     }
 
     @Override
     public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;
+    }
+
+    @Override
+    protected boolean hasAnalogOutputSignal(BlockState state) {
+        return true;
+    }
+
+    @Override
+    protected int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos, Direction direction) {
+        return getComparatorOutput(level, pos, state);
     }
 }

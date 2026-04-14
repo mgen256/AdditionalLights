@@ -25,6 +25,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.entity.LivingEntity;
@@ -149,6 +150,24 @@ public abstract class FireBase extends ModBlock
         RandomSource randomSource
         ) {
         return ( facing == Direction.DOWN ) && !isValidPosition(stateIn, level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
+    }
+
+    private void updatePedestalComparatorBelow(Level level, BlockPos pos, BlockState state) {
+        if (!state.getValue(SUMMONED)) {
+            return;
+        }
+
+        BlockPos belowPos = pos.below();
+        BlockState belowState = level.getBlockState(belowPos);
+        if (belowState.getBlock() instanceof Pedestal pedestal) {
+            pedestal.updateComparatorOutput(level, belowPos);
+        }
+    }
+
+    @Override
+    protected void affectNeighborsAfterRemoval(BlockState state, ServerLevel level, BlockPos pos, boolean movedByPiston) {
+        updatePedestalComparatorBelow(level, pos, state);
+        super.affectNeighborsAfterRemoval(state, level, pos, movedByPiston);
     }
 
     public boolean isValidPosition(BlockState state, LevelReader level, BlockPos pos) {

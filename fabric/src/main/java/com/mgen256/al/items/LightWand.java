@@ -53,6 +53,7 @@ public class LightWand extends Wand implements LightWandTrait {
     }
 
     private void changeFire(Level world, Player player, BlockPos pos, BlockState state, FabricFireTrait modblock) {
+        int previousOutput = modblock instanceof Pedestal pedestal ? pedestal.getComparatorOutput(world, pos, state) : 0;
         var currentType = state.getValue(FabricFireTrait.FIRE_TYPE).toCore();
         var prevType = state.getValue(FabricFireTrait.PREVIOUS_FIRE_TYPE).toCore();
 
@@ -71,6 +72,7 @@ public class LightWand extends Wand implements LightWandTrait {
             }
             boolean replaceOnly = FireTypeWandCore.shouldReplacePedestalFireOnly(currentType);
             pedestal.igniteFire(world, pos, state, replaceOnly);
+            pedestal.updateComparatorOutputIfChanged(world, pos, previousOutput);
         }
     }
 }

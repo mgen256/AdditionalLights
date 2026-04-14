@@ -35,11 +35,30 @@ public interface PedestalTrait<W, P, S> {
 
     boolean getLit(S state);
 
+    int getActiveComparatorOutput(S state);
+
     S setIsPowered(S state, boolean value);
 
     S setActivated(S state, boolean value);
 
     S setLit(S state, boolean value);
+
+    void updateComparatorOutput(W world, P pos);
+
+    default int getComparatorOutput(W world, P pos, S state) {
+        if (isLightFireType(state)) {
+            return getLit(state) ? getActiveComparatorOutput(state) : 0;
+        }
+
+        S upperState = getBlockState(world, offsetUp(pos));
+        return isFireBlock(upperState) && isFireSummoned(upperState) ? getActiveComparatorOutput(state) : 0;
+    }
+
+    default void updateComparatorOutputIfChanged(W world, P pos, int previousOutput) {
+        if (getComparatorOutput(world, pos, getBlockState(world, pos)) != previousOutput) {
+            updateComparatorOutput(world, pos);
+        }
+    }
 
     default S withLightLit(S state, boolean value) {
         if (!isLightFireType(state) || getLit(state) == value) {

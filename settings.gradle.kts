@@ -8,7 +8,7 @@ pluginManagement {
     }
 
     plugins {
-        id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT"
+        id("net.fabricmc.fabric-loom") version "1.15.5"
         id("net.neoforged.moddev") version "2.0.141"
     }
 }
