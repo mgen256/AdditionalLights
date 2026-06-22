@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import com.mgen256.al.AdditionalLightsNeoForge;
 import com.mgen256.al.ModSoundList;
 
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -21,7 +21,7 @@ public abstract class Wand extends ModItem implements WandTrait {
 
     private static final WandCore.Translator<Component> TRANSLATOR = new WandCore.Translator<>() {
         @Override
-        public boolean exists(String key) { return I18n.exists(key); }
+        public boolean exists(String key) { return Language.getInstance().has(key); }
 
         @Override
         public Component translate(String key) { return Component.translatable(key); }

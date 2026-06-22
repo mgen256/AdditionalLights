@@ -6,7 +6,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.network.chat.Component;
-import net.minecraft.client.resources.language.I18n;
+import net.minecraft.locale.Language;
 import net.minecraft.world.level.block.Block;
 import java.util.function.Consumer;
 import com.mgen256.al.client.ShiftKeyBehavior;
@@ -16,7 +16,7 @@ public class PedestalBlockItem extends BlockItem implements PedestalBlockItemTra
 
     private static final PedestalBlockItemCore.Translator<Component> TRANSLATOR = new PedestalBlockItemCore.Translator<>() {
         @Override
-        public boolean exists(String key) { return I18n.exists(key); }
+        public boolean exists(String key) { return Language.getInstance().has(key); }
 
         @Override
         public Component translate(String key) { return Component.translatable(key); }
