@@ -1,5 +1,8 @@
 # Changelog
 
+## [26.2.0-3.1.1] - 2026-07-15
+- Fixed an issue where mod blocks did not drop in Survival mode.
+
 ## [26.2.0-3.1.0] - 2026-06-22
 - Update to 26.2.
 - Added de_de translation.

@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "block": "additional_lights:soul_fire_for_fire_pit_l",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "summoned": "false"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "additional_lights:soul_fire_for_fire_pit_l"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

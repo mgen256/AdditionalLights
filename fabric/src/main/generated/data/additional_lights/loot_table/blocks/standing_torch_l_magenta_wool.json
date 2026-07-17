@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "additional_lights:standing_torch_l_magenta_wool"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}

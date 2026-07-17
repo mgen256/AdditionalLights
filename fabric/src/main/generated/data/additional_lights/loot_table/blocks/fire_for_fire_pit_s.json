@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        },
+        {
+          "block": "additional_lights:fire_for_fire_pit_s",
+          "condition": "minecraft:block_state_property",
+          "properties": {
+            "summoned": "false"
+          }
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "additional_lights:fire_for_fire_pit_s"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ]
+}
