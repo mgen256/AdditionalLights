@@ -1,0 +1,34 @@
+{
+  "render_type": "translucent",
+  "textures": {
+    "particle": "additional_lights:block/light_top",
+    "light_side": "additional_lights:block/light_side",
+    "light_top": "additional_lights:block/light_top",
+    "light_side_outer": "additional_lights:block/light_side_outer",
+    "light_top_outer": "additional_lights:block/light_top_outer"
+  },
+  "elements": [
+    {
+      "from": [5, 0, 5],
+      "to": [11, 3, 11],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#light_side_outer"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#light_side_outer"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#light_side_outer"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#light_side_outer"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#light_top_outer"}
+      }
+    },
+    {
+      "from": [5.25, 0, 5.25],
+      "to": [10.75, 2.75, 10.75],
+      "faces": {
+        "north": {"uv": [0, 0, 16, 16], "texture": "#light_side"},
+        "east": {"uv": [0, 0, 16, 16], "texture": "#light_side"},
+        "south": {"uv": [0, 0, 16, 16], "texture": "#light_side"},
+        "west": {"uv": [0, 0, 16, 16], "texture": "#light_side"},
+        "up": {"uv": [0, 0, 16, 16], "texture": "#light_top"}
+      }
+    }
+  ]
+}

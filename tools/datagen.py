@@ -49,6 +49,7 @@ class BlockGroup(Enum):
     FIRE_PIT_L = ("FirePit_L_", "FirePitLSpec")
     FIRE_FOR = ("Fire_For_", "FireForSpec")
     SOUL_FIRE_FOR = ("SoulFire_For_", "SoulFireForSpec")
+    LIGHT_FIRE_FOR = ("LightFire_For_", "LightFireForSpec")
 
     def __init__(self, prefix: str, enum_name: str) -> None:
         self.prefix = prefix
@@ -186,6 +187,9 @@ def resolve_item_model_id(reg_name: str) -> str | None:
     if reg_name.startswith("fire_pit_l_"):
         return f"additional_lights:block/fire_pit_l/{reg_name}"
 
+    if reg_name.startswith("light_fire_for_"):
+        return None
+
     if reg_name.startswith(("fire_for_", "soul_fire_for_")):
         return f"additional_lights:block/fire/{reg_name}"
 
@@ -264,28 +268,24 @@ def generate_blockstate_json(reg_name: str) -> str:
     if reg_name.startswith("standing_torch_s_"):
         normal = f"additional_lights:block/standing_torch_s/{reg_name}"
         soul = f"additional_lights:block/standing_torch_s/{reg_name}_soulfire"
-        light = f"additional_lights:block/standing_torch_s/{reg_name}_light"
-        return _render_json({"variants": _pedestal_light_variants(normal, soul, light)})
+        return _render_json({"variants": _pedestal_fire_variants(normal, soul)})
 
     if reg_name.startswith("standing_torch_l_"):
         normal = f"additional_lights:block/standing_torch_l/{reg_name}"
         soul = f"additional_lights:block/standing_torch_l/{reg_name}_soulfire"
-        light = f"additional_lights:block/standing_torch_l/{reg_name}_light"
-        return _render_json({"variants": _pedestal_light_variants(normal, soul, light)})
+        return _render_json({"variants": _pedestal_fire_variants(normal, soul)})
 
     if reg_name.startswith("fire_pit_s_"):
         normal = f"additional_lights:block/fire_pit_s/{reg_name}"
         soul = f"additional_lights:block/fire_pit_s/{reg_name}_soulfire"
-        light = f"additional_lights:block/fire_pit_s/{reg_name}_light"
-        return _render_json({"variants": _pedestal_light_variants(normal, soul, light)})
+        return _render_json({"variants": _pedestal_fire_variants(normal, soul)})
 
     if reg_name.startswith("fire_pit_l_"):
         normal = f"additional_lights:block/fire_pit_l/{reg_name}"
         soul = f"additional_lights:block/fire_pit_l/{reg_name}_soulfire"
-        light = f"additional_lights:block/fire_pit_l/{reg_name}_light"
-        return _render_json({"variants": _pedestal_light_variants(normal, soul, light)})
+        return _render_json({"variants": _pedestal_fire_variants(normal, soul)})
 
-    if reg_name.startswith(("fire_for_", "soul_fire_for_")):
+    if reg_name.startswith(("fire_for_", "soul_fire_for_", "light_fire_for_")):
         normal = f"additional_lights:block/fire/{reg_name}"
         set_model = f"additional_lights:block/fire/{reg_name}_set"
         return _render_json(
@@ -300,11 +300,11 @@ def generate_blockstate_json(reg_name: str) -> str:
     raise ValueError(f"unknown reg_name pattern: {reg_name}")
 
 
-def _pedestal_light_variants(normal: str, soul: str, light: str) -> Dict[str, Dict[str, str]]:
+def _pedestal_fire_variants(normal: str, soul: str) -> Dict[str, Dict[str, str]]:
     return {
         "firetype=normal": {"model": normal},
         "firetype=soul": {"model": soul},
-        "firetype=light": {"model": light},
+        "firetype=light": {"model": normal},
     }
 
 
@@ -457,10 +457,6 @@ def _standing_torch_parent(base: str, *, size: str) -> str:
     return prefix + "stone"
 
 
-def _standing_torch_light_parent(base: str, *, size: str) -> str:
-    return _standing_torch_parent(base, size=size) + "_light"
-
-
 def _fire_pit_parent(base: str, *, size: str) -> str:
     if size not in {"s", "l"}:
         raise ValueError(f"unknown fire pit size: {size}")
@@ -480,10 +476,6 @@ def _fire_pit_parent(base: str, *, size: str) -> str:
     if base in {"smooth_stone", "iron_block", "gold_block", "diamond_block"}:
         return prefix + "smooth"
     return prefix + "stone"
-
-
-def _fire_pit_light_parent(base: str, *, size: str) -> str:
-    return _fire_pit_parent(base, size=size) + "_light"
 
 
 def generate_block_model_jsons(reg_name: str) -> Dict[Path, str]:
@@ -547,10 +539,6 @@ def generate_block_model_jsons(reg_name: str) -> Dict[Path, str]:
                 parent=f"additional_lights:block/standing_torch_s/{reg_name}",
                 textures={"texture2": "block/soul_sand"},
             ),
-            Path("standing_torch_s") / f"{reg_name}_light.json": _model_json(
-                parent=_standing_torch_light_parent(base, size="s"),
-                textures={"main": _base_block_main_texture(base)},
-            ),
         }
 
     if reg_name.startswith("standing_torch_l_"):
@@ -563,10 +551,6 @@ def generate_block_model_jsons(reg_name: str) -> Dict[Path, str]:
             Path("standing_torch_l") / f"{reg_name}_soulfire.json": _model_json(
                 parent=f"additional_lights:block/standing_torch_l/{reg_name}",
                 textures={"texture2": "block/soul_sand"},
-            ),
-            Path("standing_torch_l") / f"{reg_name}_light.json": _model_json(
-                parent=_standing_torch_light_parent(base, size="l"),
-                textures={"main": _base_block_main_texture(base)},
             ),
         }
 
@@ -581,10 +565,6 @@ def generate_block_model_jsons(reg_name: str) -> Dict[Path, str]:
                 parent=f"additional_lights:block/fire_pit_s/{reg_name}",
                 textures={"texture2": "block/soul_sand"},
             ),
-            Path("fire_pit_s") / f"{reg_name}_light.json": _model_json(
-                parent=_fire_pit_light_parent(base, size="s"),
-                textures={"main": _base_block_main_texture(base)},
-            ),
         }
 
     if reg_name.startswith("fire_pit_l_"):
@@ -598,13 +578,9 @@ def generate_block_model_jsons(reg_name: str) -> Dict[Path, str]:
                 parent=f"additional_lights:block/fire_pit_l/{reg_name}",
                 textures={"texture2": "block/soul_sand"},
             ),
-            Path("fire_pit_l") / f"{reg_name}_light.json": _model_json(
-                parent=_fire_pit_light_parent(base, size="l"),
-                textures={"main": _base_block_main_texture(base)},
-            ),
         }
 
-    if reg_name.startswith(("fire_for_", "soul_fire_for_")):
+    if reg_name.startswith(("fire_for_", "soul_fire_for_", "light_fire_for_")):
         return {}
 
     raise ValueError(f"unknown reg_name pattern: {reg_name}")
@@ -622,7 +598,7 @@ def remove_extraneous_recursive(directory: Path, expected: Set[Path]) -> bool:
 
 
 def base_field_name(reg_name: str) -> str | None:
-    if reg_name.startswith(("fire_for_", "soul_fire_for_")):
+    if reg_name.startswith(("fire_for_", "soul_fire_for_", "light_fire_for_")):
         return None
 
     base = re.sub(r"^al_lamp_", "", reg_name)

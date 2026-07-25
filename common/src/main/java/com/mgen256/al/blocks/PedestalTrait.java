@@ -1,9 +1,11 @@
 package com.mgen256.al.blocks;
 
-public interface PedestalTrait<W, P, S> {
+public interface PedestalTrait<W, P, S> extends LightWandTargetSpec {
     P offsetUp(P pos);
 
     S getBlockState(W world, P pos);
+
+    boolean isClientSide(W world);
 
     boolean setBlockState(W world, P pos, S state);
 
@@ -19,11 +21,13 @@ public interface PedestalTrait<W, P, S> {
 
     boolean isFireSummoned(S state);
 
-    S createFireState(S pedestalState);
+    boolean isLightFireBlock(S state);
 
-    default boolean shouldPlaceFire(S state) {
-        return true;
-    }
+    boolean getLightFireLit(S state);
+
+    S setLightFireLit(S state, boolean value);
+
+    S createFireState(S pedestalState);
 
     boolean getAcceptPower(S state);
 
@@ -46,8 +50,8 @@ public interface PedestalTrait<W, P, S> {
     void updateComparatorOutput(W world, P pos);
 
     default int getComparatorOutput(W world, P pos, S state) {
-        if (isLightFireType(state)) {
-            return getLit(state) ? getActiveComparatorOutput(state) : 0;
+        if (isLightFireType(state) && !getLit(state)) {
+            return 0;
         }
 
         S upperState = getBlockState(world, offsetUp(pos));
@@ -83,31 +87,26 @@ public interface PedestalTrait<W, P, S> {
             state = updateLightLit(world, pos, state, true);
         }
 
+        boolean lightFireChanged = ensureLightFire(world, pos, state);
         P upperPos = offsetUp(pos);
         S upperState = getBlockState(world, upperPos);
         boolean fire = isFireBlock(upperState);
 
-        if (!shouldPlaceFire(state)) {
-            if (fire) {
-                breakBlock(world, upperPos);
-                return true;
-            }
-            return litChanged;
-        }
-
         if (!(isAir(upperState) || isWater(upperState) || fire)) {
-            return litChanged;
+            return litChanged || lightFireChanged;
         }
 
         if (fire && isFireSummoned(upperState)) {
-            return litChanged;
+            return litChanged || lightFireChanged;
         }
 
         if (fire) {
             breakBlock(world, upperPos);
         }
 
-        return setBlockState(world, upperPos, createFireState(state)) || litChanged;
+        return setBlockState(world, upperPos, createFireState(state))
+                || litChanged
+                || lightFireChanged;
     }
 
     default void onIgnited(W world, P pos) {}
@@ -117,18 +116,10 @@ public interface PedestalTrait<W, P, S> {
         S upperState = getBlockState(world, upperPos);
         boolean fire = isFireBlock(upperState);
 
-        if (!shouldPlaceFire(state)) {
-            if (fire) {
-                breakBlock(world, upperPos);
-            }
-            return true;
+        if (replaceOnly && !fire && !isLightFireType(state)) {
+            return false;
         }
-
-        if (replaceOnly) {
-            if (!fire) {
-                return false;
-            }
-        } else if (!(isAir(upperState) || isWater(upperState) || fire)) {
+        if (!(isAir(upperState) || isWater(upperState) || fire)) {
             return false;
         }
 
@@ -146,27 +137,59 @@ public interface PedestalTrait<W, P, S> {
         }
     }
 
+    default boolean ensureLightFire(W world, P pos, S state) {
+        if (!isLightFireType(state)) {
+            return false;
+        }
+
+        P upperPos = offsetUp(pos);
+        S upperState = getBlockState(world, upperPos);
+        if (!isLightFireBlock(upperState) || !isFireSummoned(upperState)) {
+            return igniteFire(world, pos, state, false);
+        }
+
+        boolean expectedLit = getLit(state);
+        if (getLightFireLit(upperState) == expectedLit) {
+            return false;
+        }
+        return setBlockState(world, upperPos, setLightFireLit(upperState, expectedLit));
+    }
+
     default void handleNeighborUpdate(S state, W world, P pos) {
         state = getBlockState(world, pos);
-        if (!getAcceptPower(state)) {
+        if (isClientSide(world) && isLightFireType(state)) {
             return;
         }
 
-        if (hasRedstonePower(world, pos)) {
-            if (getActivated(state)) {
-                return;
-            }
+        boolean hasPower = hasRedstonePower(world, pos);
+        if (!getAcceptPower(state)) {
+            ensureLightFire(world, pos, state);
+            return;
+        }
 
-            if (igniteFire(world, pos, state, false)) {
-                onIgnited(world, pos);
+        if (hasPower) {
+            if (getActivated(state)) {
+                ensureLightFire(world, pos, state);
+                return;
             }
 
             S updatedState = withLightLit(setIsPowered(setActivated(state, true), true), true);
             setBlockState(world, pos, updatedState);
+
+            if (isLightFireType(updatedState)) {
+                ensureLightFire(world, pos, updatedState);
+            } else if (igniteFire(world, pos, updatedState, false)) {
+                onIgnited(world, pos);
+            }
         } else if (getIsPowered(state) && getActivated(state)) {
-            removeFire(world, pos, state);
             S updatedState = withLightLit(setIsPowered(setActivated(state, false), false), false);
+            if (!isLightFireType(state)) {
+                removeFire(world, pos, state);
+            }
             setBlockState(world, pos, updatedState);
+            ensureLightFire(world, pos, updatedState);
+        } else {
+            ensureLightFire(world, pos, state);
         }
     }
 }

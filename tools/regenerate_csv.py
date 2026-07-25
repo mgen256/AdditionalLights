@@ -7,9 +7,8 @@ from .reverse_csv_from_json import main as reverse_main
 
 def main() -> None:
     logger = setup_logging()
-    logger.info("Regenerating CSV from JSON...")
+    logger.info("Creating a CSV review candidate from generated blockstates...")
     reverse_main()
-    logger.info("CSV regeneration completed.")
 
 
 if __name__ == "__main__":

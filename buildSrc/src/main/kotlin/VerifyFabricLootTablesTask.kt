@@ -83,11 +83,13 @@ abstract class VerifyFabricLootTablesTask : DefaultTask() {
         }
 
         return specs.map { spec: BlockSpecDefinition ->
-            val droppedRegistryName: String = if (spec.enumName == "WallTorchSpec") {
+            val droppedRegistryName: String? = if (spec.enumName == "WallTorchSpec") {
                 val floorKey: String = spec.linkedTorchKey
                     ?: throw GradleException("Wall torch ${spec.key} does not declare a floor torch key.")
                 specsByKey[floorKey]?.registryName
                     ?: throw GradleException("Wall torch ${spec.key} references unknown floor torch $floorKey.")
+            } else if (spec.enumName == "LightFireForSpec") {
+                null
             } else {
                 spec.registryName
             }
@@ -145,7 +147,15 @@ abstract class VerifyFabricLootTablesTask : DefaultTask() {
         expectation: LootTableExpectation,
         content: String
     ): Unit {
-        val expectedItemId: String = "${modId.get()}:${expectation.droppedRegistryName}"
+        val droppedRegistryName: String? = expectation.droppedRegistryName
+        if (droppedRegistryName == null) {
+            if (itemEntryPattern.containsMatchIn(content)) {
+                throw GradleException("$path must not drop an item.")
+            }
+            return
+        }
+
+        val expectedItemId: String = "${modId.get()}:$droppedRegistryName"
         if (!itemNamePattern(expectedItemId).containsMatchIn(content)) {
             throw GradleException("$path does not drop $expectedItemId.")
         }
@@ -174,7 +184,7 @@ abstract class VerifyFabricLootTablesTask : DefaultTask() {
 
     private data class LootTableExpectation(
         val registryName: String,
-        val droppedRegistryName: String,
+        val droppedRegistryName: String?,
         val requiresUnsummonedCondition: Boolean
     )
 
@@ -189,6 +199,10 @@ abstract class VerifyFabricLootTablesTask : DefaultTask() {
 
         val survivesExplosionPattern: Regex = Regex(
             """"condition"\s*:\s*"minecraft:survives_explosion""""
+        )
+
+        val itemEntryPattern: Regex = Regex(
+            """"type"\s*:\s*"minecraft:item""""
         )
 
         fun blockStateConditionPattern(blockId: String): Regex = Regex(

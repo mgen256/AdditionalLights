@@ -1,5 +1,8 @@
 # Changelog
 
+## [26.2.0-3.1.2] - 2026-07-25
+- Fixed several issues affecting Light blocks.
+
 ## [26.2.0-3.1.0] - 2026-06-22
 - Update to 26.2.
 - Added de_de translation.

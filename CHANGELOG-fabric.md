@@ -1,5 +1,8 @@
 # Changelog
 
+## [26.2.0-3.1.2] - 2026-07-25
+- Fixed several issues affecting Light blocks.
+
 ## [26.2.0-3.1.1] - 2026-07-15
 - Fixed an issue where mod blocks did not drop in Survival mode.
 

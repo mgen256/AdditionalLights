@@ -6,7 +6,6 @@
     "LightFireBlockBreakBehavior"
   ],
   "client": [
-    "client.CreativeModeInventoryScreenSearchBarBehavior",
     "client.LightFireBlockClientBreakBehavior"
   ],
   "injectors": {

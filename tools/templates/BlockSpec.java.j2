@@ -4,7 +4,9 @@ public sealed interface BlockSpec permits {{ perms | join(', ') }} {
     String key();
     String regName();
     default String getBaseBlockName() {
-        if (regName().startsWith("fire_for") || regName().startsWith("soul_fire_for")) {
+        if (regName().startsWith("fire_for")
+                || regName().startsWith("soul_fire_for")
+                || regName().startsWith("light_fire_for")) {
             return null;
         }
         String base = regName()
@@ -24,7 +26,7 @@ public sealed interface BlockSpec permits {{ perms | join(', ') }} {
 
     default ModItemFactory.ItemType getItemType() {
         String name = regName();
-        if (name.contains("al_wall_torch")) {
+        if (name.contains("al_wall_torch") || name.startsWith("light_fire_for_")) {
             return null;
         }
         if (name.contains("al_torch")) {
@@ -44,7 +46,8 @@ public sealed interface BlockSpec permits {{ perms | join(', ') }} {
 
     default boolean isTranslucent() {
         String name = regName();
-        return name.startsWith("standing_torch_l_")
+        return name.startsWith("light_fire_for_")
+            || name.startsWith("standing_torch_l_")
             || name.startsWith("fire_pit_l_")
             || name.startsWith("fire_pit_s_");
     }

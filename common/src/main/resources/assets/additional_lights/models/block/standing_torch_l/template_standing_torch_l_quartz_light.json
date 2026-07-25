@@ -1,8 +1,0 @@
-{
-	"parent": "additional_lights:block/standing_torch_l/template_standing_torch_l_sandstone_light",
-
-	"textures": {
-		"top": "block/quartz_block_top",
-		"bottom": "block/quartz_block_bottom"
-	}
-}

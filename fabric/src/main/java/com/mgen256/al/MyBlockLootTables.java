@@ -34,6 +34,8 @@ public final class MyBlockLootTables extends FabricBlockLootSubProvider {
             } else if (key instanceof WallTorchSpec wallTorchSpec) {
                 final BlockSpec floorKey = wallTorchSpec.getFloorTorchKey();
                 add(ModBlocks.get(key), createSingleItemTable(ModBlocks.getBlockItem(floorKey)));
+            } else if (key instanceof LightFireForSpec) {
+                add(ModBlocks.get(key), LootTable.lootTable());
             }
         }
     }

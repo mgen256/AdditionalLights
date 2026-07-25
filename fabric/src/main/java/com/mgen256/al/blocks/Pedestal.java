@@ -35,20 +35,12 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.level.redstone.Orientation;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import com.mgen256.al.blocks.PedestalTrait;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
-
 public abstract class Pedestal extends ModBlock
     implements SimpleWaterloggedBlock, FabricFireTrait, PedestalTrait<Level, BlockPos, BlockState> {
-
-    private static final Map<PedestalTypes, java.util.List<VoxelShape>> LIGHT_SHAPE_PARTS =
-        PedestalLightShapeSpec.createShapePartMap(
-            part -> Block.box(part.minX(), part.minY(), part.minZ(), part.maxX(), part.maxY(), part.maxZ()));
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty ACCEPT_POWER = BooleanProperty.create("accept_power");
@@ -56,25 +48,16 @@ public abstract class Pedestal extends ModBlock
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-    private final VoxelShape baseShape;
     protected PedestalSize size;
-    private VoxelShape lightHitboxShape;
 
     private static Properties createProperties(Block mainblock, ResourceKey<Block> key) {
         return Properties.ofFullCopy(mainblock)
-            .lightLevel(Pedestal::getLightLevel)
+            .lightLevel(state -> 0)
             .setId(key);
-    }
-
-    private static int getLightLevel(BlockState state) {
-        return state.getValue(FabricFireTrait.FIRE_TYPE).toCore() == FireTypes.LIGHT && state.getValue(LIT)
-            ? FireTypes.LIGHT.getLuminance()
-            : 0;
     }
 
     protected Pedestal(Block mainblock, ResourceKey<Block> key, VoxelShape shape, PedestalSize size) {
         super(createProperties(mainblock, key), shape, key);
-        this.baseShape = shape;
         this.size = size;
         registerDefaultState(getStateDefinition().any()
             .setValue(WATERLOGGED, false)
@@ -104,6 +87,9 @@ public abstract class Pedestal extends ModBlock
     public BlockState getBlockState(Level world, BlockPos pos) { return world.getBlockState(pos); }
 
     @Override
+    public boolean isClientSide(Level world) { return world.isClientSide(); }
+
+    @Override
     public boolean setBlockState(Level world, BlockPos pos, BlockState state) {
         return world.setBlockAndUpdate(pos, state);
     }
@@ -127,15 +113,28 @@ public abstract class Pedestal extends ModBlock
     public boolean isFireSummoned(BlockState state) { return state.getValue(FireBase.SUMMONED); }
 
     @Override
-    public BlockState createFireState(BlockState pedestalState) {
-        return ModBlocks.get(getFireBlock(pedestalState)).defaultBlockState()
-            .setValue(FireBase.SET, true)
-            .setValue(FireBase.SUMMONED, true);
+    public boolean isLightFireBlock(BlockState state) {
+        return state.getBlock() instanceof Fire_Light;
     }
 
     @Override
-    public boolean shouldPlaceFire(BlockState state) {
-        return state.getValue(FIRE_TYPE).toCore() != FireTypes.LIGHT;
+    public boolean getLightFireLit(BlockState state) {
+        return state.getValue(Fire_Light.LIT);
+    }
+
+    @Override
+    public BlockState setLightFireLit(BlockState state, boolean value) {
+        return state.setValue(Fire_Light.LIT, value);
+    }
+
+    @Override
+    public BlockState createFireState(BlockState pedestalState) {
+        BlockState fireState = ModBlocks.get(getFireBlock(pedestalState)).defaultBlockState()
+            .setValue(FireBase.SET, true)
+            .setValue(FireBase.SUMMONED, true);
+        return fireState.getBlock() instanceof Fire_Light
+                ? setLightFireLit(fireState, getLit(pedestalState))
+                : fireState;
     }
 
     @Override
@@ -185,31 +184,6 @@ public abstract class Pedestal extends ModBlock
     @Override
     public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
         return true;
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return resolveActiveShape(state);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
-        return resolveActiveShape(state);
-    }
-
-    private VoxelShape resolveActiveShape(BlockState state) {
-        if (state.getValue(FIRE_TYPE).toCore() != FireTypes.LIGHT) {
-            return baseShape;
-        }
-
-        if (lightHitboxShape == null) {
-            VoxelShape mergedShape = baseShape;
-            for (VoxelShape part : LIGHT_SHAPE_PARTS.get(getType())) {
-                mergedShape = Shapes.or(mergedShape, part);
-            }
-            lightHitboxShape = mergedShape;
-        }
-        return lightHitboxShape;
     }
 
     @Override
@@ -271,7 +245,9 @@ public abstract class Pedestal extends ModBlock
         }
 
         if (placer.isShiftKeyDown()) {
-            world.setBlockAndUpdate(pos, withLightLit(state.setValue(ACCEPT_POWER, false), false));
+            state = withLightLit(state.setValue(ACCEPT_POWER, false), false);
+            world.setBlockAndUpdate(pos, state);
+            ensureLightFire(world, pos, state);
         } else {
             state = withLightLit(state, true);
             world.setBlockAndUpdate(pos, state);
