@@ -52,7 +52,7 @@ public abstract class Pedestal extends ModBlock
     protected PedestalSize size;
 
     private static BlockBehaviour.Properties createProps(Block mainblock, String name) {
-        return mainblock.properties()
+        return BlockBehaviour.Properties.ofFullCopy(mainblock)
             .lightLevel(state -> 0)
             .setId(AdditionalLightsNeoForge.createResourceKey(name));
     }

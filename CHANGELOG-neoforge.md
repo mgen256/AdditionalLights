@@ -1,5 +1,8 @@
 # Changelog
 
+## [26.2.0-3.1.3] - 2026-07-29
+- Updated Pedestal block property handling to avoid mutating vanilla block properties and causing startup crashes with other mods.
+
 ## [26.2.0-3.1.2] - 2026-07-25
 - Fixed several issues affecting Light blocks.
 
