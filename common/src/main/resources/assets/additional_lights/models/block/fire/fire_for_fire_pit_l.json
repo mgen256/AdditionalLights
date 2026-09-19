@@ -6,7 +6,7 @@
 			"from": [ 0.9289, -2, 8 ],
 			"to": [ 14.9289, 7, 8.001 ],
 			"rotation": { "origin": [ 8, 1, 8 ], "axis": "y", "angle": 45, "rescale": true },
-			"shade": false,
+			"shade_direction_override": "up",
 			"faces": {
 				"north": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" },
 				"south": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" }
@@ -16,7 +16,7 @@
 			"from": [ 0.9289, -2, 8 ],
 			"to": [ 14.9289, 7, 8.001 ],
 			"rotation": { "origin": [ 8, 1, 8 ], "axis": "y", "angle": -45, "rescale": true },
-			"shade": false,
+			"shade_direction_override": "up",
 			"faces": {
 				"north": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" },
 				"south": { "uv": [ 3, 0, 13, 9 ], "texture": "#fire" }

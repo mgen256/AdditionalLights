@@ -41,12 +41,10 @@ public abstract class ModBlock extends Block implements ModBlockSpec {
     public String getRegName() {
         return core.getRegName();
     }
-    
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         return core.getShape();
     }
-    
     @Override
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -56,7 +54,10 @@ public abstract class ModBlock extends Block implements ModBlockSpec {
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 
         List<ItemStack> list = new ArrayList<>();
-        list.add(new ItemStack(AdditionalLightsNeoForge.getBlockItem(myKey)));
+        var item = AdditionalLightsNeoForge.getBlockItem(myKey);
+        if (item != null) {
+            list.add(new ItemStack(item));
+        }
 
         return list;
     }

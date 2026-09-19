@@ -647,6 +647,26 @@ def parse_args(argv: Optional[list[str]] | None = None) -> argparse.Namespace:
     return parser.parse_args(argv)
 
 
+def generate_physics_tags(defs: Iterable[Tuple[str, str, bool]]) -> Dict[Path, str]:
+    definitions = list(defs)
+    families = {
+        "washed_away_by_fluids": (
+            "al_torch_", "al_wall_torch_", "fire_for_", "soul_fire_for_", "light_fire_for_",
+        ),
+        "blocks_motion_no_leaves": ("standing_torch_l_", "fire_pit_s_", "fire_pit_l_"),
+    }
+    return {
+        Path("data/minecraft/tags/block") / f"{name}.json": _render_json({
+            "replace": False,
+            "values": [
+                f"additional_lights:{reg_name}"
+                for _, reg_name, _ in definitions if reg_name.startswith(prefixes)
+            ],
+        })
+        for name, prefixes in families.items()
+    }
+
+
 def main(*, check_only: bool = False, gen_dir: Path | None = None) -> None:
 
     gen_root = gen_dir or DEFAULT_GEN_ROOT
@@ -659,6 +679,10 @@ def main(*, check_only: bool = False, gen_dir: Path | None = None) -> None:
     defs = list(read_definitions(CSV_PATH))
     groups = categorize(defs)
     validate_torch_pairs(groups)
+    physics_tags = {
+        gen_root / "resources" / relative_path: text
+        for relative_path, text in generate_physics_tags(defs).items()
+    }
 
     sources: Dict[Path, str] = {}
     interface_code = generate_interface(groups.keys())
@@ -672,6 +696,11 @@ def main(*, check_only: bool = False, gen_dir: Path | None = None) -> None:
 
     if check_only:
         ok = True
+        for path, text in physics_tags.items():
+            old = path.read_text(encoding="utf-8") if path.exists() else ""
+            if old != text:
+                diff_text(old, text, path=path)
+                ok = False
         for path, code in sources.items():
             if path.exists():
                 old = path.read_text(encoding="utf-8")
@@ -754,6 +783,8 @@ def main(*, check_only: bool = False, gen_dir: Path | None = None) -> None:
     model_out.mkdir(parents=True, exist_ok=True)
 
     changed = False
+    for path, text in physics_tags.items():
+        changed |= write_if_changed(path, text)
     for path, code in sources.items():
         changed |= write_if_changed(path, code)
 

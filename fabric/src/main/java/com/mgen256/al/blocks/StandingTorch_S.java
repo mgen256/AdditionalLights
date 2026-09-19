@@ -20,7 +20,6 @@ public class StandingTorch_S extends StandingTorchBase implements StandingTorchS
     private static final VoxelShape PART_UPPER = Block.box(
         UPPER_BOX[0], UPPER_BOX[1], UPPER_BOX[2], UPPER_BOX[3], UPPER_BOX[4], UPPER_BOX[5]);
 
-  
     public StandingTorch_S( Block mainblock, ResourceKey<Block> key ) {
       super( mainblock, key, Shapes.or( PART_LOWER, PART_MID, PART_UPPER ), PedestalSize.S );
     }
@@ -28,7 +27,6 @@ public class StandingTorch_S extends StandingTorchBase implements StandingTorchS
 
     @Override
     public PedestalTypes getType(){ return StandingTorchSSpec.super.getType(); }
-    
 
     @Override
     protected BlockSpec getFireBlock( BlockState state ) {

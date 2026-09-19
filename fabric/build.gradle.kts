@@ -7,6 +7,7 @@ import com.mgen256.conventions.VerifyFabricLootTablesTask
 import org.gradle.language.base.plugins.LifecycleBasePlugin
 
 val fabricModId: String = project.property("mod_id").toString()
+val developmentRunDirectory: String = "run-dev-${libs.versions.minecraft.get()}"
 
 loom {
     mods {
@@ -17,7 +18,7 @@ loom {
     }
 
     runConfigs.configureEach {
-        runDir = "run-dev"
+        runDir = developmentRunDirectory
     }
 }
 

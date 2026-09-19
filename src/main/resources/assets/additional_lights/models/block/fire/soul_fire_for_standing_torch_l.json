@@ -1,7 +1,0 @@
-{
-    "parent": "additional_lights:block/fire/fire_for_standing_torch_l",
-	"textures": {
-		"fire": "block/soul_campfire_fire",
-		"particle": "#fire"
-	}
-}

@@ -7,7 +7,8 @@
   ],
   "client": [
     "client.CreativeModeInventoryScreenSearchBarBehavior",
-    "client.LightFireBlockClientBreakBehavior"
+    "client.LightFireBlockClientBreakBehavior",
+    "client.LightFireBlockHitSoundBehavior"
   ],
   "injectors": {
     "defaultRequire": 1

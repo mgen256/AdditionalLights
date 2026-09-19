@@ -54,12 +54,10 @@ public class ALTorch_Wall extends WallTorchBlock implements ModBlockSpec, NeoFor
     private BlockSpec floorKey;
     private BlockSpec myKey;
     private String name;
-    
     @Override
     public void setMyKey(BlockSpec key) {
         myKey = key;
     }
- 
     @Override
     public String getRegName() {
         return name;
@@ -71,7 +69,6 @@ public class ALTorch_Wall extends WallTorchBlock implements ModBlockSpec, NeoFor
         builder.add(FIRE_TYPE);
         builder.add(PREVIOUS_FIRE_TYPE);
     }
-    
     @Override
     public int getLightEmission(BlockState state, BlockGetter world, BlockPos pos) {
         return state.getValue(FIRE_TYPE).toCore().getLuminance();
@@ -81,7 +78,6 @@ public class ALTorch_Wall extends WallTorchBlock implements ModBlockSpec, NeoFor
     public VoxelShape getShape(BlockState p_58152_, BlockGetter p_58153_, BlockPos p_58154_, CollisionContext p_58155_) {
         return core.getShape(p_58152_.getValue(FACING));
     }
- 
     @Override
     public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
         var fireType = stateIn.getValue(FIRE_TYPE).toCore();
@@ -93,27 +89,22 @@ public class ALTorch_Wall extends WallTorchBlock implements ModBlockSpec, NeoFor
         double dx = pos.getX() + 0.5D;
         double dy = pos.getY() + 0.9D;
         double dz = pos.getZ() + 0.5D;
-  
         Direction direction1 = direction.getOpposite();
         double d3 = 0.38D;
         level.addParticle(ParticleTypes.SMOKE, dx + d3 * direction1.getStepX(), dy, dz + d3 * direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
 
         ParticleOptions particleOption;
         particleOption = fireType == FireTypes.SOUL ? ParticleTypes.SOUL_FIRE_FLAME : ParticleTypes.FLAME;
-            
         level.addParticle(particleOption, dx + d3 * direction1.getStepX(), dy, dz + d3 * direction1.getStepZ(), 0.0D, 0.0D, 0.0D);
        }
 
-    
     @Override
     public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-    
         List<ItemStack> list = new ArrayList<>();
         list.add(new ItemStack(AdditionalLightsNeoForge.getBlockItem(floorKey)));
 
         return list;
     }
-    
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (placer == null) {

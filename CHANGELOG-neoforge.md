@@ -1,5 +1,8 @@
 # Changelog
 
+## [26.3-3.1.3] - 2026-09-17
+- Update to 26.3.
+
 ## [26.2.0-3.1.3] - 2026-07-29
 - Updated Pedestal block property handling to avoid mutating vanilla block properties and causing startup crashes with other mods.
 

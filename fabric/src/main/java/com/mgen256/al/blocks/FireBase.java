@@ -104,7 +104,6 @@ public abstract class FireBase extends Block
     public VoxelShape getShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext context) {
         return FireBaseCore.super.getOutlineShape(state, world, pos, context);
     }
-    
     @Environment(EnvType.CLIENT)
     @Override
     public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {

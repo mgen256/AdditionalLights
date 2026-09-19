@@ -2,25 +2,28 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        },
-        {
-          "block": "additional_lights:soul_fire_for_fire_pit_s",
-          "condition": "minecraft:block_state_property",
-          "properties": {
-            "summoned": "false"
+      "condition": {
+        "type": "minecraft:all_of",
+        "terms": [
+          {
+            "type": "minecraft:survives_explosion"
+          },
+          {
+            "type": "minecraft:match_block",
+            "blocks": "additional_lights:soul_fire_for_fire_pit_s",
+            "state": {
+              "summoned": "false"
+            }
           }
-        }
-      ],
+        ]
+      },
       "entries": [
         {
           "type": "minecraft:item",
           "name": "additional_lights:soul_fire_for_fire_pit_s"
         }
       ],
-      "rolls": 1.0
+      "rolls": 1
     }
   ]
 }

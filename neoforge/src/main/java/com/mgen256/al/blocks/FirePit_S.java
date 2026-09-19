@@ -24,7 +24,6 @@ public class FirePit_S extends FirePitBase implements FirePitSSpec {
         super(  mainblock, name, Shapes.or( PART_LOWER, PART_UPPER ), PedestalSize.S );
     }
 
-    
     @Override
     public PedestalTypes getType(){ return FirePitSSpec.super.getType(); }
 

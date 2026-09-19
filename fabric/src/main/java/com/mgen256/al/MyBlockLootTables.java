@@ -10,8 +10,8 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.predicates.MatchBlock;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public final class MyBlockLootTables extends FabricBlockLootSubProvider {
     public MyBlockLootTables(
@@ -45,17 +45,15 @@ public final class MyBlockLootTables extends FabricBlockLootSubProvider {
                 LootTable.lootTable()
                         .withPool(
                                 LootPool.lootPool()
-                                        .setRolls(ConstantValue.exactly(1))
+                                        .setRolls(ContextIntProviders.exactly(1))
                                         .when(ExplosionCondition.survivesExplosion())
                                         .when(
-                                                LootItemBlockStatePropertyCondition
-                                                        .hasBlockStateProperties(ModBlocks.get(key))
-                                                        .setProperties(
-                                                                StatePropertiesPredicate.Builder
-                                                                        .properties()
-                                                                        .hasProperty(
-                                                                                FireBase.SUMMONED,
-                                                                                false)))
+                                                MatchBlock.blockMatches(
+                                                        this.blocks,
+                                                        ModBlocks.get(key),
+                                                        StatePropertiesPredicate.Builder
+                                                                .properties()
+                                                                .hasProperty(FireBase.SUMMONED, false)))
                                         .add(LootItem.lootTableItem(ModBlocks.getBlockItem(key))));
 
         this.add(ModBlocks.get(key), builder);

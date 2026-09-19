@@ -104,7 +104,6 @@ public class AdditionalLightsNeoForge {
 
         LOG_PROVIDER.log("construct AdditionalLightsNeoForge complete");
     }
-     
     private void commonSetup(final FMLCommonSetupEvent event) {
         ModBlocks.initAll();
     }
@@ -128,7 +127,6 @@ public class AdditionalLightsNeoForge {
     {
         return CORE.getSound(key).get();
     }
-            
     static public ResourceKey<Block> createResourceKey(String name) {
         return ResourceKey.create(
                 BuiltInRegistries.BLOCK.key(),

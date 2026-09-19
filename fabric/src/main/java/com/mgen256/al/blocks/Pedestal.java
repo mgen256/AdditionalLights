@@ -69,14 +69,12 @@ public abstract class Pedestal extends ModBlock
             .setValue(LIT, false)
         );
 
-        if (ignitionSound == null) {
-            ignitionSound = size == PedestalSize.L
-                ? AdditionalLightsFabric.getSound(ModSoundList.Fire_Ignition_L)
-                : AdditionalLightsFabric.getSound(ModSoundList.Fire_Ignition_S);
-        }
+        ignitionSound = size == PedestalSize.L
+            ? AdditionalLightsFabric.getSound(ModSoundList.Fire_Ignition_L)
+            : AdditionalLightsFabric.getSound(ModSoundList.Fire_Ignition_S);
     }
 
-    private static SoundEvent ignitionSound;
+    private final SoundEvent ignitionSound;
     protected abstract BlockSpec getFireBlock(BlockState state);
     public abstract PedestalTypes getType();
 
@@ -182,8 +180,8 @@ public abstract class Pedestal extends ModBlock
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable LivingEntity filler, BlockGetter world, BlockPos pos, BlockState state, Fluid fluid) {
-        return true;
+    protected boolean canBeReplaced(BlockState state, Fluid fluid) {
+        return false;
     }
 
     @Override
@@ -202,7 +200,6 @@ public abstract class Pedestal extends ModBlock
         playIgnitionSound(world, player, state.getBlock(), pos);
         return InteractionResult.SUCCESS;
     }
-    
     @Override
     protected InteractionResult useItemOn(ItemStack stack, BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
         if (stack.getItem() instanceof Wand)
@@ -218,7 +215,7 @@ public abstract class Pedestal extends ModBlock
         return InteractionResult.TRY_WITH_EMPTY_HAND;
     }
 
-    private static void playIgnitionSound(Level world, Player player, Block block, BlockPos pos) {
+    private void playIgnitionSound(Level world, Player player, Block block, BlockPos pos) {
         float volume = block instanceof FirePitBase ? 2.0f : 1.5f;
         world.playSound(player, pos, ignitionSound, SoundSource.BLOCKS, volume, 1.0f);
     }

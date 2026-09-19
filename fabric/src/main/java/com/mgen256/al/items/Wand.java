@@ -29,7 +29,6 @@ public abstract class Wand extends ModItem implements WandTrait {
     }
 
 
-    
     protected void playSound(Level world, Player player, SoundEvent sound, float volume) {
         world.playSound(player, player.blockPosition(), sound, SoundSource.PLAYERS, volume, 1.0f);
     }

@@ -28,7 +28,6 @@ public abstract class Wand extends ModItem implements WandTrait {
     };
 
     private static final WandCore<Component> CORE = new WandCore<>();
-    
     protected Wand( Properties props, String name ) {
         super( props, name );
     }
@@ -36,7 +35,7 @@ public abstract class Wand extends ModItem implements WandTrait {
 
     protected static class SoundEvents
     {
-        static 
+        static
         {
             CHANGE = AdditionalLightsNeoForge.getSound( ModSoundList.Change );
             UNDO = AdditionalLightsNeoForge.getSound( ModSoundList.Undo );
@@ -51,7 +50,6 @@ public abstract class Wand extends ModItem implements WandTrait {
     {
         level.playSound( player, player.blockPosition(), sound, SoundSource.PLAYERS, volume, 1.0f );
     }
-    
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, TooltipDisplay display, Consumer<Component> consumer, TooltipFlag flag) {
         CORE.appendTooltip(this, ShiftKeyBehavior.isShiftDown(), consumer, TRANSLATOR);

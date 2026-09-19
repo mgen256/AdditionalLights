@@ -20,14 +20,18 @@ val active_platform: String = (
         ?: project.findProperty("loom.platform")
         ?: "fabric"
 ).toString()
-val releaseBuildTaskNames = setOf(
-    "buildReleaseFabric",
-    "buildReleaseNeoforge",
-    "buildReleaseAll"
+val releaseBuildTaskPaths = setOf(
+    ":buildReleaseFabric",
+    ":buildReleaseNeoforge",
+    ":buildReleaseAll"
 )
-val releaseBuildRequested = gradle.startParameter.taskNames
-    .map { it.substringAfterLast(':') }
-    .any { it in releaseBuildTaskNames }
+gradle.taskGraph.whenReady {
+    if (allTasks.any { it.path in releaseBuildTaskPaths }) {
+        allTasks.filterIsInstance<JavaCompile>().forEach {
+            it.options.isDebug = false
+        }
+    }
+}
 
 val generatedNeoRes = layout.buildDirectory.dir("generated/neoforge")
 val generatedFabricRes = layout.buildDirectory.dir("generated/fabric")
@@ -76,9 +80,6 @@ allprojects {
 
     tasks.withType<JavaCompile>().configureEach {
         dependsOn(rootProject.tasks.named("generateBlockData"))
-        if (releaseBuildRequested) {
-            options.isDebug = false
-        }
     }
 
 }
@@ -251,6 +252,12 @@ val neoforgeReleaseBuild = tasks.register("buildReleaseNeoforge") {
 
 neoforgeReleaseBuild.configure {
     mustRunAfter(fabricReleaseBuild)
+}
+
+project(":neoforge").tasks.configureEach {
+    if (this !is Delete) {
+        mustRunAfter(fabricReleaseBuild)
+    }
 }
 
 tasks.register("buildReleaseAll") {

@@ -33,6 +33,7 @@ open class AbstractJavaPlugin(
 
             target.tasks.withType(Jar::class.java).configureEach {
                 duplicatesStrategy = DuplicatesStrategy.FAIL
+                exclude("**/.cache/**")
             }
 
             val verifyTask = target.tasks.register<VerifyDuplicateResourcesTask>("verifyDuplicateResources")

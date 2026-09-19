@@ -37,7 +37,6 @@ import com.mgen256.al.blocks.ALLampCore;
 public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSpec {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    
     private static final ALLampCore.ShapeFactory<VoxelShape> SHAPE_FACTORY = box ->
         Block.box(box[0], box[1], box[2], box[3], box[4], box[5]);
 
@@ -47,7 +46,7 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
         return BlockBehaviour.Properties.of()
             .sound( mainblock.defaultBlockState().getSoundType() )
             .mapColor( MapColor.NONE )
-            .pushReaction( PushReaction.NORMAL )
+            .pushReaction( PushReaction.PUSH_PULL )
             .instabreak()
             .lightLevel( lightLevel -> LUMINANCE )
             .noCollision()
@@ -109,12 +108,10 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
             protected boolean isSameBlock(BlockState state) { return state.getBlock() == ALLamp.this; }
         };
     }
-      
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
-    
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -131,7 +128,6 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
     public RenderShape getRenderShape( BlockState state ) {
         return RenderShape.MODEL;
     }
-    
     @Override
     public boolean canPlaceLiquid(@Nullable LivingEntity p_393688_, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
         return true;
@@ -144,16 +140,16 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
 
     @Override
     public BlockState updateShape(
-        BlockState stateIn, 
-        LevelReader level, 
-        ScheduledTickAccess sta, 
-        BlockPos currentPos, 
-        Direction facing, 
+        BlockState stateIn,
+        LevelReader level,
+        ScheduledTickAccess sta,
+        BlockPos currentPos,
+        Direction facing,
         BlockPos facingPos,
-        BlockState facingState, 
+        BlockState facingState,
         RandomSource randomSource
         ) {
-        return facing == stateIn.getValue(BlockStateProperties.FACING).getOpposite() 
+        return facing == stateIn.getValue(BlockStateProperties.FACING).getOpposite()
             && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 

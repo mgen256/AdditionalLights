@@ -198,7 +198,7 @@ abstract class VerifyFabricLootTablesTask : DefaultTask() {
         )
 
         val survivesExplosionPattern: Regex = Regex(
-            """"condition"\s*:\s*"minecraft:survives_explosion""""
+            """"type"\s*:\s*"minecraft:survives_explosion""""
         )
 
         val itemEntryPattern: Regex = Regex(
@@ -206,7 +206,7 @@ abstract class VerifyFabricLootTablesTask : DefaultTask() {
         )
 
         fun blockStateConditionPattern(blockId: String): Regex = Regex(
-            """"block"\s*:\s*"${Regex.escape(blockId)}"(?s:.*?)"condition"\s*:\s*"minecraft:block_state_property"(?s:.*?)"summoned"\s*:\s*"false""""
+            """"type"\s*:\s*"minecraft:match_block"\s*,\s*"blocks"\s*:\s*"${Regex.escape(blockId)}"\s*,\s*"state"\s*:\s*\{\s*"summoned"\s*:\s*"false"\s*}"""
         )
 
         fun itemNamePattern(itemId: String): Regex = Regex(
