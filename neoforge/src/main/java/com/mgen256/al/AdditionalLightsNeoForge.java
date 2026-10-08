@@ -61,7 +61,8 @@ public class AdditionalLightsNeoForge {
 
 
     public AdditionalLightsNeoForge(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, AdditionalLightsConfig.SPEC);
+        modContainer.registerConfig(
+                ModConfig.Type.LOCAL, AdditionalLightsConfig.SPEC, AdditionalLightsConfig.FILE_NAME);
         LOG_PROVIDER.log("construct AdditionalLightsNeoForge");
         modEventBus.addListener(this::commonSetup);
         if (FMLEnvironment.getDist() == Dist.CLIENT) {

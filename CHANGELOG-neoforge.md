@@ -1,5 +1,9 @@
 # Changelog
 
+## [26.3-3.1.4] - 2026-10-08
+- Update config registration for compatibility with NeoForge 26.3.0.37-beta and newer.
+- Keep the existing additional_lights-common.toml filename to preserve saved settings.
+
 ## [26.3-3.1.3] - 2026-09-17
 - Update to 26.3.
 
