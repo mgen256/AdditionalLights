@@ -44,7 +44,8 @@ public class ModBlocks {
                 (base, n) -> new FirePit_S(base, n),
                 (base, n) -> new FirePit_L(base, n),
                 (type, n) -> new Fire(type, n),
-                (type, n) -> new Fire_Soul(type, n)
+                (type, n) -> new Fire_Soul(type, n),
+                (type, n) -> new Fire_Light(type, n)
         );
     }
 

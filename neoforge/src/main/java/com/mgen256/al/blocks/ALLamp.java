@@ -6,7 +6,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
@@ -14,7 +13,6 @@ import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelReader;
@@ -37,7 +35,6 @@ import com.mgen256.al.blocks.ALLampCore;
 public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSpec {
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    
     private static final ALLampCore.ShapeFactory<VoxelShape> SHAPE_FACTORY = box ->
         Block.box(box[0], box[1], box[2], box[3], box[4], box[5]);
 
@@ -109,12 +106,10 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
             protected boolean isSameBlock(BlockState state) { return state.getBlock() == ALLamp.this; }
         };
     }
-      
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING, BlockStateProperties.WATERLOGGED);
     }
-    
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -131,12 +126,6 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
     public RenderShape getRenderShape( BlockState state ) {
         return RenderShape.MODEL;
     }
-    
-    @Override
-    public boolean canPlaceLiquid(@Nullable LivingEntity p_393688_, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
-        return true;
-    }
-
     @Override
     public FluidState getFluidState(BlockState state) {
         return state.getValue(BlockStateProperties.WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
@@ -144,16 +133,16 @@ public class ALLamp extends ModBlock implements SimpleWaterloggedBlock, ALLampSp
 
     @Override
     public BlockState updateShape(
-        BlockState stateIn, 
-        LevelReader level, 
-        ScheduledTickAccess sta, 
-        BlockPos currentPos, 
-        Direction facing, 
+        BlockState stateIn,
+        LevelReader level,
+        ScheduledTickAccess sta,
+        BlockPos currentPos,
+        Direction facing,
         BlockPos facingPos,
-        BlockState facingState, 
+        BlockState facingState,
         RandomSource randomSource
         ) {
-        return facing == stateIn.getValue(BlockStateProperties.FACING).getOpposite() 
+        return facing == stateIn.getValue(BlockStateProperties.FACING).getOpposite()
             && !stateIn.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
     }
 

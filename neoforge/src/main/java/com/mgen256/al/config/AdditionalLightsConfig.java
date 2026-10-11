@@ -1,8 +1,11 @@
 package com.mgen256.al.config;
 
+import com.mgen256.al.CommonConstants;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public final class AdditionalLightsConfig {
+    public static final String FILE_NAME = CommonConstants.MOD_ID + "-common.toml";
+
     public static final ModConfigSpec SPEC;
 
     public static final ModConfigSpec.BooleanValue ENABLE_FIRE_CRAFTING;

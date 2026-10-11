@@ -61,7 +61,8 @@ public class AdditionalLightsNeoForge {
 
 
     public AdditionalLightsNeoForge(IEventBus modEventBus, ModContainer modContainer) {
-        modContainer.registerConfig(ModConfig.Type.COMMON, AdditionalLightsConfig.SPEC);
+        modContainer.registerConfig(
+                ModConfig.Type.COMMON, AdditionalLightsConfig.SPEC, AdditionalLightsConfig.FILE_NAME);
         LOG_PROVIDER.log("construct AdditionalLightsNeoForge");
         modEventBus.addListener(this::commonSetup);
         if (FMLEnvironment.getDist() == Dist.CLIENT) {
@@ -104,7 +105,6 @@ public class AdditionalLightsNeoForge {
 
         LOG_PROVIDER.log("construct AdditionalLightsNeoForge complete");
     }
-     
     private void commonSetup(final FMLCommonSetupEvent event) {
         ModBlocks.initAll();
     }
@@ -128,7 +128,6 @@ public class AdditionalLightsNeoForge {
     {
         return CORE.getSound(key).get();
     }
-            
     static public ResourceKey<Block> createResourceKey(String name) {
         return ResourceKey.create(
                 BuiltInRegistries.BLOCK.key(),

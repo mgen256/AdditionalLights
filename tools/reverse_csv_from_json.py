@@ -3,10 +3,29 @@ from __future__ import annotations
 
 import csv
 from pathlib import Path
+from tempfile import NamedTemporaryFile
+
+from .common import read_csv_rows, write_csv_rows
 
 ROOT = Path(__file__).resolve().parents[1]
-BLOCKSTATE_DIR = ROOT / "core" / "src" / "main" / "resources" / "assets" / "additional_lights" / "blockstates"
+BLOCKSTATE_DIR = (
+    ROOT
+    / "build"
+    / "generated"
+    / "datagen"
+    / "resources"
+    / "assets"
+    / "additional_lights"
+    / "blockstates"
+)
 CSV_PATH = ROOT / "tools" / "block_definitions.csv"
+OUTPUT_PATH = (
+    ROOT
+    / "build"
+    / "reports"
+    / "datagen"
+    / "block_definitions.from_json.csv"
+)
 
 
 SPECIAL = {
@@ -94,23 +113,122 @@ def reg_to_key(reg: str) -> str:
         return "SoulFire_For_FirePit_S"
     if reg == "soul_fire_for_fire_pit_l":
         return "SoulFire_For_FirePit_L"
+    if reg == "light_fire_for_standing_torch_s":
+        return "LightFire_For_StandingTorch_S"
+    if reg == "light_fire_for_standing_torch_l":
+        return "LightFire_For_StandingTorch_L"
+    if reg == "light_fire_for_fire_pit_s":
+        return "LightFire_For_FirePit_S"
+    if reg == "light_fire_for_fire_pit_l":
+        return "LightFire_For_FirePit_L"
     raise ValueError(f"Unknown registry name: {reg}")
 
 
-def collect_reg_names() -> list[str]:
-    regs: list[str] = []
-    for p in BLOCKSTATE_DIR.glob("*.json"):
-        regs.append(p.stem)
+def collect_reg_names(blockstate_dir: Path = BLOCKSTATE_DIR) -> list[str]:
+    if not blockstate_dir.is_dir():
+        raise FileNotFoundError(
+            f"Generated blockstate directory does not exist: {blockstate_dir}. "
+            "Run './gradlew generateBlockData' first."
+        )
+
+    regs = sorted(path.stem for path in blockstate_dir.glob("*.json"))
+    if not regs:
+        raise ValueError(f"No blockstate JSON files found in {blockstate_dir}.")
+
     return regs
 
 
-def main() -> None:
-    regs = collect_reg_names()
-    rows = [(reg_to_key(r), r) for r in regs]
-    with CSV_PATH.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(["key", "reg_name"])
-        writer.writerows(rows)
+def load_cutout_metadata(csv_path: Path = CSV_PATH) -> dict[str, bool]:
+    if not csv_path.is_file():
+        raise FileNotFoundError(
+            f"Canonical CSV does not exist: {csv_path}. "
+            "The cutout column cannot be recovered from blockstate JSON."
+        )
+
+    with csv_path.open("r", encoding="utf-8", newline="") as csv_file:
+        fieldnames = csv.DictReader(csv_file).fieldnames
+    if fieldnames != ["key", "reg_name", "cutout"]:
+        raise ValueError(
+            f"Unexpected CSV schema in {csv_path}: {fieldnames}. "
+            "Expected key, reg_name, cutout."
+        )
+
+    rows = read_csv_rows(csv_path)
+    if not rows:
+        raise ValueError(f"Canonical CSV contains no block definitions: {csv_path}.")
+
+    cutout_by_reg: dict[str, bool] = {}
+    for _key, reg_name, cutout in rows:
+        if reg_name in cutout_by_reg:
+            raise ValueError(f"Duplicate registry name in {csv_path}: {reg_name}.")
+        cutout_by_reg[reg_name] = cutout
+    return cutout_by_reg
+
+
+def build_rows(
+    reg_names: list[str],
+    cutout_by_reg: dict[str, bool],
+) -> list[tuple[str, str, bool]]:
+    generated_names = set(reg_names)
+    canonical_names = set(cutout_by_reg)
+    missing_metadata = generated_names - canonical_names
+    missing_blockstates = canonical_names - generated_names
+    if missing_metadata or missing_blockstates:
+        details: list[str] = []
+        if missing_metadata:
+            details.append(f"missing cutout metadata={sorted(missing_metadata)}")
+        if missing_blockstates:
+            details.append(f"missing generated blockstates={sorted(missing_blockstates)}")
+        raise ValueError(
+            "Generated blockstates and canonical CSV do not describe the same registrations: "
+            + "; ".join(details)
+        )
+
+    return [
+        (reg_to_key(reg_name), reg_name, cutout)
+        for reg_name, cutout in cutout_by_reg.items()
+    ]
+
+
+def write_rows_atomically(
+    output_path: Path,
+    rows: list[tuple[str, str, bool]],
+) -> None:
+    with NamedTemporaryFile(
+        prefix=f"{output_path.name}.",
+        suffix=".tmp",
+        dir=output_path.parent,
+        delete=False,
+    ) as temporary_file:
+        temporary_path = Path(temporary_file.name)
+
+    try:
+        write_csv_rows(temporary_path, rows)
+        temporary_path.replace(output_path)
+    finally:
+        temporary_path.unlink(missing_ok=True)
+
+
+def main(
+    *,
+    blockstate_dir: Path = BLOCKSTATE_DIR,
+    csv_path: Path = CSV_PATH,
+    output_path: Path = OUTPUT_PATH,
+) -> int:
+    if output_path.resolve() == csv_path.resolve():
+        raise ValueError(
+            "The review output must not overwrite the canonical block_definitions.csv."
+        )
+
+    reg_names = collect_reg_names(blockstate_dir)
+    rows = build_rows(reg_names, load_cutout_metadata(csv_path))
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    write_rows_atomically(output_path, rows)
+    print(
+        f"CSV review candidate created: rows={len(rows)}, "
+        f"source={blockstate_dir}, canonical={csv_path}, output={output_path}"
+    )
+    return len(rows)
 
 
 if __name__ == "__main__":

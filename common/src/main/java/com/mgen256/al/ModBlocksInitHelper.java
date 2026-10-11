@@ -12,6 +12,7 @@ import com.mgen256.al.StandingTorchLSpec;
 import com.mgen256.al.FirePitSSpec;
 import com.mgen256.al.FirePitLSpec;
 import com.mgen256.al.VanillaBlockMap;
+import com.mgen256.al.blocks.PedestalFireSpec;
 
 public final class ModBlocksInitHelper {
 
@@ -29,7 +30,8 @@ public final class ModBlocksInitHelper {
             BiFunction<B, K, B> firePitSFactory,
             BiFunction<B, K, B> firePitLFactory,
             BiFunction<PedestalTypes, K, B> fireFactory,
-            BiFunction<PedestalTypes, K, B> soulFireFactory) {
+            BiFunction<PedestalTypes, K, B> soulFireFactory,
+            BiFunction<PedestalTypes, K, B> lightFireFactory) {
 
         for (var key : ModBlockList.values()) {
             String baseName = VanillaBlockMap.REG_TO_BLOCK_FIELD.get(key.regName());
@@ -53,21 +55,28 @@ public final class ModBlocksInitHelper {
                 factories.put(key, k -> firePitLFactory.apply(base, k));
             }
         }
-        factories.put(FireForSpec.Fire_For_StandingTorch_S,
-                k -> fireFactory.apply(PedestalTypes.standing_torch_s, k));
-        factories.put(FireForSpec.Fire_For_StandingTorch_L,
-                k -> fireFactory.apply(PedestalTypes.standing_torch_l, k));
-        factories.put(FireForSpec.Fire_For_FirePit_S,
-                k -> fireFactory.apply(PedestalTypes.fire_pit_s, k));
-        factories.put(FireForSpec.Fire_For_FirePit_L,
-                k -> fireFactory.apply(PedestalTypes.fire_pit_l, k));
-        factories.put(SoulFireForSpec.SoulFire_For_StandingTorch_S,
-                k -> soulFireFactory.apply(PedestalTypes.standing_torch_s, k));
-        factories.put(SoulFireForSpec.SoulFire_For_StandingTorch_L,
-                k -> soulFireFactory.apply(PedestalTypes.standing_torch_l, k));
-        factories.put(SoulFireForSpec.SoulFire_For_FirePit_S,
-                k -> soulFireFactory.apply(PedestalTypes.fire_pit_s, k));
-        factories.put(SoulFireForSpec.SoulFire_For_FirePit_L,
-                k -> soulFireFactory.apply(PedestalTypes.fire_pit_l, k));
+        registerPedestalFireFactories(
+                factories,
+                fireFactory,
+                soulFireFactory,
+                lightFireFactory);
+    }
+
+    private static <B, K> void registerPedestalFireFactories(
+            final Map<BlockSpec, Function<K, B>> factories,
+            final BiFunction<PedestalTypes, K, B> fireFactory,
+            final BiFunction<PedestalTypes, K, B> soulFireFactory,
+            final BiFunction<PedestalTypes, K, B> lightFactory) {
+        for (final PedestalTypes pedestalType : PedestalTypes.values()) {
+            factories.put(
+                    PedestalFireSpec.resolve(pedestalType, FireTypes.NORMAL),
+                    key -> fireFactory.apply(pedestalType, key));
+            factories.put(
+                    PedestalFireSpec.resolve(pedestalType, FireTypes.SOUL),
+                    key -> soulFireFactory.apply(pedestalType, key));
+            factories.put(
+                    PedestalFireSpec.resolve(pedestalType, FireTypes.LIGHT),
+                    key -> lightFactory.apply(pedestalType, key));
+        }
     }
 }

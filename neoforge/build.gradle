@@ -8,7 +8,10 @@ plugins {
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 
 neoForge {
-    version = libs.versions.neoforge.get()
+    enable {
+        version = libs.versions.neoforge.get()
+        disableRecompilation = true
+    }
 
     runs {
         client {
@@ -35,6 +38,7 @@ neoForge {
         }
 
         configureEach {
+            gameDirectory = project.file("run-dev-${libs.versions.minecraft.get()}")
             systemProperty 'forge.logging.markers', 'REGISTRIES'
             systemProperty 'oshi.util.wmi.timeout', '2000'
             logLevel = org.slf4j.event.Level.DEBUG

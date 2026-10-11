@@ -1,4 +1,13 @@
 # Changelog
+
+## [26.1.2-3.1.4]
+- Updated Light mode for Standing Torches and Fire Pits, including redstone behavior and placement with an offhand Light Wand.
+- Fixed mining, tool use, drops, and material sounds when breaking a Light above a Pedestal.
+- Prevented lava from replacing Pedestals and corrected size-specific ignition sounds.
+- Fixed compatibility issues caused by changing vanilla block properties.
+- Fixed a crash when an itemless Light block was destroyed.
+- Added German translation.
+
 ## [26.1.2-3.1.0] - 2026-04-13
 - Added support for Minecraft 26.1.2.
 - Added comparator output support for Pedestals.

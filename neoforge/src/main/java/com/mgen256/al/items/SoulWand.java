@@ -19,7 +19,6 @@ import net.minecraft.world.level.ClipContext;
 public class SoulWand extends Wand implements SoulWandTrait {
 
     private static final SoulWandCore CORE = new SoulWandCore();
-    
     private static Properties createProps(String name){
         Properties p = new Item.Properties()
                 .setId(AdditionalLightsNeoForge.createItemResourceKey(name));

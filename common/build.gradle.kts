@@ -3,6 +3,9 @@ plugins {
     id("net.fabricmc.fabric-loom")
 }
 
+loom {
+    runConfigs.clear()
+}
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(25))

@@ -1,12 +1,16 @@
 {
   "required": true,
   "package": "com.mgen256.al.mixin",
-  "compatibilityLevel": "JAVA_21",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "LightFireBlockBreakBehavior"
+  ],
   "client": [
-    "client.CreativeModeInventoryScreenSearchBarBehavior"
+    "client.CreativeModeInventoryScreenSearchBarBehavior",
+    "client.LightFireBlockClientBreakBehavior",
+    "client.LightFireBlockHitSoundBehavior"
   ],
   "injectors": {
     "defaultRequire": 1
   }
 }
-

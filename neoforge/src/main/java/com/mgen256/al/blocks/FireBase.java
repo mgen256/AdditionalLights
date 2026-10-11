@@ -44,7 +44,6 @@ import net.neoforged.neoforge.common.util.DeferredSoundType;
 
 public abstract class FireBase extends ModBlock
     implements FireBaseCore<VoxelShape, SimpleParticleType, Level, BlockPos> {
-    
     public static BooleanProperty SET = BooleanProperty.create("set");
     public static BooleanProperty SUMMONED = BooleanProperty.create("summoned");
     public static BooleanProperty TEMP = BooleanProperty.create("temp");
@@ -61,7 +60,6 @@ public abstract class FireBase extends ModBlock
 
     private static final VoxelShape COLLISION_SHAPE = Block.box(0, 0, 0, 16, 0, 16);
 
-    
     protected static Properties createProps( MapColor mapColor, String name ){
         return BlockBehaviour.Properties.of()
             .instabreak()
@@ -80,7 +78,6 @@ public abstract class FireBase extends ModBlock
         this.registerDefaultState(this.stateDefinition.any().setValue(SET, Boolean.valueOf(false) ).setValue(SUMMONED, false).setValue(TEMP, false) );
       }
 
-      
     private PedestalTypes pedestalKey;
 
     @Override
@@ -119,7 +116,6 @@ public abstract class FireBase extends ModBlock
     protected float getFireDamageAmount() {
         return 0.0F;
     }
-    
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
         return FireBaseCore.super.getCollisionShape(state, blockgetter, pos, context);
@@ -129,7 +125,6 @@ public abstract class FireBase extends ModBlock
     public VoxelShape getShape(BlockState state, BlockGetter blockgetter, BlockPos pos, CollisionContext context) {
         return FireBaseCore.super.getOutlineShape(state, blockgetter, pos, context);
     }
-    
     @Override
     public void animateTick(BlockState stateIn, Level level, BlockPos pos, RandomSource rand) {
         double d0 = pos.getX() + 0.5D;
@@ -137,16 +132,15 @@ public abstract class FireBase extends ModBlock
         double d2 = pos.getZ() + 0.5D;
         level.addParticle(PARTICLE_TYPES.get(pedestalKey), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
-    
     @Override
     public BlockState updateShape(
-        BlockState stateIn, 
-        LevelReader level, 
-        ScheduledTickAccess sta, 
-        BlockPos currentPos, 
-        Direction facing, 
+        BlockState stateIn,
+        LevelReader level,
+        ScheduledTickAccess sta,
+        BlockPos currentPos,
+        Direction facing,
         BlockPos facingPos,
-        BlockState facingState, 
+        BlockState facingState,
         RandomSource randomSource
         ) {
         return ( facing == Direction.DOWN ) && !isValidPosition(stateIn, level, currentPos) ? Blocks.AIR.defaultBlockState() : stateIn;
@@ -183,21 +177,18 @@ public abstract class FireBase extends ModBlock
             return super.getDrops( state.setValue(SET, false), builder );
 
         List<ItemStack> list = new ArrayList<>();
-        return list;   
+        return list;
      }
-     
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack)
     {
         Block lowerblock = level.getBlockState(pos.below()).getBlock();
         if( lowerblock instanceof Pedestal != TRUE )
             return;
-        
         Pedestal pedestal = (Pedestal)lowerblock;
         if( pedestal.getType() == pedestalKey )
             level.setBlockAndUpdate( pos, state.setValue(SET, true ) );
     }
-      
     @Override
     public boolean isPathfindable(BlockState state, PathComputationType type) {
         return false;

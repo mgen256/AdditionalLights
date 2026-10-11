@@ -11,6 +11,8 @@ logoFile="logo.png" #optional
 authors="${mod_authors}" #optional
 description='''${mod_description}'''
 
+[[mixins]]
+config="additional_lights.neoforge.mixins.json"
 
 [[dependencies.${mod_id}]] #optional
     modId="neoforge" #mandatory

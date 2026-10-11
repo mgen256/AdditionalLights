@@ -14,4 +14,8 @@ public enum FireTypes {
     public int getLuminance() {
         return luminance;
     }
+
+    public int getLuminance(final boolean active) {
+        return active ? luminance : 0;
+    }
 }

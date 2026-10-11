@@ -18,7 +18,6 @@ import net.minecraft.world.phys.BlockHitResult;
 public class SoulWand extends Wand implements SoulWandTrait {
 
     private static final SoulWandCore CORE = new SoulWandCore();
-        
     private static Properties createSettings(String name) {
         return new Item.Properties()
             .stacksTo(1)

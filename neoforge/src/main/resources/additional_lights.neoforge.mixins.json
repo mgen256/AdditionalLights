@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "package": "com.mgen256.al.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "LightFireBlockBreakBehavior"
+  ],
+  "client": [
+    "client.LightFireBlockClientBreakBehavior"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

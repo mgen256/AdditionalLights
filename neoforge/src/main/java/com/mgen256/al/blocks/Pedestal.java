@@ -8,8 +8,6 @@ import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.*;
 import net.minecraft.world.entity.LivingEntity;
@@ -42,14 +40,8 @@ import com.mgen256.al.items.*;
 import com.mgen256.al.blocks.PedestalTrait;
 import com.mgen256.al.blocks.NeoForgeFireTrait;
 
-import java.util.Map;
-
 public abstract class Pedestal extends ModBlock
     implements SimpleWaterloggedBlock, NeoForgeFireTrait, PedestalTrait<Level, BlockPos, BlockState> {
-
-    private static final Map<PedestalTypes, java.util.List<VoxelShape>> LIGHT_SHAPE_PARTS =
-        PedestalLightShapeSpec.createShapePartMap(
-            part -> Block.box(part.minX(), part.minY(), part.minZ(), part.maxX(), part.maxY(), part.maxZ()));
 
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty ACCEPT_POWER = BooleanProperty.create("accept_power");
@@ -57,25 +49,16 @@ public abstract class Pedestal extends ModBlock
     public static final BooleanProperty ACTIVATED = BooleanProperty.create("activated");
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
 
-    private final VoxelShape baseShape;
     protected PedestalSize size;
-    private VoxelShape lightHitboxShape;
 
     private static BlockBehaviour.Properties createProps(Block mainblock, String name) {
-        return mainblock.properties()
-            .lightLevel(Pedestal::getLightLevel)
+        return BlockBehaviour.Properties.ofFullCopy(mainblock)
+            .lightLevel(state -> 0)
             .setId(AdditionalLightsNeoForge.createResourceKey(name));
-    }
-
-    private static int getLightLevel(BlockState state) {
-        return state.getValue(NeoForgeFireTrait.FIRE_TYPE).toCore() == FireTypes.LIGHT && state.getValue(LIT)
-            ? FireTypes.LIGHT.getLuminance()
-            : 0;
     }
 
     protected Pedestal( Block mainblock, String name, VoxelShape shape, PedestalSize size ) {
         super(mainblock, name, createProps(mainblock, name), shape);
-        this.baseShape = shape;
 
         registerDefaultState( stateDefinition.any()
             .setValue(BlockStateProperties.WATERLOGGED, false)
@@ -89,15 +72,13 @@ public abstract class Pedestal extends ModBlock
 
         this.size = size;
 
-        if( ignitionSound == null )
-        {
-            ignitionSound = size == PedestalSize.L ? AdditionalLightsNeoForge.getSound(ModSoundList.Fire_Ignition_L)
-                : AdditionalLightsNeoForge.getSound( ModSoundList.Fire_Ignition_S );
-        }
+        ignitionSound = size == PedestalSize.L
+            ? AdditionalLightsNeoForge.getSound(ModSoundList.Fire_Ignition_L)
+            : AdditionalLightsNeoForge.getSound(ModSoundList.Fire_Ignition_S);
     }
 
 
-    private static SoundEvent ignitionSound;
+    private final SoundEvent ignitionSound;
     protected abstract BlockSpec getFireKey(BlockState state);
     public abstract PedestalTypes getType( );
 
@@ -106,6 +87,9 @@ public abstract class Pedestal extends ModBlock
 
     @Override
     public BlockState getBlockState(Level level, BlockPos pos) { return level.getBlockState(pos); }
+
+    @Override
+    public boolean isClientSide(Level level) { return level.isClientSide(); }
 
     @Override
     public boolean setBlockState(Level level, BlockPos pos, BlockState state) {
@@ -131,15 +115,28 @@ public abstract class Pedestal extends ModBlock
     public boolean isFireSummoned(BlockState state) { return state.getValue(FireBase.SUMMONED); }
 
     @Override
-    public BlockState createFireState(BlockState pedestalState) {
-        return getFireBlock(pedestalState).defaultBlockState()
-            .setValue(FireBase.SET, true)
-            .setValue(FireBase.SUMMONED, true);
+    public boolean isLightFireBlock(BlockState state) {
+        return state.getBlock() instanceof Fire_Light;
     }
 
     @Override
-    public boolean shouldPlaceFire(BlockState state) {
-        return state.getValue(FIRE_TYPE).toCore() != FireTypes.LIGHT;
+    public boolean getLightFireLit(BlockState state) {
+        return state.getValue(Fire_Light.LIT);
+    }
+
+    @Override
+    public BlockState setLightFireLit(BlockState state, boolean value) {
+        return state.setValue(Fire_Light.LIT, value);
+    }
+
+    @Override
+    public BlockState createFireState(BlockState pedestalState) {
+        BlockState fireState = getFireBlock(pedestalState).defaultBlockState()
+            .setValue(FireBase.SET, true)
+            .setValue(FireBase.SUMMONED, true);
+        return fireState.getBlock() instanceof Fire_Light
+                ? setLightFireLit(fireState, getLit(pedestalState))
+                : fireState;
     }
 
     @Override
@@ -193,51 +190,19 @@ public abstract class Pedestal extends ModBlock
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable LivingEntity p_393688_, BlockGetter blockgetter, BlockPos pos, BlockState state, Fluid fluidIn) {
-        return true;
-    }
-
-    @Override
-    public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return resolveActiveShape(state);
-    }
-
-    @Override
-    public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return resolveActiveShape(state);
-    }
-
-    private VoxelShape resolveActiveShape(BlockState state) {
-        if (state.getValue(FIRE_TYPE).toCore() != FireTypes.LIGHT) {
-            return baseShape;
-        }
-
-        if (lightHitboxShape == null) {
-            VoxelShape mergedShape = baseShape;
-            for (VoxelShape part : LIGHT_SHAPE_PARTS.get(getType())) {
-                mergedShape = Shapes.or(mergedShape, part);
-            }
-            lightHitboxShape = mergedShape;
-        }
-        return lightHitboxShape;
+    protected boolean canBeReplaced(BlockState state, Fluid fluid) {
+        return false;
     }
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        
-        return state.getValue(BlockStateProperties.WATERLOGGED)  == Boolean.TRUE 
+        return state.getValue(BlockStateProperties.WATERLOGGED)  == Boolean.TRUE
             ? Fluids.WATER.getSource(false) : super.getFluidState(state);
-    }
-
-    @Override
-    public int getLightEmission(BlockState state, BlockGetter level, BlockPos pos) {
-        return getLightLevel(state);
     }
 
     private Block getFireBlock(BlockState state){
         return AdditionalLightsNeoForge.getBlock( getFireKey(state) );
     }
-    
     @Override
     protected InteractionResult useItemOn(
         ItemStack p_330929_, BlockState p_335716_, Level p_336112_, BlockPos p_328869_, Player p_332840_, InteractionHand p_336117_, BlockHitResult p_332723_
@@ -255,19 +220,17 @@ public abstract class Pedestal extends ModBlock
         return InteractionResult.SUCCESS;
     }
 
-    private static void playIgnitionSound(Level level, Player player, Block block, BlockPos pos)
+    private void playIgnitionSound(Level level, Player player, Block block, BlockPos pos)
     {
         float volume = block instanceof FirePitBase ? 2.0f : 1.5f;
         level.playSound( player, pos, ignitionSound, SoundSource.BLOCKS, volume, 1.0f );
     }
 
-    
     @Override
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         int previousOutput = getComparatorOutput(level, pos, state);
         if( placer == null )
             return;
-            
         if (placer.getOffhandItem().getItem() instanceof FireTypeWandTrait wand) {
             FireTypes target = wand.getTargetFireType();
             boolean allow = target == FireTypes.SOUL || (
@@ -282,13 +245,14 @@ public abstract class Pedestal extends ModBlock
             }
         }
 
-        if( placer.isSuppressingSlidingDownLadder() )
-            level.setBlockAndUpdate( pos, withLightLit(state.setValue( ACCEPT_POWER, false ), false) );
-        else
-        {
+        if (placer.isSuppressingSlidingDownLadder()) {
+            state = withLightLit(state.setValue(ACCEPT_POWER, false), false);
+            level.setBlockAndUpdate(pos, state);
+            ensureLightFire(level, pos, state);
+        } else {
             state = withLightLit(state, true);
-            level.setBlockAndUpdate( pos, state );
-            igniteFire( level, pos, state, false );
+            level.setBlockAndUpdate(pos, state);
+            igniteFire(level, pos, state, false);
         }
 
         updateComparatorOutputIfChanged(level, pos, previousOutput);
